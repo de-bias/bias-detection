@@ -204,11 +204,9 @@ hyper_grid <- expand.grid(
 nrow(hyper_grid)
 ```
 
-We apply a loop procedure to loop through and apply a XGBoost model for each hyperparameter combination and dump the results in the hyper_grid data frame. This is done in a paralellised way.
+## Parallelised code
 
-::: callout-warning
-This may take a while so leave it running overnight!
-:::
+We apply a loop procedure to loop through and apply a XGBoost model for each hyperparameter combination and dump the results in the hyper_grid data frame. This is done in a paralellised way.
 
 ```{r}
 
@@ -279,7 +277,11 @@ print(results)
 print(time_taken)
 ```
 
-Below is the code not paralellised.
+## Non-parallelised code
+
+::: callout-warning
+This may take a while so leave it running overnight!
+:::
 
 ```{r}
 
@@ -403,6 +405,12 @@ importance_matrix <- xgb.importance(model = xgb.fit.final)
 
 # variable importance plot
 xgb.plot.importance(importance_matrix, top_n = 30, measure = "Gain")
+```
+
+```{r}
+png(paste0(wd, "/data/outputs/preliminary", dfd, "/monthly/populations/explain-bias/pdp-total-residents.png"), units="in", width=8, height=10, res=300)
+  last_plot()
+dev.off()
 ```
 
 ## Partial dependence plots
