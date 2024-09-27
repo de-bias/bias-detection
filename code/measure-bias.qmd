@@ -1,0 +1,182 @@
+---
+title: "measure-bias"
+format: html
+editor: visual
+---
+
+```{r}
+library(dplyr)
+library(sf)
+library(ggplot2)
+library(viridis)
+
+library(sysfonts)
+library(showtextdb)
+
+library(classInt)
+
+#| include = FALSE
+source("./style/data-visualisation_theme.R")
+```
+
+# Set themes
+
+Set font style
+
+```{r}
+# clean workspace
+rm(list=ls())
+# load font
+font_add_google("Roboto Condensed", "robotocondensed")
+# automatically use showtext to render text
+showtext_auto()
+```
+
+Theme for maps
+
+```{r}
+theme_map <- function(...) {
+  theme_tufte() +
+  theme(
+    text = element_text(family = "robotocondensed"),
+    # remove all axes
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank()
+    )
+}
+```
+
+Theme for plots
+
+```{r}
+theme_tufte2 <- function(...) {
+  theme_tufte() +
+  theme(
+    text = element_text(family = "robotocondensed"),
+    )
+}
+
+```
+
+# Data import
+
+```{r}
+dfd <- "twitter"
+```
+
+```{r}
+wd <- "/Volumes/rdm04/DEBIAS"
+wd_local <- "/Users/carmen/Library/CloudStorage/OneDrive-TheUniversityofLiverpool/github/de-bias"
+
+```
+
+```{r}
+if (dfd == "twitter") {
+  df_pop_dfd <- read.csv(paste0(wd, "/data/inputs/twitter/monthly/active_population.csv")) %>% 
+    filter(time == "2021-03")
+  } else if (dfd == "fb_tts") {
+  df_pop_dfd <- read.csv(paste0(wd, "/data/inputs/fb/census-week/tts/active_population.csv")) %>% 
+  rename("name" = "LAD21NM")
+  } else if (dfd == "fb_stt") {
+  df_pop_dfd <- read.csv(paste0(wd, "/data/inputs/fb/census-week/stt/active_population.csv")) %>% 
+  rename("name" = "LAD21NM")
+  } 
+```
+
+```{r}
+df_pop_census <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts001/census2021-ts001-ltla.csv")) %>% select(date, geography, geography.code, Residence.type..Total..measures..Value) %>% rename("code" = "geography.code", "name" = "geography", "pop" = "Residence.type..Total..measures..Value")
+
+df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022.gpkg")) %>% select(LAD21CD, SHAPE) %>% rename("code" = "LAD21CD")
+
+df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_Dec_2021_EN_BFC_2022.gpkg"))
+
+```
+
+# Measure bias
+
+```{r}
+df_bias <- df_pop_census %>% left_join(df_pop_dfd, by = "name")
+df_bias$bias <- 1 - df_bias$pop_dfd/df_bias$pop
+df_bias$map_bias <- 1 - df_bias$pop_dfd/df_bias$pop
+```
+
+```{r}
+if (dfd == "twitter"){
+  write.csv(df_bias, paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv"))
+  } else if (dfd == "fb_tts") {
+  write.csv(df_bias, paste0(wd, "/data/outputs/fb/census-week/populations/tts/active-population-bias/active_population_bias_lad.csv"))
+  } else if (dfd == "fb_stt") {
+  write.csv(df_bias, paste0(wd, "/data/outputs/fb/census-week/populations/stt/active-population-bias/active_population_bias_lad.csv"))
+  }
+
+```
+
+```{r}
+plot(df_bias$pop, df_bias$bias)
+```
+
+# Map bias
+
+## England and Wales
+
+```{r}
+
+st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
+
+#st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
+
+breaks <- classIntervals(st_bias_map$map_bias, n = 8, style = "jenks")
+
+st_bias_map$jenks <- cut(st_bias_map$map_bias, breaks$brks, include.lowest = TRUE)
+
+ggplot(data = st_bias_map) +
+  geom_sf(aes(fill = jenks)) +
+  scale_fill_viridis_d(name = "Size of bias") +  # Adjust color palette
+  labs(title = " ") +
+  theme_map() +
+  theme(
+    legend.text = element_text(size = 24),       # Increase legend text size
+    legend.title = element_text(size = 30),      # Increase legend title size
+    legend.position = "right"                    # Optional: adjust legend position
+  )
+
+
+if (dfd == "twitter"){
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/size-bias/twitter_lad.png"), bg="white")
+  } else if (dfd == "fb_tts") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/size-bias/fb_tts_lad.png"), bg="white")
+  } else if (dfd == "fb_stt") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/size-bias/fb_stt_lad.png"), bg="white")
+  }
+```
+
+## London
+
+```{r}
+
+st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(grepl("^E09", code)) 
+
+st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
+
+st_bias_map$jenks <- cut(st_bias_map$map_bias, breaks$brks, include.lowest = TRUE)
+
+ggplot(data = st_bias_map) +
+  geom_sf(aes(fill = jenks)) +
+  scale_fill_viridis_d(name = "Size of bias") +  # Adjust color palette
+  labs(title = " ") +
+  theme_map() +
+  theme(
+    legend.text = element_text(size = 24),       # Increase legend text size
+    legend.title = element_text(size = 30),      # Increase legend title size
+    legend.position = "right"                    # Optional: adjust legend position
+  )
+
+if (dfd == "twitter"){
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/size-bias/twitter_lad_london.png"), bg="white")
+  } else if (dfd == "fb_tts") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/size-bias/fb_tts_lad_london.png"), bg="white")
+  } else if (dfd == "fb_stt") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/size-bias/fb_stt_lad_london.png"), bg="white")
+  }
+```

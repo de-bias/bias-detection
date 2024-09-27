@@ -1,0 +1,233 @@
+---
+title: "census-variables"
+format: html
+editor: visual
+---
+
+```{r}
+library(dplyr)
+
+wd <- "/Volumes/rdm04/DEBIAS"
+```
+
+# Read data and create census dataset
+
+## Total resident population LTLA
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts001/census2021-ts001-ltla.csv")) %>%
+  select(date, geography, geography.code, Residence.type..Total..measures..Value) %>% rename("total_residents" = "Residence.type..Total..measures..Value")
+
+df <- df_read
+```
+
+## Total households LTLA
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts003/census2021-ts003-ltla.csv"))
+
+df_read$total_hh <- df_read$Household.composition..Total..measures..Value
+
+df_read <- df_read %>% select(geography.code, total_hh)
+
+df <- df %>% left_join(df_read, 
+                by = join_by(geography.code))
+```
+
+```{r}
+df_read
+```
+
+## Percentage of migrants LTLA
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts004/census2021-ts004-ltla.csv"))
+
+df_read$per_ukborn <- df_read$Country.of.birth..Europe..United.Kingdom..measures..Value/df_read$Country.of.birth..Total..measures..Value
+
+df_read <- df_read %>% select(geography.code, per_ukborn)
+
+df <- df %>% left_join(df_read, 
+                by = join_by(geography.code))
+```
+
+## Percentage of people in each 5-year age band
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts007a/census2021-ts007a-ltla.csv")) 
+
+for (i in 5:22) {
+  column_name <- paste0("per_age_", (i-5)*5, "-", (i-5)*5+4)  # Generate column name
+  df_read[[column_name]] <- df_read[[i]]/df_read[[4]]      # Assign values (for this example: multiples of i)
+}
+
+df_read <- df_read %>% select(geography.code, colnames(df_read)[23:40])
+
+df <- df %>% left_join(df_read, 
+                by = join_by(geography.code))
+```
+
+## Percentage of female
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts008/census2021-ts008-ltla.csv")) 
+
+df_read$per_female <- df_read$Sex..Female..measures..Value/df_read$Sex..All.persons..measures..Value
+
+df_read <- df_read %>% select(geography.code, per_female)
+
+df <- df %>% left_join(df_read, 
+                by = join_by(geography.code))
+```
+
+## Household by deprivation dimensions (non-deprived households)
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts011/census2021-ts011-ltla.csv")) 
+
+df_read$per_hh_notdeprived <- df_read$Household.deprivation..Household.is.not.deprived.in.any.dimension..measures..Value/df_read$Household.deprivation..Total..All.households..measures..Value
+
+df_read <- df_read %>% select(geography.code, per_hh_notdeprived)
+
+df <- df %>% left_join(df_read, 
+                by = join_by(geography.code))
+```
+
+## Ethnic group, non-white (white being UK's racial majority)
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts021/census2021-ts021-ltla.csv")) 
+
+df_read$per_non_white <- 1 - df_read$Ethnic.group..White/df_read$Ethnic.group..Total..All.usual.residents
+
+df_read <- df_read %>% select(geography.code, per_non_white)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+```
+
+## General health, percentage of bad or very bad health
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts037/census2021-ts037-ltla.csv")) 
+
+df_read$per_bad_health <- (df_read$General.health..Bad.health + df_read$General.health..Very.bad.health)/df_read$General.health..Total..All.usual.residents
+
+df_read <- df_read %>% select(geography.code, per_bad_health)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+```
+
+## Disability, percentage of disabled with day-to-day activities limited a lot
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts038/census2021-ts038-ltla.csv")) 
+
+df_read$per_severe_disability <- df_read$Disability..Disabled.under.the.Equality.Act..Day.to.day.activities.limited.a.lot/df_read$Disability..Total..All.usual.residents
+
+df_read <- df_read %>% select(geography.code, per_severe_disability)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+```
+
+## Car availability, percentage households with no car or van
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts045/census2021-ts045-ltla.csv")) 
+
+df_read$per_hh_no_car <- df_read$Number.of.cars.or.vans..No.cars.or.vans.in.household/df_read$Number.of.cars.or.vans..Total..All.households
+
+df_read <- df_read %>% select(geography.code, per_hh_no_car)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+```
+
+## Central heating, percentage households with no central heating
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts046/census2021-ts046-ltla.csv")) 
+
+df_read$per_hh_no_centralheat <- df_read$Type.of.central.heating.in.household..No.central.heating/df_read$Type.of.central.heating.in.household..Total..All.households
+
+df_read <- df_read %>% select(geography.code, per_hh_no_centralheat)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+```
+
+## Tenure, percentage of owned households
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts054/census2021-ts054-ltla.csv")) 
+
+df_read$per_hh_owned <- df_read$Tenure.of.household..Owned/df_read$Tenure.of.household..Total..All.households
+
+df_read <- df_read %>% select(geography.code, per_hh_owned)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+```
+
+## NS-SeC, percentage of adults over 16 by employment category (inc full-time students)
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts062/census2021-ts062-ltla.csv")) 
+
+
+for (i in 5:13) {
+  column_name <- paste0("per_", colnames(df_read)[i])
+  df_read[[column_name]] <- df_read[[i]]/df_read[[4]]
+}
+
+df_read <- df_read %>% select(geography.code, colnames(df_read)[14:22])
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code)) %>%
+  rename("per_NS_SeC_L123_higher_managerial_administrative_professional" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L1..L2.and.L3.Higher.managerial..administrative.and.professional.occupations",
+         "per_NS_SeC_L456_lower_managerial_administrative_professional" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L4..L5.and.L6.Lower.managerial..administrative.and.professional.occupations",
+         "per_NS_SeC_L7_intermediate" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L7.Intermediate.occupations",
+         "per_NS_SeC_L89_small_employers_own_account" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L8.and.L9.Small.employers.and.own.account.workers",
+         "per_NS_SeC_L1011_lower_supervisory_technical" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L10.and.L11.Lower.supervisory.and.technical.occupations",
+         "per_NS_SeC_L12_semi_routine" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L12.Semi.routine.occupations",
+         "per_NS_SeC_L13_routine" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L13.Routine.occupations",
+         "per_NS_SeC_L141142_never_worked_unemployed" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L14.1.and.L14.2.Never.worked.and.long.term.unemployed",
+         "per_NS_SeC_L15_ft_students" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L15.Full.time.students",
+         )
+
+
+```
+
+
+## Highest qual, percentage of adults over 16 by qualification (no qualification or \> level 4)
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts067/census2021-ts067-ltla.csv")) 
+
+df_read$per_no_qualifications <- df_read$Highest.level.of.qualification..No.qualifications/df_read$Highest.level.of.qualification..Total..All.usual.residents.aged.16.years.and.over
+
+df_read <- df_read %>% select(geography.code, per_no_qualifications)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+
+
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts067/census2021-ts067-ltla.csv")) 
+
+df_read$per_level4 <- df_read$
+Highest.level.of.qualification..Level.4.qualifications.and.above/df_read$Highest.level.of.qualification..Total..All.usual.residents.aged.16.years.and.over
+
+df_read <- df_read %>% select(geography.code, per_level4)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+
+```
+
+# Save data
+
+```{r}
+write.csv(df, paste0(wd, "/data/inputs/census/census2021-ts/combined-data-ltla.csv"))
+```
