@@ -22,9 +22,13 @@ library(scales)
 source("./style/data-visualisation_theme.R")
 ```
 
+
+
 # Set themes
 
 Set font style
+
+
 
 ```{r}
 # clean workspace
@@ -35,7 +39,11 @@ font_add_google("Roboto Condensed", "robotocondensed")
 showtext_auto()
 ```
 
+
+
 Theme for maps
+
+
 
 ```{r}
 theme_map <- function(...) {
@@ -50,7 +58,11 @@ theme_map <- function(...) {
 }
 ```
 
+
+
 Theme for plots
+
+
 
 ```{r}
 theme_tufte2 <- function(...) {
@@ -62,9 +74,13 @@ theme_tufte2 <- function(...) {
 
 ```
 
+
+
 # Data import
 
 ## Census and boundaries
+
+
 
 ```{r}
 wd <- "/Volumes/rdm04/DEBIAS"
@@ -79,6 +95,8 @@ df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec
 df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_Dec_2021_EN_BFC_2022.gpkg")) %>% st_simplify(preserveTopology = FALSE, dTolerance = 5000)
 ```
 
+
+
 ## Digital trace data
 
 This first line defines the data source to be analysed. We have five options:
@@ -92,6 +110,8 @@ This first line defines the data source to be analysed. We have five options:
 -   `fb_stt_census_week`
 
 -   `fb_stt_census_month`
+
+
 
 ```{r}
 dfd <- "twitter"
@@ -116,7 +136,11 @@ if (dfd == "twitter") {
   } 
 ```
 
+
+
 # Measure bias
+
+
 
 ```{r}
 df_bias <- df_pop_census %>% left_join(df_pop_dfd, by = "name")
@@ -143,11 +167,15 @@ if (dfd == "twitter"){
 plot(df_bias$pop, df_bias$bias)
 ```
 
+
+
 ## Histogram bias
+
+
 
 ```{r}
 # Compute the breaks using Jenks natural breaks
-num_classes <- 8  # Specify how many breaks you want
+num_classes <- 5  # Specify how many breaks you want
 jenks_breaks <- classIntervals(df_bias$pop_dfd, n = num_classes, style = "jenks")$brks
 
 # Create a data frame with histogram information
@@ -160,10 +188,7 @@ hist_data$jenks_bins <- cut(hist_data$value, breaks = jenks_breaks, include.lowe
 jenks_colors <- viridis(length(jenks_breaks) - 1)
 
 # Manually format the legend labels to avoid scientific notation
-formatted_labels <- sapply(1:(length(jenks_breaks) - 1), function(i) {
-  paste0("[", format(jenks_breaks[i], scientific = FALSE), ", ", 
-         format(jenks_breaks[i + 1], scientific = FALSE), ")")
-})
+formatted_labels <- scales::label_number()(jenks_breaks)
 
 # Plot the histogram with ggplot
 ggplot(hist_data, aes(x = value, fill = jenks_bins)) +
@@ -173,27 +198,17 @@ ggplot(hist_data, aes(x = value, fill = jenks_bins)) +
   theme_tufte2() +
   labs(title = "Histogram with Jenks Breaks and Viridis Color Scale",
        fill = "Jenks Breaks")
-
-
-
-if (dfd == "twitter") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/histograms/twitter_lad.png"), bg="white")
-  } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_tts_lad_census_week.png"), bg="white")
-  } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_tts_lad_census_month.png"), bg="white")
-  } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_stt_lad_census_week.png"), bg="white")
-  } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_stt_lad_census_month.png"), bg="white")
-  }
 ```
+
+
 
 # Map bias
 
 ## England and Wales
 
 ### Static map
+
+
 
 ```{r}
 
@@ -230,7 +245,11 @@ if (dfd == "twitter") {
   }
 ```
 
+
+
 ### Interactive map
+
+
 
 ```{r}
 tmap_mode("view") # enable interactivity
@@ -256,9 +275,13 @@ if (dfd == "twitter"){
 interactive_map
 ```
 
+
+
 ## London
 
 ### Static map
+
+
 
 ```{r}
 
@@ -292,7 +315,11 @@ if (dfd == "twitter"){
   }
 ```
 
+
+
 ### Interactive map
+
+
 
 ```{r}
 tmap_mode("view") # enable interactivity
@@ -317,3 +344,4 @@ if (dfd == "twitter"){
 
 interactive_map
 ```
+
