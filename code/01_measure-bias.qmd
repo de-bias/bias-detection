@@ -68,7 +68,7 @@ theme_tufte2 <- function(...) {
 
 ```{r}
 wd <- "/Volumes/DEBIAS"
-wd_local <- "/Users/carmen/Documents/github"
+wd_local <- "/Users/carmen/Documents/github/de-bias"
 ```
 
 ```{r}
@@ -78,21 +78,19 @@ df_pop_census <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census20
 ```{r}
 # ONLY UNCOMMENT THE FIRST TIME YOU READ BOUNDARIES. FOR SUBSEQUENT TIMES, RUN CELL BELOW FOR SIMPLIFIED BOUNDARY FILE
 
-df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022.gpkg")) %>% select(LAD21CD, SHAPE) %>% rename("code" = "LAD21CD") %>% st_simplify(preserveTopology = FALSE, dTolerance = 5000)
-
-# Save as GeoPackage (GPKG)
-st_write(df_boundaries, paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg"))
+# df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022.gpkg")) %>% select(LAD21CD, SHAPE) %>% rename("code" = "LAD21CD") %>% st_simplify(preserveTopology = FALSE, dTolerance = 5000)
+# 
+# # Save as GeoPackage (GPKG)
+# st_write(df_boundaries, paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg"))
 ```
-
 
 ```{r}
 df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg"))
 ```
 
-
 ## Digital trace data
 
-This first line defines the data source to be analysed. We have five options:
+This first line defines the data source to be analysed. We hav1e five options:
 
 -   `twitter`
 
@@ -105,7 +103,7 @@ This first line defines the data source to be analysed. We have five options:
 -   `fb_stt_census_month`
 
 ```{r}
-dfd <- "twitter"
+dfd <- "fb_stt_census_month"
 ```
 
 ```{r}
@@ -154,15 +152,15 @@ if (dfd == "twitter"){
 plot(df_bias$pop, df_bias$bias)
 ```
 
-## Histogram bias
+## Histogram populations
 
 ```{r}
 # Compute the breaks using Jenks natural breaks
 num_classes <- 8  # Specify how many breaks you want
-jenks_breaks <- classIntervals(df_bias$pop_dfd, n = num_classes, style = "jenks")$brks
+jenks_breaks <- classIntervals(df_bias$pop, n = num_classes, style = "jenks")$brks
 
 # Create a data frame with histogram information
-hist_data <- data.frame(value = df_bias$pop_dfd)
+hist_data <- data.frame(value = df_bias$pop)
 
 # Create a factor variable for color breaks
 hist_data$jenks_bins <- cut(hist_data$value, breaks = jenks_breaks, include.lowest = TRUE)
@@ -178,27 +176,97 @@ formatted_labels <- sapply(1:(length(jenks_breaks) - 1), function(i) {
 
 # Plot the histogram with ggplot
 ggplot(hist_data, aes(x = value, fill = jenks_bins)) +
-  geom_histogram(binwidth=30, color = "black", size = 0.3) +  # Adjust binwidth as needed
+  geom_histogram(color = "black", size = 0.3, bins=60) +  # Adjust binwidth as needed
   scale_fill_manual(values = jenks_colors,
                     labels = formatted_labels) +         # Apply the viridis colors
   theme_tufte2() +
-  labs(title = "Histogram with Jenks Breaks and Viridis Color Scale",
+  theme(axis.text.x = element_text(color = "black", size = 28, angle = 0),
+        axis.text.y = element_text(color = "black", size = 28, angle = 0),  
+        axis.title.x = element_text(color = "black", size = 28, angle = 0),
+        axis.title.y = element_text(color = "black", size = 28, angle = 90), 
+        legend.title = element_text(size = 28),
+        legend.text = element_text(size = 28),
+        plot.title = element_text(size = 32)) +
+  labs(title = "Distribution of census population in spatial units (LADs)",
        fill = "Jenks Breaks")
 
+# ONLY UNCOMMENT IF WANT HISTOGRAM FOR WHOLE POPULATION. WILL ALSO NEED TO MODIFY CODE ABOVE TO MAKE HISTOGRAM OF df_bias$pop INSTEAD OF df_bias$pop_dfd
+# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/all/size-bias/histograms/population_lad.png"), bg="white")
 
 
 if (dfd == "twitter") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/histograms/twitter_lad.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/histograms/twitter_lad_population.png"), bg="white")
   } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_tts_lad_census_week.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_tts_lad_census_week_population.png"), bg="white")
   } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_tts_lad_census_month.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_tts_lad_census_month_population.png"), bg="white")
   } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_stt_lad_census_week.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_stt_lad_census_week_population.png"), bg="white")
   } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_stt_lad_census_month.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_stt_lad_census_month_population.png"), bg="white")
   }
 ```
+
+## Histogram bias
+
+```{r}
+# Compute the breaks using Jenks natural breaks
+num_classes <- 8  # Specify how many breaks you want
+
+df_bias$dropna <- df_bias$bias
+
+# UNCOMMENT IF COMPUTING HISTOGRAM OF BIAS FOR TWITTER AND WANT TO REMOVE CITY OF LONDON LAD
+# df_bias[df_bias$code == "E09000001", "dropna"] <- NA
+
+# Create a data frame with histogram information
+breaks <- classIntervals(df_bias$dropna, n = num_classes, style = "jenks")$brks
+hist_data <- data.frame(value = df_bias$dropna)
+
+# Create a factor variable for color breaks
+hist_data$bins <- cut(hist_data$value, breaks = breaks, include.lowest = TRUE)
+
+# Create a custom color palette from viridis
+colors <- viridis(length(breaks) - 1)
+
+# Manually format the legend labels to avoid scientific notation
+formatted_labels <- sapply(1:(length(breaks) - 1), function(i) {
+  paste0("[", format(breaks[i], scientific = FALSE), ", ", 
+         format(breaks[i + 1], scientific = FALSE), ")")
+})
+
+# Plot the histogram with ggplot
+ggplot(hist_data, aes(x = value, fill = bins)) +
+  geom_histogram(color = "black", size = 0.3, bins=60) +  # Adjust binwidth as needed
+  scale_fill_manual(values = colors,
+                    labels = formatted_labels) +         # Apply the viridis colors
+  theme_tufte2() +
+  theme(axis.text.x = element_text(color = "black", size = 28, angle = 0),
+        axis.text.y = element_text(color = "black", size = 28, angle = 0),  
+        axis.title.x = element_text(color = "black", size = 28, angle = 0),
+        axis.title.y = element_text(color = "black", size = 28, angle = 90), 
+        legend.title = element_text(size = 28),
+        legend.text = element_text(size = 28),
+        plot.title = element_text(size = 32)) +
+  labs(title = "Distribution of census population in spatial units (LADs)",
+       fill = "Jenks Breaks")
+
+# ONLY UNCOMMENT IF WANT HISTOGRAM FOR WHOLE POPULATION. WILL ALSO NEED TO MODIFY CODE ABOVE TO MAKE HISTOGRAM OF df_bias$pop INSTEAD OF df_bias$pop_dfd
+# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/all/size-bias/histograms/population_lad.png"), bg="white")
+
+
+if (dfd == "twitter") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/histograms/twitter_lad_bias_drop_E09000001.png"), bg="white")
+  } else if (dfd == "fb_tts_census_week") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_tts_lad_census_week_bias.png"), bg="white")
+  } else if (dfd == "fb_tts_census_month") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_tts_lad_census_month_bias.png"), bg="white")
+  } else if (dfd == "fb_stt_census_week") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_stt_lad_census_week_bias.png"), bg="white")
+  } else if (dfd == "fb_stt_census_month") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/histograms/fb_stt_lad_census_month_bias.png"), bg="white")
+  }
+```
+
 
 # Map bias
 
