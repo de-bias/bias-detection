@@ -67,17 +67,28 @@ theme_tufte2 <- function(...) {
 ## Census and boundaries
 
 ```{r}
-wd <- "/Volumes/rdm04/DEBIAS"
+wd <- "/Volumes/DEBIAS"
 wd_local <- "/Users/carmen/Documents/github"
 ```
 
 ```{r}
 df_pop_census <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts001/census2021-ts001-ltla.csv")) %>% select(date, geography, geography.code, Residence.type..Total..measures..Value) %>% rename("code" = "geography.code", "name" = "geography", "pop" = "Residence.type..Total..measures..Value")
-
-df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022.gpkg")) %>% select(LAD21CD, SHAPE) %>% rename("code" = "LAD21CD")
-
-df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_Dec_2021_EN_BFC_2022.gpkg")) %>% st_simplify(preserveTopology = FALSE, dTolerance = 5000)
 ```
+
+```{r}
+# ONLY UNCOMMENT THE FIRST TIME YOU READ BOUNDARIES. FOR SUBSEQUENT TIMES, RUN CELL BELOW FOR SIMPLIFIED BOUNDARY FILE
+
+df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022.gpkg")) %>% select(LAD21CD, SHAPE) %>% rename("code" = "LAD21CD") %>% st_simplify(preserveTopology = FALSE, dTolerance = 5000)
+
+# Save as GeoPackage (GPKG)
+st_write(df_boundaries, paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg"))
+```
+
+
+```{r}
+df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg"))
+```
+
 
 ## Digital trace data
 
