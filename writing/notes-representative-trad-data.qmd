@@ -1,0 +1,25 @@
+---
+title: "notes-representative-trad-data"
+format: html
+editor: visual
+---
+
+# Notes on the representativity of traditional forms of data
+
+## Introduction
+
+The aim of this document is to collate notes on the issue of the representativity of known, long-running UK surveys, and how this compares to the representativity of digital footprint data.
+
+### Brisith Social Attitudes Survey 2022
+
+The total number of valid respondants was 6699. There is information on the number of respondants by region according to figure below.
+
+![](figs/notes-representative-surveys/british-social-attitudes-survey-2022.png){width="281"}
+
+This is not a big data sample for England, Wales and Scotland. However, the methodology includes multi-stage stratified random sample, and weighting is used to make thesurvey representative. See documentation for all the details, available [here](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9283#!/documentation). Below I provide some highlights and potential issues that should help us argue that DFD data, with its flaws, is not necessarily of worse quality than traditional forms of data.
+
+-   Selection of addresses and dwelling units. In 2022, a sample of 44,280 unclustered addresses was drawn from the Post Office's Postcode Address File (PAF). Prior to selection of the sample, all PAF addresses within England, Scotland and Wales were sorted by: (a) region; (b) population density; and (c) tenure profile (% owner occupation). A systematic (1 in N) random sample of addresses was then drawn. Out of the selected addresses, 6,699 cases were valid. *But there is no guarantee that within a region, the addresses are also unclustered. The weighting methodology uses a non-response model, which takes into account region, but regions are very large (much larger than LADs), and it could be the case that all respondants from one region are mostly from one city or neighbouhood where people are more willing to participate. There is no correction in place for within-region geographic disparities in response rate.*
+
+-   Like DFD, there is non-response rates that vary by demographic group (this would be equivalent to missing DFD data). Furthermore, the distribution with respect to a range of variables among respondants is different from the overall population. For example, there is an underrepresentation of males aged 18-34 or an under-representation of females aged 70+.
+
+-   *The effect of the weights on the precision of the survey estimates is indicated by the effective sample size (neff). If the effective sample size is close to the actual sample size, then we have an efficient design with a good level of precision. The lower the effective sample size is, the lower the level of precision. The efficiency of a sample is given by the ratio of the effective sample size to the actual sample size. The effective sample size (neff) of BSA 2022 after weighting is 4,271 with an efficiency of 64%.*
