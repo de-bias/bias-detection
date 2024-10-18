@@ -1,0 +1,194 @@
+---
+title: "compare-bias"
+format: html
+editor: visual
+---
+
+```{r}
+library(dplyr)
+library(sf)
+library(ggplot2)
+library(tmap)
+library(viridis)
+
+library(sysfonts)
+library(showtextdb)
+
+library(classInt)
+
+library(scales)
+
+#| include = FALSE
+source("./style/data-visualisation_theme.R")
+```
+
+# Set themes
+
+Set font style
+
+```{r}
+# clean workspace
+rm(list=ls())
+# load font
+font_add_google("Roboto Condensed", "robotocondensed")
+# automatically use showtext to render text
+showtext_auto()
+```
+
+Theme for maps
+
+```{r}
+theme_map <- function(...) {
+  theme_tufte() +
+  theme(
+    text = element_text(family = "robotocondensed"),
+    # remove all axes
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank()
+    )
+}
+```
+
+Theme for plots
+
+```{r}
+theme_tufte2 <- function(...) {
+  theme_tufte() +
+  theme(
+    text = element_text(family = "robotocondensed"),
+    )
+}
+
+```
+
+# Data import
+
+## Directories
+
+```{r}
+wd <- "/Volumes/rdm04/DEBIAS"
+wd_local <- "/Users/carmen/Documents/github/de-bias"
+```
+
+
+## Data imports
+
+This first line defines the data source to be analysed. We have five options:
+
+-   `twitter`
+
+-   `fb_tts_census_week`
+
+-   `fb_tts_census_month`
+
+-   `fb_stt_census_week`
+
+-   `fb_stt_census_month`
+
+
+```{r}
+df_twitter <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv"))
+
+df_fb_tts_census_week <- read.csv(paste0(wd, "/data/outputs/fb/census-week/populations/tts/active-population-bias/active_population_bias_lad.csv"))
+
+df_fb_tts_census_month <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv"))
+
+df_fb_stt_census_week <- read.csv(paste0(wd, "/data/outputs/fb/census-week/populations/stt/active-population-bias/active_population_bias_lad.csv"))
+
+df_fb_stt_census_month <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv"))
+```
+
+# Compare bias
+
+```{r}
+
+df_fb_tts_census_month <- df_fb_tts_census_month %>% arrange(code) %>% filter(code != "E09000001")
+df_twitter <- df_twitter %>% arrange(code) %>% filter(code != "E09000001")
+
+# Create some example data
+data <- data.frame(
+  x = df_fb_tts_census_month$map_bias,
+  y = df_twitter$map_bias
+)
+
+# Compute Spearman correlation and p-value, removing rows with NA
+spearman_test <- cor.test(data$x, data$y, method = "spearman", use = "complete.obs")
+spearman_corr <- spearman_test$estimate
+spearman_pvalue <- spearman_test$p.value
+
+# Create the scatter plot
+ggplot(data, aes(x = x, y = y)) +
+  geom_point(shape = 1, size = 1) +                        
+  labs(x = "Twitter (bias by LAD and month)",               # Label for the x-axis
+       y = "FB tts (bias by LAD and month)") +              # Label for the y-axis
+  theme_tufte2() +
+  theme(axis.title = element_text(size = 20)) +
+  annotate("text", x = 0.87, y = 0.9959, 
+           label = paste("Spearman Correlation: ", round(spearman_corr, 2),
+                         "; p-value: ", format(spearman_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_ts_census_month_vs_twitter.png"), bg="white")
+```
+```{r}
+paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_ts_census_month_vs_twitter.png")
+```
+
+
+```{r}
+
+df_fb_tts_census_month <- df_fb_tts_census_month %>% arrange(code) %>% filter(code != "E09000001")
+df_fb_stt_census_month <- df_fb_stt_census_month %>% arrange(code) %>% filter(code != "E09000001")
+
+
+# Create some example data
+data <- data.frame(
+  x = df_fb_tts_census_month$map_bias,
+  y = df_fb_stt_census_month$map_bias
+)
+
+# Compute Spearman correlation and p-value, removing rows with NA
+spearman_test <- cor.test(data$x, data$y, method = "spearman", use = "complete.obs")
+spearman_corr <- spearman_test$estimate
+spearman_pvalue <- spearman_test$p.value
+
+# Create the scatter plot
+ggplot(data, aes(x = x, y = y)) +
+  geom_point(shape = 1, size = 1) +                        
+  labs(x = "FB tts (bias by LAD and month)",               
+       y = "FB stt (bias by LAD and month)") +             
+  theme_tufte2() +
+  annotate("text", x = 0.87, y = 0.9955, 
+           label = paste("Spearman Correlation: ", round(spearman_corr, 2),
+                         "\nP-value: ", format(spearman_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 4, color = "blue")
+```
+
+```{r}
+
+df_fb_tts_census_month <- df_fb_tts_census_month %>% arrange(code) %>% filter(code != "E09000001")
+df_fb_tts_census_week <- df_fb_tts_census_week %>% arrange(code) %>% filter(code != "E09000001")
+
+# Create some example data
+data <- data.frame(
+  x = df_fb_tts_census_month$map_bias,
+  y = df_fb_tts_census_week$map_bias
+)
+
+# Compute Spearman correlation and p-value, removing rows with NA
+spearman_test <- cor.test(data$x, data$y, method = "spearman", use = "complete.obs")
+spearman_corr <- spearman_test$estimate
+spearman_pvalue <- spearman_test$p.value
+
+# Create the scatter plot
+ggplot(data, aes(x = x, y = y)) +
+  geom_point(shape = 1, size = 1) +                        
+  labs(x = "FB tts (bias by LAD and month)",               
+       y = "FB tts (bias by LAD and week)") +             
+  theme_tufte2() +
+  annotate("text", x = 0.87, y = 0.9955, 
+           label = paste("Spearman Correlation: ", round(spearman_corr, 2),
+                         "\nP-value: ", format(spearman_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 4, color = "blue")
+```
