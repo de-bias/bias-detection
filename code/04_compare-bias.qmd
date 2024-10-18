@@ -120,19 +120,17 @@ spearman_pvalue <- spearman_test$p.value
 # Create the scatter plot
 ggplot(data, aes(x = x, y = y)) +
   geom_point(shape = 1, size = 1) +                        
-  labs(x = "Twitter (bias by LAD and month)",               # Label for the x-axis
-       y = "FB tts (bias by LAD and month)") +              # Label for the y-axis
+  labs(x = "FB tts (bias by LAD and month)",               # Label for the x-axis
+       y = "FB tts (bias by LAD and week)") +              # Label for the y-axis
   theme_tufte2() +
-  theme(axis.title = element_text(size = 20)) +
+  theme(axis.text = element_text(size = 18),
+        axis.title = element_text(size = 20)) +
   annotate("text", x = 0.87, y = 0.9959, 
            label = paste("Spearman Correlation: ", round(spearman_corr, 2),
                          "; p-value: ", format(spearman_pvalue, digits = 3)), 
            family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
 
-ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_ts_census_month_vs_twitter.png"), bg="white")
-```
-```{r}
-paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_ts_census_month_vs_twitter.png")
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_twitter.png"), bg="white")
 ```
 
 
@@ -156,13 +154,17 @@ spearman_pvalue <- spearman_test$p.value
 # Create the scatter plot
 ggplot(data, aes(x = x, y = y)) +
   geom_point(shape = 1, size = 1) +                        
-  labs(x = "FB tts (bias by LAD and month)",               
-       y = "FB stt (bias by LAD and month)") +             
+  labs(x = "FB tts (bias by LAD and month)",               # Label for the x-axis
+       y = "FB tts (bias by LAD and week)") +              # Label for the y-axis
   theme_tufte2() +
-  annotate("text", x = 0.87, y = 0.9955, 
+  theme(axis.text = element_text(size = 18),
+        axis.title = element_text(size = 20)) +
+  annotate("text", x = 0.87, y = 0.9959, 
            label = paste("Spearman Correlation: ", round(spearman_corr, 2),
-                         "\nP-value: ", format(spearman_pvalue, digits = 3)), 
-           family = "robotocondensed", hjust = 0, vjust = 1, size = 4, color = "blue")
+                         "; p-value: ", format(spearman_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_stt_census_month.png"), bg="white")
 ```
 
 ```{r}
@@ -184,11 +186,15 @@ spearman_pvalue <- spearman_test$p.value
 # Create the scatter plot
 ggplot(data, aes(x = x, y = y)) +
   geom_point(shape = 1, size = 1) +                        
-  labs(x = "FB tts (bias by LAD and month)",               
-       y = "FB tts (bias by LAD and week)") +             
+  labs(x = "FB tts (bias by LAD and month)",               # Label for the x-axis
+       y = "FB tts (bias by LAD and week)") +              # Label for the y-axis
   theme_tufte2() +
-  annotate("text", x = 0.87, y = 0.9955, 
+  theme(axis.text = element_text(size = 18),
+        axis.title = element_text(size = 20)) +
+  annotate("text", x = 0.87, y = 0.9959, 
            label = paste("Spearman Correlation: ", round(spearman_corr, 2),
-                         "\nP-value: ", format(spearman_pvalue, digits = 3)), 
-           family = "robotocondensed", hjust = 0, vjust = 1, size = 4, color = "blue")
+                         "; p-value: ", format(spearman_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_tts_census_week.png"), bg="white")
 ```
