@@ -218,15 +218,15 @@ ggplot(data = st_bias_map) +
 
 
 if (dfd == "twitter") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/twitter_lad.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/map/twitter_lad.png"), bg="white")
   } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/fb_tts_lad_census_week.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_week.png"), bg="white")
   } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/fb_tts_lad_census_month.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_month.png"), bg="white")
   } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/fb_stt_lad_census_week.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_week.png"), bg="white")
   } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/fb_stt_lad_census_month.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_month.png"), bg="white")
   }
 ```
 
@@ -242,15 +242,15 @@ interactive_map <- tm_shape(st_bias_map) + # input data
           id="name")
 
 if (dfd == "twitter"){
-  tmap_save(interactive_map, paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/interactive/twitter_lad.html"))
+  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/twitter/size-bias/interactive/twitter_lad.html"))
   } else if (dfd == "fb_tts_census_week") {
-  tmap_save(interactive, paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/interactive/fb_tts_lad_census_week.html"))
+  tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_census_week.html"))
   } else if (dfd == "fb_tts_census_month") {
-  tmap_save(interactive, paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/interactive/fb_tts_lad_census_month.html"))
+  tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_census_month.html"))
   } else if (dfd == "fb_stt_census_week") {
-  tmap_save(interactive, paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/interactive/fb_stt_lad_census_week.html"))
+  tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_census_week.html"))
   } else if (dfd == "fb_stt_census_month") {
-  tmap_save(interactive, paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/interactive/fb_stt_lad_census_month.html"))
+  tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_census_month.html"))
   }
 
 interactive_map
@@ -280,15 +280,15 @@ ggplot(data = st_bias_map) +
   )
 
 if (dfd == "twitter"){
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/twitter_lad_london.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/map/twitter_lad_london.png"), bg="white")
   } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/fb_tts_lad_london_census_week.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_london_census_week.png"), bg="white")
   } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/fb_tts_lad_london_census_month.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_london_census_month.png"), bg="white")
   } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/fb_stt_lad_london_census_week.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_london_census_week.png"), bg="white")
   } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/fb_stt_lad_london_census_month.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_london_census_month.png"), bg="white")
   }
 ```
 
@@ -304,15 +304,15 @@ interactive_map <- tm_shape(st_bias_map) + # input data
           id="name")
 
 if (dfd == "twitter"){
-  tmap_save(interactive_map, paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/interactive/twitter_lad_london.html"))
+  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/twitter/size-bias/interactive/twitter_lad_london.html"))
   } else if (dfd == "fb_tts_census_week") {
-  tmap_save(interactive_map, paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/interactive/fb_tts_lad_london_census_week.html"))
+  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_london_census_week.html"))
   } else if (dfd == "fb_tts_census_month") {
-  tmap_save(interactive_map, paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/interactive/fb_tts_lad_london_census_month.html"))
+  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_london_census_month.html"))
   } else if (dfd == "fb_stt_census_week") {
-  tmap_save(interactive_map, paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/interactive/fb_stt_lad_london_census_week.html"))
+  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_london_census_week.html"))
   } else if (dfd == "fb_stt_census_month") {
-  tmap_save(interactive_map, paste0(wd_local, "/bias-detection/outputs/preliminary/fb/size-bias/interactive/fb_stt_lad_london_census_month.html"))
+  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_london_census_month.html"))
   }
 
 interactive_map
