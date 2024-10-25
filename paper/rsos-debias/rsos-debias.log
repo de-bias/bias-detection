@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.10.25)  25 OCT 2024 13:12
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.10.25)  25 OCT 2024 14:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -592,13 +592,15 @@ Overfull \hbox (14.27687pt too wide) has occurred while \output is active
 ]
 
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.65005pt on input line 101.
+(Font)              scaled to size 7.65005pt on input line 99.
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [2]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.6001pt on input line 103.
+(Font)              scaled to size 13.6001pt on input line 101.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 10.20007pt on input line 119.
 No file rsos-debias.bbl.
 Setting LastPage
 
@@ -615,14 +617,14 @@ LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.25pt have occurred.
 
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: B0142B1AEF2E23D55BD7F5D09BC00B87;1581.
+(rerunfilecheck)             Checksum: 56813A923675EA17A31E93E715F44576;2106.
  ) 
 Here is how much of TeX's memory you used:
- 11977 strings out of 476232
- 184286 string characters out of 5785664
- 571141 words of memory out of 5000000
- 34307 multiletter control sequences out of 15000+600000
- 604472 words of font info for 126 fonts, out of 8000000 for 9000
+ 11982 strings out of 476232
+ 184372 string characters out of 5785664
+ 571840 words of memory out of 5000000
+ 34312 multiletter control sequences out of 15000+600000
+ 606208 words of font info for 127 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
  87i,14n,93p,548b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
