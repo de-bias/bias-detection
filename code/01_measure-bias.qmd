@@ -30,8 +30,6 @@ source("./style/data-visualisation_theme.R")
 source("../code/style/data-visualisation_theme.R")
 ```
 
-# 
-
 # Data import
 
 ## Census and boundaries
