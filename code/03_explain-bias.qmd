@@ -31,6 +31,7 @@ library(shapviz)
 library(pdp)
 library(rsample)
 library(foreach)
+library(patchwork)
 
 ```
 
@@ -466,6 +467,8 @@ dev.off()
 
 Here is a gentle introduction to [SHAP values](https://blog.datascienceheroes.com/how-to-interpret-shap-values-in-r/).
 
+Use of shapviz package <https://modeloriented.github.io/shapviz/>
+
 Mean scores
 
 ```{r}
@@ -510,8 +513,14 @@ dev.off()
 #                            color_feature = "per_hh_no_centralheat")
 # g1
 
-name_vector <- importance_matrix
-sv_dependence(shp, v = names(shp$X)[1:4] )
+name_vector <- importance_matrix[order(importance_matrix$Gain)] %>%
+  head(., n=5) %>% 
+  distinct(Feature)
+
+#sv_dependence(shp, v = names(shp$X)[1:4] )
+
+sv_dependence(shp, v = unique(name_vector$Feature), alpha = 0.8 ) +
+  plot_layout(ncol = 1)
 ```
 
 ::: callout-note
