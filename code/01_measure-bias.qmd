@@ -24,43 +24,13 @@ source("./style/data-visualisation_theme.R")
 
 # Set themes
 
-Set font style
-
 ```{r}
-# clean workspace
-rm(list=ls())
-# load font
-font_add_google("Roboto Condensed", "robotocondensed")
-# automatically use showtext to render text
-showtext_auto()
+#| include = FALSE
+# clear memory and adds tufte templates for plots and maps
+source("../code/style/data-visualisation_theme.R")
 ```
 
-Theme for maps
-
-```{r}
-theme_map <- function(...) {
-  theme_tufte() +
-  theme(
-    text = element_text(family = "robotocondensed"),
-    # remove all axes
-    axis.text.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks = element_blank()
-    )
-}
-```
-
-Theme for plots
-
-```{r}
-theme_tufte2 <- function(...) {
-  theme_tufte() +
-  theme(
-    text = element_text(family = "robotocondensed"),
-    )
-}
-
-```
+# 
 
 # Data import
 

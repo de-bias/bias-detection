@@ -55,7 +55,7 @@ This first line defines the data source to be analysed. We have three options:
 \- `fb_tts`
 
 ```{r}
-dfd <- "fb_stt"
+dfd <- "twitter"
 ```
 
 ```{r}
@@ -63,7 +63,7 @@ dfd <- "fb_stt"
 df <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/combined-data-ltla.csv")) 
 
 if (dfd == "twitter") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
   } else if (dfd == "fb_tts") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
@@ -413,8 +413,6 @@ if (dfd == "twitter"){
 importance_matrix <- xgb.importance(model = xgb.fit.final)
 
 # variable importance plot
-# xgb.plot.importance(importance_matrix, top_n = 30, measure = "Gain")
-
 xgb.ggplot.importance(importance_matrix, top_n = 30, measure = "Gain") + 
   theme_plot_tufte()
 ```
@@ -430,7 +428,7 @@ dev.off()
 
 ```{r}
 # pdp <- xgb.fit.final %>%
-#   pdp::partial(pred.var = "total_residents", n.trees = 503, grid.resolution = 100, train = features_train) %>%
+#   pdp::partial(pred.var = "per_age_20_24", n.trees = 503, grid.resolution = 100, train = features_train) %>%
 #   autoplot(rug = TRUE, train = features_train) +
 #   #scale_y_continuous(labels = scales::dollar) +
 #   ggtitle("PDP")
@@ -472,9 +470,9 @@ Mean scores
 
 ```{r}
 # Return the SHAP values and ranked features by mean|SHAP|
-# shap_values <- shap.values(xgb_model = xgb.fit.final, X_train = features_train)
+shap_values <- shap.values(xgb_model = xgb.fit.final, X_train = features_train)
 # Ranked features by mean |SHAP|
-# shap_values$mean_shap_score
+shap_values$mean_shap_score
 
 shp <- shapviz(xgb.fit.final, X_pred = features_train, X = features_train)
 ```
@@ -488,6 +486,7 @@ SHAP plots
 # shap_long <- shap.prep(shap_contrib = shap_values$shap_score, X_train = features_train)
 # # **SHAP summary plot**
 # shap.plot.summary(shap_long)
+# shap.plot.dependence(data_long = shap_long, x = 'per_age_20_24', color_feature = 'per_age_20_24', size0 = 1)
 
 #sv_importance(shp, show_numbers = TRUE)
 sv_importance(shp, kind = "bee") +
