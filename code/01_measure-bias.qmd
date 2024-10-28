@@ -49,7 +49,6 @@ df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_
 df_boundaries_hex <- st_read(paste0(wd, "/data/inputs/geographies/hexboundaries/uk-local-authority-districts-2021.geojson")) %>% st_transform(st_crs(df_boundaries_up)) %>% rename("code" = "id")
 ```
 
-
 ## Digital trace data
 
 This first line defines the data source to be analysed. We have five options:
@@ -253,7 +252,6 @@ if (dfd == "twitter") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_month_hex.png"), bg="white")
   }
 ```
-
 
 ### Interactive map
 
