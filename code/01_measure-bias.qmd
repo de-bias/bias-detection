@@ -17,17 +17,13 @@ library(showtextdb)
 library(classInt)
 
 library(scales)
-
-#| include = FALSE
-source("./style/data-visualisation_theme.R")
 ```
 
 # Set themes
 
 ```{r}
 #| include = FALSE
-# clear memory and adds tufte templates for plots and maps
-source("../code/style/data-visualisation_theme.R")
+source("./style/data-visualisation_theme.R")
 ```
 
 # Data import
@@ -64,7 +60,7 @@ This first line defines the data source to be analysed. We have five options:
 -   `fb_stt_census_month`
 
 ```{r}
-dfd <- "fb_stt_census_month"
+dfd <- "fb_tts_census_month"
 ```
 
 ```{r}
@@ -129,32 +125,47 @@ hist_data$jenks_bins <- cut(hist_data$value, breaks = jenks_breaks, include.lowe
 # Create a custom color palette from viridis
 jenks_colors <- viridis(length(jenks_breaks) - 1)
 
+
 # Manually format the legend labels to avoid scientific notation
 formatted_labels <- sapply(1:(length(jenks_breaks) - 1), function(i) {
-  paste0("[", format(jenks_breaks[i], scientific = FALSE), ", ", 
-         format(jenks_breaks[i + 1], scientific = FALSE), ")")
+  paste0("[", 
+         sprintf("%.1f", jenks_breaks[i]), ", ", 
+         sprintf("%.1f", jenks_breaks[i + 1]), ")")
 })
 
 # Plot the histogram with ggplot
 ggplot(hist_data, aes(x = value, fill = jenks_bins)) +
-  geom_histogram(binwidth=30, color = "black", size = 0.3) +  # Adjust binwidth as needed
-  scale_fill_manual(values = jenks_colors,
-                    labels = formatted_labels) +         # Apply the viridis colors
-  labs(title = "Histogram with Jenks Breaks and Viridis Color Scale",
-       fill = "Jenks Breaks")
+  geom_histogram(binwidth=.15, color = "black", linewidth = 0.3) +  # Adjust binwidth as needed
+  scale_fill_viridis_d(
+    name = "Size of bias",
+    labels = formatted_labels,
+    na.translate = TRUE,
+    na.value = "gray"  # Set color for NA values
+  ) +
+  labs(x = "Size of bias", y = "Frequency") +
+  theme_plot_tufte() +
+  theme(
+    legend.text = element_text(size = 40),       # Increase legend text size
+    legend.title = element_text(size = 40),      # Increase legend title size
+    legend.position = "right",                     # Optional: adjust legend position
+    axis.title.x = element_text(size = 40),  # Set font size for X-axis title
+    axis.title.y = element_text(size = 40),   # Set font size for Y-axis title
+    axis.text.x = element_text(size = 34),     # Font size for X-axis ticks
+    axis.text.y = element_text(size = 34)      # Font size for Y-axis ticks
+  )
 
 
-# if (dfd == "twitter") {
-#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/histogram/twitter_lad.png"), bg="white")
-#   } else if (dfd == "fb_tts_census_week") {
-#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/histogram/fb_tts_lad_census_week.png"), bg="white")
-#   } else if (dfd == "fb_tts_census_month") {
-#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/histogram/fb_tts_lad_census_month.png"), bg="white")
-#   } else if (dfd == "fb_stt_census_week") {
-#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_week.png"), bg="white")
-#   } else if (dfd == "fb_stt_census_month") {
-#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_month.png"), bg="white")
-#   }
+if (dfd == "twitter") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/histogram/twitter_lad.png"), bg="white")
+  } else if (dfd == "fb_tts_census_week") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/histogram/fb_tts_lad_census_week.png"), bg="white")
+  } else if (dfd == "fb_tts_census_month") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/histogram/fb_tts_lad_census_month-2.png"), bg="white")
+  } else if (dfd == "fb_stt_census_week") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_week.png"), bg="white")
+  } else if (dfd == "fb_stt_census_month") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_month.png"), bg="white")
+  }
 ```
 
 # Map bias
@@ -213,11 +224,21 @@ breaks <- classIntervals(st_bias_map$map_bias, n = 8, style = "jenks")
 # Create a new factor based on Jenks breaks
 st_bias_map$jenks <- cut(st_bias_map$map_bias, breaks$brks, include.lowest = TRUE)
 
+
+# Manually format the legend labels to avoid scientific notation
+formatted_labels <- sapply(1:(length(jenks_breaks) - 1), function(i) {
+  paste0("[", format(jenks_breaks[i], scientific = FALSE), ", ", 
+         format(jenks_breaks[i + 1], scientific = FALSE), ")")
+})
+
+
 # Create formatted interval labels
 interval_labels <- paste0(
-  sprintf("%.2f", breaks$brks[-length(breaks$brks)]),  # Left edge of the interval
-  " - ", 
-  sprintf("%.2f", breaks$brks[-1])                     # Right edge of the interval
+  "[", 
+  sprintf("%.1f", breaks$brks[-length(breaks$brks)]),  # Left edge of the interval
+  ", ",
+  sprintf("%.1f", breaks$brks[-1]),                    # Right edge of the interval
+  ")"
 )
 
 # Map the interval labels to the levels of the `jenks` factor
@@ -232,10 +253,10 @@ ggplot(data = st_bias_map) +
     na.value = "gray"  # Set color for NA values
   ) +
   labs(title = " ") +
-  theme_map() +
+  theme_map_tufte() +
   theme(
-    legend.text = element_text(size = 24),       # Increase legend text size
-    legend.title = element_text(size = 30),      # Increase legend title size
+    legend.text = element_text(size = 40),       # Increase legend text size
+    legend.title = element_text(size = 40),      # Increase legend title size
     legend.position = "right"                     # Optional: adjust legend position
   )
 
@@ -245,7 +266,7 @@ if (dfd == "twitter") {
   } else if (dfd == "fb_tts_census_week") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_week_hex.png"), bg="white")
   } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_month_hex.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_month_hex-2.png"), bg="white")
   } else if (dfd == "fb_stt_census_week") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_week_hex.png"), bg="white")
   } else if (dfd == "fb_stt_census_month") {
