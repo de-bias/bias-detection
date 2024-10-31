@@ -202,11 +202,15 @@ We perform a large search grid, and create our hyperparameter search grid along 
 ```{r}
 # create hyperparameter grid
 hyper_grid <- expand.grid(
-  eta = c(.01, .05, .1, .3),
-  max_depth = c(1, 3, 5, 7),
-  min_child_weight = c(1, 3, 5, 7),
-  subsample = c(.65, .8, 1), 
-  colsample_bytree = c(.8, .9, 1),
+  #nrounds = c(50, 100, 150),          # Number of boosting rounds
+  eta = c(.01, .05, .1, .3),           # Learning rate
+  #gamma = c(0, 1, 5),                 # Minimum loss reduction
+  max_depth = c(1, 3, 5, 7),           # Maximum depth of a tree
+  min_child_weight = c(1, 3, 5, 7),    # Minimum sum of instance weight
+  subsample = c(.65, .8, 1),           # Fraction of rows per tree
+  colsample_bytree = c(.8, .9, 1),     # Fraction of columns per tree
+  lambda = c(0, 0.5, 1),               # L2 regularization term
+  alpha = c(0, 0.5, 1),                 # L1 regularization term
   optimal_trees = 0,               # a place to dump results
   min_RMSE = 0                     # a place to dump results
 )
@@ -234,10 +238,13 @@ results <- foreach(i = 1:nrow(hyper_grid), .combine = rbind, .packages = "xgboos
   # create parameter list
   params <- list(
     eta = hyper_grid$eta[i],
+    #gamma = hyper_grid$gamma[i],
     max_depth = hyper_grid$max_depth[i],
     min_child_weight = hyper_grid$min_child_weight[i],
     subsample = hyper_grid$subsample[i],
-    colsample_bytree = hyper_grid$colsample_bytree[i]
+    colsample_bytree = hyper_grid$colsample_bytree[i],
+    lambda = hyper_grid$lambda[i],
+    alpha = hyper_grid$alpha[i]
   )
   
   # reproducibility
@@ -262,10 +269,13 @@ results <- foreach(i = 1:nrow(hyper_grid), .combine = rbind, .packages = "xgboos
   # return as a row (with hyperparameters and results)
   return(data.frame(
     eta = hyper_grid$eta[i],
+    #gamma = hyper_grid$gamma[i],
     max_depth = hyper_grid$max_depth[i],
     min_child_weight = hyper_grid$min_child_weight[i],
     subsample = hyper_grid$subsample[i],
     colsample_bytree = hyper_grid$colsample_bytree[i],
+    lambda = hyper_grid$lambda[i],
+    alpha = hyper_grid$alpha[i],
     optimal_trees = optimal_trees,
     min_RMSE = min_RMSE
   ))
@@ -347,9 +357,9 @@ This may take a while so leave it running overnight!
 if (dfd == "twitter"){
   write_csv(hyper_grid, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_tts") {
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-week/populations/tts/explain-bias/hypergrid_lad.csv"))
+  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_stt") {
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-week/populations/stt/explain-bias/hypergrid_lad.csv"))
+  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))
   }
 
 ```
@@ -360,11 +370,12 @@ Selecting optimal parameters
 
 ```{r}
 
-
 if (dfd == "twitter"){
   hyper_grid <- read_csv(paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid_lad.csv"))
-  } else if (dfd == "fb") {
-  hyper_grid <- read_csv(paste0(wd, "/data/outputs/", dfd, "/census-week/populations/tts/explain-bias/hypergrid_lad.csv"))
+  } else if (dfd == "fb_tts") {
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
+  } else if (dfd == "fb_stt") {
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))  
   }
 
 optimal_pars <- hyper_grid %>% 
@@ -380,7 +391,9 @@ params <- list(
   max_depth = optimal_pars$max_depth,
   min_child_weight = optimal_pars$min_child_weight,
   subsample = optimal_pars$subsample,
-  colsample_bytree = optimal_pars$colsample_bytree                   
+  colsample_bytree = optimal_pars$colsample_bytree,
+  lambda = optimal_pars$lambda,
+  alpha = optimal_pars$alpha
 )
 
 # train final model
@@ -400,8 +413,10 @@ Save optimal model
 
 if (dfd == "twitter"){
   saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/xgb-fit-final-lad.rds"))
-  } else if (dfd == "fb") {
-  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/", dfd, "/census-week/populations/tts/explain-bias/xgb-fit-final-lad.rds"))
+  } else if (dfd == "fb_tts") {
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/xgb-fit-final-lad.rds"))
+  } else if (dfd == "fb_stt") {
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/xgb-fit-final-lad.rds"))
   }
 ```
 
@@ -513,8 +528,8 @@ dev.off()
 #                            color_feature = "per_hh_no_centralheat")
 # g1
 
-name_vector <- importance_matrix[order(importance_matrix$Gain)] %>%
-  head(., n=5) %>% 
+name_vector <- importance_matrix[order(importance_matrix$Gain, decreasing = TRUE)] %>%
+  head(., n=4) %>% 
   distinct(Feature)
 
 #sv_dependence(shp, v = names(shp$X)[1:4] )

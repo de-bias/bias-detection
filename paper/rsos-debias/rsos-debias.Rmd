@@ -108,6 +108,8 @@ Twitter
 
 ### Machine learning
 
+eXtreme Gradient Boosting (XGBoost) is an efficient and scalable implementation of gradient boosting framework by @friedman2001 [@friedman2000].
+
 # Results
 
 ## Measuring the extent of biases
