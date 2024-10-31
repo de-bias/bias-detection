@@ -86,6 +86,18 @@ Tables with captions Figure captions with credits where relevant
 
 # Introduction
 
+The rapid growth in mobile phone penetration globally has created new opportunities for research, policy and decision making. Though the collection of call records, data streams, Mobile phones record highly precise and frequent location information in real time. As such,
+
+
+
+
+
+
+
+
+
+Location data extracted from mobile phones represent a great resource to understand the spatio-temporal patterns of human mobility; that is, how and where people move. However, differences in the access and use of digital technology, such as smartphone applications across the population create biases leading to variations in the statistical representation of population groups in the resulting datasets. These biases have represented a major obstacle, leading to scepticism and deterring widespread use of these data. Work has made some progress on addressing biases for data capturing basic population attributes, such as sex and age. Less has been done at addressing biases for data which do not disclose population attributes. This paper provides a general overview of existing biases and state-of-the-art approaches, and discusses potential avenues for future research.
+
 Focus on aggregated data to ensure privacy and confidentiality
 
 Aim: To propose a methodological framework to measure biases in human population data from digital platforms.

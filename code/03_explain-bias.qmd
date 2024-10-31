@@ -56,15 +56,17 @@ This first line defines the data source to be analysed. We have three options:
 \- `fb_tts`
 
 ```{r}
-dfd <- "fb_tts"
+dfd <- "twitter"
 ```
 
 ```{r}
 # Read in data
 df <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/combined-data-ltla.csv")) 
 
+df_var_lbl <- read_csv(wd,"/data/inputs/census/census2021-ts/dictionary.csv")
+
 if (dfd == "twitter") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") #%>% dplyr::filter(name != "City of London")
   } else if (dfd == "fb_tts") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-week/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
@@ -209,8 +211,8 @@ hyper_grid <- expand.grid(
   min_child_weight = c(1, 3, 5, 7),    # Minimum sum of instance weight
   subsample = c(.65, .8, 1),           # Fraction of rows per tree
   colsample_bytree = c(.8, .9, 1),     # Fraction of columns per tree
-  lambda = c(0, 0.5, 1),               # L2 regularization term
-  alpha = c(0, 0.5, 1),                 # L1 regularization term
+  lambda = c(0, 0.5, 1),               # L2 regularization term (Ridge)
+  alpha = c(0, 0.5, 1),                # L1 regularization term (LASSO)
   optimal_trees = 0,               # a place to dump results
   min_RMSE = 0                     # a place to dump results
 )
