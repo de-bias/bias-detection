@@ -62,7 +62,7 @@ This first line defines the data source to be analysed. We have five options:
 -   `fb_stt_census_month`
 
 ```{r}
-dfd <- "fb_tts_census_month"
+dfd <- "twitter"
 ```
 
 ```{r}
@@ -143,11 +143,11 @@ formatted_labels <- sapply(1:(length(jenks_breaks) - 1), function(i) {
 })
 
 if (dfd == "twitter") { 
-  minimum_x <- sort(hist_data$value)[2]
-  binwidth <- .003
+  minimum_x <- sort(hist_data$value)[2] - 0.3
+  binwidth <- .009
 } else {
   minimum_x <- sort(hist_data$value)[1]
-  binwidth <- .08
+  binwidth <- .12
 }
 
 # Plot the histogram with ggplot
@@ -163,13 +163,13 @@ ggplot(hist_data, aes(x = value, fill = jenks_bins)) +
   labs(x = "Size of bias", y = "Frequency") +
   theme_plot_tufte() +
   theme(
-    legend.text = element_text(size = 40),       # Increase legend text size
-    legend.title = element_text(size = 40),      # Increase legend title size
+    legend.text = element_text(size = 60),       # Increase legend text size
+    legend.title = element_text(size = 60),      # Increase legend title size
     legend.position = "right",                     # Optional: adjust legend position
-    axis.title.x = element_text(size = 40),  # Set font size for X-axis title
-    axis.title.y = element_text(size = 40),   # Set font size for Y-axis title
-    axis.text.x = element_text(size = 34),     # Font size for X-axis ticks
-    axis.text.y = element_text(size = 34)      # Font size for Y-axis ticks
+    axis.title.x = element_text(size = 60),  # Set font size for X-axis title
+    axis.title.y = element_text(size = 60),   # Set font size for Y-axis title
+    axis.text.x = element_text(size = 50),     # Font size for X-axis ticks
+    axis.text.y = element_text(size = 50)      # Font size for Y-axis ticks
   )
 
 if (dfd == "twitter") {
@@ -211,8 +211,8 @@ ggplot(data = st_bias_map) +
     labs(title = " ") +
     theme_map_tufte() +
     theme(
-      legend.text = element_text(size = 40),
-      legend.title = element_text(size = 40),
+      legend.text = element_text(size = 60),
+      legend.title = element_text(size = 60),
       legend.position = "right"
       )
 
@@ -250,8 +250,8 @@ ggplot(data = st_bias_map) +
     labs(title = " ") +
     theme_map_tufte() +
     theme(
-      legend.text = element_text(size = 40),
-      legend.title = element_text(size = 40),
+      legend.text = element_text(size = 60),
+      legend.title = element_text(size = 60),
       legend.position = "right"
       )
 
