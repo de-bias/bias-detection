@@ -63,7 +63,7 @@ dfd <- "twitter"
 # Read in data
 df <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/combined-data-ltla.csv")) 
 
-df_var_lbl <- read_csv(wd,"/data/inputs/census/census2021-ts/dictionary.csv")
+df_var_lbl <- read_csv(paste0(wd,"/data/inputs/census/census2021-ts/dictionary.csv"))
 
 if (dfd == "twitter") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") #%>% dplyr::filter(name != "City of London")
@@ -430,9 +430,15 @@ if (dfd == "twitter"){
 # create importance matrix
 importance_matrix <- xgb.importance(model = xgb.fit.final)
 
-# variable importance plot
-xgb.ggplot.importance(importance_matrix, top_n = 30, measure = "Gain") + 
+left_join(importance_matrix, df_var_lbl, join_by( Feature == var_label0)) %>% 
+  dplyr::select( c(Gain, Cover, Frequency, var_label2) ) %>% 
+  rename(Feature = "var_label2") %>% 
+  xgb.ggplot.importance(., top_n = 30, measure = "Gain", xlab = "Relative importance") + 
   theme_plot_tufte()
+
+# variable importance plot
+# xgb.ggplot.importance(importance_matrix, top_n = 30, measure = "Gain") + 
+#   theme_plot_tufte()
 ```
 
 ```{r}
@@ -501,8 +507,17 @@ SHAP plots
 
 ```{r}
 #sv_importance(shp, show_numbers = TRUE)
+feature_lbl <- sv_importance(shp, kind = "bee") %>% 
+  .$data %>% 
+  distinct(.$feature) %>% 
+  rename(labels = ".$feature") %>% 
+  left_join(., df_var_lbl, join_by(labels == var_label0))
+
 sv_importance(shp, kind = "bee") +
-  theme_plot_tufte()
+  scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
+  theme_plot_tufte() 
+
+  
 ```
 
 ### **How to interpret the plot above**
@@ -530,13 +545,19 @@ dev.off()
 #                            color_feature = "per_hh_no_centralheat")
 # g1
 
-name_vector <- importance_matrix[order(importance_matrix$Gain, decreasing = TRUE)] %>%
+selected_features <- importance_matrix[order(importance_matrix$Gain, decreasing = TRUE)] %>%
   head(., n=4) %>% 
-  distinct(Feature)
+  distinct(Feature) 
+
+selected_features_lbl <- importance_matrix[order(importance_matrix$Gain, decreasing = TRUE)] %>%
+  head(., n=4) %>% 
+  distinct(Feature) %>% 
+  rename(labels = "Feature") %>% 
+  left_join(., df_var_lbl, join_by(labels == var_label0))
 
 #sv_dependence(shp, v = names(shp$X)[1:4] )
 
-sv_dependence(shp, v = unique(name_vector$Feature), alpha = 0.8 ) +
+sv_dependence(shp, v = unique(selected_features$Feature), alpha = 0.8 ) +
   plot_layout(ncol = 1)
 ```
 
