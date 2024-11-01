@@ -62,7 +62,7 @@ This first line defines the data source to be analysed. We have five options:
 -   `fb_stt_census_month`
 
 ```{r}
-dfd <- "twitter"
+dfd <- "fb_stt_census_month"
 ```
 
 ```{r}
@@ -108,7 +108,63 @@ if (dfd == "twitter"){
 ```
 
 ```{r}
-plot(df_bias$pop, df_bias$bias)
+
+# Compute the breaks using Jenks natural breaks
+if (dfd == "twitter") { 
+  num_classes <- 9  # Specify how many breaks you want
+} else {
+  num_classes <- 8
+}
+
+jenks_breaks <- classIntervals(df_bias$bias*100, n = num_classes, style = "jenks")$brks
+
+jenks_breaks <- unique(jenks_breaks)
+
+# Create a factor variable for color breaks
+df_bias$jenks_bins <- cut(df_bias$bias*100, breaks = jenks_breaks, include.lowest = TRUE)
+
+# Create a custom color palette from viridis
+jenks_colors <- viridis(length(jenks_breaks) - 1)
+
+# Manually format the legend labels to avoid scientific notation
+formatted_labels <- sapply(1:(length(jenks_breaks) - 1), function(i) {
+  paste0("[", 
+         sprintf("%.1f", jenks_breaks[i]), ", ", 
+         sprintf("%.1f", jenks_breaks[i + 1]), ")")
+})
+
+# Create the plot
+ggplot(df_bias, aes(x = pop, y = pop_dfd, color = jenks_bins)) +
+  geom_point(size = 5, alpha = 0.6, stroke = 0.7) +
+  scale_color_viridis_d(
+    na.translate = TRUE,
+    na.value = "gray"  # Color for NA values
+  ) +
+  labs(
+    x = "Population",
+    y = "Population (DFD)"
+  ) +
+  theme_plot_tufte() +
+  theme(axis.title.x = element_text(size = 60),  # Set font size for X-axis title
+    axis.title.y = element_text(size = 60),   # Set font size for Y-axis title
+    axis.text.x = element_text(size = 50),     # Font size for X-axis ticks
+    axis.text.y = element_text(size = 50),
+    legend.position = "none",
+    plot.margin = unit(c(1, 2, 1, 1), "lines")
+    )
+
+
+if (dfd == "twitter") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/scatter/twitter_lad.png"), bg="white")
+  } else if (dfd == "fb_tts_census_week") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/scatter/fb_tts_lad_census_week.png"), bg="white")
+  } else if (dfd == "fb_tts_census_month") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/scatter/fb_tts_lad_census_month.png"), bg="white")
+  } else if (dfd == "fb_stt_census_week") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_week.png"), bg="white")
+  } else if (dfd == "fb_stt_census_month") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_month.png"), bg="white")
+  }
 ```
 
 ## Histogram bias
@@ -245,7 +301,7 @@ ggplot(data = st_bias_map) +
   geom_sf(aes(fill = jenks_bins)) +
   scale_fill_viridis_d(name = "Size of bias",
     labels = formatted_labels,
-    na.translate = TRUE,
+    na.translate = FALSE,
     na.value = "gray") +  # Set color for NA values
     labs(title = " ") +
     theme_map_tufte() +
@@ -271,10 +327,19 @@ if (dfd == "twitter") {
 ### Interactive map
 
 ```{r}
+
+st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
+
+# Replace the specific entry with NA
+# st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
+
+# Create a new factor based on Jenks breaks
+st_bias_map$jenks_bins <- cut(st_bias_map$map_bias, jenks_breaks, include.lowest = TRUE)
+
 tmap_mode("view") # enable interactivity
 interactive_map <- tm_shape(st_bias_map) + # input data
     tm_borders() +
-    tm_fill("map_bias", # draw and fill polygons
+    tm_fill("jenks_bins", # draw and fill polygons
           palette = "viridis",
           title = "Size of bias",
           id="name")
