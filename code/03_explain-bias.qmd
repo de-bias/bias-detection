@@ -32,7 +32,8 @@ library(pdp)
 library(rsample)
 library(foreach)
 library(patchwork)
-
+library(viridis)
+library(scales)
 ```
 
 # Set theme
@@ -546,11 +547,11 @@ dev.off()
 # g1
 
 selected_features <- importance_matrix[order(importance_matrix$Gain, decreasing = TRUE)] %>%
-  head(., n=4) %>% 
+  head(., n=3) %>% 
   distinct(Feature) 
 
 selected_features_lbl <- importance_matrix[order(importance_matrix$Gain, decreasing = TRUE)] %>%
-  head(., n=4) %>% 
+  head(., n=3) %>% 
   distinct(Feature) %>% 
   rename(labels = "Feature") %>% 
   left_join(., df_var_lbl, join_by(labels == var_label0))
@@ -580,5 +581,127 @@ shap_long <- shap.prep(xgb_model = xgb.fit.final, X_train = features_train)
 shap_long <- shap.prep(shap_contrib = shap_values$shap_score, X_train = features_train)
 # # **SHAP summary plot**
 shap.plot.summary(shap_long)
-shap.plot.dependence(data_long = shap_long, x = 'per_age_20_24', color_feature = 'per_age_20_24', size0 = 1)
+shap.plot.dependence(data_long = shap_long, x = 'total_residents', 
+                     color_feature = 'total_residents', 
+                     size0 = 2)
+```
+
+\`
+
+```{r}
+left_join(shap_long, head(feature_lbl, n = 4), 
+                                join_by(variable == labels) ) %>% 
+  dplyr::filter(!is.na(var_label2)) %>% 
+  ggplot(aes( x = rfvalue, y = value, colour = rfvalue)) +
+  geom_smooth(colour = "gray95", span = 0.3) +
+  geom_point(alpha = 0.7, size = 3) +
+  scale_colour_viridis(labels = label_number(scale_cut = cut_short_scale()),
+                       guide = guide_colorbar(title.position="top")) +
+  scale_y_continuous(
+    labels = label_number(scale_cut = cut_short_scale(), accuracy = 0.001)
+    ) +
+  scale_x_continuous(
+    labels = label_number(scale_cut = cut_short_scale())
+    ) +
+  facet_wrap(~ var_label2, scales = "free", ncol = 2, strip.position = "top") +
+  labs(y = "Shape value",
+       x = "Feature value") +
+  theme_plot_tufte() +
+  theme(
+    strip.text = element_text(size = 14),
+    legend.position = "none",
+    legend.key.width = unit(2.5, "cm"), 
+    legend.key.height = unit(0.4, "cm"),
+    legend.text = element_text(size = 12)
+  )
+```
+
+```{r}
+
+selected_data <- left_join(shap_long, head(feature_lbl, n = 4), 
+                                join_by(variable == labels) ) %>% 
+  dplyr::filter(!is.na(var_label2))
+
+# Create a custom plot function that applies per-facet scaling
+plot_faceted_with_individual_color_scale <- function(data) {
+  # Split the data by facet variable
+  plots <- data %>% 
+    group_by(var_label2) %>%
+    group_map(~{
+      ggplot(.x, aes(x = rfvalue, y = value, color = rfvalue)) +
+        geom_smooth(colour = "gray95", span = 0.3) +
+        geom_point(alpha = 0.7, size = 3) +
+        scale_y_continuous(
+          labels = scales::label_number(scale_cut = scales::cut_short_scale(), 
+                                        accuracy = 0.001)
+        ) +
+        scale_x_continuous(
+          labels = scales::label_number(scale_cut = scales::cut_short_scale())
+        ) +
+        scale_colour_viridis_c(option = "D") +  # Apply Viridis color scale
+        labs(y = "Shape value", 
+             x = "Feature value") +
+                annotate("text", x = Inf, y = Inf, label = unique(.x$var_label2), 
+                 hjust = 1.1, vjust = 2, size = 5, fontface = "bold") + # Add title as annotation +
+        theme_plot_tufte() +
+        theme(
+          strip.text = element_text(size = 14),
+          legend.position = "none",
+          legend.key.width = unit(2.5, "cm"),
+          legend.key.height = unit(0.4, "cm"),
+          legend.text = element_text(size = 12)
+        )
+    })
+  
+  combined_plot <- wrap_plots(plots, nrow = 2) # Arrange in 2 rows
+  return(combined_plot)
+}
+
+# Use the custom function to create the plot
+plot_faceted_with_individual_color_scale(selected_data)
+```
+
+```{r}
+# Custom plot function with individual color scales per facet
+plot_faceted_with_individual_color_scale <- function(data) {
+  # Create a list to store each plot
+  plot_list <- list()
+  
+  # Generate individual plots with separate color scales
+  data %>%
+    group_by(var_label2) %>%
+    group_walk(~{
+      # Generate the individual plot with viridis scale based on each subset
+      p <- ggplot(.x, aes(x = rfvalue, y = value, color = rfvalue)) +
+        geom_smooth(color = "gray95", span = 0.3) +
+        geom_point(alpha = 0.7, size = 3) +
+        scale_y_continuous(
+          labels = scales::label_number(scale_cut = scales::cut_short_scale(), accuracy = 0.001)
+        ) +
+        scale_x_continuous(
+          labels = scales::label_number(scale_cut = scales::cut_short_scale())
+        ) +
+        scale_colour_viridis_c(option = "D") +  # Apply Viridis color scale to each plot individually
+        labs(y = "Shape value", x = "Feature value") +
+        ggtitle(unique(.x$var_label2)) +  # Use var_label2 as the title for each plot
+        theme_minimal() +
+        theme(
+          plot.title = element_text(size = 14, face = "bold"), # Title styling
+          legend.position = "none",
+          legend.key.width = unit(2.5, "cm"),
+          legend.key.height = unit(0.4, "cm"),
+          legend.text = element_text(size = 12)
+        )
+      
+      # Add the plot to the list
+      plot_list[[length(plot_list) + 1]] <<- p
+    })
+  
+  # Arrange all plots in a 2-row layout
+  combined_plot <- wrap_plots(plot_list, nrow = 2)
+  return(combined_plot)
+}
+
+# Use the custom function to create the plot
+plot_faceted_with_individual_color_scale(selected_data)
 ```
