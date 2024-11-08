@@ -57,7 +57,7 @@ This first line defines the data source to be analysed. We have three options:
 \- `fb_tts`
 
 ```{r}
-dfd <- "twitter"
+dfd <- "fb_stt"
 ```
 
 ```{r}
@@ -600,3 +600,10 @@ dev.off()
 
 The plot shows how a variable is associated with changes in shap values i.e. whether high score of a variable is associated with a decrease, increase or no change in shap values. They also provide a way to identify non-linear relationships.
 :::
+
+## Create a heatmap of LDAs based on feature importance
+
+```{r}
+shap_imp_df <- sv_importance(shp, kind = "bee") %>% 
+  .$data
+```
