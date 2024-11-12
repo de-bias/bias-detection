@@ -62,7 +62,7 @@ This first line defines the data source to be analysed. We have five options:
 -   `fb_stt_census_month`
 
 ```{r}
-dfd <- "fb_stt_census_month"
+dfd <- "fb_stt_census_week"
 ```
 
 ```{r}
@@ -82,6 +82,10 @@ if (dfd == "twitter") {
   df_pop_dfd <- read.csv(paste0(wd, "/data/inputs/fb/census-month/stt/active_population.csv")) %>% 
   rename("name" = "LAD21NM")
   } 
+```
+
+```{r}
+sum(df_pop_dfd$pop_dfd)
 ```
 
 # Measure bias

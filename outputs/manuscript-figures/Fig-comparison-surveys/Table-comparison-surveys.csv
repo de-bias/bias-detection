@@ -1,0 +1,42 @@
+﻿Data_source,Currently running,Publication_frequency,Time_unit,Geographic_coverage,Smallest_geographic_representativity,ESS,Responses_individual,Responses_household,Notes,Most_recent_year,Total_pop,Total_hh,Size_bias
+Annual Population Survey,Y,3 months,12 months,UK,Local Authority,-,"320,000","122,000",,2024,"68,265,209",,0.9953124
+British Social Attitudes,Y,12 months,12 months,UK,National,64%,"6,699",-,,2022,"67,602,800",,0.999900906
+Citizenship Survey,N,"Conducted every two years from 2001-2007. From 2007 until it closed in 2011, the survey was conducted on a continuous basis.",12 months,England and Wales,National,-,"10,000",-,,2010-11,56600000,,0.999823322
+Community Life Survey,Y,12 months,12 months,England,National,79%,"10,126",7072,,2021-22,"56,536,000",,0.999820893
+Continuous Household Survey,Y,12 months,12 months,Northern Ireland,National,-,-,"3,000",,2017-18,1875200,"768,810",0.998400171
+Crime Survey for England and Wales,Y,12 months,12 months,England and Wales,National,95%,"30,000",-,,2022-23,"60,200,000",,0.999501661
+English Housing Survey,Y,12 months,12 months,England,National,-,11205,11205,DON'T INCLUDE Can't find number of households in England,2022-23,"57,690,300",can't find,
+EU Statistics on Income and Living Conditions,N,-,-,-,-,-,-,-,DON'T INCLUDE,,,,
+Family Expenditure Survey,N,-,-,-,-,-,-,-,"DON'T INCLUDE, merged with the Living Costs and Food Survey",,,,
+Family Resources Survey,Y,12 months,12 months,UK,National,,-,"22,867",,2022-23,"67,602,800","28,400,000",0.999194824
+The FRS Individual Income Series,N,"years 96/97, 97/98, 98/99, 04/05, 05/06, 07/08",12 months,Great Britain/UK,National,-,44528,24000,,2004/05-2007/08,"59,557,400",,0.999252352
+General Lifestyle Survey,N,12 months,12 months,Great Britain,National,-,22924,9731,,2011,"61,371,315",,0.99962647
+Health Survey for England,N (stopped in 2023 to maximise the 2022 survey response),12 months,12 months,England,National,-,7120,-,,2017,"55,268,067",,0.999871173
+Households Below Average Income,Y,12 months,12 months,UK,National,-,-,25000,,2022-23,"67,602,800","28,400,000",0.999119718
+Integrated Household Survey,N,12 months,12 months,UK,National,-,"323,935",-,,2014,"64,400,000",,0.994969953
+Labour Force Survey,Y,3 months,3 months,UK,National,-,50000,23000,,2024,"68,265,209",,0.999267562
+Life Opportunities Survey,N,12 months,12 months,Great Britain,National,-,48135,-,,2014,"62,756,200",,
+Living Costs and Food Survey,Y,12 months,12 months,UK,National,-,12842,5633,,2020-21,"67,080,000",,0.999808557
+Living in Wales Survey,N,12 months,12 months,Wales,National,-,12000,-,"DON'T INCLUDE, it became the National Survey for Wales",,,,
+National Food Survey,N,12 months,12 months,UK,National,-,-,8000,"DON'T INCLUDE, it becase the Living Costs and Food Survey",,,,
+National Survey for Wales,Y,12 months,12 months,Wales,Local Authority,-,"12,000",-,,2022-23,"3,132,000",,0.996168582
+National Travel Survery,Y,12 months,various (down to week day),Great Britain/England,National,-,-,5265,,2023,"68,350,000","28,400,000",0.999814613
+Northern Ireland Family Expenditure Survery,N,-,-,-,-,-,-,-,DON'T INCLUDE,,,,
+Northern Ireland Labour Survey,N,-,-,-,-,-,-,-,DON'T INCLUDE,,,,
+Northern Ireland Life and Times Survey,N,-,-,-,-,-,-,-,DON'T INCLUDE,,,,
+Opinions and Lifestyle Survey,Y,1 month,1 month,Great Britain,National,-,"1,099",-,,2023,"68,350,000",,0.999983921
+Scottish Crime and Justice Survey,-,,,,,,,,DON'T INCLUDE,,,,
+Scottish Health Survey,-,,,,,,,,DON'T INCLUDE,,,,
+Scottish Social Atttitudes Survey,-,,,,,,,,DON'T INCLUDE,,,,
+United Kingdom Time Use Survey,N,years 2000-01 and 2014-15,12 months,UK,National,-,"16,553",16553 responses (4238 households),,2015,"65,120,000","27,000,000",0.999745808
+Vital Statistics,N,12 months,12 months,England and Wales,Ward and local/health authority level,-,,,"DON'T INCLUDE, NOT A SURVEY",,,,
+Wealth and Assests Survey,Y,24 months (approx),24 months (approx)?,Great Britain,National,-,38855,17534,(in last round),2020,"65,185,724",,0.999403934
+Welsh Health Survey,N,12 months,12 months,Wales,National,-,16264,,"DON'T INCLUDE, it became the National Survey for Wales",,,,
+Workplace Employment Relations Survey,N,4-8 years,12-24 months,Great Britain,National,-,26208,,"not clear if individuals, firms, work places… this is total for several questionnaires",2011,"61,371,315",,0.99957296
+Young People's Social Attitudes Survey,?,12 monhts,12 months,Great Britain or UK?,National,-,663,,DON'T INCLUDE only young people aged 12-19 living in households of BSA respondents,2003,,,
+Twitter/X,,,month,England and Wales,-,,"125,637",,,,"59,597,542",,0.99789191
+Facebook-tts-month,,,month,England and Wales,-,,"4,243,294",,,,"59,597,542",,0.928800856
+Facebook-stt-month,,,month,England and Wales,-,,"2,183,147",,,,"59,597,542",,0.963368506
+Facebook-tts-week,,,week,England and Wales,-,,"4,141,155",,,,"59,597,542",,0.930514668
+Facebook-stt-week,,,week,England and Wales,-,,"1,182,409",,,,"59,597,542",,0.980160105
+Other,,,,,,,,,,,,,
