@@ -24,7 +24,9 @@ library(xgboost)
 library(parallel)
 library(recommenderlab)
 library(doParallel)
+library(rsample)
 library(tidyverse)
+library(sf)
 library(moments)
 library(SHAPforxgboost)
 library(shapviz)
@@ -62,10 +64,17 @@ dfd <- "fb_stt"
 
 ```{r}
 # Read in data
+
+# census
 df <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/combined-data-ltla.csv")) 
 
+# census labels
 df_var_lbl <- read_csv(paste0(wd,"/data/inputs/census/census2021-ts/dictionary.csv"))
 
+# administrative boundaries
+lda_sdf <- st_read("/Volumes/DEBIAS/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg")
+
+# digital footprint mobility data
 if (dfd == "twitter") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
   } else if (dfd == "fb_tts") {
@@ -77,21 +86,61 @@ if (dfd == "twitter") {
 
 ## Data wrangling
 
+### Remove areas in Scotland and Northern Ireland
+
+```{r}
+# from boundaries
+lda_sdf <- lda_sdf %>%
+  filter(!grepl("^[SN]", `code`))
+```
+
+### Extract centroids
+
+```{r}
+# extract centroids
+centroids_df <- st_centroid(lda_sdf) %>% 
+  st_coordinates() %>% 
+  as.data.frame() %>% 
+  rowid_to_column("row_id")
+
+# transfer area ids
+centroids_with_ids <- lda_sdf %>%
+  st_set_geometry(NULL) %>%              # Remove geometry to avoid issues with join
+  rowid_to_column("row_id") %>%         # Create a temporary row_id for merging
+  cbind(centroids_df) 
+
+# remove row_id and rename x,y
+centroids_with_ids <- centroids_with_ids %>% 
+  select(-c(row_id)) %>% 
+  rename(
+    longitude = "X",
+    latitude = "Y"
+  )
+
+# join
+df_extended <- full_join(df, centroids_with_ids, by = join_by(geography.code == code) ) 
+```
+
 ```{r}
 # select numeric columns and standardize them
-df_standardised <- df %>%
+df_standardised <- df_extended %>%
   dplyr::select(-c(X, date)) %>% 
   mutate(across(where(is.numeric), ~ (. - mean(.)) / sd(.)))
 ```
 
 ```{r}
-df <- merge(df_standardised, df_bias[, c("geography.code", "bias")], by = "geography.code")
+input_df <- merge(df_standardised, df_bias[, c("geography.code", "bias")], by = "geography.code")
 ```
 
 ```{r}
-print(which(is.na(df), arr.ind = TRUE))
+print(which(is.na(input_df), arr.ind = TRUE))
 
-df <- na.omit(df)
+input_df <- input_df %>% 
+  drop_na()
+```
+
+```{r}
+rm(lda_sdf, df_standardised, df_extended)
 ```
 
 ## 2.2 Setting up model
@@ -110,7 +159,7 @@ test_sample_prop <- 1
 cut <- "random"
 
 # Independent variables
-xvars <- colnames(df[, 6:ncol(df)-1])
+xvars <- colnames(input_df[, 4:ncol(input_df)-1])
 
 # Final model inputs
 y <- "bias"
@@ -125,7 +174,7 @@ xvars
 
 ```{r}
 set.seed(123)
-split_df <- initial_split(df, prop = train_sample_prop)
+split_df <- initial_split(input_df, prop = train_sample_prop)
 train_sample <- training(split_df)
 test_sample  <- testing(split_df)
 ```
@@ -135,7 +184,9 @@ test_sample  <- testing(split_df)
 features <- xvars
 
 # Create the treatment plan from the training data
-treatplan <- vtreat::designTreatmentsZ(train_sample, features, verbose = FALSE)
+treatplan <- vtreat::designTreatmentsZ(train_sample, 
+                                       features, 
+                                       verbose = FALSE)
 
 # Get the "clean" variable names from the scoreFrame
 new_vars <- treatplan %>%
@@ -144,7 +195,11 @@ new_vars <- treatplan %>%
   magrittr::use_series(varName)  
 
 # Prepare the training data
-features_train <- vtreat::prepare(treatplan, train_sample, varRestriction = new_vars) %>% as.matrix()
+features_train <- vtreat::prepare(treatplan, 
+                                  train_sample, 
+                                  varRestriction = new_vars) %>% 
+  as.matrix()
+
 response_train <- train_sample[,y]
 
 # Prepare the test data
@@ -505,7 +560,7 @@ feature_lbl <- sv_importance(shp, kind = "bee") %>%
   rename(labels = ".$feature") %>% 
   left_join(., df_var_lbl, join_by(labels == var_label0))
 
-sv_importance(shp, kind = "bee") +
+sv_importance(shp, kind = "bee", viridis_args = list(option = "viridis") ) +
   scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
   theme_plot_tufte() 
 
@@ -604,6 +659,85 @@ The plot shows how a variable is associated with changes in shap values i.e. whe
 ## Create a heatmap of LDAs based on feature importance
 
 ```{r}
-shap_imp_df <- sv_importance(shp, kind = "bee") %>% 
-  .$data
+xgb.fit.final_all <- xgboost(
+  params = params,
+  data = as.matrix(input_df[, 4:ncol(input_df)-1]),
+  label = input_df$bias,
+  nrounds = 2000,
+  objective = "reg:squarederror",
+  verbose = 0,
+  early_stopping_rounds = 15)
+```
+
+```{r}
+# Return the SHAP values and ranked features by mean|SHAP|
+shap_values_full <- shap.values(xgb_model = xgb.fit.final_all, X_train = as.matrix(input_df[, 4:ncol(input_df)-1]))
+
+aux_full <- as.data.frame(shap_values_full$shap_score)
+
+input_df_with_shap_values <- cbind(input_df[,1:2], aux_full) %>% 
+  pivot_longer(
+    cols = c(3:44),
+    names_to = "feature",
+    values_to = "shap_value"
+  ) %>% 
+  left_join(., df_var_lbl, join_by(feature == var_label5 ))
+```
+
+```{r}
+selected_areas <- c(
+  "Birmingham",
+  "Leeds",
+  "Sheffield",
+  "Bradford",
+  "Liverpool",
+  "Manchester",
+  "Bristol, City of",
+  "Kirklees",
+  "Croydon",
+  "Barnet",
+  "Isles of Scilly",
+  "City of London",
+  "Teesdale",
+  "Berwick-upon-Tweed",
+  "Alnwick",
+  "Somerset West and Taunton",
+  "Oswestry",
+  "Rutland",
+  "Shropshire",
+  "Christchurch",
+  "Purbeck",
+  "Melton",
+  "West Devon",
+  "Ryedale",
+  "Richmondshire",
+  "Eden",
+  "Castle Morpeth",
+  "Corby"
+)
+
+input_df_with_shap_values %>% 
+  filter(geography %in% selected_areas ) %>% 
+  tidyplot(x = geography, 
+           y = var_label2,
+           color = shap_value) %>%
+  add_heatmap(rotate_labels = 90) %>% 
+  adjust_size(height = 100) %>% 
+  adjust_x_axis_title("") %>% 
+  adjust_y_axis_title("") %>% 
+  add(ggplot2::theme(
+    legend.position = "bottom",
+    legend.title = element_text(size=10, face = "plain", hjust=0.5, lineheight=0.45,
+          color="black"),
+    legend.key.width = unit(2, "cm"), 
+    legend.key.height = unit(0.4, "cm"),
+    legend.text = element_text(size = 8)
+  )) %>% 
+  add(ggplot2::labs(fill = "Shap value"))
+```
+
+```{r}
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/heatmap_xxldas.png"), units="in", width=8, height=10, res=300)
+  last_plot()
+dev.off()
 ```
