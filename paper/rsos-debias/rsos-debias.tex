@@ -98,59 +98,56 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-\section{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
-% Focus on aggregated data to ensure privacy and confidentiality
+Location data derived from DFs collected via digital technology, has created new opportunities for research, policy and decision making. These data offer high geographic and temporal granularity, extensive coverage and instant information to measure and transform our understanding of human mobility \citep{oliver20-health}. DF data (DFD) generation expands countries facilitating comparative analyses. Substantively, studies leveraging DFD have contributed to expanding existing theories, developing new explanations, adopting new analytical tools and infrastructures, and advancing new areas of research, such as computational social science and geographic data science \citep{pappalardo23-directions}. Yet, these data also present major epistemological, methodological and ethical challenges \citep{rowe23-bigdata}.
 
-% Aim: To propose a methodological framework to measure biases in human population data from digital platforms.
+A key unresolved limitation in the use of DFD is the potential presence of biases relating to its statistical representativeness. Two sources of biases are particularly prominent. First, biases emerge from differences in the access and use of the particular digital technology, such as mobile applications, used to collect data \citep{wesolowski13-biases}. In the UK, for example, we know that 98\% of the adult population have a mobile phone and 92\% of this population use a smartphone \citep{ofcom23}, but a smaller percentage actively use Facebook (70\%) or Twitter (23\%) \citep{statista24}. Second, biases can also emerge from differences in the access and usage of digital technologies across population groups. DF-derived mobility data from Twitter, for instance, display a young adult, male and urban user profile (e.g. \citep{mislove21-twitter}, \citep{sloan13-twitter}). Differences in age, income and education have been found in Facebook-derived population counts \citep{ribeiro20-facebook}. As a result, DF-derived mobility data cannot be interpreted directly to provide a reliable estimate of population mobility levels \citep{cesare18-promises}. They can only afford to offer rough signals about mobility patterns (e.g.~spatial concentration), trends (e.g.~increasing) and changes (e.g.~low to high) \citep{rowe22-sensing-ukraine}.
 
-% Contributions:
+Efforts have been made to correct these biases through two general approaches. A first general approach consists in adjusting DF-derived population counts from social media by developing correction factors (e.g. \citep{yildiz17-twitter}, \citep{Hsiao24-bias}). Correction factors are often estimated as the ratio of active social media users to census population counts by demographic attributes (e.g.~age). The principles are similar to survey post-stratification methods i.e.~to make DF-derived population counts representative of the census populations. However, a key data requirement of this approach is on having data on population by attribute, but such data are generally unavailable from DFs. Only information on location, time and total active users is recorded. As such, this approach cannot be generalised to different DFD sources and geographical contexts, and when applied on total population counts, biases associated with demographic and socioeconomic user attributes are not corrected (e.g. \citep{rodriguez-carrion18-biases}, \citep{schlosser21-biases}, \citep{pak22-correcting-bias}). A second approach uses a regression modelling approach. Intuitively this approach produces representative population counts by explicitly measuring and removing the sources of biases in the data \citep{kramer-schadt13-bias-correction}. This approach has primarily been used in Ecology to obtain representative population distributions of animal species \citep{zizka21-sampbias}, but it has not been used in the context of DFD. In recent work, the PI adopted a similar approach to correct multiple sources of biases in census data to produce bias-adjusted migration estimates \citep{aparicio-castro23-bayesian}. DEBIAS builds on this work to develop a general framework and software package aiming to correct biases in origin-destination mobility counts derived from DFs in the absence of demographic and socioeconomic information on users of digital platforms.
 
-Location data derived from DFs collected via digital technology, such as mobile apps have emerged
-as a novel source to capture human mobility flows. These data offer high geographic and temporal
-granularity, extensive coverage and instant information to measure and transform our understanding
-of human mobility \cite{oliver20-health}. DF data (DFD) generation expands countries facilitating
-comparative analyses. Substantively, studies leveraging DFD have contributed to expanding existing
-theories, developing new explanations, adopting new analytical tools and infrastructures, and
-advancing new areas of research, such as computational social science and geographic data science
-\cite{pappalardo23-directions}. Yet, these data also present major epistemological, methodological and ethical challenges \cite{rowe23-bigdata}.
+\hypertarget{data-and-methods}{%
+\section{Data and methods}\label{data-and-methods}}
 
-A key unresolved limitation in the use of DFD is the potential presence of biases relating to its
-statistical representativeness. Two sources of biases are particularly prominent. First, biases emerge from differences in the access and use of the particular digital technology, such as mobile
-applications, used to collect data \cite{wesolowski13-biases}. In the UK, for example, we know that 98\% of the adult population have a mobile phone and 92\% of this population use a smartphone \cite{ofcom23}, but a smaller percentage actively use Facebook (70\%) or Twitter (23\%) \cite{statista24}. Second, biases can also emerge from differences in the access and usage of digital technologies across population groups. DF-derived mobility data from Twitter, for instance, display a young adult, male and urban user profile (e.g. \cite{mislove21-twitter}, \cite{sloan13-twitter}). Differences in age, income and education have been found in Facebook-derived population counts \cite{ribeiro20-facebook}. As a result, DF-derived mobility data cannot be interpreted directly to provide a reliable estimate of population mobility levels \cite{cesare18-promises}. They can only afford to offer rough signals about mobility patterns (e.g. spatial concentration), trends (e.g. increasing) and changes (e.g. low to high)
-\cite{rowe22-sensing-ukraine}.
-
-Efforts have been made to correct these biases through two general approaches. A first general
-approach consists in adjusting DF-derived population counts from social media by developing
-correction factors (e.g. \cite{yildiz17-twitter}, \cite{hsiao24-bias}). Correction factors are often estimated as the ratio of active social media users to census population counts by demographic attributes (e.g. age). The principles are similar to survey post-stratification methods i.e. to make DF-derived population counts representative of the census populations. However, a key data requirement of this approach is on having data on population by attribute, but such data are generally unavailable from DFs. Only information on location, time and total active users is recorded. As such, this approach cannot be generalised to different DFD sources and geographical contexts, and when applied on total population counts, biases associated with demographic and socioeconomic user attributes are not corrected (e.g. \cite{rodriguez-carrion18-biases}, \cite{schlosser21-biases}, \cite{pak22-correcting-bias}). A second approach uses a regression modelling approach. Intuitively this approach produces representative population counts by explicitly measuring and removing the sources of biases in the data \cite{kramer-schadt13-bias-correction}. This approach has primarily been used in Ecology to obtain representative population distributions of animal species \cite{zizka21-sampbias}, but it has not been used in the context of DFD. In recent work, the PI adopted a similar approach to correct multiple sources of biases in census data to produce bias-adjusted migration estimates \cite{aparicio-castro23-bayesian}. DEBIAS builds on this work to develop a general framework and software package aiming to correct biases in origin-destination mobility counts derived from DFs in the absence of demographic and socioeconomic information on users of digital platforms.
-
-\section{Data and methods}\label{data-and-methods}
-
-\subsection{Data}\label{data}
+\hypertarget{data}{%
+\subsection{Data}\label{data}}
 
 Facebook
 
 Twitter
 
-\subsection{Methods}\label{methods}
+\hypertarget{methods}{%
+\subsection{Methods}\label{methods}}
 
-\subsubsection{Bias indicator}\label{bias-indicator}
+\hypertarget{bias-indicator}{%
+\subsubsection{Bias indicator}\label{bias-indicator}}
 
-\subsubsection{Effective sample size}\label{effective-sample-size}
+\hypertarget{effective-sample-size}{%
+\subsubsection{Effective sample size}\label{effective-sample-size}}
 
-\subsubsection{Machine learning}\label{machine-learning}
+\hypertarget{machine-learning}{%
+\subsubsection{Machine learning}\label{machine-learning}}
 
-\section{Results}\label{results}
+eXtreme Gradient Boosting (XGBoost) is an efficient and scalable implementation of gradient boosting framework by \citep{friedman2001, friedman2000}.
 
-\subsection{Measuring the extent of biases}\label{measuring-the-extent-of-biases}
+\hypertarget{results}{%
+\section{Results}\label{results}}
 
-\subsection{Assessing the extent of biases in digital trace data}\label{assessing-the-extent-of-biases-in-digital-trace-data}
+\hypertarget{measuring-the-extent-of-biases}{%
+\subsection{Measuring the extent of biases}\label{measuring-the-extent-of-biases}}
 
-\subsection{Explaining biases}\label{explaining-biases}
+\hypertarget{assessing-the-extent-of-biases-in-digital-trace-data}{%
+\subsection{Assessing the extent of biases in digital trace data}\label{assessing-the-extent-of-biases-in-digital-trace-data}}
 
-\section{Discussion}\label{discussion}
+\hypertarget{explaining-biases}{%
+\subsection{Explaining biases}\label{explaining-biases}}
 
-\section{Conclusion}\label{conclusion}
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
 
 \ethics{Please provide details on the ethics.}
 
