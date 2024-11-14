@@ -1,0 +1,62 @@
+\begin{thebibliography}{99}
+
+\bibitem{oliver20-health}
+Oliver N, Lepri B, Sterly H, Lambiotte R, Deletaille S, Nadai MD, Letouzé E, Salah AA, Benjamins R, Cattuto C, Colizza V, de~Cordes N, Fraiberger SP, Koebe T, Lehmann S, Murillo J, Pentland A, Pham PN, Pivetta F, Saramäki J, Scarpino SV, Tizzoni M, Verhulst S, Vinck P. 2020  Mobile phone data for informing public health actions across the COVID-19 pandemic life cycle. {\em Science Advances} \textbf{6}, eabc0764.
+
+\bibitem{pappalardo23-directions}
+Pappalardo L, Manley E, Sekara V, Alessandretti L. 2023  Future directions in human mobility science. {\em Nature Computational Science} \textbf{3}, 588--600.
+
+\bibitem{rowe23-bigdata}
+Rowe F. 2023 pp. 42 -- 47.
+In {\em 9.: Big data}, pp. 42 -- 47. Cheltenham, UK: Edward Elgar Publishing.
+
+\bibitem{wesolowski13-biases}
+Wesolowski A, Eagle N, Noor AM, Snow RW, Buckee CO. 2013  The impact of biases in mobile phone ownership on estimates of human mobility. {\em Journal of The Royal Society Interface} \textbf{10}, 20120986.
+
+\bibitem{ofcom23}
+{Ofcom}. 2023  Communications Market Report 2023. Accessed: Nov 2023.
+
+\bibitem{statista24}
+{Statista}. 2024  Social Media \& User-Generated Content - Market Overview. Accessed: 2024-11-14.
+
+\bibitem{mislove21-twitter}
+Mislove A, Lehmann S, Ahn YY, Onnela JP, Rosenquist J. 2021  Understanding the Demographics of Twitter Users. {\em Proceedings of the International AAAI Conference on Web and Social Media} \textbf{5}, 554--557.
+
+\bibitem{sloan13-twitter}
+Sloan L, Morgan J, Housley W, Williams M, Edwards A, Burnap P, Rana O. 2013  Knowing the Tweeters: Deriving Sociologically Relevant Demographics from Twitter. {\em Sociological Research Online} \textbf{18}, 74--84.
+
+\bibitem{ribeiro20-facebook}
+Ribeiro FN, Benevenuto F, Zagheni E. 2020  How Biased is the Population of Facebook Users? Comparing the Demographics of Facebook Users with Census Data to Generate Correction Factors. In {\em Proceedings of the 12th ACM Conference on Web Science} WebSci '20 p. 325–334 New York, NY, USA. Association for Computing Machinery.
+
+\bibitem{cesare18-promises}
+Cesare N, Lee H, McCormick T, Spiro E, Zagheni E. 2018  Promises and Pitfalls of Using Digital Traces for Demographic Research. {\em Demography} \textbf{55}, 1979--1999.
+
+\bibitem{rowe22-sensing-ukraine}
+Rowe F, Neville R, Gonz{\'a}lez-Leonardo M. 2022  Sensing Population Displacement from Ukraine Using Facebook Data: Potential Impacts and Settlement Areas. {\em OSF Preprints}.
+Submitted.
+
+\bibitem{yildiz17-twitter}
+Yildiz D, Holland JA, Vitali A, Munson J, Tinati R. 2017  {Using Twitter data for demographic research}. {\em Demographic Research} \textbf{37}, 1477--1514.
+
+\bibitem{hsiao24-bias}
+Hsiao Y, Fiorio L, Wakefield J, Zagheni E. 2024  Modeling the Bias of Digital Data: An Approach to Combining Digital With Official Statistics to Estimate and Predict Migration Trends. {\em Sociological Methods \& Research} \textbf{53}, 1905--1943.
+
+\bibitem{rodriguez-carrion18-biases}
+Rodriguez-Carrion A, Garcia-Rubio C, Campo C. 2018  Detecting and Reducing Biases in Cellular-Based Mobility Data Sets. {\em Entropy} \textbf{20}.
+
+\bibitem{schlosser21-biases}
+Schlosser F, Sekara V, Brockmann D, Garcia-Herranz M. 2021  Biases in human mobility data impact epidemic modeling. .
+
+\bibitem{pak22-correcting-bias}
+Chankyung~Pak KC, Thorson K. 2022  Correcting Sample Selection Bias of Historical Digital Trace Data: Inverse Probability Weighting (IPW) and Type II Tobit Model. {\em Communication Methods and Measures} \textbf{16}, 134--155.
+
+\bibitem{kramer-schadt13-bias-correction}
+Kramer-Schadt S, Niedballa J, Pilgrim JD, Schröder B, Lindenborn J, Reinfelder V, Stillfried M, Heckmann I, Scharf AK, Augeri DM, Cheyne SM, Hearn AJ, Ross J, Macdonald DW, Mathai J, Eaton J, Marshall AJ, Semiadi G, Rustam R, Bernard H, Alfred R, Samejima H, Duckworth JW, Breitenmoser-Wuersten C, Belant JL, Hofer H, Wilting A. 2013  The importance of correcting for sampling bias in MaxEnt species distribution models. {\em Diversity and Distributions} \textbf{19}, 1366--1379.
+
+\bibitem{zizka21-sampbias}
+Zizka A, Antonelli A, Silvestro D. 2021  sampbias, a method for quantifying geographic sampling biases in species distribution data. {\em Ecography} \textbf{44}, 25--32.
+
+\bibitem{aparicio-castro23-bayesian}
+Aparicio~Castro A, Wiśniowski A, Rowe F. 2023  A Bayesian approach to estimate annual bilateral migration flows for South America using census data. {\em Journal of the Royal Statistical Society Series A: Statistics in Society} \textbf{187}, 410--435.
+
+\end{thebibliography}

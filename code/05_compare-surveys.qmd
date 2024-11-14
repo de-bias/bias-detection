@@ -1,0 +1,137 @@
+---
+title: "compare-bias"
+format: html
+editor: visual
+---
+
+```{r}
+library(dplyr)
+library(sf)
+library(ggplot2)
+library(tmap)
+library(viridis)
+
+library(sysfonts)
+library(showtextdb)
+
+library(classInt)
+
+library(scales)
+
+library(forcats)
+```
+
+# Set themes
+
+```{r}
+#| include = FALSE
+source("./style/data-visualisation_theme.R")
+```
+
+# Data import
+
+## Census and boundaries
+
+```{r}
+wd <- dirname(getwd())
+```
+
+```{r}
+df <- read.csv(paste0(wd, "/outputs/manuscript-figures/Fig-comparison-surveys/Table-comparison-surveys.csv"))
+```
+
+```{r}
+df <- df %>% filter(!is.na(Size_bias_include))
+df <- df %>% select(c(Data_source_labels, Size_bias_include, DFD))
+```
+
+```{r}
+ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_bias_include)) +
+  geom_col(aes(fill = DFD == "Y"), width = 0.8) +  # Conditional fill based on DFD == "Y"
+  scale_fill_manual(
+    name = "",  # Removes the legend title
+    values = c("FALSE" = "#69b3a2", "TRUE" = "#FF5733"),  # Define colors
+    labels = c("FALSE" = "DFD", "TRUE" = "Survey")  # Custom labels for legend items
+  ) +
+  coord_flip(ylim = c(0.92, 1)) +
+  labs(x = "Data source", y = "Size of bias") +
+  theme_plot_tufte() +
+  theme(
+    axis.title.x = element_text(size = 14, face = "bold", color = "black"),
+    axis.title.y = element_text(size = 14, face = "bold", color = "black", margin = margin(r = 10)),  # Add right margin to y-axis title
+    axis.text.x = element_text(size = 12, color = "black"),  # Adjust x-axis tick text size and color
+    axis.text.y = element_text(size = 12, color = "black"),  # Adjust y-axis tick text size and color
+    legend.text = element_text(size = 14),  # Make legend labels larger
+    plot.margin = margin(10, 10, 10, 10)  # Add margins for space around the plot
+  )                
+  
+# ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys.png"), bg="white")
+```
+```{r}
+ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_bias_include)) +
+  geom_col(aes(fill = DFD == "Y"), width = 0.8) +  # Conditional fill based on DFD == "Y" for bars
+  geom_point(aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = (1-Size_bias_include)+0.92), 
+             color = "black", size = 2) +  # Add dots for Size_bias_include * 1000
+  scale_fill_manual(
+    name = "",  # Removes the legend title
+    values = c("FALSE" = "#69b3a2", "TRUE" = "#FF5733"),  # Define colors
+    labels = c("FALSE" = "DFD", "TRUE" = "Survey")  # Custom labels for legend items
+  ) +
+  coord_flip(ylim = c(0.92, 1)) +
+  # coord_flip() +
+  labs(x = "Data source", y = "Size of bias") +
+  scale_y_continuous(
+    sec.axis = sec_axis(~  (. -0.92)*1000 ,
+      name = "Number of responses per 1,000"  # Name for secondary y-axis
+    )
+  ) +
+  theme_plot_tufte() +
+  theme(
+    axis.title.x = element_text(size = 24, face = "bold", color = "black"),
+    axis.title.y = element_text(size = 24, face = "bold", color = "black", margin = margin(r = 10)),  # Add right margin toy-axis title
+    axis.text.x = element_text(size = 24, color = "black"),  # Adjust x-axis tick text size and color
+    axis.text.y = element_text(size = 24, color = "black"),  # Adjust y-axis tick text size and color
+    legend.text = element_text(size = 24),  # Make legend labels larger
+    plot.margin = margin(3,3,3,3)  # Add margins for space around the plot
+  )
+
+# ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys-two-axis.png"), bg="white")
+```
+
+```{r}
+ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_bias_include)) +
+  geom_col(aes(fill = DFD == "Y"), width = 0.8) +  
+  geom_point(aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = (1 - Size_bias_include) + 0.92, color = "Response rate"), 
+             size = 2) +  
+  scale_fill_manual(
+    name = "Source of data",  
+    values = c("FALSE" = "#69b3a2", "TRUE" = "#FF5733"),  
+    labels = c("FALSE" = "DFD", "TRUE" = "Survey")  
+  ) +
+  scale_color_manual(
+    name = "Response rate",  
+    values = c("Response rate" = "black")  
+  ) +
+  coord_flip(ylim = c(0.92, 1)) +
+  labs(x = "Data source", y = "Size of bias") +
+  scale_y_continuous(
+    sec.axis = sec_axis(~ (. - 0.92) * 1000, name = "Response rate (per 1,000)")  
+  ) +
+  theme_plot_tufte() +
+  theme(
+    axis.title.x = element_text(size = 24, face = "bold", color = "black"),
+    axis.title.y = element_text(size = 24, face = "bold", color = "black", margin = margin(r = 10)),  
+    axis.text.x = element_text(size = 24, color = "black"),  
+    axis.text.y = element_text(size = 24, color = "black"),  
+    legend.text = element_text(size = 24),  
+    plot.margin = margin(10,10,10,10)  
+  ) +
+  guides(
+    fill = guide_legend(title = "Source of data", title.theme = element_text(size = 24, face = "bold")),  
+    color = guide_legend(title = "Response rate", title.theme = element_text(size = 24, face = "bold"))  
+  )
+
+ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys-two-axis.png"), bg="white")
+```
+
+

@@ -71,7 +71,6 @@ wd <- "/Volumes/rdm04/DEBIAS"
 wd_local <- "/Users/carmen/Documents/github/de-bias"
 ```
 
-
 ## Data imports
 
 This first line defines the data source to be analysed. We have five options:
@@ -85,7 +84,6 @@ This first line defines the data source to be analysed. We have five options:
 -   `fb_stt_census_week`
 
 -   `fb_stt_census_month`
-
 
 ```{r}
 df_twitter <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv"))
@@ -130,9 +128,8 @@ ggplot(data, aes(x = x, y = y)) +
                          "; p-value: ", format(spearman_pvalue, digits = 3)), 
            family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
 
-ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_twitter.png"), bg="white")
+# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_twitter.png"), bg="white")
 ```
-
 
 ```{r}
 
@@ -164,7 +161,7 @@ ggplot(data, aes(x = x, y = y)) +
                          "; p-value: ", format(spearman_pvalue, digits = 3)), 
            family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
 
-ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_stt_census_month.png"), bg="white")
+# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_stt_census_month.png"), bg="white")
 ```
 
 ```{r}
@@ -196,5 +193,5 @@ ggplot(data, aes(x = x, y = y)) +
                          "; p-value: ", format(spearman_pvalue, digits = 3)), 
            family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
 
-ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_tts_census_week.png"), bg="white")
+# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_tts_census_week.png"), bg="white")
 ```
