@@ -67,6 +67,7 @@ ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_
   
 # ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys.png"), bg="white")
 ```
+
 ```{r}
 ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_bias_include)) +
   geom_col(aes(fill = DFD == "Y"), width = 0.8) +  # Conditional fill based on DFD == "Y" for bars
@@ -75,7 +76,7 @@ ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_
   scale_fill_manual(
     name = "",  # Removes the legend title
     values = c("FALSE" = "#69b3a2", "TRUE" = "#FF5733"),  # Define colors
-    labels = c("FALSE" = "DFD", "TRUE" = "Survey")  # Custom labels for legend items
+    labels = c("FALSE" = "Survey", "TRUE" = "DFD")  # Custom labels for legend items
   ) +
   coord_flip(ylim = c(0.92, 1)) +
   # coord_flip() +
@@ -95,7 +96,7 @@ ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_
     plot.margin = margin(3,3,3,3)  # Add margins for space around the plot
   )
 
-# ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys-two-axis.png"), bg="white")
+ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys-two-axis.png"), bg="white")
 ```
 
 ```{r}
@@ -133,5 +134,3 @@ ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_
 
 ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys-two-axis.png"), bg="white")
 ```
-
-
