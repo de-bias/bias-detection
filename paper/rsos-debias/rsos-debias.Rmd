@@ -11,7 +11,7 @@ address:
   - code: ""
     address: 
 
-corresp_author_name:  "C. Cabrera-Arnau"
+corresp_author_name:  "C.Cabrera-Arnau"
 corresp_author_email: "C.Cabrera-Arnau@liverpool.ac.uk"
 
 subject:
@@ -96,7 +96,7 @@ Tables with captions Figure captions with credits where relevant
 
 <!-- P4: Efforts have been made to measure and explore the nature of biases across multiple data sources (brief literature review). -->
 
-<!-- P5: However, there is no standard approach for identifying or correcting biases in spatially and temporally aggregated DFD. Developing transparent, well-documented standards is essential, especially since most DFD sources are aggregated and, for privacy reasons, do not include user profile information. -->
+<!-- P5: However, we identify two main gaps. First, there is no standard approach for identifying or correcting biases in spatially and temporally aggregated DFD. Second, little work on the geographic variation of biases. Developing transparent, well-documented standards is essential, especially since most DFD sources are aggregated and, for privacy reasons, do not include user profile information. -->
 
 <!-- P6: This paper aims to establish a framework to address this gap, contributing by proposing a standardised approach for identifying and measuring biases in DFD, as well as explaining the origin of these biases. -->
 
@@ -126,11 +126,38 @@ Twitter
 
 ## Methods
 
+In this section, we present our proposed methodology, which has two primary aims: first, to quantify biases, and second, to identify the characteristics of local populations that increase their likelihood of being underrepresented in digital footprint data (DFD). This methodology serves as a general framework applicable to any digital technology that captures active user counts and operates on data aggregated into spatial and temporal units, aligning well with the structure of many DFD sources available to researchers.
+
+The methodology unfolds in two interconnected stages, each corresponding to our aims. In the first stage, we develop a statistical indicator to quantify the magnitude of bias in each subnational area. This step is crucial for establishing a baseline understanding of bias levels, allowing us to pinpoint regions with significant underrepresentation. In the second stage, we analyse the association of these biases with demographic, socioeconomic, and geographic attributes at the area level. This analysis yields insights into the underlying characteristics contributing to disparities in the level of bias across areas, thereby addressing our second methodological aim.
+
 ### Bias indicator
 
-### Effective sample size
+First, we define a metric to quantify the magnitude of bias in each subnational area. We will do this by estimating the extent of population coverage of the digital technology used to collect the DFD (e.g. Facebook app). This will be computed as the ratio of the user population of the digital technology ($P_i^D$) to the total local population of an area ($P_i$). Formally, the coverage $c_i$ is given by:
+\begin{equation}
+c_i = \dfrac{P_i^D}{P_i},
+\end{equation}
+where $𝐷$ identifies a given digital technology, and $i$ denotes each subnational area. The
+ratio is assumed to take values between $0$ and $1$, with the latter representing full population coverage.
+The ratio can only take values greater than $1$ if users have multiple accounts exceeding the total local
+population of an area. 
+
+We then define the size of bias $e_i$ as:
+\begin{equation}
+e_i = 1 - c_i
+\end{equation}
+in which case, $e_i = 0$ will indicate full population coverage or no bias. We will use this indicator to examine the magnitude and spatial distribution of DFD bias.
+
 
 ### Machine learning
+
+Second, we will seek to understand how DF coverage biases are associated with area-level
+demographic and socioeconomic attributes. To what extent different demographic and socioeconomic
+groups are represented in DFD? And how do these vary geographically and across digital platform?
+We will assess these questions by measuring the area-level association between our coverage
+indicator and key demographic and socioeconomic attributes. We will use a random forest to model
+our coverage indicator as a function of demographic and socioeconomic attributes. The outcomes will
+identify the most important area-level demographic and socioeconomic features to predict the
+coverage bias of a given digital technology. We will use this information to inform our models in WP-II.
 
 eXtreme Gradient Boosting (XGBoost) is an efficient and scalable implementation of gradient boosting framework by [@friedman2001; @friedman2000].
 

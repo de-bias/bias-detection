@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.10.29)  14 NOV 2024 15:47
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.10.24)  15 NOV 2024 11:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -598,22 +598,36 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [2]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.6001pt on input line 102.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 124.
+(Font)              scaled to size 13.6001pt on input line 101.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [3]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 10.20007pt on input line 123.
+Missing character: There is no 𝐷 ("1D437) in font cmmi9!
 
-Package natbib Warning: Citation `friedman2001' on page 4 undefined on input line 132.
+Underfull \hbox (badness 1681) in paragraph at lines 142--150
+\T1/ppl/m/n/9 Second, we will seek to un-der-stand how DF cov-er-age bi-ases are as-so-ci-ated with area-
+ []
 
 
-Package natbib Warning: Citation `friedman2000' on page 4 undefined on input line 132.
+Package natbib Warning: Citation `friedman2001' on page 4 undefined on input line 151.
 
-(./rsos-debias.bbl
+
+Package natbib Warning: Citation `friedman2000' on page 4 undefined on input line 151.
+
+
+
+
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+[4] (./rsos-debias.bbl
 Underfull \hbox (badness 2368) in paragraph at lines 23--24
 []\T1/ppl/m/n/9 Mislove A, Lehmann S, Ahn YY, On-nela JP, Rosen-quist J. 2021 Un-der-stand-ing the
  []
@@ -622,16 +636,16 @@ Missing character: There is no – ("2013) in font pplr8t!
 
 
 
-Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[4]
+[5]
 Missing character: There is no ś ("15B) in font pplr8t!
 ) Setting LastPage
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[5]
+[6]
 
 Package natbib Warning: There were undefined citations.
 
@@ -645,15 +659,15 @@ LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.25pt have occurred.
 
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: 56813A923675EA17A31E93E715F44576;2106.
+(rerunfilecheck)             Checksum: B787A966F69E6D96D1FEB5378229C3EA;1904.
  ) 
 Here is how much of TeX's memory you used:
- 12050 strings out of 476171
- 184674 string characters out of 5784266
- 574344 words of memory out of 5000000
- 34390 multiletter control sequences out of 15000+600000
+ 12051 strings out of 476171
+ 184711 string characters out of 5784266
+ 575080 words of memory out of 5000000
+ 34391 multiletter control sequences out of 15000+600000
  608876 words of font info for 130 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 87i,14n,93p,2016b,477s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,2016b,495s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-debias.pdf (5 pages).
+Output written on rsos-debias.pdf (6 pages).
