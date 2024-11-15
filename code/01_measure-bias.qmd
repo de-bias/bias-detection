@@ -137,6 +137,20 @@ formatted_labels <- sapply(1:(length(jenks_breaks) - 1), function(i) {
          sprintf("%.1f", jenks_breaks[i + 1]), ")")
 })
 
+
+# Perform the Pearson correlation test, removing NA values
+correlation_test <- cor.test(df_bias$pop, df_bias$pop_dfd, use = "complete.obs", method = "pearson")
+correlation_coefficient <- round(correlation_test$estimate, 2)
+p_value <- correlation_test$p.value
+p_annotation <- ifelse(p_value < 0.05, "p < 0.05", paste("p =", round(p_value, 2)))
+annotation <- data.frame(
+   x = c(max(df_bias$pop*0.95, na.rm = TRUE), 
+         max(df_bias$pop*0.95, na.rm = TRUE)),
+   y = c(max(df_bias$pop_dfd *0.5, na.rm = TRUE), 
+         max(df_bias$pop_dfd *0.4, na.rm = TRUE)),
+   label = c(paste0("r = ", correlation_coefficient), p_annotation)
+)
+
 # Create the plot
 ggplot(df_bias, aes(x = pop, y = pop_dfd, color = jenks_bins)) +
   geom_point(size = 5, alpha = 0.6, stroke = 0.7) +
@@ -148,6 +162,12 @@ ggplot(df_bias, aes(x = pop, y = pop_dfd, color = jenks_bins)) +
     x = "Population",
     y = "Population (DFD)"
   ) +
+  geom_text(data=annotation, aes(x=x, y=y, label=label),                 , 
+           color="black", 
+           size=15, 
+           angle=0, 
+           fontface="bold",
+           family = "robotocondensed") +
   theme_plot_tufte() +
   theme(axis.title.x = element_text(size = 60),  # Set font size for X-axis title
     axis.title.y = element_text(size = 60),   # Set font size for Y-axis title
@@ -156,7 +176,6 @@ ggplot(df_bias, aes(x = pop, y = pop_dfd, color = jenks_bins)) +
     legend.position = "none",
     plot.margin = unit(c(1, 2, 1, 1), "lines")
     )
-
 
 if (dfd == "twitter") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/scatter/twitter_lad.png"), bg="white")
@@ -170,6 +189,8 @@ if (dfd == "twitter") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_month.png"), bg="white")
   }
 ```
+
+
 
 ## Histogram bias
 
