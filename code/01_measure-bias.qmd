@@ -10,14 +10,11 @@ library(sf)
 library(ggplot2)
 library(tmap)
 library(viridis)
-
+library(spdep)
 library(sysfonts)
 library(showtextdb)
-
 library(classInt)
-
 library(scales)
-
 library(forcats)
 ```
 
@@ -42,7 +39,7 @@ df_pop_census <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census20
 
 df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022.gpkg")) %>% select(LAD21CD, SHAPE) %>% rename("code" = "LAD21CD")
 
-df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_Dec_2021_EN_BFC_2022.gpkg")) %>% st_simplify(preserveTopology = FALSE, dTolerance = 5000)
+df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_Dec_2021_EN_BFC_2022.gpkg")) %>% st_simplify(preserveTopology = FALSE, dTolerance = 1000)
 
 df_boundaries_hex <- st_read(paste0(wd, "/data/inputs/geographies/hexboundaries/uk-local-authority-districts-2021.geojson")) %>% st_transform(st_crs(df_boundaries_up)) %>% rename("code" = "id")
 ```
@@ -62,7 +59,7 @@ This first line defines the data source to be analysed. We have five options:
 -   `fb_stt_census_month`
 
 ```{r}
-dfd <- "fb_stt_census_week"
+dfd <- "fb_stt_census_month"
 ```
 
 ```{r}
@@ -162,7 +159,7 @@ ggplot(df_bias, aes(x = pop, y = pop_dfd, color = jenks_bins)) +
     x = "Population",
     y = "Population (DFD)"
   ) +
-  geom_text(data=annotation, aes(x=x, y=y, label=label),                 , 
+  geom_text(data=annotation, aes(x=x, y=y, label=label),
            color="black", 
            size=15, 
            angle=0, 
@@ -189,8 +186,6 @@ if (dfd == "twitter") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_month.png"), bg="white")
   }
 ```
-
-
 
 ## Histogram bias
 
@@ -266,6 +261,71 @@ if (dfd == "twitter") {
   }
 ```
 
+# Spatial autocorrelation
+
+```{r}
+st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
+```
+
+## Spatial weights matrix
+
+```{r}
+# Compute standardised weights matrix based on boundaries for LADs
+st_bias_map <- st_bias_map #%>% st_simplify(preserveTopology = TRUE, dTolerance = 100)
+
+nb_q <- poly2nb(st_bias_map, queen = TRUE) 
+
+w_queen <- nb2listw(nb_q, style = "W", zero.policy = TRUE) 
+```
+
+## Spatial lag
+
+```{r}
+# Compute spatial lag
+bias_w <- lag.listw(w_queen, st_bias_map$bias, NAOK=TRUE)
+```
+
+```{r}
+# Find indices where `st_bias_map$bias` is NA
+na_indices <- which(is.na(st_bias_map$bias))
+
+# Replace `st_bias_map$bias` at these indices with corresponding values from `bias_w`
+st_bias_map$bias[na_indices] <- bias_w[na_indices]
+
+# Recompute spatial lag with no NAs
+bias_w <- lag.listw(w_queen, st_bias_map$bias, NAOK=TRUE)
+
+# Save spatial lag in additional column
+st_bias_map$bias_w <- bias_w
+```
+
+```{r}
+if (dfd == "twitter"){
+  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad_w.csv"))
+  } else if (dfd == "fb_tts_census_week") {
+  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/fb/census-week/populations/tts/active-population-bias/active_population_bias_lad_w.csv"))
+  } else if (dfd == "fb_tts_census_month") {
+  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad_w.csv"))
+  } else if (dfd == "fb_stt_census_week") {
+  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/fb/census-week/populations/stt/active-population-bias/active_population_bias_lad_w.csv"))
+  } else if (dfd == "fb_stt_census_month") {
+  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad_w.csv"))
+  }
+```
+
+
+## Moran's I
+
+```{r}
+# Moran's I Monte Carlo test
+result <- moran.mc(st_bias_map$bias, w_queen, nsim=1000, alternative="two.sided")
+
+# Extract Moran's I and p-value
+mI <- as.numeric(result$statistic)  # Moran's I statistic
+p_value_mI <- as.numeric(result$p.value)    # p-value
+```
+
+
 # Map bias
 
 ## England and Wales
@@ -274,7 +334,6 @@ if (dfd == "twitter") {
 
 ```{r}
 
-st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
 
 # Replace the specific entry with NA
 # st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
@@ -322,6 +381,18 @@ st_bias_map <- df_boundaries_hex %>%  filter(!grepl("^S", code))  %>% filter(!gr
 # Create a new factor based on Jenks breaks
 st_bias_map$jenks_bins <- cut(st_bias_map$map_bias, jenks_breaks, include.lowest = TRUE)
 
+p_annotation <- ifelse(p_value_mI < 0.05, "p < 0.05", paste("p =", round(p_value_mI, 2)))
+bbox <- st_bbox(st_bias_map)  # Get the map's bounding box
+xmin <- bbox["xmin"]
+xmax <- bbox["xmax"]
+ymin <- bbox["ymin"]
+ymax <- bbox["ymax"]
+annotation <- data.frame(
+   x = c(xmin + 0.1*(xmax-xmin), xmin + 0.1*(xmax-xmin)),
+   y = c(ymin + 0.85*(ymax-ymin), ymin + 0.78*(ymax-ymin)),
+   label = c(paste0("I = ", round(mI,2)), p_annotation)
+)
+
 ggplot(data = st_bias_map) +
   geom_sf(aes(fill = jenks_bins)) +
   scale_fill_viridis_d(name = "Size of bias",
@@ -329,11 +400,20 @@ ggplot(data = st_bias_map) +
     na.translate = FALSE,
     na.value = "gray") +  # Set color for NA values
     labs(title = " ") +
+    geom_text(data=annotation, aes(x=x, y=y, label=label),
+           color="black",
+           size=11,
+           angle=0,
+           fontface="bold",
+           family = "robotocondensed") +
     theme_map_tufte() +
     theme(
-      legend.text = element_text(size = 60),
-      legend.title = element_text(size = 60),
-      legend.position = "right"
+      legend.text = element_text(size = 40),
+      legend.title = element_text(size = 40),
+      legend.position = "right",
+      axis.title = element_blank(),        # Remove axis titles
+      axis.text = element_blank(),         # Remove axis text
+      axis.ticks = element_blank()         # Remove axis ticks
       )
 
 if (dfd == "twitter") {
