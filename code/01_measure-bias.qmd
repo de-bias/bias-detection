@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+# Import libraries 
+
 ```{r}
 library(dplyr)
 library(sf)
@@ -16,6 +18,7 @@ library(showtextdb)
 library(classInt)
 library(scales)
 library(forcats)
+library(spgwr)
 ```
 
 # Set themes
@@ -23,6 +26,16 @@ library(forcats)
 ```{r}
 #| include = FALSE
 source("./style/data-visualisation_theme.R")
+```
+
+# Set parameters
+
+```{r}
+# Set digital trace data source: twitter, fb_tts_census_week, fb_tts_census_month, fb_stt_census_week, fb_stt_census_month
+dfd <- "fb_stt_census_month"
+
+# Set weights scheme: queen, fbw, knn, db
+w_scheme <- 'db'
 ```
 
 # Data import
@@ -44,6 +57,9 @@ df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_
 df_boundaries_hex <- st_read(paste0(wd, "/data/inputs/geographies/hexboundaries/uk-local-authority-districts-2021.geojson")) %>% st_transform(st_crs(df_boundaries_up)) %>% rename("code" = "id")
 ```
 
+
+
+
 ## Digital trace data
 
 This first line defines the data source to be analysed. We have five options:
@@ -58,9 +74,6 @@ This first line defines the data source to be analysed. We have five options:
 
 -   `fb_stt_census_month`
 
-```{r}
-dfd <- "fb_stt_census_month"
-```
 
 ```{r}
 if (dfd == "twitter") {
@@ -108,6 +121,8 @@ if (dfd == "twitter"){
 
 ```
 
+## Scatter plot
+
 ```{r}
 
 # Compute the breaks using Jenks natural breaks
@@ -141,9 +156,9 @@ correlation_coefficient <- round(correlation_test$estimate, 2)
 p_value <- correlation_test$p.value
 p_annotation <- ifelse(p_value < 0.05, "p < 0.05", paste("p =", round(p_value, 2)))
 annotation <- data.frame(
-   x = c(max(df_bias$pop*0.95, na.rm = TRUE), 
-         max(df_bias$pop*0.95, na.rm = TRUE)),
-   y = c(max(df_bias$pop_dfd *0.5, na.rm = TRUE), 
+   x = c(max(df_bias$pop*0.88, na.rm = TRUE), 
+         max(df_bias$pop*0.88, na.rm = TRUE)),
+   y = c(max(df_bias$pop_dfd *0.53, na.rm = TRUE), 
          max(df_bias$pop_dfd *0.4, na.rm = TRUE)),
    label = c(paste0("r = ", correlation_coefficient), p_annotation)
 )
@@ -157,14 +172,16 @@ ggplot(df_bias, aes(x = pop, y = pop_dfd, color = jenks_bins)) +
   ) +
   labs(
     x = "Population",
-    y = "Population (DFD)"
+    y = "Population DT"
   ) +
   geom_text(data=annotation, aes(x=x, y=y, label=label),
            color="black", 
-           size=15, 
+           size=25, 
            angle=0, 
            fontface="bold",
            family = "robotocondensed") +
+  scale_x_continuous(labels = label_number(scale = 0.001, suffix = " k")) +
+  scale_y_continuous(labels = label_number(scale = 0.001, suffix = " k")) +
   theme_plot_tufte() +
   theme(axis.title.x = element_text(size = 60),  # Set font size for X-axis title
     axis.title.y = element_text(size = 60),   # Set font size for Y-axis title
@@ -242,8 +259,8 @@ ggplot(hist_data, aes(x = value, fill = jenks_bins)) +
     legend.text = element_text(size = 60),       # Increase legend text size
     legend.title = element_text(size = 60),      # Increase legend title size
     legend.position = "right",                     # Optional: adjust legend position
-    axis.title.x = element_text(size = 60),  # Set font size for X-axis title
-    axis.title.y = element_text(size = 60),   # Set font size for Y-axis title
+    axis.title.x = element_text(size = 63),  # Set font size for X-axis title
+    axis.title.y = element_text(size = 63),   # Set font size for Y-axis title
     axis.text.x = element_text(size = 50),     # Font size for X-axis ticks
     axis.text.y = element_text(size = 50)      # Font size for Y-axis ticks
   )
@@ -267,7 +284,7 @@ if (dfd == "twitter") {
 st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
 ```
 
-## Spatial weights matrix
+## Imputing NA values with their spatial according to queen neighbours
 
 ```{r}
 # Compute standardised weights matrix based on boundaries for LADs
@@ -275,42 +292,161 @@ st_bias_map <- st_bias_map #%>% st_simplify(preserveTopology = TRUE, dTolerance 
 
 nb_q <- poly2nb(st_bias_map, queen = TRUE) 
 
-w_queen <- nb2listw(nb_q, style = "W", zero.policy = TRUE) 
-```
+w_matrix <- nb2listw(nb_q, style = "W", zero.policy = TRUE) 
 
-## Spatial lag
-
-```{r}
 # Compute spatial lag
-bias_w <- lag.listw(w_queen, st_bias_map$bias, NAOK=TRUE)
-```
+bias_w <- lag.listw(w_matrix, st_bias_map$bias, NAOK=TRUE)
+map_bias_w <- lag.listw(w_matrix, st_bias_map$map_bias, NAOK=TRUE)
 
-```{r}
 # Find indices where `st_bias_map$bias` is NA
 na_indices <- which(is.na(st_bias_map$bias))
 
 # Replace `st_bias_map$bias` at these indices with corresponding values from `bias_w`
 st_bias_map$bias[na_indices] <- bias_w[na_indices]
-
-# Recompute spatial lag with no NAs
-bias_w <- lag.listw(w_queen, st_bias_map$bias, NAOK=TRUE)
-
-# Save spatial lag in additional column
-st_bias_map$bias_w <- bias_w
+st_bias_map$map_bias[na_indices] <- map_bias_w[na_indices]
 ```
+
+## Spatial weights matrix
+
+Choose between:
+
+-   `'queen'` (queen neighbourhood)
+
+-   `'fbw'` (fixed band-width, weights as 1/d)
+
+-   `'knn'` (k nearest-neighbours, weights as 1/d)
+
+-   `'db'` (distance band, weights as 1/d)
+
+### Option 1: `queen`
+
+```{r}
+if (w_scheme == 'queen'){
+  if ("bias_w" %in% colnames(st_bias_map)) {
+    st_bias_map <- st_bias_map[, !names(st_bias_map) %in% "bias_w"]
+  }
+  suffix <- '_w_queen'
+  # Compute spatial lag
+  bias_w <- lag.listw(w_matrix, st_bias_map$bias, NAOK=TRUE)
+  # Save spatial lag in additional column
+  st_bias_map$bias_w <- bias_w
+}
+```
+
+
+### Option 2: finding optimal fixed band width using `gwr.sel()` function from  `spgwr` package
+
+```{r}
+
+if (w_scheme == 'fbw'){
+  if ("bias_w" %in% colnames(st_bias_map)) {
+    st_bias_map <- st_bias_map[, !names(st_bias_map) %in% "bias_w"]
+  }
+  suffix <- '_w_fbw'
+  coords <- st_coordinates(st_centroid(st_bias_map))
+  # find optimal kernel bandwidth using cross validation
+  fbw <- gwr.sel(map_bias ~ 1, 
+                 data = st_bias_map, 
+                 coords=cbind( coords[, "X"], coords[, "Y"]),
+                 longlat = TRUE,
+                 adapt = FALSE, 
+                 gweight = gwr.Gauss, 
+                 verbose = FALSE)
+  # Create a distance-based neighbors list with a minimum distance of 0 and maximum distance given by fbw
+  nb_d <- dnearneigh(st_coordinates(st_centroid(st_bias_map)), d1=0, d2=fbw)
+  # Create a row-standardised spatial weights matrix using distance-based neighbors
+  w_matrix <- nb2listw(nb_d, style = "W", zero.policy=TRUE)
+  # WARNING!!!!! This weights matrix leaves too many observations disconnected. Below we print the percentage of observations with no neighbors:
+  # Find the number of observations with zero neighbors
+  zero_neighbors_count <- sum(unlist(lapply(w_matrix$weights, length)) == 0)
+  zero_neighbors_count/nrow(st_bias_map)*100
+  # Compute spatial lag
+  bias_w <- lag.listw(w_matrix, st_bias_map$bias, NAOK=TRUE)
+  # Save spatial lag in additional column
+  st_bias_map$bias_w <- bias_w
+}
+```
+
+Too many.
+
+### Option 3: neighbourhoods based on k-nearest neighbours, weights as inverse of distance
+
+```{r}
+
+if (w_scheme == 'knn'){
+  if ("bias_w" %in% colnames(st_bias_map)) {
+    st_bias_map <- st_bias_map[, !names(st_bias_map) %in% "bias_w"]
+  }
+  suffix <- '_w_knn'
+  # Extract the coordinates of the centroids (or your points)
+  coords <- st_coordinates(st_centroid(st_bias_map))
+  # Create k-Nearest Neighbors list with k = 10 (using centroids of a spatial object)
+  nb_knn <- knearneigh(coords, k = 10)
+  # Create weights matrix with equal weights
+  w_knn <- knn2nb(nb_knn)
+  # Compute distances from observation to neighbours
+  k.distances <- nbdists(w_knn, coords)
+  # Use these distances as weights
+  invd2a <- lapply(k.distances, function(x) (1/(x/100)))
+  # Create weights matrix with weights as 1/d, normalised
+  w_matrix <- nb2listw(w_knn, glist = invd2a, style = "W")
+  # Compute spatial lag
+  bias_w <- lag.listw(w_matrix, st_bias_map$bias, NAOK=TRUE)
+  # Save spatial lag in additional column
+  st_bias_map$bias_w <- bias_w
+}  
+
+```
+
+### Option 4: neighbourhoods based on distance band (set by user, unlike fbw which is "optimally" computed), weights as inverse of distance
+
+```{r}
+
+if (w_scheme == 'db'){
+  if ("bias_w" %in% colnames(st_bias_map)) {
+    st_bias_map <- st_bias_map[, !names(st_bias_map) %in% "bias_w"]
+  }
+  suffix <- '_w_db'
+  # Extract the coordinates of the centroids (or your points)
+  coords <- st_coordinates(st_centroid(st_bias_map))
+  # Compute distance band to ensure that all the observations have neighbours
+  k1 <- knn2nb(knearneigh(coords))
+  critical.threshold <- max(unlist(nbdists(k1, coords)))
+  # Compute lists of neighbours 
+  nb.dist.band <- dnearneigh(coords, 0, critical.threshold)
+  # Compute distances
+  distances <- nbdists(nb.dist.band, coords)
+  # Compute inverse distances
+  invd1a <- lapply(distances, function(x) (1/(x/100)))
+  # Compute spatial weights matrix, normalised
+  w_matrix <- nb2listw(nb.dist.band, glist = invd1a, style = "W", zero.policy=TRUE)
+  # Compute spatial lag
+  bias_w <- lag.listw(w_matrix, st_bias_map$bias, NAOK=TRUE)
+  # Save spatial lag in additional column
+  st_bias_map$bias_w <- bias_w
+}  
+```
+
+
+### Save data with spatial lag
 
 ```{r}
 if (dfd == "twitter"){
-  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad_w.csv"))
-  } else if (dfd == "fb_tts_census_week") {
-  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/fb/census-week/populations/tts/active-population-bias/active_population_bias_lad_w.csv"))
-  } else if (dfd == "fb_tts_census_month") {
-  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad_w.csv"))
-  } else if (dfd == "fb_stt_census_week") {
-  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/fb/census-week/populations/stt/active-population-bias/active_population_bias_lad_w.csv"))
-  } else if (dfd == "fb_stt_census_month") {
-  write.csv(st_drop_geometry(st_bias_map), paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad_w.csv"))
-  }
+  write.csv(st_drop_geometry(st_bias_map), 
+            paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad", suffix, ".csv"))
+} else if (dfd == "fb_tts_census_week") {
+  write.csv(st_drop_geometry(st_bias_map), 
+            paste0(wd, "/data/outputs/fb/census-week/populations/tts/active-population-bias/active_population_bias_lad", suffix, ".csv"))
+} else if (dfd == "fb_tts_census_month") {
+  write.csv(st_drop_geometry(st_bias_map), 
+            paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad", suffix, ".csv"))
+} else if (dfd == "fb_stt_census_week") {
+  write.csv(st_drop_geometry(st_bias_map), 
+            paste0(wd, "/data/outputs/fb/census-week/populations/stt/active-population-bias/active_population_bias_lad", suffix, ".csv"))
+} else if (dfd == "fb_stt_census_month") {
+  write.csv(st_drop_geometry(st_bias_map), 
+            paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad", suffix, ".csv"))
+}
 ```
 
 
@@ -318,13 +454,12 @@ if (dfd == "twitter"){
 
 ```{r}
 # Moran's I Monte Carlo test
-result <- moran.mc(st_bias_map$bias, w_queen, nsim=1000, alternative="two.sided")
+result <- moran.mc(st_bias_map$bias, w_matrix, nsim=1000, alternative="two.sided")
 
 # Extract Moran's I and p-value
 mI <- as.numeric(result$statistic)  # Moran's I statistic
 p_value_mI <- as.numeric(result$p.value)    # p-value
 ```
-
 
 # Map bias
 
@@ -333,40 +468,38 @@ p_value_mI <- as.numeric(result$p.value)    # p-value
 ### Static map
 
 ```{r}
-
-
-# Replace the specific entry with NA
-# st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
-
-# Create a new factor based on Jenks breaks
-st_bias_map$jenks_bins <- cut(st_bias_map$map_bias, jenks_breaks, include.lowest = TRUE)
-
-
-ggplot(data = st_bias_map) +
-  geom_sf(aes(fill = jenks_bins)) +
-  scale_fill_viridis_d(name = "Size of bias",
-    labels = formatted_labels,
-    na.translate = TRUE,
-    na.value = "gray") +  # Set color for NA values
-    labs(title = " ") +
-    theme_map_tufte() +
-    theme(
-      legend.text = element_text(size = 60),
-      legend.title = element_text(size = 60),
-      legend.position = "right"
-      )
-
-if (dfd == "twitter") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/map/twitter_lad.png"), bg="white")
-  } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_week.png"), bg="white")
-  } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_month.png"), bg="white")
-  } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_week.png"), bg="white")
-  } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_month.png"), bg="white")
-  }
+# # Replace the specific entry with NA
+# # st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
+# 
+# # Create a new factor based on Jenks breaks
+# st_bias_map$jenks_bins <- cut(st_bias_map$map_bias, jenks_breaks, include.lowest = TRUE)
+# 
+# 
+# ggplot(data = st_bias_map) +
+#   geom_sf(aes(fill = jenks_bins)) +
+#   scale_fill_viridis_d(name = "Size of bias",
+#     labels = formatted_labels,
+#     na.translate = TRUE,
+#     na.value = "gray") +  # Set color for NA values
+#     labs(title = " ") +
+#     theme_map_tufte() +
+#     theme(
+#       legend.text = element_text(size = 60),
+#       legend.title = element_text(size = 60),
+#       legend.position = "right"
+#       )
+# 
+# if (dfd == "twitter") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/map/twitter_lad.png"), bg="white")
+#   } else if (dfd == "fb_tts_census_week") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_week.png"), bg="white")
+#   } else if (dfd == "fb_tts_census_month") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_month.png"), bg="white")
+#   } else if (dfd == "fb_stt_census_week") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_week.png"), bg="white")
+#   } else if (dfd == "fb_stt_census_month") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_month.png"), bg="white")
+#   }
 ```
 
 ### Hexagons
@@ -389,7 +522,7 @@ ymin <- bbox["ymin"]
 ymax <- bbox["ymax"]
 annotation <- data.frame(
    x = c(xmin + 0.1*(xmax-xmin), xmin + 0.1*(xmax-xmin)),
-   y = c(ymin + 0.85*(ymax-ymin), ymin + 0.78*(ymax-ymin)),
+   y = c(ymin + 0.85*(ymax-ymin), ymin + 0.75*(ymax-ymin)),
    label = c(paste0("I = ", round(mI,2)), p_annotation)
 )
 
@@ -402,14 +535,14 @@ ggplot(data = st_bias_map) +
     labs(title = " ") +
     geom_text(data=annotation, aes(x=x, y=y, label=label),
            color="black",
-           size=11,
+           size=23,
            angle=0,
            fontface="bold",
            family = "robotocondensed") +
     theme_map_tufte() +
     theme(
-      legend.text = element_text(size = 40),
-      legend.title = element_text(size = 40),
+      legend.text = element_text(size = 55),
+      legend.title = element_text(size = 55),
       legend.position = "right",
       axis.title = element_blank(),        # Remove axis titles
       axis.text = element_blank(),         # Remove axis text
@@ -417,15 +550,15 @@ ggplot(data = st_bias_map) +
       )
 
 if (dfd == "twitter") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/map/twitter_lad_hex.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/map/twitter_lad_hex", suffix, ".png"), bg="white") 
   } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_week_hex.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_week_hex", suffix, ".png"), bg="white") 
   } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_month_hex.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_census_month_hex", suffix, ".png"), bg="white") 
   } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_week_hex.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_week_hex", suffix, ".png"), bg="white") 
   } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_month_hex.png"), bg="white")
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_month_hex", suffix, ".png"), bg="white") 
   }
 ```
 
@@ -433,35 +566,35 @@ if (dfd == "twitter") {
 
 ```{r}
 
-st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
-
-# Replace the specific entry with NA
-# st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
-
-# Create a new factor based on Jenks breaks
-st_bias_map$jenks_bins <- cut(st_bias_map$map_bias, jenks_breaks, include.lowest = TRUE)
-
-tmap_mode("view") # enable interactivity
-interactive_map <- tm_shape(st_bias_map) + # input data
-    tm_borders() +
-    tm_fill("jenks_bins", # draw and fill polygons
-          palette = "viridis",
-          title = "Size of bias",
-          id="name")
-
-if (dfd == "twitter"){
-  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/twitter/size-bias/interactive/twitter_lad.html"))
-  } else if (dfd == "fb_tts_census_week") {
-  tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_census_week.html"))
-  } else if (dfd == "fb_tts_census_month") {
-  tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_census_month.html"))
-  } else if (dfd == "fb_stt_census_week") {
-  tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_census_week.html"))
-  } else if (dfd == "fb_stt_census_month") {
-  tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_census_month.html"))
-  }
-
-interactive_map
+# st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
+# 
+# # Replace the specific entry with NA
+# # st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
+# 
+# # Create a new factor based on Jenks breaks
+# st_bias_map$jenks_bins <- cut(st_bias_map$map_bias, jenks_breaks, include.lowest = TRUE)
+# 
+# tmap_mode("view") # enable interactivity
+# interactive_map <- tm_shape(st_bias_map) + # input data
+#     tm_borders() +
+#     tm_fill("jenks_bins", # draw and fill polygons
+#           palette = "viridis",
+#           title = "Size of bias",
+#           id="name")
+# 
+# if (dfd == "twitter"){
+#   tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/twitter/size-bias/interactive/twitter_lad.html"))
+#   } else if (dfd == "fb_tts_census_week") {
+#   tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_census_week.html"))
+#   } else if (dfd == "fb_tts_census_month") {
+#   tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_census_month.html"))
+#   } else if (dfd == "fb_stt_census_week") {
+#   tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_census_week.html"))
+#   } else if (dfd == "fb_stt_census_month") {
+#   tmap_save(interactive, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_census_month.html"))
+#   }
+# 
+# interactive_map
 ```
 
 ## London
@@ -469,59 +602,59 @@ interactive_map
 ### Static map
 
 ```{r}
-
-st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(grepl("^E09", code)) 
-
-st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
-
-st_bias_map$jenks <- cut(st_bias_map$map_bias, breaks$brks, include.lowest = TRUE)
-
-ggplot(data = st_bias_map) +
-  geom_sf(aes(fill = jenks)) +
-  scale_fill_viridis_d(name = "Size of bias") +  # Adjust color palette
-  labs(title = " ") +
-  theme_map() +
-  theme(
-    legend.text = element_text(size = 24),       # Increase legend text size
-    legend.title = element_text(size = 30),      # Increase legend title size
-    legend.position = "right"                    # Optional: adjust legend position
-  )
-
-if (dfd == "twitter"){
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/map/twitter_lad_london.png"), bg="white")
-  } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_london_census_week.png"), bg="white")
-  } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_london_census_month.png"), bg="white")
-  } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_london_census_week.png"), bg="white")
-  } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_london_census_month.png"), bg="white")
-  }
+# 
+# st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(grepl("^E09", code)) 
+# 
+# st_bias_map[st_bias_map$code == "E09000001", "map_bias"] <- NA
+# 
+# st_bias_map$jenks <- cut(st_bias_map$map_bias, breaks$brks, include.lowest = TRUE)
+# 
+# ggplot(data = st_bias_map) +
+#   geom_sf(aes(fill = jenks)) +
+#   scale_fill_viridis_d(name = "Size of bias") +  # Adjust color palette
+#   labs(title = " ") +
+#   theme_map() +
+#   theme(
+#     legend.text = element_text(size = 24),       # Increase legend text size
+#     legend.title = element_text(size = 30),      # Increase legend title size
+#     legend.position = "right"                    # Optional: adjust legend position
+#   )
+# 
+# if (dfd == "twitter"){
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/map/twitter_lad_london.png"), bg="white")
+#   } else if (dfd == "fb_tts_census_week") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_london_census_week.png"), bg="white")
+#   } else if (dfd == "fb_tts_census_month") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/map/fb_tts_lad_london_census_month.png"), bg="white")
+#   } else if (dfd == "fb_stt_census_week") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_london_census_week.png"), bg="white")
+#   } else if (dfd == "fb_stt_census_month") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_london_census_month.png"), bg="white")
+#   }
 ```
 
 ### Interactive map
 
 ```{r}
-tmap_mode("view") # enable interactivity
-interactive_map <- tm_shape(st_bias_map) + # input data
-    tm_borders() +
-    tm_fill("map_bias", # draw and fill polygons
-          palette = "viridis",
-          title = "Size of bias",
-          id="name")
-
-if (dfd == "twitter"){
-  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/twitter/size-bias/interactive/twitter_lad_london.html"))
-  } else if (dfd == "fb_tts_census_week") {
-  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_london_census_week.html"))
-  } else if (dfd == "fb_tts_census_month") {
-  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_london_census_month.html"))
-  } else if (dfd == "fb_stt_census_week") {
-  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_london_census_week.html"))
-  } else if (dfd == "fb_stt_census_month") {
-  tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_london_census_month.html"))
-  }
-
-interactive_map
+# tmap_mode("view") # enable interactivity
+# interactive_map <- tm_shape(st_bias_map) + # input data
+#     tm_borders() +
+#     tm_fill("map_bias", # draw and fill polygons
+#           palette = "viridis",
+#           title = "Size of bias",
+#           id="name")
+# 
+# if (dfd == "twitter"){
+#   tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/twitter/size-bias/interactive/twitter_lad_london.html"))
+#   } else if (dfd == "fb_tts_census_week") {
+#   tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_london_census_week.html"))
+#   } else if (dfd == "fb_tts_census_month") {
+#   tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_tts/size-bias/interactive/fb_tts_lad_london_census_month.html"))
+#   } else if (dfd == "fb_stt_census_week") {
+#   tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_london_census_week.html"))
+#   } else if (dfd == "fb_stt_census_month") {
+#   tmap_save(interactive_map, paste0(wd, "/bias-detection/outputs/preliminary/fb_stt/size-bias/interactive/fb_stt_lad_london_census_month.html"))
+#   }
+# 
+# interactive_map
 ```
