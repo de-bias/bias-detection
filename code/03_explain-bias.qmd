@@ -36,6 +36,7 @@ library(foreach)
 library(patchwork)
 library(viridis)
 library(scales)
+library(tidyplots)
 ```
 
 # Set theme
@@ -59,7 +60,7 @@ This first line defines the data source to be analysed. We have three options:
 \- `fb_tts`
 
 ```{r}
-dfd <- "fb_stt"
+dfd <- "fb_tts"
 ```
 
 ```{r}
@@ -78,9 +79,9 @@ lda_sdf <- st_read("/Volumes/DEBIAS/data/inputs/geographies/boundaries/LAD_Dec_2
 if (dfd == "twitter") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
   } else if (dfd == "fb_tts") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-week/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-week/populations/stt/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   }
 ```
 
@@ -424,9 +425,9 @@ This may take a while so leave it running overnight!
 if (dfd == "twitter"){
   write_csv(hyper_grid, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_tts") {
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-week/populations/tts/explain-bias/hypergrid_lad.csv"))
+  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_stt") {
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-week/populations/stt/explain-bias/hypergrid_lad.csv"))
+  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))
   }
 
 ```
@@ -440,9 +441,9 @@ Selecting optimal parameters
 if (dfd == "twitter"){
   hyper_grid <- read_csv(paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_tts") {
-  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-week/populations/tts/explain-bias/hypergrid_lad.csv"))
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_stt") {
-  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-week/populations/stt/explain-bias/hypergrid_lad.csv"))  
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))  
   }
 
 optimal_pars <- hyper_grid %>% 
@@ -481,9 +482,9 @@ Save optimal model
 if (dfd == "twitter"){
   saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/xgb-fit-final-lad.rds"))
   } else if (dfd == "fb_tts") {
-  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-week/populations/tts/explain-bias/xgb-fit-final-lad.rds"))
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/xgb-fit-final-lad.rds"))
   } else if (dfd == "fb_stt") {
-  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-week/populations/stt/explain-bias/xgb-fit-final-lad.rds"))
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/xgb-fit-final-lad.rds"))
   }
 ```
 
