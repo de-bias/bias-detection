@@ -120,9 +120,11 @@ Efforts have been made to correct these biases through two general approaches. A
 
 ## Data
 
-Facebook
+### Facebook
 
-Twitter
+### Twitter
+
+### Other
 
 ## Methods
 
@@ -130,27 +132,24 @@ In this section, we present our proposed methodology, which has two primary aims
 
 The methodology unfolds in two interconnected stages, each corresponding to our aims. In the first stage, we develop a statistical indicator to quantify the magnitude of bias in each subnational area. This step is crucial for establishing a baseline understanding of bias levels, allowing us to pinpoint regions with significant underrepresentation. In the second stage, we analyse the association of these biases with demographic, socioeconomic, and geographic attributes at the area level. This analysis yields insights into the underlying characteristics contributing to disparities in the level of bias across areas, thereby addressing our second methodological aim.
 
-### Bias indicator
+### Measuring bias
 
-First, we define a metric to quantify the magnitude of bias in each subnational area. We will do this by estimating the extent of population coverage of the digital technology used to collect the DFD (e.g. Facebook app). This will be computed as the ratio of the user population of the digital technology ($P_i^D$) to the total local population of an area ($P_i$). Formally, the coverage $c_i$ is given by:
+We define a metric to quantify the magnitude of bias in each subnational area. We do this by estimating the extent of population coverage of the digital technology used to collect the DFD (e.g. Facebook app). This is computed as the ratio of the user population of the digital technology ($P_i^D$) to the total local population of an area ($P_i$). Formally, the coverage $c_i$ is given by:
 \begin{equation}
-c_i = \dfrac{P_i^D}{P_i},
+c_i = \dfrac{P_i^D}{P_i} \times 100,
 \end{equation}
-where $𝐷$ identifies a given digital technology, and $i$ denotes each subnational area. The
-ratio is assumed to take values between $0$ and $1$, with the latter representing full population coverage.
-The ratio can only take values greater than $1$ if users have multiple accounts exceeding the total local
-population of an area. 
+where $D$ identifies a given digital technology, and $i$ denotes each subnational area. The ratio is assumed to take values between $0$ and $100$, with the latter representing full population coverage. The ratio can only take values greater than $1$ if users have multiple accounts exceeding the total local population of an area. 
 
 We then define the size of bias $e_i$ as:
 \begin{equation}
-e_i = 1 - c_i
+e_i = 100 - c_i
 \end{equation}
-in which case, $e_i = 0$ will indicate full population coverage or no bias. We will use this indicator to examine the magnitude and spatial distribution of DFD bias.
+in which case, $e_i = 0$ will indicate full population coverage or no bias. We will use this indicator to examine the magnitude and spatial distribution of bias in multiple sources of digital trace data.
 
 
-### Machine learning
+### Assessing the driving factors of bias
 
-Second, we will seek to understand how DF coverage biases are associated with area-level
+We seek to understand the association between the size of bias and area-level
 demographic and socioeconomic attributes. To what extent different demographic and socioeconomic
 groups are represented in DFD? And how do these vary geographically and across digital platform?
 We will assess these questions by measuring the area-level association between our coverage
