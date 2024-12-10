@@ -60,7 +60,7 @@ This first line defines the data source to be analysed. We have three options:
 \- `fb_tts`
 
 ```{r}
-dfd <- "fb_tts"
+dfd <- "fb_stt"
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -93,13 +93,13 @@ if (dfd == "twitter") {
   } else if (dfd == "fb_tts") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad_w_db.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad_w_db.csvv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad_w_db.csv")) %>% rename("geography.code" = "code")
   }
 
 # add spatial weights to the label data frame if they are included 
 if ("bias_w" %in% names(df_bias)) {
   df_var_lbl[46, ] <- list("bias_w", "spatial_lag_bias", "Spatial Lag", 
-                      "spatial_lag_bias", "spatial_lag_bias", "spatial_lag_bias")
+                      "spatial_lag_bias", "spatial_lag_bias", "bias_w")
 }
 ```
 
@@ -514,7 +514,58 @@ if (dfd == "twitter"){
   }
 ```
 
+Extract parameters used for the final model
+
+```{r}
+
+write_csv(optimal_pars[1, ], paste0("../outputs/preliminary/",dfd,"/explain-bias/optimal_parameters.csv"))
+```
+
 # Visualising
+
+## Model performance
+
+```{r}
+# Training sample
+## predicted flow
+aux_train_sample <- setNames(train_sample[ ,3:45], xgb.fit.final$feature_names)
+train_sample$bias_prediction <- predict(xgb.fit.final, as.matrix(aux_train_sample))
+## compute rmse (or rmsd)
+train_sample_rmse <- sqrt( sum( (train_sample$bias - train_sample$bias_prediction)^2 ) / ncol(train_sample) )
+## pearson correlation
+train_sample_pearson_cor <- cor(train_sample$bias, train_sample$bias_prediction, method = "pearson")
+## spearman correlation
+train_sample_spearman_cor <- cor(train_sample$bias, train_sample$bias_prediction, method = "spearman")
+## standard deviation
+train_sample_sd_error <- sd(train_sample$bias - train_sample$bias_prediction)
+
+# Test sample
+## predicted flow
+aux_test_sample <- setNames(test_sample[ ,3:45], xgb.fit.final$feature_names)
+test_sample$bias_prediction <- predict(xgb.fit.final, as.matrix(aux_test_sample))
+## compute rmse (or rmsd)
+test_sample_rmse <- sqrt( sum( (test_sample$bias - test_sample$bias_prediction)^2 ) / ncol(test_sample) )
+## pearson correlation
+test_sample_pearson_cor <- cor(test_sample$bias, test_sample$bias_prediction, method = "pearson")
+## spearman correlation
+test_sample_spearman_cor <- cor(test_sample$bias, test_sample$bias_prediction, method = "spearman")
+## standard deviation
+test_sample_sd_error <- sd(test_sample$bias - test_sample$bias_prediction)
+```
+
+```{r}
+train_sample_metrics <- c(train_sample_rmse, train_sample_pearson_cor, train_sample_spearman_cor, train_sample_sd_error) %>% 
+  round(3)
+test_sample_metrics <- c(test_sample_rmse, test_sample_pearson_cor, test_sample_spearman_cor, test_sample_sd_error) %>% 
+  round(3)
+metric <- c("rmse", "pearson", "spearman", "standard_dev")
+data_source <- rep(dfd, each = length(test_sample_metrics))
+summary_table <- data.frame(metric, train_sample_metrics, test_sample_metrics, data_source) 
+names(summary_table) <- c("metric", "train", "test", "data_source")
+summary_table
+
+write_csv(summary_table, paste0("../outputs/preliminary/",dfd,"/explain-bias/model-performance.csv"))
+```
 
 ## Variable importance
 
@@ -554,9 +605,9 @@ left_join(importance_matrix, df_var_lbl, join_by( Feature == var_label0)) %>%
 ```
 
 ```{r}
-png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance.png"), units="in", width=8, height=10, res=300)
-  last_plot()
-dev.off()
+# png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance.png"), units="in", width=8, height=10, res=300)
+#   last_plot()
+# dev.off()
 ```
 
 ## SHAP
@@ -576,58 +627,59 @@ shap_values <- shap.values(xgb_model = xgb.fit.final, X_train = features_train)
 shp <- shapviz(xgb.fit.final, X_pred = features_train, X = features_train)
 ```
 
-SHAP plots
+**SHAP plots**
+
+Bar plot - importance
 
 ```{r}
-
-#sv_importance(shp, show_numbers = TRUE)
-feature_lbl <- sv_importance(shp, kind = "bee") %>% 
+feature_lbl <- sv_importance(shp, kind = "bee", 
+                             max_display = 30L) %>% 
   .$data %>% 
   distinct(.$feature) %>% 
   rename(labels = ".$feature") %>% 
   left_join(., df_var_lbl, join_by(labels == var_label0))
 
-sv_importance(shp, kind = "bee", viridis_args = list(option = "viridis") ) +
-  scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
-  theme_plot_tufte() 
-
-  
-```
-
-Bar plot - importance
-
-```{r}
 sv_importance(shp, kind = "bar", 
               viridis_args = list(option = "viridis"),
-              max_display = 15L) +
+              max_display = 30L) +
   scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
-  theme_plot_tufte() 
+  labs(
+    x = "Mean SHAP value",
+    y = "Features"
+  ) +
+  theme_plot_tufte() +
+  theme(axis.title = element_text(size = 26),
+        axis.text.y = element_text(size = 20),
+        axis.text.x = element_text(size = 20))
 ```
 
 ```{r}
-# external importance scores for ordering from importance_matrix
-external_order_t15 <- as.data.frame(importance_matrix$Feature) %>% 
-  rename(selected_feature = "importance_matrix$Feature") %>% 
-  head(n=15)
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance.png"), units="in", width=8, height=10, res=300)
+  last_plot()
+dev.off()
+```
 
-#sv_importance(shp, show_numbers = TRUE)
-feature_lbl <- sv_importance(shp, kind = "bee", max_display = 30L) %>% 
+```{r}
+feature_lbl <- sv_importance(shp, kind = "bee", 
+                             max_display = 20L) %>% 
   .$data %>% 
   distinct(.$feature) %>% 
   rename(labels = ".$feature") %>% 
-  # left_join(., df_var_lbl, join_by(labels == var_label0)) %>% 
-  # left_join(external_order_t15, ., join_by(selected_feature == labels))
+  left_join(., df_var_lbl, join_by(labels == var_label0))
 
-sv_importance(shp, kind = "beeswarm", viridis_args = list(option = "viridis") ) +
-  scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
-  theme_plot_tufte() 
-
-
-sv_importance(shp, kind = "beeswarm", 
-              max_display = 15L,
+sv_importance(shp, 
+              kind = "bee", 
+              max_display = 20L,
               viridis_args = list(option = "viridis") ) +
-  scale_y_discrete(limits = external_order_t15$selected_feature) +
-  theme_plot_tufte() 
+  scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
+  theme_plot_tufte() +
+  theme(
+    axis.title = element_text(size = 26),
+    axis.text.y = element_text(size = 20),
+    axis.text.x = element_text(size = 20),
+    legend.title = element_text(size = 15),
+    legend.text = element_text(size = 15))
+  
 ```
 
 ### **How to interpret the plot above**
@@ -689,8 +741,9 @@ for (var in selected_variables) {
     labs(title = var, x = "Feature value", y = "Shape value") +
     theme_plot_tufte() +
     theme(
-    title = element_text(size = 14),
+    title = element_text(size = 16),
     legend.position = "none",
+    text = element_text(size = 15)
     # legend.key.width = unit(2.5, "cm"), 
     # legend.key.height = unit(0.4, "cm"),
     # legend.text = element_text(size = 12)
@@ -734,13 +787,14 @@ xgb.fit.final_all <- xgboost(
 
 ```{r}
 # Return the SHAP values and ranked features by mean|SHAP|
-shap_values_full <- shap.values(xgb_model = xgb.fit.final_all, X_train = as.matrix(input_df[, 4:ncol(input_df)-1]))
+shap_values_full <- shap.values(xgb_model = xgb.fit.final_all, 
+                                X_train = as.matrix(input_df[, 4:ncol(input_df)-1]))
 
 aux_full <- as.data.frame(shap_values_full$shap_score)
 
 input_df_with_shap_values <- cbind(input_df[,1:2], aux_full) %>% 
   pivot_longer(
-    cols = c(3:44),
+    cols = c(3:45),
     names_to = "feature",
     values_to = "shap_value"
   ) %>% 
@@ -792,8 +846,8 @@ input_df_with_shap_values %>%
     legend.position = "bottom",
     legend.title = element_text(size=10, face = "plain", hjust=0.5, lineheight=0.45,
           color="black"),
-    legend.key.width = unit(2, "cm"), 
-    legend.key.height = unit(0.4, "cm"),
+    legend.key.width = unit(0.9, "cm"), 
+    legend.key.height = unit(0.35, "cm"),
     legend.text = element_text(size = 8)
   )) %>% 
   add(ggplot2::labs(fill = "Shap value"))
