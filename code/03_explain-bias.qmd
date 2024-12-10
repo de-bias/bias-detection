@@ -63,6 +63,18 @@ This first line defines the data source to be analysed. We have three options:
 dfd <- "fb_tts"
 ```
 
+The next code chunk can be run using spatial weights and nonspatial weights options:
+
+-   distance band to contain at least one neighbour: `active_population_bias_lad_w_db.csv`
+
+-   fixed optimal distance band based on GWR cross-validation: `active_population_bias_lad_w_fbw.csv`
+
+-   k-nearest neighbour: `active_population_bias_lad_w_knn.csv`
+
+-   queen: `active_population_bias_lad_w_queen.csv`
+
+-   nonspatial: `active_population_bias_lad.csv`
+
 ```{r}
 # Read in data
 
@@ -77,12 +89,18 @@ lda_sdf <- st_read("/Volumes/DEBIAS/data/inputs/geographies/boundaries/LAD_Dec_2
 
 # digital footprint mobility data
 if (dfd == "twitter") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad_w_db.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
   } else if (dfd == "fb_tts") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad_w_db.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad_w_db.csvv")) %>% rename("geography.code" = "code")
   }
+
+# add spatial weights to the label data frame if they are included 
+if ("bias_w" %in% names(df_bias)) {
+  df_var_lbl[46, ] <- list("bias_w", "spatial_lag_bias", "Spatial Lag", 
+                      "spatial_lag_bias", "spatial_lag_bias", "spatial_lag_bias")
+}
 ```
 
 ## Data wrangling
@@ -120,6 +138,14 @@ centroids_with_ids <- centroids_with_ids %>%
 
 # join
 df_extended <- full_join(df, centroids_with_ids, by = join_by(geography.code == code) ) 
+```
+
+If spatial weights are included as a feature:
+
+```{r}
+if ("bias_w" %in% names(df_bias)) {
+  df_extended <- merge(df_extended, df_bias[, c("geography.code", "bias_w")], by = "geography.code")
+}
 ```
 
 ```{r}
@@ -528,7 +554,6 @@ left_join(importance_matrix, df_var_lbl, join_by( Feature == var_label0)) %>%
 ```
 
 ```{r}
-
 png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance.png"), units="in", width=8, height=10, res=300)
   last_plot()
 dev.off()
@@ -554,6 +579,7 @@ shp <- shapviz(xgb.fit.final, X_pred = features_train, X = features_train)
 SHAP plots
 
 ```{r}
+
 #sv_importance(shp, show_numbers = TRUE)
 feature_lbl <- sv_importance(shp, kind = "bee") %>% 
   .$data %>% 
@@ -566,6 +592,42 @@ sv_importance(shp, kind = "bee", viridis_args = list(option = "viridis") ) +
   theme_plot_tufte() 
 
   
+```
+
+Bar plot - importance
+
+```{r}
+sv_importance(shp, kind = "bar", 
+              viridis_args = list(option = "viridis"),
+              max_display = 15L) +
+  scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
+  theme_plot_tufte() 
+```
+
+```{r}
+# external importance scores for ordering from importance_matrix
+external_order_t15 <- as.data.frame(importance_matrix$Feature) %>% 
+  rename(selected_feature = "importance_matrix$Feature") %>% 
+  head(n=15)
+
+#sv_importance(shp, show_numbers = TRUE)
+feature_lbl <- sv_importance(shp, kind = "bee", max_display = 30L) %>% 
+  .$data %>% 
+  distinct(.$feature) %>% 
+  rename(labels = ".$feature") %>% 
+  # left_join(., df_var_lbl, join_by(labels == var_label0)) %>% 
+  # left_join(external_order_t15, ., join_by(selected_feature == labels))
+
+sv_importance(shp, kind = "beeswarm", viridis_args = list(option = "viridis") ) +
+  scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
+  theme_plot_tufte() 
+
+
+sv_importance(shp, kind = "beeswarm", 
+              max_display = 15L,
+              viridis_args = list(option = "viridis") ) +
+  scale_y_discrete(limits = external_order_t15$selected_feature) +
+  theme_plot_tufte() 
 ```
 
 ### **How to interpret the plot above**
@@ -738,7 +800,7 @@ input_df_with_shap_values %>%
 ```
 
 ```{r}
-png(paste0("../outputs/preliminary/",dfd,"/explain-bias/heatmap_xxldas.png"), units="in", width=8, height=10, res=300)
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/heatmap_xxldas.png"), units="in", width=8, height=10, res=300, bg = "transparent")
   last_plot()
 dev.off()
 ```
