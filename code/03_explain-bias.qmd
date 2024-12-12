@@ -89,11 +89,11 @@ lda_sdf <- st_read("/Volumes/DEBIAS/data/inputs/geographies/boundaries/LAD_Dec_2
 
 # digital footprint mobility data
 if (dfd == "twitter") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad_w_db.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
   } else if (dfd == "fb_tts") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad_w_db.csv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad_w_db.csv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   }
 
 # add spatial weights to the label data frame if they are included 
@@ -529,6 +529,8 @@ write_csv(optimal_pars[1, ], paste0("../outputs/preliminary/",dfd,"/explain-bias
 # Training sample
 ## predicted flow
 aux_train_sample <- setNames(train_sample[ ,3:45], xgb.fit.final$feature_names)
+aux_train_sample <- aux_train_sample[, !is.na(names(aux_train_sample))]
+  
 train_sample$bias_prediction <- predict(xgb.fit.final, as.matrix(aux_train_sample))
 ## compute rmse (or rmsd)
 train_sample_rmse <- sqrt( sum( (train_sample$bias - train_sample$bias_prediction)^2 ) / ncol(train_sample) )
@@ -542,6 +544,8 @@ train_sample_sd_error <- sd(train_sample$bias - train_sample$bias_prediction)
 # Test sample
 ## predicted flow
 aux_test_sample <- setNames(test_sample[ ,3:45], xgb.fit.final$feature_names)
+aux_test_sample <- aux_test_sample[, !is.na(names(aux_test_sample))]
+
 test_sample$bias_prediction <- predict(xgb.fit.final, as.matrix(aux_test_sample))
 ## compute rmse (or rmsd)
 test_sample_rmse <- sqrt( sum( (test_sample$bias - test_sample$bias_prediction)^2 ) / ncol(test_sample) )
@@ -794,7 +798,7 @@ aux_full <- as.data.frame(shap_values_full$shap_score)
 
 input_df_with_shap_values <- cbind(input_df[,1:2], aux_full) %>% 
   pivot_longer(
-    cols = c(3:45),
+    cols = c(3:length(.)),
     names_to = "feature",
     values_to = "shap_value"
   ) %>% 
