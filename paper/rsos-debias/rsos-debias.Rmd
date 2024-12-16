@@ -84,7 +84,7 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-# Introduction
+# Introduction (FR)
 
 <!-- CCA: PROPOSED PARAGRAPH STRUCTURE-->
 
@@ -118,7 +118,7 @@ Efforts have been made to correct these biases through two general approaches. A
 
 # Data and methods
 
-## Data
+## Data (CCA)
 
 ### Facebook
 
@@ -132,7 +132,7 @@ In this section, we present our proposed methodology, which has two primary aims
 
 The methodology unfolds in two interconnected stages, each corresponding to our aims. In the first stage, we develop a statistical indicator to quantify the magnitude of bias in each subnational area. This step is crucial for establishing a baseline understanding of bias levels, allowing us to pinpoint regions with significant underrepresentation. In the second stage, we analyse the association of these biases with demographic, socioeconomic, and geographic attributes at the area level. This analysis yields insights into the underlying characteristics contributing to disparities in the level of bias across areas, thereby addressing our second methodological aim.
 
-### Measuring bias
+### Measuring bias (CCA)
 
 We define a metric to quantify the magnitude of bias in each subnational area. We do this by estimating the extent of population coverage of the digital technology used to collect the DFD (e.g. Facebook app). This is computed as the ratio of the user population of the digital technology ($P_i^D$) to the total local population of an area ($P_i$). Formally, the coverage $c_i$ is given by:
 \begin{equation}
@@ -147,7 +147,7 @@ e_i = 100 - c_i
 in which case, $e_i = 0$ will indicate full population coverage or no bias. We will use this indicator to examine the magnitude and spatial distribution of bias in multiple sources of digital trace data.
 
 
-### Assessing the driving factors of bias
+### Assessing the driving factors of bias (FR)
 
 We seek to understand the association between the size of bias and area-level
 demographic and socioeconomic attributes. To what extent different demographic and socioeconomic
@@ -162,14 +162,14 @@ eXtreme Gradient Boosting (XGBoost) is an efficient and scalable implementation 
 
 # Results
 
-## Measuring the extent of biases
+## Most digital footprint data record larger observations (CCA)
 
-## Assessing the extent of biases in digital trace data
+## Wide geographic variations by data source but unrelated to population size (CCA)
 
-## Explaining biases
+## Explaining biases (FR)
 
-# Discussion
+# Discussion (FR)
 
-# Conclusion
+# Conclusion (CCA)
 
 # References
