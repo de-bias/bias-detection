@@ -89,7 +89,7 @@ lda_sdf <- st_read("/Volumes/DEBIAS/data/inputs/geographies/boundaries/LAD_Dec_2
 
 # digital footprint mobility data
 if (dfd == "twitter") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad_w_db.csv")) %>% rename("geography.code" = "code") 
+  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad_w_fbw.csv")) %>% rename("geography.code" = "code") 
 #  %>% dplyr::filter(name != "City of London")
   } else if (dfd == "fb_tts") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
