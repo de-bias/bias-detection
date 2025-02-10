@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-# Import libraries 
+# Import libraries
 
 ```{r}
 library(dplyr)
@@ -31,8 +31,8 @@ source("./style/data-visualisation_theme.R")
 # Set parameters
 
 ```{r}
-# Set digital trace data source: twitter, fb_tts_census_week, fb_tts_census_month, fb_stt_census_week, fb_stt_census_month
-dfd <- "fb_stt_census_month"
+# Set digital trace data source: twitter, fb_tts_census_week, fb_tts_census_month, fb_stt_census_week, fb_stt_census_month, multiapp
+dfd <- "multiapp"
 
 # Set weights scheme: queen, fbw, knn, db
 w_scheme <- 'db'
@@ -57,9 +57,6 @@ df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_
 df_boundaries_hex <- st_read(paste0(wd, "/data/inputs/geographies/hexboundaries/uk-local-authority-districts-2021.geojson")) %>% st_transform(st_crs(df_boundaries_up)) %>% rename("code" = "id")
 ```
 
-
-
-
 ## Digital trace data
 
 This first line defines the data source to be analysed. We have five options:
@@ -74,6 +71,7 @@ This first line defines the data source to be analysed. We have five options:
 
 -   `fb_stt_census_month`
 
+-   `multiapp`
 
 ```{r}
 if (dfd == "twitter") {
@@ -91,19 +89,24 @@ if (dfd == "twitter") {
   } else if (dfd == "fb_stt_census_month") {
   df_pop_dfd <- read.csv(paste0(wd, "/data/inputs/fb/census-month/stt/active_population.csv")) %>% 
   rename("name" = "LAD21NM")
+  } else if (dfd == "multiapp") {
+  df_pop_dfd <- st_read(paste0(wd, "/data/outputs/pw/home-locations/hex/home-location-count_lda.shp")) %>% 
+  rename("pop_dfd" = "hm_lct_") %>% st_drop_geometry() %>% as.data.frame()
   } 
-```
-
-```{r}
-sum(df_pop_dfd$pop_dfd)
 ```
 
 # Measure bias
 
 ```{r}
-df_bias <- df_pop_census %>% left_join(df_pop_dfd, by = "name")
+if (dfd == "multiapp") {
+  df_bias <- df_pop_census %>% left_join(df_pop_dfd, by = "code")
+} else {
+  df_bias <- df_pop_census %>% left_join(df_pop_dfd, by = "name")
+}
+
 df_bias$bias <- 1 - df_bias$pop_dfd/df_bias$pop
 df_bias$map_bias <- (1 - df_bias$pop_dfd/df_bias$pop)*100
+
 ```
 
 ```{r}
@@ -117,6 +120,8 @@ if (dfd == "twitter"){
   write.csv(df_bias, paste0(wd, "/data/outputs/fb/census-week/populations/stt/active-population-bias/active_population_bias_lad.csv"))
   } else if (dfd == "fb_stt_census_month") {
   write.csv(df_bias, paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv"))
+  } else if (dfd == "multiapp") {
+  write.csv(df_bias, paste0(wd, "/data/outputs/pw/census-month/populations/active-population-bias/active_population_bias_lad.csv"))
   }
 
 ```
@@ -201,6 +206,8 @@ if (dfd == "twitter") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_week.png"), bg="white")
   } else if (dfd == "fb_stt_census_month") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_month.png"), bg="white")
+  } else if (dfd == "multiapp") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/multiapp/size-bias/scatter/multiapp_lad_census_month.png"), bg="white")
   }
 ```
 
@@ -275,6 +282,8 @@ if (dfd == "twitter") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_week.png"), bg="white")
   } else if (dfd == "fb_stt_census_month") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_month.png"), bg="white")
+  } else if (dfd == "multiapp") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/multiapp/size-bias/histogram/multiapp_lad_census_month.png"), bg="white")
   }
 ```
 
@@ -284,7 +293,7 @@ if (dfd == "twitter") {
 st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
 ```
 
-## Imputing NA values with their spatial according to queen neighbours
+## Imputing NA values with their spatial lag according to queen neighbours
 
 ```{r}
 # Compute standardised weights matrix based on boundaries for LADs
@@ -333,8 +342,7 @@ if (w_scheme == 'queen'){
 }
 ```
 
-
-### Option 2: finding optimal fixed band width using `gwr.sel()` function from  `spgwr` package
+### Option 2: finding optimal fixed band width using `gwr.sel()` function from `spgwr` package
 
 ```{r}
 
@@ -427,7 +435,6 @@ if (w_scheme == 'db'){
 }  
 ```
 
-
 ### Save data with spatial lag
 
 ```{r}
@@ -446,9 +453,11 @@ if (dfd == "twitter"){
 } else if (dfd == "fb_stt_census_month") {
   write.csv(st_drop_geometry(st_bias_map), 
             paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad", suffix, ".csv"))
+} else if (dfd == "multiapp") {
+  write.csv(st_drop_geometry(st_bias_map), 
+            paste0(wd, "/data/outputs/pw/census-month/populations/active-population-bias/active_population_bias_lad", suffix, ".csv"))
 }
 ```
-
 
 ## Moran's I
 
@@ -559,6 +568,8 @@ if (dfd == "twitter") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_week_hex", suffix, ".png"), bg="white") 
   } else if (dfd == "fb_stt_census_month") {
   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/map/fb_stt_lad_census_month_hex", suffix, ".png"), bg="white") 
+  } else if (dfd == "multiapp") {
+  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/multiapp/size-bias/map/multiapp_lad_census_month_hex", suffix, ".png"), bg="white") 
   }
 ```
 
