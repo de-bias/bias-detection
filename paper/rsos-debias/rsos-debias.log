@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  10 FEB 2025 10:09
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.16)  13 FEB 2025 13:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -594,9 +594,9 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [2]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.6001pt on input line 107.
+(Font)              scaled to size 13.6001pt on input line 108.
 
-Underfull \hbox (badness 1515) in paragraph at lines 146--151
+Underfull \hbox (badness 1515) in paragraph at lines 147--152
 \T1/ppl/m/n/9 level rep-re-sen-ta-tion. They can only of-fer rough sig-nals about the spa-tial dis-tri-bu-tion of
  []
 
@@ -610,7 +610,7 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [3]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 198.
+(Font)              scaled to size 10.20007pt on input line 202.
 
 
 
@@ -623,24 +623,55 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [5]
 
-Package natbib Warning: Citation `friedman2001' on page 6 undefined on input line 342.
+Package natbib Warning: Citation `friedman2001' on page 6 undefined on input line 359.
 
 
-Package natbib Warning: Citation `friedman2000' on page 6 undefined on input line 342.
+Package natbib Warning: Citation `friedman2000' on page 6 undefined on input line 359.
 
-(./rsos-debias.bbl
+File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
+<figures/compare-surveys-two-axis.png>
+
+Overfull \hbox (41.75381pt too wide) in paragraph at lines 387--388
+[][] 
+ []
+
+
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [6]
-Missing character: There is no ś ("15B) in font pplr8t!
-) Setting LastPage
+File: figures/Fig-size-bias.png Graphic file (type bmp)
+<figures/Fig-size-bias.png>
+
+Overfull \hbox (6126.19429pt too wide) in paragraph at lines 408--409
+[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [7]
+Overfull \vbox (4620.6408pt too high) has occurred while \output is active []
+
+
+
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+[8] (./rsos-debias.bbl
+Missing character: There is no ś ("15B) in font pplr8t!
+) Setting LastPage
+
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+[9]
 
 Package natbib Warning: There were undefined citations.
 
@@ -654,15 +685,15 @@ LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.25pt have occurred.
 
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: B68DB1BB1B33E62864DFA4D16E161D87;3023.
+(rerunfilecheck)             Checksum: BFAB9174664520E23C540C72F139AA16;2657.
  ) 
 Here is how much of TeX's memory you used:
- 12019 strings out of 475903
- 183579 string characters out of 5774979
- 577647 words of memory out of 5000000
- 34615 multiletter control sequences out of 15000+600000
- 608267 words of font info for 130 fonts, out of 8000000 for 9000
+ 12039 strings out of 475903
+ 184182 string characters out of 5774978
+ 577189 words of memory out of 5000000
+ 34631 multiletter control sequences out of 15000+600000
+ 609198 words of font info for 131 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 87i,14n,93p,572b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,572b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-debias.pdf (7 pages).
+Output written on rsos-debias.pdf (9 pages).

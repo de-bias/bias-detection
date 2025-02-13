@@ -104,7 +104,8 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-\section{Introduction (FR)}\label{introduction-fr}
+\hypertarget{introduction-fr}{%
+\section{Introduction (FR)}\label{introduction-fr}}
 
 Technological advances in computational power, storage and digital
 network platforms have unleashed a data revolution producing large
@@ -191,11 +192,14 @@ biases in origin-destination mobility counts derived from DFs in the
 absence of demographic and socioeconomic information on users of digital
 platforms.
 
-\section{Data and methods}\label{data-and-methods}
+\hypertarget{data-and-methods}{%
+\section{Data and methods}\label{data-and-methods}}
 
-\subsection{Data (CCA)}\label{data-cca}
+\hypertarget{data-cca}{%
+\subsection{Data (CCA)}\label{data-cca}}
 
-\subsubsection{Facebook}\label{facebook}
+\hypertarget{facebook}{%
+\subsubsection{Facebook}\label{facebook}}
 
 We use anonymised aggregate location data from Facebook app users who
 have the location services setting turned on on their smartphone for the
@@ -235,7 +239,8 @@ compare the Facebook Population data with UK census data. To facilitate
 this comparison, we aggregate the data into administrative units,
 specifically UK Local Authority Districts (LADs).
 
-\subsubsection{Twitter}\label{twitter}
+\hypertarget{twitter}{%
+\subsubsection{Twitter}\label{twitter}}
 
 We use an anonymised, openly available, analysis-ready dataset of active
 Twitter users in the UK. The data is derived from X (previously Twitter)
@@ -259,7 +264,8 @@ Archive (\url{https://gis.harvard.edu/data}). Despite these limitations, we
 consider X data as it remains a key source of historical digital trace
 data.
 
-\subsubsection{Multi-app GPS data}\label{multi-app-gps-data}
+\hypertarget{multi-app-gps-data}{%
+\subsubsection{Multi-app GPS data}\label{multi-app-gps-data}}
 
 The data used in this study were sourced by a data analytics company
 that collects GPS location data from around 26\% of smartphones in the
@@ -273,58 +279,69 @@ close.
 
 We process the data to estimate users' place of residence by assuming
 that the residence of a device owner corresponds to the location with
-the highest number of GPS records during night hours (10 PM -- 7 AM). For
+the highest number of GPS records during night hours (11 PM -- 7 AM). For
 a location to be classified as a residence, it must account for more
 than 50\% of recorded nighttime locations and be visited at least twice.
 To ensure consistency in our analysis when comparing with other data
 sources, we aggregate these residence locations at the Local Authority
 District (LAD) level.
 
-\subsection{Methods}\label{methods}
+\hypertarget{methods}{%
+\subsection{Methods}\label{methods}}
 
-In this section, we present our proposed methodology, which has two
-primary aims: first, to quantify biases, and second, to identify the
-characteristics of local populations that increase their likelihood of
-being underrepresented in digital footprint data (DFD). This methodology
-serves as a general framework applicable to any digital technology that
-captures active user counts and operates on data aggregated into spatial
-and temporal units, aligning well with the structure of many DFD sources
-available to researchers.
+In this section, we outline our proposed methodology, which consists of
+two interconnected stages aimed at quantifying two types of biases:
+coverage biases and representational biases. Coverage biases relate to
+the sample size of the dataset and refer to the proportion of the
+population covered in the dataset. Representational biases, arise from
+the demographic and socioeconomic characteristics of the users who
+generate the digital trace data through specific technologies.
 
-The methodology unfolds in two interconnected stages, each corresponding
-to our aims. In the first stage, we develop a statistical indicator to
-quantify the magnitude of bias in each subnational area. This step is
-crucial for establishing a baseline understanding of bias levels,
-allowing us to pinpoint regions with significant underrepresentation. In
-the second stage, we analyse the association of these biases with
-demographic, socioeconomic, and geographic attributes at the area level.
-This analysis yields insights into the underlying characteristics
-contributing to disparities in the level of bias across areas, thereby
-addressing our second methodological aim.
+In the first stage of our methodology, we focus on quantifying coverage
+biases by examining the variations in coverage across different spatial
+units. We leverage the spatial granularity of digital trace data to
+analyse coverage biases at more localised spatial scales. This allows us
+to identify the extent to which different regions are represented within
+the datasets, revealing any potential underrepresentation or
+overrepresentation in specific locations.
 
-\subsubsection{Measuring bias (CCA)}\label{measuring-bias-cca}
+In the second stage, we focus on quantifying representational biases. To
+do this, we leverage the spatial heterogeneity of coverage biases and
+model this variation in terms of demographic and socioeconomic variables
+that characterise local populations. This analysis allows us to identify
+which specific demogrpahic and socioeconomic population attributes, such
+as average income, education level or age composition, are more likely
+to be associated with higher values of coverage bias, thus highlighting
+which population groups tend to be underrepresented in different sources
+of digital trace data.
 
-We define a metric to quantify the magnitude of bias in each subnational
-area. We do this by estimating the extent of population coverage of the
-digital technology used to collect the DFD (e.g.~Facebook app). This is
-computed as the ratio of the user population of the digital technology
-(\(P_i^D\)) to the total local population of an area (\(P_i\)). Formally,
-the coverage \(c_i\) is given by: \begin{equation}
+\hypertarget{measuring-coverage-bias-cca}{%
+\subsubsection{Measuring coverage bias (CCA)}\label{measuring-coverage-bias-cca}}
+
+We define a metric to quantify the magnitude of coverage bias in each
+subnational area. This metric is based on the population coverage of the
+dataset, which we compute as the ratio of the population captured
+(sample size) by dataset \(D\), denoted as \(P_i^D\), to the total local
+population of an area, \(P_i\). Formally, the coverage \(c_i\) is given by:
+\begin{equation}
 c_i = \dfrac{P_i^D}{P_i} \times 100,
-\end{equation} where \(D\) identifies a given digital technology, and \(i\)
-denotes each subnational area. The ratio is assumed to take values
-between \(0\) and \(100\), with the latter representing full population
-coverage. The ratio can only take values greater than \(1\) if users have
-multiple accounts exceeding the total local population of an area.
+\end{equation} where \(D\) identifies a given dataset, and \(i\) denotes
+each subnational area. The resulting ratio \(c_i\) is assumed to take
+values between \(0\) and \(100\), with 100 representing full population
+coverage. If users have multiple accounts, the ratio can exceed \(100\),
+since the total sample size could be greater than the local population
+of area \(i\).
 
 We then define the size of bias \(e_i\) as: \begin{equation}
 e_i = 100 - c_i
-\end{equation} in which case, \(e_i = 0\) will indicate full population
-coverage or no bias. We will use this indicator to examine the magnitude
-and spatial distribution of bias in multiple sources of digital trace
+\end{equation} In this case, a value of \(e_i = 0\) indicates a lack of
+coverage bias, which corresponds to full population coverage (\$c\_i =
+100). We use this bias indicator to analysis the magnitude and spatial
+distribution of coverage bias across multiple sources of digital trace
 data.
 
-\subsubsection{Assessing the driving factors of bias (FR)}\label{assessing-the-driving-factors-of-bias-fr}
+\hypertarget{assessing-the-driving-factors-of-bias-fr}{%
+\subsubsection{Assessing the driving factors of bias (FR)}\label{assessing-the-driving-factors-of-bias-fr}}
 
 We seek to understand the association between the size of bias and
 area-level demographic and socioeconomic attributes. To what extent
@@ -341,17 +358,63 @@ technology. We will use this information to inform our models in WP-II.
 eXtreme Gradient Boosting (XGBoost) is an efficient and scalable
 implementation of gradient boosting framework by \citep{friedman2001, friedman2000}.
 
-\section{Results}\label{results}
+\hypertarget{results}{%
+\section{Results}\label{results}}
 
-\subsection{Most digital footprint data record larger observations (CCA)}\label{most-digital-footprint-data-record-larger-observations-cca}
+The increasing availability of digital trace data offers unprecedented
+opportunities to study human behaviours with high temporal and spatial
+granularity, extensive geographic coverage and near real-time access.
+However, a key challenge in the use of digital trace data is the
+potential presence of biases that affect their statistical
+representativeness.
 
-\subsection{Wide geographic variations by data source but unrelated to population size (CCA)}\label{wide-geographic-variations-by-data-source-but-unrelated-to-population-size-cca}
+In Figure X, we compare multiple sources of digital trace data explored
+in this paper with traditional survey-based datasets, particularly key
+UK surveys available through the UK Data Service {[}{]}. On the x-axis we
+represent two variables: at the top, the number of respondents or
+subjects captured by the data set by 1,000 people, which reflects the
+level of coverage of the dataset; and at the bottom, the measure of bias
+as defined in equation X, based on the level of coverage of the dataset.
+The figure highlights the remarkable ability of digital trace data
+sources to capture a larger number of ``respondents'' compared to
+traditional surveys. This is due to the automated and passive nature of
+data collection in digital platforms, which contrasts with the manual
+recruitment and data collection processes required for surveys. As a
+result, our first measure of bias, defined according to eq X in terms of
+population coverage, is generally lower for digital trace data,
+highlighting its potential to inform broader empirical analysis.
 
-\subsection{Explaining biases (FR)}\label{explaining-biases-fr}
+\includegraphics{figures/compare-surveys-two-axis.png}
 
-\section{Discussion (FR)}\label{discussion-fr}
+While the findings in Figure X suggest the advantages of digital trace
+data compared to traditional data sources, high population coverage
+alone does not ensure representativenness. Unlike surveys, where data
+collection follows a carefully designed sampling strategy to ensure
+statistical representativeness, digital trace data are generated
+passively, without such protocols in place.
 
-\section{Conclusion (CCA)}\label{conclusion-cca}
+To better understand the nature of representational biases in digital
+trace data, we first leverage the spatial granularify of digital trace
+data to quantify the coverage bias at a finer smaller geographic scale,
+particularly the UK Local Authority Districts. We then leverage the
+spatial heterogeneity of the coverage bias to analyse the socioeconomic
+factors that contribute to the extent of the bias, showing the
+demographic groups that tend to be under or overrepresented by different
+digital trace data sources.
+
+\hypertarget{wide-geographic-variations-by-data-source-but-unrelated-to-population-size-cca}{%
+\subsection{Wide geographic variations by data source but unrelated to population size (CCA)}\label{wide-geographic-variations-by-data-source-but-unrelated-to-population-size-cca}}
+
+\includegraphics{figures/Fig-size-bias.png}
+
+\hypertarget{explaining-biases-fr}{%
+\subsection{Explaining biases (FR)}\label{explaining-biases-fr}}
+
+\hypertarget{discussion-fr}{%
+\section{Discussion (FR)}\label{discussion-fr}}
+
+\hypertarget{conclusion-cca}{%
+\section{Conclusion (CCA)}\label{conclusion-cca}}
 
 \ethics{Please provide details on the ethics.}
 
