@@ -390,9 +390,10 @@ Next, we leverage the spatial granularity of the digital trace data
 sources considered here to analyse coverage biases at more localised
 spatial scales. This allows us to identify the extent to which different
 geographies are represented within the datasets, revealing any potential
-underrepresentation or overrepresentation in specific locations.
+underrepresentation or overrepresentation in specific locations. - CCA
+continue HERE
 
-![](figures/Fig-size-bias.png)
+![](figures/Fig-size-bias.png){width="533" height="418"}
 
 ## Explaining biases (FR)
 

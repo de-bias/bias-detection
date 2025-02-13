@@ -335,10 +335,10 @@ of area \(i\).
 We then define the size of bias \(e_i\) as: \begin{equation}
 e_i = 100 - c_i
 \end{equation} In this case, a value of \(e_i = 0\) indicates a lack of
-coverage bias, which corresponds to full population coverage (\$c\_i =
-100). We use this bias indicator to analysis the magnitude and spatial
-distribution of coverage bias across multiple sources of digital trace
-data.
+coverage bias, which corresponds to full population coverage
+(\(c_i = 100\)). We use this bias indicator to analysis the magnitude and
+spatial distribution of coverage bias across multiple sources of digital
+trace data.
 
 \hypertarget{assessing-the-driving-factors-of-bias-fr}{%
 \subsubsection{Assessing the driving factors of bias (FR)}\label{assessing-the-driving-factors-of-bias-fr}}
@@ -361,28 +361,35 @@ implementation of gradient boosting framework by \citep{friedman2001, friedman20
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-The increasing availability of digital trace data offers unprecedented
-opportunities to study human behaviours with high temporal and spatial
-granularity, extensive geographic coverage and near real-time access.
-However, a key challenge in the use of digital trace data is the
-potential presence of biases that affect their statistical
-representativeness.
+\hypertarget{contextualising-coverage-bias-in-digital-trace-data}{%
+\subsection{Contextualising coverage bias in digital trace data}\label{contextualising-coverage-bias-in-digital-trace-data}}
 
-In Figure X, we compare multiple sources of digital trace data explored
-in this paper with traditional survey-based datasets, particularly key
-UK surveys available through the UK Data Service {[}{]}. On the x-axis we
-represent two variables: at the top, the number of respondents or
-subjects captured by the data set by 1,000 people, which reflects the
-level of coverage of the dataset; and at the bottom, the measure of bias
-as defined in equation X, based on the level of coverage of the dataset.
-The figure highlights the remarkable ability of digital trace data
-sources to capture a larger number of ``respondents'' compared to
-traditional surveys. This is due to the automated and passive nature of
-data collection in digital platforms, which contrasts with the manual
-recruitment and data collection processes required for surveys. As a
-result, our first measure of bias, defined according to eq X in terms of
-population coverage, is generally lower for digital trace data,
-highlighting its potential to inform broader empirical analysis.
+As digital trace data becomes increasingly accessible, it opens up new
+avenues for studying human behaviors with remarkable temporal and
+spatial precision, extensive geographic coverage, and near real-time
+access. However, a critical challenge remains: the potential presence of
+biases that can undermine the validity of the data to deliver
+statistically representative evidence. In particular, we first focus on
+the coverage bias, which refers to the proportion of the total
+population represented in the dataset.
+
+In this section, we quantify coverage bias across multiple sources of
+digital trace data and contextualize our findings by comparing them with
+coverage bias observed in various traditional data sources.
+Particularly, in Figure X, we compare multiple sources of digital trace
+data explored in this paper with traditional survey-based datasets,
+particularly key UK surveys available through the UK Data Service {[}{]}. On
+the x-axis, we represent two variables: at the top, the sample size of
+the dataset, expressed as the number of respondents or subjects per
+1,000 people, which reflects the level of coverage of the dataset; and
+at the bottom, a measure of coverage bias as defined in equation X. The
+figure highlights the remarkable ability of digital trace data to
+capture a larger number of ``respondents'' compared to traditional
+surveys, thanks to the automated, passive nature of data collection on
+digital platforms. This contrasts with the manual recruitment and data
+collection processes required for surveys. As a result, the coverage
+bias is generally lower for digital trace data, highlighting its
+potential to inform comprehensive empirical analyses.
 
 \includegraphics{figures/compare-surveys-two-axis.png}
 
@@ -393,19 +400,17 @@ collection follows a carefully designed sampling strategy to ensure
 statistical representativeness, digital trace data are generated
 passively, without such protocols in place.
 
-To better understand the nature of representational biases in digital
-trace data, we first leverage the spatial granularify of digital trace
-data to quantify the coverage bias at a finer smaller geographic scale,
-particularly the UK Local Authority Districts. We then leverage the
-spatial heterogeneity of the coverage bias to analyse the socioeconomic
-factors that contribute to the extent of the bias, showing the
-demographic groups that tend to be under or overrepresented by different
-digital trace data sources.
+\hypertarget{the-spatial-distribution-of-coverage-bias-cca}{%
+\subsection{The spatial distribution of coverage bias (CCA)}\label{the-spatial-distribution-of-coverage-bias-cca}}
 
-\hypertarget{wide-geographic-variations-by-data-source-but-unrelated-to-population-size-cca}{%
-\subsection{Wide geographic variations by data source but unrelated to population size (CCA)}\label{wide-geographic-variations-by-data-source-but-unrelated-to-population-size-cca}}
+Next, we leverage the spatial granularity of the digital trace data
+sources considered here to analyse coverage biases at more localised
+spatial scales. This allows us to identify the extent to which different
+geographies are represented within the datasets, revealing any potential
+underrepresentation or overrepresentation in specific locations. - CCA
+continue HERE
 
-\includegraphics{figures/Fig-size-bias.png}
+\includegraphics[width=5.55208in,height=4.35417in]{figures/Fig-size-bias.png}
 
 \hypertarget{explaining-biases-fr}{%
 \subsection{Explaining biases (FR)}\label{explaining-biases-fr}}
