@@ -104,8 +104,7 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-\hypertarget{introduction-fr}{%
-\section{Introduction (FR)}\label{introduction-fr}}
+\section{Introduction (FR)}\label{introduction-fr}
 
 Technological advances in computational power, storage and digital
 network platforms have unleashed a data revolution producing large
@@ -192,14 +191,11 @@ biases in origin-destination mobility counts derived from DFs in the
 absence of demographic and socioeconomic information on users of digital
 platforms.
 
-\hypertarget{data-and-methods}{%
-\section{Data and methods}\label{data-and-methods}}
+\section{Data and methods}\label{data-and-methods}
 
-\hypertarget{data-cca}{%
-\subsection{Data (CCA)}\label{data-cca}}
+\subsection{Data (CCA)}\label{data-cca}
 
-\hypertarget{facebook}{%
-\subsubsection{Facebook}\label{facebook}}
+\subsubsection{Facebook}\label{facebook}
 
 We use anonymised aggregate location data from Facebook app users who
 have the location services setting turned on on their smartphone for the
@@ -239,8 +235,7 @@ compare the Facebook Population data with UK census data. To facilitate
 this comparison, we aggregate the data into administrative units,
 specifically UK Local Authority Districts (LADs).
 
-\hypertarget{twitter}{%
-\subsubsection{Twitter}\label{twitter}}
+\subsubsection{Twitter}\label{twitter}
 
 We use an anonymised, openly available, analysis-ready dataset of active
 Twitter users in the UK. The data is derived from X (previously Twitter)
@@ -264,8 +259,7 @@ Archive (\url{https://gis.harvard.edu/data}). Despite these limitations, we
 consider X data as it remains a key source of historical digital trace
 data.
 
-\hypertarget{multi-app-gps-data}{%
-\subsubsection{Multi-app GPS data}\label{multi-app-gps-data}}
+\subsubsection{Multi-app GPS data}\label{multi-app-gps-data}
 
 The data used in this study were sourced by a data analytics company
 that collects GPS location data from around 26\% of smartphones in the
@@ -286,8 +280,7 @@ To ensure consistency in our analysis when comparing with other data
 sources, we aggregate these residence locations at the Local Authority
 District (LAD) level.
 
-\hypertarget{methods}{%
-\subsection{Methods}\label{methods}}
+\subsection{Methods}\label{methods}
 
 In this section, we outline our proposed methodology, which consists of
 two interconnected stages aimed at quantifying two types of biases:
@@ -315,8 +308,7 @@ to be associated with higher values of coverage bias, thus highlighting
 which population groups tend to be underrepresented in different sources
 of digital trace data.
 
-\hypertarget{measuring-coverage-bias-cca}{%
-\subsubsection{Measuring coverage bias (CCA)}\label{measuring-coverage-bias-cca}}
+\subsubsection{Measuring coverage bias (CCA)}\label{measuring-coverage-bias-cca}
 
 We define a metric to quantify the magnitude of coverage bias in each
 subnational area. This metric is based on the population coverage of the
@@ -340,8 +332,7 @@ coverage bias, which corresponds to full population coverage
 spatial distribution of coverage bias across multiple sources of digital
 trace data.
 
-\hypertarget{assessing-the-driving-factors-of-bias-fr}{%
-\subsubsection{Assessing the driving factors of bias (FR)}\label{assessing-the-driving-factors-of-bias-fr}}
+\subsubsection{Assessing the driving factors of bias (FR)}\label{assessing-the-driving-factors-of-bias-fr}
 
 We seek to understand the association between the size of bias and
 area-level demographic and socioeconomic attributes. To what extent
@@ -358,50 +349,38 @@ technology. We will use this information to inform our models in WP-II.
 eXtreme Gradient Boosting (XGBoost) is an efficient and scalable
 implementation of gradient boosting framework by \citep{friedman2001, friedman2000}.
 
-\hypertarget{results}{%
-\section{Results}\label{results}}
+\section{Results}\label{results}
 
-\hypertarget{contextualising-coverage-bias-in-digital-trace-data}{%
-\subsection{Contextualising coverage bias in digital trace data}\label{contextualising-coverage-bias-in-digital-trace-data}}
+\subsection{Contextualising the population coverage of digital trace data}\label{contextualising-the-population-coverage-of-digital-trace-data}
 
 As digital trace data becomes increasingly accessible, it opens up new
-avenues for studying human behaviors with remarkable temporal and
+avenues for studying human behaviours with remarkable temporal and
 spatial precision, extensive geographic coverage, and near real-time
-access. However, a critical challenge remains: the potential presence of
-biases that can undermine the validity of the data to deliver
-statistically representative evidence. In particular, we first focus on
-the coverage bias, which refers to the proportion of the total
-population represented in the dataset.
+access. However, the potential presence of
+biases can undermine the validity of the data to deliver
+statistically representative evidence.
 
-In this section, we quantify coverage bias across multiple sources of
-digital trace data and contextualize our findings by comparing them with
-coverage bias observed in various traditional data sources.
-Particularly, in Figure X, we compare multiple sources of digital trace
-data explored in this paper with traditional survey-based datasets,
-particularly key UK surveys available through the UK Data Service {[}{]}. On
-the x-axis, we represent two variables: at the top, the sample size of
-the dataset, expressed as the number of respondents or subjects per
-1,000 people, which reflects the level of coverage of the dataset; and
-at the bottom, a measure of coverage bias as defined in equation X. The
+In this section, we focus on quantifying the biases in multiple sources of digital trace data that arise due to the extent of population coverage, i.e.~the proportion of the total population captured in the dataset. In Figure X, we contextualise these findings by comparing them with various traditional datasets, particularly key UK surveys available through the UK Data Service {[}{]}. On the \(x\)-axis, we represent two variables: at the top, the sample size of the dataset, expressed as the number of respondents or subjects per
+1,000 people, which reflects the population coverage of the dataset; and
+at the bottom, a measure of bias in terms of this coverage, as defined in equation X. The
 figure highlights the remarkable ability of digital trace data to
-capture a larger number of ``respondents'' compared to traditional
+capture a larger share of the total population compared to traditional
 surveys, thanks to the automated, passive nature of data collection on
 digital platforms. This contrasts with the manual recruitment and data
-collection processes required for surveys. As a result, the coverage
-bias is generally lower for digital trace data, highlighting its
+collection processes required for surveys. As a result, the size of bias is generally lower for digital trace data, highlighting its
 potential to inform comprehensive empirical analyses.
 
 \includegraphics{figures/compare-surveys-two-axis.png}
 
-While the findings in Figure X suggest the advantages of digital trace
+While the findings in Figure X demonstrate the potential of digital trace
 data compared to traditional data sources, high population coverage
-alone does not ensure representativenness. Unlike surveys, where data
-collection follows a carefully designed sampling strategy to ensure
-statistical representativeness, digital trace data are generated
-passively, without such protocols in place.
+alone does not ensure the data is representative of different population groups.
 
-\hypertarget{the-spatial-distribution-of-coverage-bias-cca}{%
-\subsection{The spatial distribution of coverage bias (CCA)}\label{the-spatial-distribution-of-coverage-bias-cca}}
+In surveys, specific strategies are usually implemented during the data generation process to improve the statistical representativeness of the sample. For example, sampling techniques such as stratified sampling or cluster sampling can be applied so that the sample reflects the broader population of interest. After sampling, if certain groups remain under-represented, responses can be adjusted using post-stratification techniques. However, even when these strategies are applied, there is no guarantee that the survey will be fully representative of the broader population of interest. This is because representativeness can only be achieved with respect to a finite set of attributes (e.g.~age, gender, income levels, location, etc.). Ensuring perfect representativeness would only be possible either by surveying the whole population, or by using a strategy that considers all possible population attributes when sampling and adjusting the responses.
+
+With digital trace data, achieving statistical representativeness is even more challenging. Unlike survey data, which is actively collected using structured sampling methods, digital trace data is generated passively as a byproduct of online interactions, transactions, or device usage, without any control over who is included in the dataset. Furthermore, by the time this data reaches researchers or analysts, it is often anonymised, and does not contain demographic identifiers. As a result, it is not possible to apply the standard post-stratification weighting techniques that are typically used to adjust survey or census data for improved representativeness.
+
+\subsection{The spatial distribution of biases (CCA)}\label{the-spatial-distribution-of-biases-cca}
 
 Next, we leverage the spatial granularity of the digital trace data
 sources considered here to analyse coverage biases at more localised
@@ -412,14 +391,11 @@ continue HERE
 
 \includegraphics[width=5.55208in,height=4.35417in]{figures/Fig-size-bias.png}
 
-\hypertarget{explaining-biases-fr}{%
-\subsection{Explaining biases (FR)}\label{explaining-biases-fr}}
+\subsection{Explaining biases (FR)}\label{explaining-biases-fr}
 
-\hypertarget{discussion-fr}{%
-\section{Discussion (FR)}\label{discussion-fr}}
+\section{Discussion (FR)}\label{discussion-fr}
 
-\hypertarget{conclusion-cca}{%
-\section{Conclusion (CCA)}\label{conclusion-cca}}
+\section{Conclusion (CCA)}\label{conclusion-cca}
 
 \ethics{Please provide details on the ethics.}
 
