@@ -41,4 +41,15 @@ Zizka A, Antonelli A, Silvestro D. 2021  sampbias, a method for quantifying geog
 \bibitem{aparicio-castro23-bayesian}
 Aparicio~Castro A, Wiśniowski A, Rowe F. 2023  A Bayesian approach to estimate annual bilateral migration flows for South America using census data. {\em Journal of the Royal Statistical Society Series A: Statistics in Society} \textbf{187}, 410--435.
 
+\bibitem{wang2022}
+Wang Y, Zhong C, Gao Q, Cabrera-Arnau C. 2022  Understanding internal migration in the UK before and during the COVID-19 pandemic using twitter data. {\em Urban Informatics} \textbf{1}.
+
+\bibitem{ukdataserviceSurveysData}
+{UK Data Service} {U}{K} surveys - {U}{K} {D}ata {S}ervice. \url{https://ukdataservice.ac.uk/help/data-types/uk-surveys/}.
+[Accessed 17-02-2025].
+
+\bibitem{cochran1977sampling}
+Cochran W. 1977 {\em Sampling Techniques}.
+Wiley Series in Probability and Statistics. Wiley.
+
 \end{thebibliography}

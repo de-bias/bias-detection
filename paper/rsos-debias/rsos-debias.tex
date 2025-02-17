@@ -240,7 +240,7 @@ specifically UK Local Authority Districts (LADs).
 We use an anonymised, openly available, analysis-ready dataset of active
 Twitter users in the UK. The data is derived from X (previously Twitter)
 in the form of monthly active user counts residing across the UK
-geography. The dataset is based on tweets from UK users {[}@wang2022{]}
+geography. The dataset is based on tweets from UK users \citep{wang2022}
 collected via the Twitter Academic API. These tweets are either
 geolocated at the time of posting or manually geocoded using a bounding
 box provided by the Twitter Academic API, based on the IP address of the
@@ -249,7 +249,7 @@ February 2019 to December 2021; however, we focus on data from March
 2021 to align with the 2021 UK Census. Users' Local Authority District
 (LAD) of residence is identified using a frequency-based home-location
 algorithm. Further details on the dataset's methodology can be found in
-{[}@wang2022{]}.
+\citep{wang2022} .
 
 While the X Academic API is no longer available to download data, but
 existing and future projects offer an opportunity for research based on
@@ -324,13 +324,16 @@ coverage. If users have multiple accounts, the ratio can exceed \(100\),
 since the total sample size could be greater than the local population
 of area \(i\).
 
-We then define the size of bias \(e_i\) as: \begin{equation}
+We then define the size of bias \(e_i\) as:
+
+\begin{equation} \label{eq:size-bias}
 e_i = 100 - c_i
-\end{equation} In this case, a value of \(e_i = 0\) indicates a lack of
-coverage bias, which corresponds to full population coverage
-(\(c_i = 100\)). We use this bias indicator to analysis the magnitude and
-spatial distribution of coverage bias across multiple sources of digital
-trace data.
+\end{equation}
+
+In this case, a value of \(e_i = 0\) indicates a lack of coverage bias,
+which corresponds to full population coverage (\(c_i = 100\)). We use this
+bias indicator to analysis the magnitude and spatial distribution of
+coverage bias across multiple sources of digital trace data.
 
 \subsubsection{Assessing the driving factors of bias (FR)}\label{assessing-the-driving-factors-of-bias-fr}
 
@@ -351,45 +354,147 @@ implementation of gradient boosting framework by \citep{friedman2001, friedman20
 
 \section{Results}\label{results}
 
-\subsection{Contextualising the population coverage of digital trace data}\label{contextualising-the-population-coverage-of-digital-trace-data}
+\subsection{Varying extent of bias across data sources}\label{varying-extent-of-bias-across-data-sources}
 
 As digital trace data becomes increasingly accessible, it opens up new
 avenues for studying human behaviours with remarkable temporal and
 spatial precision, extensive geographic coverage, and near real-time
-access. However, the potential presence of
-biases can undermine the validity of the data to deliver
-statistically representative evidence.
+access. However, the potential presence of biases can undermine the
+validity of the data to deliver statistically representative evidence.
 
-In this section, we focus on quantifying the biases in multiple sources of digital trace data that arise due to the extent of population coverage, i.e.~the proportion of the total population captured in the dataset. In Figure X, we contextualise these findings by comparing them with various traditional datasets, particularly key UK surveys available through the UK Data Service {[}{]}. On the \(x\)-axis, we represent two variables: at the top, the sample size of the dataset, expressed as the number of respondents or subjects per
-1,000 people, which reflects the population coverage of the dataset; and
-at the bottom, a measure of bias in terms of this coverage, as defined in equation X. The
-figure highlights the remarkable ability of digital trace data to
-capture a larger share of the total population compared to traditional
-surveys, thanks to the automated, passive nature of data collection on
-digital platforms. This contrasts with the manual recruitment and data
-collection processes required for surveys. As a result, the size of bias is generally lower for digital trace data, highlighting its
-potential to inform comprehensive empirical analyses.
+In this section, we focus on quantifying the biases in multiple sources
+of digital trace data that arise due to the extent of population
+coverage, i.e.~the proportion of the total population captured in the
+dataset. In Figure , we contextualise these findings by comparing them
+with various traditional datasets, particularly key UK surveys available
+through the UK Data Service \citep{ukdataserviceSurveysData}. On the
+\(x\)-axis, we represent two variables: at the top, the sample size of the
+dataset, expressed as the number of respondents or subjects per 1,000
+people, which reflects the population coverage of the dataset; and at
+the bottom, a measure of bias in terms of this coverage, as defined in
+equation \ref{eq:size-bias}. The figure highlights the remarkable
+ability of digital trace data to capture a larger share of the total
+population compared to traditional surveys, thanks to the automated,
+passive nature of data collection on digital platforms. This contrasts
+with the manual recruitment and data collection processes required for
+surveys. As a result, the size of bias is generally lower for digital
+trace data, highlighting its potential to inform comprehensive empirical
+analyses.
 
+\begin{figure}
+\centering
 \includegraphics{figures/compare-surveys-two-axis.png}
+\caption{Size of bias and population coverage (per 1,000 population) by data
+source.}\label{fig:survey}
+\end{figure}
 
-While the findings in Figure X demonstrate the potential of digital trace
-data compared to traditional data sources, high population coverage
-alone does not ensure the data is representative of different population groups.
+While the findings in Figure \ref{fig:survey} demonstrate the potential
+of digital trace data compared to traditional data sources, high
+population coverage alone does not ensure the data is representative of
+different population groups.
 
-In surveys, specific strategies are usually implemented during the data generation process to improve the statistical representativeness of the sample. For example, sampling techniques such as stratified sampling or cluster sampling can be applied so that the sample reflects the broader population of interest. After sampling, if certain groups remain under-represented, responses can be adjusted using post-stratification techniques. However, even when these strategies are applied, there is no guarantee that the survey will be fully representative of the broader population of interest. This is because representativeness can only be achieved with respect to a finite set of attributes (e.g.~age, gender, income levels, location, etc.). Ensuring perfect representativeness would only be possible either by surveying the whole population, or by using a strategy that considers all possible population attributes when sampling and adjusting the responses.
+In surveys, specific strategies are usually implemented during the data
+generation process to improve the statistical representativeness of the
+sample. For example, sampling techniques such as stratified sampling or
+cluster sampling can be applied so that the sample reflects the broader
+population of interest. After sampling, if certain groups remain
+under-represented, responses can be adjusted using post-stratification
+techniques. However, even when these strategies are applied, there is no
+guarantee that the survey will be fully representative of the broader
+population of interest \citep{cochran1977sampling}. This is because
+representativeness can only be achieved with respect to a finite set of
+attributes (e.g.~age, gender, income levels, location, etc.). Ensuring
+perfect representativeness would only be possible either by surveying
+the whole population.
 
-With digital trace data, achieving statistical representativeness is even more challenging. Unlike survey data, which is actively collected using structured sampling methods, digital trace data is generated passively as a byproduct of online interactions, transactions, or device usage, without any control over who is included in the dataset. Furthermore, by the time this data reaches researchers or analysts, it is often anonymised, and does not contain demographic identifiers. As a result, it is not possible to apply the standard post-stratification weighting techniques that are typically used to adjust survey or census data for improved representativeness.
+With digital trace data, achieving statistical representativeness is
+even more challenging. Unlike survey data, which is actively collected
+using structured sampling methods, digital trace data is generated
+passively as a byproduct of online interactions, transactions, or device
+usage, without any control over who is included in the dataset.
+Furthermore, by the time this data reaches researchers or analysts, it
+is often anonymised, and does not contain demographic identifiers. As a
+result, it is not possible to apply the standard post-stratification
+weighting techniques that are typically used to adjust survey or census
+data for improved representativeness.
+
+We argue that, even though we do not always have specific demographic
+information of the individuals captured through digital trace data, we
+can infer some of these characteristics by leveraging the
+spatio-temporal granularity of digital trace data. We argue that this is
+a necessary first step to understand which population groups might be
+under or over-represented in different sources of digital trace data.
+This information is necessary to later adjust the data so that it is
+more representative of the population of interest.
 
 \subsection{The spatial distribution of biases (CCA)}\label{the-spatial-distribution-of-biases-cca}
 
-Next, we leverage the spatial granularity of the digital trace data
-sources considered here to analyse coverage biases at more localised
-spatial scales. This allows us to identify the extent to which different
-geographies are represented within the datasets, revealing any potential
-underrepresentation or overrepresentation in specific locations. - CCA
-continue HERE
+Next, we take advantage of the detailed geographic information in the
+digital trace data to analyse bias at smaller, more localised spatial
+levels. This helps us understand how well different geographic areas are
+represented in the datasets. Since local populations vary in their
+socioeconomic characteristics, we can use the degree of bias at these
+smaller scales in the next step of our analysis, to determine which
+population attributes are most associated with underrepresentation in
+the data.
+
+Figure \ref{fig:size-bias-spatial} shows the geographic variation of the
+size of bias at the Local Authority District (LAD) level. Each row in
+the figure corresponds to each of the digital trace datasets analysed
+here. Within each row, we include: i) an hexagonal cartogram for the
+size of bias in each LAD, representing the LADs as hexagons of equal
+size to simplify the visualisation while maintaining relative positions;
+with this cartogram, we report Moran's I as a measure of spatial
+autocorrelation and its associated p-value, ii) a histogram of the size
+of bias, showing the distribution of values across LADs, iii) a scatter
+plot of the population covered by the digital trace data vs.~the actual
+population of each LAD; with the scatter plot, we include the Pearson
+correlation coefficient and its associated p-value.
 
 \includegraphics[width=5.55208in,height=4.35417in]{figures/Fig-size-bias.png}
+
+Examining the spatial variation in bias size, we observe distinct
+patterns across the DT datasets considered. These varied spatial
+patterns likely stem from differences in the demographic composition of
+users for each technology. Factors such as age, socioeconomic status,
+digital literacy, and regional preferences for certain platforms or
+devices may contribute to these variations. Bias tends to display
+stronger spatial patterns for Meta data and the second source of
+multi-app GPS data, with lower bias in the North of England and Wales.
+In contrast, Twitter/X data and the first souce of multi-app GPS data
+follow more mixed patterns, as demonstrated by the values of Moran's I
+closer to zero. Twitter/X data generally exhibits high bias, except in
+London, the South East, and a few isolated areas. Similarly, bias in
+first source of multi-app data tends to be lower in the South and South
+East.
+
+Turning to the histograms, we observe that bias size is highest for
+Twitter/X data, with all values exceeding 99.5 except for a single
+outlier, the City of London. This outlier likely arises due to the
+unique demographic and occupational characteristics of the area. While
+relatively few people reside in the City of London, it hosts a large
+number of workers, including temporary professionals, who may be staying
+in hotels. The home-detection algorithm in \citep{wang2022} used to generate
+the Twitter/X data used here might classify the workplace or temporary
+accommodations of City of London workers as their primary residences,
+leading to an anomalously low bias measurement. Following Twitter/X, the
+second source of multi-app GPS data exhibits the next highest bias
+values. In contrast, the first source of multi-app data shows lower
+bias, while Meta data has the lowest overall bias. Notably, Meta data
+also displays the widest distribution of bias values, indicating greater
+variability across different locations.
+
+The scatter plots show a high linear correlation between the population
+covered by the digital trace data and the actual population of each LAD,
+as demonstrated by the Pearson coefficient, all above 0.8. This suggests
+that, on average, the actual population in the LADs is not an indicator
+of the size of bias in DT data, as the population coverage \(c_i\) remains
+the consistent regardless of \(P_i\) . This could be a result of the fact
+that the biases in the data are not driven by the number of people, but
+rather by other their demographic characteristics such as age, income or
+educational level. In the next section, we explore the variability of
+demographic attributes of local populations as possible determinants of
+the size of bias.
 
 \subsection{Explaining biases (FR)}\label{explaining-biases-fr}
 

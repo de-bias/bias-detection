@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  14 FEB 2025 11:47
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  17 FEB 2025 11:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -623,25 +623,36 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [5]
 
-Package natbib Warning: Citation `friedman2001' on page 6 undefined on input line 350.
+Package natbib Warning: Citation `friedman2001' on page 6 undefined on input line 353.
 
 
-Package natbib Warning: Citation `friedman2000' on page 6 undefined on input line 350.
+Package natbib Warning: Citation `friedman2000' on page 6 undefined on input line 353.
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 356--362
+Underfull \hbox (badness 1418) in paragraph at lines 359--364
 \T1/ppl/m/n/9 hu-man be-haviours with re-mark-able tem-po-ral and spa-tial pre-ci-sion, ex-ten-sive ge-o-graphic
  []
 
 File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
 <figures/compare-surveys-two-axis.png>
 
-Overfull \hbox (41.75381pt too wide) in paragraph at lines 373--374
-[][] 
+Overfull \hbox (29.75381pt too wide) in paragraph at lines 386--388
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.22505pt on input line 388.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 7.22505pt on input line 388.
+
+Underfull \hbox (badness 10000) detected at line 388
+[]
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \hbox (badness 1762) in paragraph at lines 410--420
+\T1/ppl/m/n/9 trace data is gen-er-ated pas-sively as a byprod-uct of on-line in-ter-ac-tions, trans-ac-tions, or
+ []
 
 
 
@@ -649,15 +660,24 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [6]
-Underfull \hbox (badness 1762) in paragraph at lines 381--382
-\T1/ppl/m/n/9 trace data is gen-er-ated pas-sively as a byprod-uct of on-line in-ter-ac-tions, trans-ac-tions, or
- []
+
+LaTeX Warning: Reference `fig:size-bias-spatial' on page 7 undefined on input line 441.
 
 File: figures/Fig-size-bias.png Graphic file (type bmp)
 <figures/Fig-size-bias.png>
 
-Overfull \hbox (29.1196pt too wide) in paragraph at lines 392--393
+Overfull \hbox (29.1196pt too wide) in paragraph at lines 454--455
 [][] 
+ []
+
+
+
+
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+[7]
+Underfull \hbox (badness 1496) in paragraph at lines 471--486
+\T1/ppl/m/n/9 in [[]] used to gen-er-ate the Twit-ter/X data used here might clas-sify the work-place or
  []
 
 
@@ -666,21 +686,21 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-Overfull \vbox (21.4162pt too high) has occurred while \output is active []
-
-[7] (./rsos-debias.bbl
-
-
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[8]
+[8] (./rsos-debias.bbl
 Missing character: There is no ś ("15B) in font pplr8t!
-) Setting LastPage
+
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[9]
+[9]) Setting LastPage
+
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+[10]
 
 Package natbib Warning: There were undefined citations.
 
@@ -693,16 +713,19 @@ L3 programming layer <2024-11-02>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.25pt have occurred.
 
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: AA45F7D933CF25785ACFCC2EE6B7CED2;2852.
+(rerunfilecheck)             Checksum: 41FCD71BCB266F8D50C56A99ADD865A9;2754.
  ) 
 Here is how much of TeX's memory you used:
- 12040 strings out of 475903
- 184205 string characters out of 5774979
- 577446 words of memory out of 5000000
- 34632 multiletter control sequences out of 15000+600000
- 609198 words of font info for 131 fonts, out of 8000000 for 9000
+ 12057 strings out of 475903
+ 184555 string characters out of 5774979
+ 577534 words of memory out of 5000000
+ 34649 multiletter control sequences out of 15000+600000
+ 612567 words of font info for 133 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 87i,14n,93p,994b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,551b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-debias.pdf (9 pages).
+Output written on rsos-debias.pdf (10 pages).
