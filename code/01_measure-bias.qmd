@@ -124,7 +124,7 @@ df_bias$map_bias <- (1 - df_bias$pop_dfd/df_bias$pop)*100
 
 ```{r}
 # Compute standardised weights matrix based on boundaries for LADs
-st_bias_map <- st_bias_map #%>% st_simplify(preserveTopology = TRUE, dTolerance = 100)
+st_bias_map <- df_boundaries_hex %>%  filter(!grepl("^S", code))  %>% filter(!grepl("^N", code)) %>% filter(!grepl("^u", code))  %>% left_join(df_bias, by = "code") %>% st_as_sf()
 
 model <- lm(pop_dfd ~ pop, data = st_bias_map, na.action = na.omit)
 
@@ -337,7 +337,6 @@ if (dfd == "twitter") {
 st_bias_map <- df_boundaries %>% left_join(df_bias, by = "code") %>% st_as_sf() %>% filter(!grepl("^S", code))
 ```
 
-
 ## Spatial weights matrix
 
 Choose between:
@@ -358,6 +357,12 @@ if (w_scheme == 'queen'){
     st_bias_map <- st_bias_map[, !names(st_bias_map) %in% "bias_w"]
   }
   suffix <- '_w_queen'
+  # Extract the coordinates of the centroids (or your points)
+  coords <- st_coordinates(st_centroid(st_bias_map))
+  # Create queen neighbours list
+  nb_q <- poly2nb(df, queen = TRUE)
+  # Create a row-standardised spatial weights matrix using distance-based neighbors
+  w_matrix <- nb2listw(nb_q, style = "W", zero.policy=TRUE)
   # Compute spatial lag
   bias_w <- lag.listw(w_matrix, st_bias_map$bias, NAOK=TRUE)
   # Save spatial lag in additional column
