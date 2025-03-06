@@ -1,0 +1,84 @@
+---
+title: Supplementary Inforamtion
+author:
+  - name: Carmen Cabrera
+    affiliation: "1"
+  - name: Francisco Rowe
+    affiliation: "1"
+address:
+  - code: "1"
+    address: Geographic Data Science Lab, Department of Geography and Planning, University of Liverpool, Liverpool, United Kingdom.
+  - code: ""
+    address: 
+corresp_author_name:  "Carmen Cabrera"
+corresp_author_email: "C.Cabrera@liverpool.ac.uk"
+subject:
+  - "subject 1"
+  - "subject 2"
+  - "subject 3"
+keywords:
+  - one
+  - two
+  - optional
+  - optional
+  - optional
+abstract: |
+  The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here.
+ethics: |
+  Please provide details on the ethics.
+  
+data_accessibility: |
+  Please provide details on the data availability.
+author_contributions: |
+  Please provide details of author contributions here.
+conflict_of_interest: |
+  Please declare any conflict of interest here.
+funding: |
+  Please provide details on funding
+disclaimer: |
+  Please provide disclaimer text here.
+acknowledgements: |
+  Please include your acknowledgments here, set in a single paragraph. Please do not include any acknowledgments in the Supporting Information, or anywhere else in the manuscript.
+bibliography: sample.bib
+lineno: false
+site: bookdown::bookdown_site
+output: 
+  bookdown::pdf_book:
+    base_format: rticles::rsos_article
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+::: {.callout-note icon="false"}
+The main document should include:
+
+Title (no more than 150 characters)
+
+Author names and affiliations, and ORCID iDs where available
+
+Abstract (no more than 200 words). (This will be used in reviewer
+invitation emails so please think about how to describe your work to
+make it easy for a potential reviewer to determine whether they would be
+suitable.)
+
+All main manuscript text. Ensure that all figures, tables and any
+relevant supplementary materials are mentioned within the text
+References
+
+Acknowledgements and funding statement (ensure that you have included
+grant numbers and the names of any funding providers)
+
+Tables with captions Figure captions with credits where relevant
+:::
+
+\newpage
+
+
+# Alternative data aggregation approaches for Facebook data
+
+tts-week, stt-month, stt-week --> test for linear correlation between these and tts-month
+
+# Testing for spatial autocorrelation in the size of bias
+
+according to multiple spatial weighting schemes --> compute moran's I and p-values, display them in a table (schemes as columns, data source as rows) 

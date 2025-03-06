@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.16)  6 MAR 2025 15:49
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.16)  6 MAR 2025 12:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**rsos-debias.tex
-(./rsos-debias.tex
+**rsos-si.tex
+(./rsos-si.tex
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
 (./rsos.cls
@@ -278,7 +278,7 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count301
 ) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count302
 ) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
@@ -431,8 +431,8 @@ File: l3backend-xetex.def 2024-05-08 L3 backend support: XeTeX
 \l__pdf_internal_box=\box72
 \g__pdf_backend_annotation_int=\count331
 \g__pdf_backend_link_int=\count332
-) (./rsos-debias.aux)
-\openout1 = `rsos-debias.aux'.
+) (./rsos-si.aux)
+\openout1 = `rsos-si.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
 LaTeX Font Info:    ... okay on input line 41.
@@ -456,9 +456,9 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
 LaTeX Font Info:    ... okay on input line 41.
 Package crop Info: using `pdftex' graphics driver on input line 41.
 Package hyperref Info: Link coloring ON on input line 41.
-(./rsos-debias.out) (./rsos-debias.out)
+(./rsos-si.out) (./rsos-si.out)
 \@outlinefile=\write4
-\openout4 = `rsos-debias.out'.
+\openout4 = `rsos-si.out'.
 
 File: OPENSCIENCE.pdf Graphic file (type pdf)
 <use OPENSCIENCE.pdf>
@@ -618,40 +618,40 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [4]
 
-Package natbib Warning: Author undefined for citation`zhong24working' 
-(natbib)                on page 5 on input line 289.
-
-
-
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [5]
 
-Package natbib Warning: Citation `friedman2001' on page 6 undefined on input line 389.
+Package natbib Warning: Citation `friedman2001' on page 6 undefined on input line 362.
 
 
-Package natbib Warning: Citation `friedman2000' on page 6 undefined on input line 389.
+Package natbib Warning: Citation `friedman2000' on page 6 undefined on input line 362.
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 397--402
+Underfull \hbox (badness 1418) in paragraph at lines 370--375
 \T1/ppl/m/n/9 hu-man be-haviours with re-mark-able tem-po-ral and spa-tial pre-ci-sion, ex-ten-sive ge-o-graphic
  []
 
 File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
 <figures/compare-surveys-two-axis.png>
 
-Overfull \hbox (29.75381pt too wide) in paragraph at lines 428--428
+Overfull \hbox (29.75381pt too wide) in paragraph at lines 401--401
  [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.22505pt on input line 428.
+(Font)              scaled to size 7.22505pt on input line 401.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 428.
+(Font)              scaled to size 7.22505pt on input line 401.
 
-Underfull \hbox (badness 10000) detected at line 428
+Underfull \hbox (badness 10000) detected at line 401
 []
+ []
+
+
+Underfull \hbox (badness 1762) in paragraph at lines 423--433
+\T1/ppl/m/n/9 trace data is gen-er-ated pas-sively as a byprod-uct of on-line in-ter-ac-tions, trans-ac-tions, or
  []
 
 
@@ -660,8 +660,14 @@ Underfull \hbox (badness 10000) detected at line 428
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [6]
-Underfull \hbox (badness 1762) in paragraph at lines 450--460
-\T1/ppl/m/n/9 trace data is gen-er-ated pas-sively as a byprod-uct of on-line in-ter-ac-tions, trans-ac-tions, or
+
+LaTeX Warning: Reference `fig:size-bias-spatial' on page 7 undefined on input line 455.
+
+File: figures/Fig-size-bias.png Graphic file (type bmp)
+<figures/Fig-size-bias.png>
+
+Overfull \hbox (29.1196pt too wide) in paragraph at lines 468--469
+[][] 
  []
 
 
@@ -670,18 +676,7 @@ Underfull \hbox (badness 1762) in paragraph at lines 450--460
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [7]
-
-LaTeX Warning: Reference `fig:size-bias-spatial' on page 8 undefined on input line 482.
-
-File: figures/Fig-size-bias.png Graphic file (type bmp)
-<figures/Fig-size-bias.png>
-
-Overfull \hbox (29.1196pt too wide) in paragraph at lines 495--496
-[][] 
- []
-
-
-Underfull \hbox (badness 1496) in paragraph at lines 512--527
+Underfull \hbox (badness 1496) in paragraph at lines 485--500
 \T1/ppl/m/n/9 in [[]] used to gen-er-ate the Twit-ter/X data used here might clas-sify the work-place or
  []
 
@@ -693,14 +688,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[8] (./rsos-debias.bbl
+[8] (./rsos-si.bbl
+Missing character: There is no ś ("15B) in font pplr8t!
+
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[9]
-Missing character: There is no ś ("15B) in font pplr8t!
-) Setting LastPage
+[9]) Setting LastPage
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
@@ -709,7 +704,7 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 Package natbib Warning: There were undefined citations.
 
-(./rsos-debias.aux)
+(./rsos-si.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
@@ -721,16 +716,16 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: C5D7DF55B36830AB829F28D7AC146E7E;3048.
+Package rerunfilecheck Info: File `rsos-si.out' has not changed.
+(rerunfilecheck)             Checksum: 41FCD71BCB266F8D50C56A99ADD865A9;2754.
  ) 
 Here is how much of TeX's memory you used:
- 12064 strings out of 475903
- 184707 string characters out of 5774978
- 577938 words of memory out of 5000000
- 34656 multiletter control sequences out of 15000+600000
+ 12057 strings out of 475903
+ 184451 string characters out of 5774978
+ 577514 words of memory out of 5000000
+ 34649 multiletter control sequences out of 15000+600000
  612567 words of font info for 133 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 87i,14n,93p,551b,471s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,547b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-debias.pdf (10 pages).
+Output written on rsos-si.pdf (10 pages).

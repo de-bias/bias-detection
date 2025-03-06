@@ -45,7 +45,7 @@
 \title{An approach to quantifying the extent of bias in aggregated human population data extracted from digital platforms}
 
 \author{
-Carmen Cabrera-Arnau$^{1}$,
+Carmen Cabrera$^{1}$,
 Francisco Rowe$^{1}$}
 
 \address{
@@ -67,8 +67,8 @@ optional}
 
 %%%% Insert corresponding author and its email address}
 \corres{
-  C.Cabrera-Arnau\\
-  e-mail: \href{mailto:C.Cabrera-Arnau@liverpool.ac.uk}{\nolinkurl{C.Cabrera-Arnau@liverpool.ac.uk}}
+  Carmen Cabrera\\
+  e-mail: \href{mailto:C.Cabrera@liverpool.ac.uk}{\nolinkurl{C.Cabrera@liverpool.ac.uk}}
 }
 
 %%%% Abstract text to be placed here %%%%%%%%%%%%
@@ -104,7 +104,8 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-\section{Introduction (FR)}\label{introduction-fr}
+\hypertarget{introduction-fr}{%
+\section{Introduction (FR)}\label{introduction-fr}}
 
 Technological advances in computational power, storage and digital
 network platforms have unleashed a data revolution producing large
@@ -191,11 +192,14 @@ biases in origin-destination mobility counts derived from DFs in the
 absence of demographic and socioeconomic information on users of digital
 platforms.
 
-\section{Data and methods}\label{data-and-methods}
+\hypertarget{data-and-methods}{%
+\section{Data and methods}\label{data-and-methods}}
 
-\subsection{Data (CCA)}\label{data-cca}
+\hypertarget{data-cca}{%
+\subsection{Data (CCA)}\label{data-cca}}
 
-\subsubsection{Facebook}\label{facebook}
+\hypertarget{facebook}{%
+\subsubsection{Facebook}\label{facebook}}
 
 We use anonymised aggregate location data from Facebook app users who
 have the location services setting turned on on their smartphone for the
@@ -204,15 +208,16 @@ out. We use the Facebook Population dataset created by Meta and accessed
 through their Data for Good Initiative
 (\url{https://dataforgood.facebook.com}). Prior to releasing the datasets,
 Meta ensures privacy and anonymity by removing personal information and
-applying privacy-preserving techniques {[}@Maas19{]}. Small-count dropping
-is one of these techniques. A data entry is removed if the population or
-movement count for an area is lower than 10. The removal of small counts
-may mean that population counts in small sparsely populated areas are
-not captured. A second technique consists in adding a small undisclosed
-amount of random noise to ensure that it is not possible to ascertain
-precise, true counts for sparsely populated locations. Third, spatial
-smoothing using inverse distance-weighted averaging is also applied is
-applied to produce a smooth population count surface.
+applying privacy-preserving techniques \citep{maas2019} . Small-count
+dropping is one of these techniques. A data entry is removed if the
+population or movement count for an area is lower than 10. The removal
+of small counts may mean that population counts in small sparsely
+populated areas are not captured. A second technique consists in adding
+a small undisclosed amount of random noise to ensure that it is not
+possible to ascertain precise, true counts for sparsely populated
+locations. Third, spatial smoothing using inverse distance-weighted
+averaging is also applied is applied to produce a smooth population
+count surface.
 
 The Facebook Population dataset offers information on the number of
 active Facebook users in a spatial unit at a given point in time. The
@@ -222,20 +227,28 @@ interested in capturing resident population, so we consider only data
 corresponding to the time window corresponding to the night-time hours
 (00:00-08:00).
 
-The Facebook Population dataset is spatially aggregated according to the
-Bing Maps Tile System developed by Microsoft (Microsoft). The Tile
+Spatially, the Facebook Population dataset is aggregated according to
+the Bing Maps Tile System developed by Microsoft (Microsoft). The Tile
 System is a geospatial indexing system that partitions the world into
 tile cells in a hierarchical way, comprising 23 different levels of
 detail (Microsoft). At the lowest level of detail (Level 1), the world
 is divided into four tiles with a coarse spatial resolution. At each
 successive level, the resolution increases by a factor of two. The data
 that we used are spatially aggregated into Bing tile levels 13. That is
-about 4.9 x 4.9km at the Equator {[}@Maas19{]}. In the next steps, we
-compare the Facebook Population data with UK census data. To facilitate
-this comparison, we aggregate the data into administrative units,
-specifically UK Local Authority Districts (LADs).
+about 4.9 x 4.9km at the Equator \citep{maas2019}.
 
-\subsubsection{Twitter}\label{twitter}
+We process Facebook Population data to enable comparison with UK census
+data. Specifically, we take the average of daily Facebook Population
+data over March 2021, the census month, and aggregate it into UK Local
+Authority Districts (LADs) to align with the census data. This approach
+is used to generate the figures and results in the body paper. In the
+Supplementary Information, we test alternative approaches, including
+averaging over a single week in March 2021, or performing the spatial
+aggregation before temporal averaging. Our findings indicate that the
+results remain robust regardless of the chosen approach
+
+\hypertarget{twitter}{%
+\subsubsection{Twitter}\label{twitter}}
 
 We use an anonymised, openly available, analysis-ready dataset of active
 Twitter users in the UK. The data is derived from X (previously Twitter)
@@ -259,28 +272,49 @@ Archive (\url{https://gis.harvard.edu/data}). Despite these limitations, we
 consider X data as it remains a key source of historical digital trace
 data.
 
-\subsubsection{Multi-app GPS data}\label{multi-app-gps-data}
+\hypertarget{multi-app-gps-data-source-1}{%
+\subsubsection{Multi-app GPS data: source 1}\label{multi-app-gps-data-source-1}}
 
-The data used in this study were sourced by a data analytics company
-that collects GPS location data from around 26\% of smartphones in the
-UK. The raw data is collected for individual anonymised devices, from
-numerous smartphone applications where the users have explicitly granted
-location-sharing permissions. The full dataset covers 7 days
-corresponding to the first week of April for the UK, including X GPS
-records and X unique devices. While the dates covered by dataset do not
-exactly coincide with the 2021 UK Census dates, the alignment is very
-close.
+We sourced data from a data analytics company that collects GPS location
+data from around 26\% of smartphones in the UK. The raw data is collected
+for individual anonymised devices, from numerous smartphone applications
+where the users have explicitly granted location-sharing permissions.
+The full dataset covers 7 days corresponding to the first week of April
+for the UK, including X GPS records and X unique devices. While the
+dates covered by dataset do not exactly coincide with the 2021 UK Census
+dates, the alignment is close.
 
-We process the data to estimate users' place of residence by assuming
-that the residence of a device owner corresponds to the location with
-the highest number of GPS records during night hours (11 PM -- 7 AM). For
-a location to be classified as a residence, it must account for more
-than 50\% of recorded nighttime locations and be visited at least twice.
-To ensure consistency in our analysis when comparing with other data
-sources, we aggregate these residence locations at the Local Authority
-District (LAD) level.
+We process the data to estimate users' place of residence based on a
+commonly used rule-based classification (e.g. \citep[
+\citet{zhong24working}]{wang2022}), which assumes that the residence of a device owner
+corresponds to the location with the highest number of GPS records
+during night hours (7 PM -- 7 AM). For a location to be classified as a
+residence, it must account for more than 50\% of recorded nighttime
+locations and be visited at least twice during the period of study. To
+ensure consistency when comparing with other data sources, we aggregate
+these residence locations at the Local Authority District (LAD) level.
 
-\subsection{Methods}\label{methods}
+\hypertarget{multi-app-gps-data-source-2}{%
+\subsubsection{Multi-app GPS data: source 2}\label{multi-app-gps-data-source-2}}
+
+Our analysis includes a second source of analysis-ready GPS location
+data, which is openly-available on GitHub
+(\href{https://t.ly/dzlzB}{https://t.ly/dzlzB)}). This dataset has already
+been processed to identify the home location of users accoring to the
+methodology described in \citep{zhong24working}. The raw data is collected by
+a UK-based data service company, which licenses mobile GPS data from 200
+smartphone apps and applies pre-processing methods to ensure user
+privacy and anonymity. The full dataset covers the UK in November 2021.
+While this period does not exactly coincide with the 2021 UK Census, the
+difference of less than a year is considered sufficiently close for our
+analysis.
+
+To ensure consistency across datasets, we further process the data by
+aggregating it spatially from the Middle Layer Super Output Area (MSOA)
+level to the Local Authority District Level (LAD).
+
+\hypertarget{methods}{%
+\subsection{Methods}\label{methods}}
 
 In this section, we outline our proposed methodology, which consists of
 two interconnected stages aimed at quantifying two types of biases:
@@ -308,7 +342,8 @@ to be associated with higher values of coverage bias, thus highlighting
 which population groups tend to be underrepresented in different sources
 of digital trace data.
 
-\subsubsection{Measuring coverage bias (CCA)}\label{measuring-coverage-bias-cca}
+\hypertarget{measuring-coverage-bias-cca}{%
+\subsubsection{Measuring coverage bias (CCA)}\label{measuring-coverage-bias-cca}}
 
 We define a metric to quantify the magnitude of coverage bias in each
 subnational area. This metric is based on the population coverage of the
@@ -335,7 +370,8 @@ which corresponds to full population coverage (\(c_i = 100\)). We use this
 bias indicator to analysis the magnitude and spatial distribution of
 coverage bias across multiple sources of digital trace data.
 
-\subsubsection{Assessing the driving factors of bias (FR)}\label{assessing-the-driving-factors-of-bias-fr}
+\hypertarget{assessing-the-driving-factors-of-bias-fr}{%
+\subsubsection{Assessing the driving factors of bias (FR)}\label{assessing-the-driving-factors-of-bias-fr}}
 
 We seek to understand the association between the size of bias and
 area-level demographic and socioeconomic attributes. To what extent
@@ -352,9 +388,11 @@ technology. We will use this information to inform our models in WP-II.
 eXtreme Gradient Boosting (XGBoost) is an efficient and scalable
 implementation of gradient boosting framework by \citep{friedman2001, friedman2000}.
 
-\section{Results}\label{results}
+\hypertarget{results}{%
+\section{Results}\label{results}}
 
-\subsection{Varying extent of bias across data sources}\label{varying-extent-of-bias-across-data-sources}
+\hypertarget{varying-extent-of-bias-across-data-sources}{%
+\subsection{Varying extent of bias across data sources}\label{varying-extent-of-bias-across-data-sources}}
 
 As digital trace data becomes increasingly accessible, it opens up new
 avenues for studying human behaviours with remarkable temporal and
@@ -382,10 +420,12 @@ trace data, highlighting its potential to inform comprehensive empirical
 analyses.
 
 \begin{figure}
+\hypertarget{fig:survey}{%
 \centering
 \includegraphics{figures/compare-surveys-two-axis.png}
 \caption{Size of bias and population coverage (per 1,000 population) by data
 source.}\label{fig:survey}
+}
 \end{figure}
 
 While the findings in Figure \ref{fig:survey} demonstrate the potential
@@ -427,7 +467,8 @@ under or over-represented in different sources of digital trace data.
 This information is necessary to later adjust the data so that it is
 more representative of the population of interest.
 
-\subsection{The spatial distribution of biases (CCA)}\label{the-spatial-distribution-of-biases-cca}
+\hypertarget{the-spatial-distribution-of-biases-cca}{%
+\subsection{The spatial distribution of biases (CCA)}\label{the-spatial-distribution-of-biases-cca}}
 
 Next, we take advantage of the detailed geographic information in the
 digital trace data to analyse bias at smaller, more localised spatial
@@ -496,11 +537,14 @@ educational level. In the next section, we explore the variability of
 demographic attributes of local populations as possible determinants of
 the size of bias.
 
-\subsection{Explaining biases (FR)}\label{explaining-biases-fr}
+\hypertarget{explaining-biases-fr}{%
+\subsection{Explaining biases (FR)}\label{explaining-biases-fr}}
 
-\section{Discussion (FR)}\label{discussion-fr}
+\hypertarget{discussion-fr}{%
+\section{Discussion (FR)}\label{discussion-fr}}
 
-\section{Conclusion (CCA)}\label{conclusion-cca}
+\hypertarget{conclusion-cca}{%
+\section{Conclusion (CCA)}\label{conclusion-cca}}
 
 \ethics{Please provide details on the ethics.}
 
