@@ -53,14 +53,18 @@ source("../code/style/data-visualisation_theme.R")
 
 This first line defines the data source to be analysed. We have three options:
 
-\- `twitter`
+- `twitter`
 
-\- `fb_stt`
+- `fb_stt`
 
-\- `fb_tts`
+- `fb_tts`
+
+- `mapp1`
+
+- `mapp2`
 
 ```{r}
-dfd <- "twitter"
+dfd <- "mapp1"
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -95,6 +99,10 @@ if (dfd == "twitter") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
+  }  else if (dfd == "mapp1") {
+  df_bias <- read.csv(paste0(wd, "/data/outputs/mapp1/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
+  }  else if (dfd == "mapp1") {
+  df_bias <- read.csv(paste0(wd, "/data/outputs/mapp2/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   }
 
 # add spatial weights to the label data frame if they are included 
@@ -455,6 +463,10 @@ if (dfd == "twitter"){
   write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_stt") {
   write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))
+  } else if (dfd == "mapp1") {
+  write_csv(hyper_grid, paste0(wd, "/data/outputs/mapp1/populations/tts/explain-bias/hypergrid_lad.csv"))
+  } else if (dfd == "mapp1") {
+  write_csv(hyper_grid, paste0(wd, "/data/outputs/mapp2/populations/stt/explain-bias/hypergrid_lad.csv"))
   }
 
 ```
@@ -471,6 +483,10 @@ if (dfd == "twitter"){
   hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_stt") {
   hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))  
+  } else if (dfd == "mapp1") {
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/mapp1/populations/stt/explain-bias/hypergrid_lad.csv"))  
+  } else if (dfd == "mapp2") {
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/mapp2/populations/stt/explain-bias/hypergrid_lad.csv"))  
   }
 
 optimal_pars <- hyper_grid %>% 
@@ -512,6 +528,10 @@ if (dfd == "twitter"){
   saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/xgb-fit-final-lad.rds"))
   } else if (dfd == "fb_stt") {
   saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/xgb-fit-final-lad.rds"))
+  } else if (dfd == "mapp1") {
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/mapp1/populations/tts/explain-bias/xgb-fit-final-lad.rds"))
+  } else if (dfd == "mapp2") {
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/mapp2/populations/stt/explain-bias/xgb-fit-final-lad.rds"))
   }
 ```
 
