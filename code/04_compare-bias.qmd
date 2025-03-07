@@ -117,8 +117,6 @@ formatted_labels <- sapply(1:(length(jenks_breaks) - 1), function(i) {
 
 ```
 
-
-
 ## FB stt-month
 
 ```{r}
@@ -142,18 +140,25 @@ ggplot(data, aes(x = x, y = y, color = color_bins)) +
     na.translate = TRUE,
     labels = formatted_labels
   ) +
-  geom_point(shape = 1, size = 4) +                        
+  geom_point(shape = 1, size = 4, stroke = 1.1) +                        
   labs(x = "FB ts-month (bias by LAD)",               # Label for the x-axis
        y = "FB st-month (bias by LAD)") +              # Label for the y-axis
   theme_tufte2() +
-  theme(axis.text = element_text(size = 18),
-        axis.title = element_text(size = 20)) +
-  annotate("text", x = 0.87, y = 0.9959, 
-           label = paste("Pearson correlation: ", round(corr, 2),
-                         "\np-value: ", format(corr_pvalue, digits = 3)), 
-           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+  theme(axis.text = element_text(size = 48),
+        axis.title = element_text(size = 60),
+        legend.text = element_text(size = 48),  
+        legend.title = element_text(size = 48)) +  
+  annotate("text", x = 0.87, y = 0.9939, 
+           label = paste("Pearson correlation: ", round(corr, 2)),
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue") +
+    annotate("text", x = 0.87, y = 0.9879, 
+           label = paste("p-value: ", format(corr_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue")
 
-# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_stt_census_month.png"), bg="white")
+
+
+
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_stt_census_month.png"), bg="white")
 ```
 
 ## FB tts-week
@@ -180,19 +185,24 @@ ggplot(data, aes(x = x, y = y, color = color_bins)) +
     na.translate = TRUE,
     labels = formatted_labels
   ) +
-  geom_point(shape = 1, size = 4) +                         
+  geom_point(shape = 1, size = 4, stroke = 1.1) +                         
   labs(x = "FB ts-month (bias by LAD)",               # Label for the x-axis
        y = "FB ts-week (bias by LAD)") +              # Label for the y-axis
   theme_tufte2() +
-  theme(axis.text = element_text(size = 18),
-        axis.title = element_text(size = 20)) +
-  annotate("text", x = 0.87, y = 0.9959, 
-           label = paste("Pearson correlation: ", round(corr, 2),
-                         "\np-value: ", format(corr_pvalue, digits = 3)), 
-           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+  theme(axis.text = element_text(size = 48),
+        axis.title = element_text(size = 60),
+        legend.text = element_text(size = 48),  
+        legend.title = element_text(size = 48)) +  
+  annotate("text", x = 0.87, y = 0.9939, 
+           label = paste("Pearson correlation: ", round(corr, 2)),
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue") +
+    annotate("text", x = 0.87, y = 0.9839, 
+           label = paste("p-value: ", format(corr_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue")
 
-# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_tts_census_week.png"), bg="white")
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_tts_census_week.png"), bg="white")
 ```
+
 ## FB stt-week
 
 ```{r}
@@ -218,18 +228,22 @@ ggplot(data, aes(x = x, y = y, color = color_bins)) +
     na.translate = TRUE,
     labels = formatted_labels
   ) +
-  geom_point(shape = 1, size = 4) +                         
-  labs(x = "FB ts-week (bias by LAD)",               # Label for the x-axis
+  geom_point(shape = 1, size = 4, stroke = 1.1) +                         
+  labs(x = "FB ts-month (bias by LAD)",               # Label for the x-axis
        y = "FB st-week (bias by LAD)") +              # Label for the y-axis
   theme_tufte2() +
-  theme(axis.text = element_text(size = 18),
-        axis.title = element_text(size = 20)) +
-  annotate("text", x = 0.87, y = 0.9959, 
-           label = paste("Pearson correlation: ", round(corr, 2),
-                         "\np-value: ", format(corr_pvalue, digits = 3)), 
-           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+  theme(axis.text = element_text(size = 48),
+        axis.title = element_text(size = 60),
+        legend.text = element_text(size = 48),  
+        legend.title = element_text(size = 48)) +  
+  annotate("text", x = 0.87, y = 0.9939, 
+           label = paste("Pearson correlation: ", round(corr, 2)),
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue") +
+    annotate("text", x = 0.87, y = 0.9909, 
+           label = paste("p-value: ", format(corr_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue")
 
-# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_stt_census_week.png"), bg="white")
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_fb_stt_census_week.png"), bg="white")
 ```
 
 ## FB twitter
@@ -255,19 +269,24 @@ ggplot(data, aes(x = x, y = y, color = color_bins)) +
     na.translate = TRUE,
     labels = formatted_labels
   ) +
-  geom_point(shape = 1, size = 4) +                      
+  geom_point(shape = 1, size = 4, stroke = 1.1) +                      
   labs(x = "FB ts-month (bias by LAD)",               # Label for the x-axis
        y = "Twitter/X (bias by LAD)") +              # Label for the y-axis
   theme_tufte2() +
-  theme(axis.text = element_text(size = 18),
-        axis.title = element_text(size = 20)) +
-  annotate("text", x = 0.83, y = 0.9961, 
-           label = paste("Pearson correlation: ", round(corr, 2),
-                         "\np-value: ", format(corr_pvalue, digits = 3)), 
-           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+  theme(axis.text = element_text(size = 48),
+        axis.title = element_text(size = 60),
+        legend.text = element_text(size = 48),  
+        legend.title = element_text(size = 48)) +  
+  annotate("text", x = 0.87, y = 0.9999, 
+           label = paste("Pearson correlation: ", round(corr, 2)),
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue") +
+    annotate("text", x = 0.87, y = 0.9995, 
+           label = paste("p-value: ", format(corr_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue")
 
-# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_twitter.png"), bg="white")
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_twitter.png"), bg="white")
 ```
+
 ## FB multi-app 1
 
 ```{r}
@@ -291,18 +310,22 @@ ggplot(data, aes(x = x, y = y, color = color_bins)) +
     na.translate = TRUE,
     labels = formatted_labels
   ) +
-  geom_point(shape = 1, size = 4) +                       
+  geom_point(shape = 1, size = 4, stroke = 1.1) +                       
   labs(x = "FB ts-month (bias by LAD)",               # Label for the x-axis
        y = "Multi-app 1 (bias by LAD)") +              # Label for the y-axis
   theme_tufte2() +
-  theme(axis.text = element_text(size = 18),
-        axis.title = element_text(size = 20)) +
-  annotate("text", x = 0.83, y = 0.9961, 
-           label = paste("Pearson correlation: ", round(corr, 2),
-                         "\np-value: ", format(corr_pvalue, digits = 3)), 
-           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+  theme(axis.text = element_text(size = 48),
+        axis.title = element_text(size = 60),
+        legend.text = element_text(size = 48),  
+        legend.title = element_text(size = 48)) +  
+  annotate("text", x = 0.87, y = 0.9941, 
+           label = paste("Pearson correlation: ", round(corr, 2)),
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue") +
+    annotate("text", x = 0.87, y = 0.9904, 
+           label = paste("p-value: ", format(corr_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue")
 
-# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_mapp1.png"), bg="white")
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_mapp1.png"), bg="white")
 ```
 
 ## FB multi-app 2
@@ -328,16 +351,20 @@ ggplot(data, aes(x = x, y = y, color = color_bins)) +
     na.translate = TRUE,
     labels = formatted_labels
   ) +
-  geom_point(shape = 1, size = 4) +                        
+  geom_point(shape = 1, size = 4, stroke = 1.1) +                        
   labs(x = "FB ts-month (bias by LAD)",               # Label for the x-axis
        y = "Multi-app 2 (bias by LAD)") +              # Label for the y-axis
   theme_tufte2() +
-  theme(axis.text = element_text(size = 18),
-        axis.title = element_text(size = 20)) +
-  annotate("text", x = 0.83, y = 0.9961, 
-           label = paste("Pearson correlation: ", round(corr, 2),
-                         "\np-value: ", format(corr_pvalue, digits = 3)), 
-           family = "robotocondensed", hjust = 0, vjust = 1, size = 6, color = "blue")
+  theme(axis.text = element_text(size = 48),
+        axis.title = element_text(size = 60),
+        legend.text = element_text(size = 48),  
+        legend.title = element_text(size = 48)) +  
+  annotate("text", x = 0.87, y = 0.9955, 
+           label = paste("Pearson correlation: ", round(corr, 2)),
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue") +
+    annotate("text", x = 0.87, y = 0.9938, 
+           label = paste("p-value: ", format(corr_pvalue, digits = 3)), 
+           family = "robotocondensed", hjust = 0, vjust = 1, size = 20, color = "blue")
 
-# ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_mapp2.png"), bg="white")
+ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/summary-figs/size-bias/scatter-plot/fb_tts_census_month_vs_mapp2.png"), bg="white")
 ```

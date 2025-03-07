@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.16)  6 MAR 2025 12:32
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.16)  7 MAR 2025 13:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -278,7 +278,7 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count301
 ) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count302
 ) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
@@ -595,116 +595,20 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 [2]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 13.6001pt on input line 108.
+File: figures/Fig-compare-bias-size.png Graphic file (type bmp)
+<figures/Fig-compare-bias-size.png>
 
-Underfull \hbox (badness 1515) in paragraph at lines 147--152
-\T1/ppl/m/n/9 level rep-re-sen-ta-tion. They can only of-fer rough sig-nals about the spa-tial dis-tri-bu-tion of
+Overfull \hbox (2.82054pt too wide) in paragraph at lines 110--111
+[] 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+No file rsos-si.bbl.
+Setting LastPage
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[3]
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 202.
-
-
-
-Overfull \vbox (21.4162pt too high) has occurred while \output is active []
-
-[4]
-
-
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-[5]
-
-Package natbib Warning: Citation `friedman2001' on page 6 undefined on input line 362.
-
-
-Package natbib Warning: Citation `friedman2000' on page 6 undefined on input line 362.
-
-
-Underfull \hbox (badness 1418) in paragraph at lines 370--375
-\T1/ppl/m/n/9 hu-man be-haviours with re-mark-able tem-po-ral and spa-tial pre-ci-sion, ex-ten-sive ge-o-graphic
- []
-
-File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
-<figures/compare-surveys-two-axis.png>
-
-Overfull \hbox (29.75381pt too wide) in paragraph at lines 401--401
- [][] 
- []
-
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.22505pt on input line 401.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 401.
-
-Underfull \hbox (badness 10000) detected at line 401
-[]
- []
-
-
-Underfull \hbox (badness 1762) in paragraph at lines 423--433
-\T1/ppl/m/n/9 trace data is gen-er-ated pas-sively as a byprod-uct of on-line in-ter-ac-tions, trans-ac-tions, or
- []
-
-
-
-
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-[6]
-
-LaTeX Warning: Reference `fig:size-bias-spatial' on page 7 undefined on input line 455.
-
-File: figures/Fig-size-bias.png Graphic file (type bmp)
-<figures/Fig-size-bias.png>
-
-Overfull \hbox (29.1196pt too wide) in paragraph at lines 468--469
-[][] 
- []
-
-
-
-
-Overfull \vbox (21.4162pt too high) has occurred while \output is active []
-
-[7]
-Underfull \hbox (badness 1496) in paragraph at lines 485--500
-\T1/ppl/m/n/9 in [[]] used to gen-er-ate the Twit-ter/X data used here might clas-sify the work-place or
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-[8] (./rsos-si.bbl
-Missing character: There is no ś ("15B) in font pplr8t!
-
-
-
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-[9]) Setting LastPage
-
-
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-[10]
-
-Package natbib Warning: There were undefined citations.
-
-(./rsos-si.aux)
+[3] (./rsos-si.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
@@ -713,19 +617,16 @@ L3 programming layer <2024-11-02>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.25pt have occurred.
 
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `rsos-si.out' has not changed.
-(rerunfilecheck)             Checksum: 41FCD71BCB266F8D50C56A99ADD865A9;2754.
+(rerunfilecheck)             Checksum: 04D9421BA72F7EEB9E4EFC9EDCFD188E;714.
  ) 
 Here is how much of TeX's memory you used:
- 12057 strings out of 475903
- 184451 string characters out of 5774978
- 577514 words of memory out of 5000000
- 34649 multiletter control sequences out of 15000+600000
- 612567 words of font info for 133 fonts, out of 8000000 for 9000
+ 11960 strings out of 475903
+ 182254 string characters out of 5774978
+ 572333 words of memory out of 5000000
+ 34558 multiletter control sequences out of 15000+600000
+ 604472 words of font info for 126 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 87i,14n,93p,547b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,544b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-si.pdf (10 pages).
+Output written on rsos-si.pdf (3 pages).

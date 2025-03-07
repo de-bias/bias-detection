@@ -74,11 +74,12 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-
 # Alternative data aggregation approaches for Facebook data
 
-tts-week, stt-month, stt-week --> test for linear correlation between these and tts-month
+![](figures/Fig-compare-bias-size.png){width="514" height="248"}
 
 # Testing for spatial autocorrelation in the size of bias
 
-according to multiple spatial weighting schemes --> compute moran's I and p-values, display them in a table (schemes as columns, data source as rows) 
+according to multiple spatial weighting schemes --\> compute moran's I
+and p-values, display them in a table (schemes as columns, data source
+as rows)
