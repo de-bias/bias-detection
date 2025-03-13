@@ -53,14 +53,14 @@ source("../code/style/data-visualisation_theme.R")
 
 This first line defines the data source to be analysed. We have three options:
 
-\- `twitter`
+- `twitter`
 
-\- `fb_stt`
+- `fb_stt`
 
-\- `fb_tts`
+- `fb_tts`
 
 ```{r}
-dfd <- "twitter"
+dfd <- "mapp2"
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -95,13 +95,10 @@ if (dfd == "twitter") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
-<<<<<<< HEAD
   }  else if (dfd == "mapp1") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/mapp1/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   }  else if (dfd == "mapp2") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/mapp2/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
-=======
->>>>>>> parent of 4584964 (add lines for mapp data)
   }
 
 # add spatial weights to the label data frame if they are included 
@@ -462,13 +459,10 @@ if (dfd == "twitter"){
   write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_stt") {
   write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))
-<<<<<<< HEAD
   } else if (dfd == "mapp1") {
   write_csv(hyper_grid, paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "mapp2") {
   write_csv(hyper_grid, paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/hypergrid_lad.csv"))
-=======
->>>>>>> parent of 4584964 (add lines for mapp data)
   }
 
 
@@ -487,13 +481,10 @@ if (dfd == "twitter"){
   hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_stt") {
   hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))  
-<<<<<<< HEAD
   } else if (dfd == "mapp1") {
   hyper_grid <- read_csv(paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/hypergrid_lad.csv"))  
   } else if (dfd == "mapp2") {
   hyper_grid <- read_csv(paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/hypergrid_lad.csv"))  
-=======
->>>>>>> parent of 4584964 (add lines for mapp data)
   }
 
 optimal_pars <- hyper_grid %>% 
@@ -535,13 +526,10 @@ if (dfd == "twitter"){
   saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/xgb-fit-final-lad.rds"))
   } else if (dfd == "fb_stt") {
   saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/xgb-fit-final-lad.rds"))
-<<<<<<< HEAD
   } else if (dfd == "mapp1") {
   saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/xgb-fit-final-lad.rds"))
   } else if (dfd == "mapp2") {
   saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/xgb-fit-final-lad.rds"))
-=======
->>>>>>> parent of 4584964 (add lines for mapp data)
   }
 ```
 
@@ -668,7 +656,7 @@ Bar plot - importance
 
 ```{r}
 feature_lbl <- sv_importance(shp, kind = "bee", 
-                             max_display = 30L) %>% 
+                             max_display = 20L) %>% 
   .$data %>% 
   distinct(.$feature) %>% 
   rename(labels = ".$feature") %>% 
@@ -676,7 +664,7 @@ feature_lbl <- sv_importance(shp, kind = "bee",
 
 sv_importance(shp, kind = "bar", 
               viridis_args = list(option = "viridis"),
-              max_display = 30L) +
+              max_display = 20L) +
   scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
   labs(
     x = "Mean SHAP value",
@@ -870,6 +858,7 @@ selected_areas <- c(
 
 input_df_with_shap_values %>% 
   filter(geography %in% selected_areas ) %>% 
+  #filter(var_label2 %in% feature_lbl$var_label2  ) %>% 
   tidyplot(x = geography, 
            y = var_label2,
            color = shap_value) %>%

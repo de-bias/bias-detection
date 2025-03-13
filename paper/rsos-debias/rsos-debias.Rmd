@@ -106,7 +106,7 @@ trails of digital trace data containing location information. These data
 have revolutionised research and business activities offering novel
 opportunities to understand human behaviour and processes
 [@rowe23-bigdata]. Digital trace data offer high spatial granularity,
-geographic coverage, high temporal frequency and instant information to
+large geographic coverage, high temporal frequency and instant information to
 capture and understand human activities at unprecedentedly high
 resolution and scale, and produce actionable intelligence in real time
 to support rapid decision making. Digital trace data have been used for
@@ -129,10 +129,7 @@ the adult population have a mobile phone and 92% of this population use
 a smartphone [@ofcom23], but a smaller percentage actively use Facebook
 (70%) or Twitter (23%) [@statista24]. Additionally, biases emerge from
 differences in the access and use of digital technology across
-population subgroups according to their socioeconomic and demographic
-profile. For instance, wealthy and urban populations tend to be
-over-represented in mobile phone data [REF] and of digital social
-platforms, such as Facebook [REF] and Twitter/X [REF].
+population subgroups according reflecting spatial variations in socioeconomic and demographic community profiles. For instance, wealthy and urban populations generally have greater access and usage of digital technology, and therefore tend to be over-represented in digital trace data sources [REF].
 
 The use of biased digital trace data can thus have major practical and
 societal implications.
