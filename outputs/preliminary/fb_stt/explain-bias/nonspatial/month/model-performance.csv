@@ -1,5 +1,5 @@
 metric,train,test,data_source
-rmse,0.009,0.012,fb_stt
-pearson,0.895,0.547,fb_stt
-spearman,0.898,0.561,fb_stt
-standard_dev,0.004,0.008,fb_stt
+rmse,0.001,0.012,fb_stt
+pearson,0.999,0.581,fb_stt
+spearman,0.999,0.591,fb_stt
+standard_dev,0,0.008,fb_stt

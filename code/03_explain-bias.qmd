@@ -53,14 +53,14 @@ source("../code/style/data-visualisation_theme.R")
 
 This first line defines the data source to be analysed. We have three options:
 
-- `twitter`
+-   `twitter`
 
-- `fb_stt`
+-   `fb_stt`
 
-- `fb_tts`
+-   `fb_tts`
 
 ```{r}
-dfd <- "mapp2"
+dfd <- "fb_tts"
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -89,8 +89,7 @@ lda_sdf <- st_read("/Volumes/DEBIAS/data/inputs/geographies/boundaries/LAD_Dec_2
 
 # digital footprint mobility data
 if (dfd == "twitter") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad_w_fbw.csv")) %>% rename("geography.code" = "code") 
-#  %>% dplyr::filter(name != "City of London")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
   } else if (dfd == "fb_tts") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   } else if (dfd == "fb_stt") {
@@ -284,7 +283,7 @@ ggplot(xgb.fit1$evaluation_log) +
   geom_line(aes(iter, test_rmse_mean), color = "blue")
 ```
 
-We can see that the training error continues to decrease to 778 trees where the RMSE nearly reaches 0.0009509059 ; however, the cross validated error reaches a minimum RMSE of 1650 with only 14 trees.
+We can see that the training error continues to decrease to 778 trees where the RMSE nearly reaches 0.0009509059; however, the cross validated error reaches a minimum RMSE of 1650 with only 14 trees.
 
 ## Tuning
 
@@ -454,15 +453,15 @@ This may take a while so leave it running overnight!
 ```{r}
 
 if (dfd == "twitter"){
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_tts") {
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "fb_stt") {
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "mapp1") {
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/hypergrid_lad.csv"))
   } else if (dfd == "mapp2") {
-  write_csv(hyper_grid, paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/hypergrid_lad.csv"))
   }
 
 
@@ -858,9 +857,66 @@ selected_areas <- c(
 
 input_df_with_shap_values %>% 
   filter(geography %in% selected_areas ) %>% 
-  #filter(var_label2 %in% feature_lbl$var_label2  ) %>% 
+  filter(var_label2 %in% feature_lbl$var_label2  ) %>% 
   tidyplot(x = geography, 
            y = var_label2,
+           color = shap_value) %>%
+  add_heatmap(rotate_labels = 90) %>% 
+  adjust_size(height = 100) %>% 
+  adjust_x_axis_title("") %>% 
+  adjust_y_axis_title("") %>% 
+  add(ggplot2::theme(
+    legend.position = "bottom",
+    legend.title = element_text(size=10, face = "plain", hjust=0.5, lineheight=0.45,
+          color="black"),
+    legend.key.width = unit(0.9, "cm"), 
+    legend.key.height = unit(0.35, "cm"),
+    legend.text = element_text(size = 8)
+  )) %>% 
+  add(ggplot2::labs(fill = "Shap value"))
+```
+
+```{r}
+selected_areas <- c(
+  "Birmingham",
+  "Leeds",
+  "Sheffield",
+  "Bradford",
+  "Liverpool",
+  "Manchester",
+  "Bristol, City of",
+  "Kirklees",
+  "Croydon",
+  "Barnet",
+  "Isles of Scilly",
+  "City of London",
+  "Teesdale",
+  "Berwick-upon-Tweed",
+  "Alnwick",
+  "Somerset West and Taunton",
+  "Oswestry",
+  "Rutland",
+  "Shropshire",
+  "Christchurch",
+  "Purbeck",
+  "Melton",
+  "West Devon",
+  "Ryedale",
+  "Richmondshire",
+  "Eden",
+  "Castle Morpeth",
+  "Corby"
+)
+
+# Ensure that var_label2 follows the same order as the bar chart
+heatmap_labels <- feature_lbl$var_label2
+
+input_df_with_shap_values %>% 
+  filter(geography %in% selected_areas) %>% 
+  filter(var_label2 %in% heatmap_labels) %>% 
+  mutate(var_label2 = factor(var_label2, levels = rev(heatmap_labels))) %>%  # Ensure same order
+  tidyplot(x = geography, 
+           y = var_label2,  # Apply the consistent label order
            color = shap_value) %>%
   add_heatmap(rotate_labels = 90) %>% 
   adjust_size(height = 100) %>% 
