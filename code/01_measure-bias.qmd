@@ -32,10 +32,10 @@ source("./style/data-visualisation_theme.R")
 
 ```{r}
 # Set digital trace data source: twitter, fb_tts_census_week, fb_tts_census_month, fb_stt_census_week, fb_stt_census_month, mapp1, mapp2
-dfd <- "mapp1"
+dfd <- "mapp2"
 
 # Set weights scheme: queen, fbw, knn, db
-w_scheme <- 'knn'
+w_scheme <- 'db'
 ```
 
 # Data import
@@ -52,9 +52,9 @@ df_pop_census <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census20
 
 df_boundaries <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022.gpkg")) %>% select(LAD21CD, SHAPE) %>% rename("code" = "LAD21CD")
 
-df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_Dec_2021_EN_BFC_2022.gpkg")) %>% st_simplify(preserveTopology = FALSE, dTolerance = 1000)
-
-df_boundaries_hex <- st_read(paste0(wd, "/data/inputs/geographies/hexboundaries/uk-local-authority-districts-2021.geojson")) %>% st_transform(st_crs(df_boundaries_up)) %>% rename("code" = "id")
+# df_boundaries_up <- st_read(paste0(wd, "/data/inputs/geographies/boundaries/RGN_Dec_2021_EN_BFC_2022.gpkg")) %>% st_simplify(preserveTopology = FALSE, dTolerance = 1000)
+# 
+# df_boundaries_hex <- st_read(paste0(wd, "/data/inputs/geographies/hexboundaries/uk-local-authority-districts-2021.geojson")) %>% st_transform(st_crs(df_boundaries_up)) %>% rename("code" = "id")
 ```
 
 ## Digital trace data
@@ -134,7 +134,6 @@ st_bias_map <- st_bias_map %>%
 st_bias_map <-  st_bias_map %>%
   mutate(bias = 1-pop_dfd/pop) %>%
   mutate(map_bias = bias*100)  
-
 
 model <- lm(pop_dfd ~ pop, data = df_bias, na.action = na.omit)
 df_bias <- df_bias %>%
@@ -233,21 +232,21 @@ ggplot(df_bias, aes(x = pop, y = pop_dfd, color = jenks_bins)) +
     plot.margin = unit(c(1, 2, 1, 1), "lines")
     )
 
-if (dfd == "twitter") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/scatter/twitter_lad.png"), bg="white")
-  } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/scatter/fb_tts_lad_census_week.png"), bg="white")
-  } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/scatter/fb_tts_lad_census_month.png"), bg="white")
-  } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_week.png"), bg="white")
-  } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_month.png"), bg="white")
-  } else if (dfd == "mapp1") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/mapp1/size-bias/scatter/mapp1_lad_census_month.png"), bg="white")
-  } else if (dfd == "mapp2") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/mapp2/size-bias/scatter/mapp2_lad_census_month.png"), bg="white")
-  }
+# if (dfd == "twitter") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/scatter/twitter_lad.png"), bg="white")
+#   } else if (dfd == "fb_tts_census_week") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/scatter/fb_tts_lad_census_week.png"), bg="white")
+#   } else if (dfd == "fb_tts_census_month") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/scatter/fb_tts_lad_census_month.png"), bg="white")
+#   } else if (dfd == "fb_stt_census_week") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_week.png"), bg="white")
+#   } else if (dfd == "fb_stt_census_month") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/scatter/fb_stt_lad_census_month.png"), bg="white")
+#   } else if (dfd == "mapp1") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/mapp1/size-bias/scatter/mapp1_lad_census_month.png"), bg="white")
+#   } else if (dfd == "mapp2") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/mapp2/size-bias/scatter/mapp2_lad_census_month.png"), bg="white")
+#   }
 ```
 
 ## Histogram bias
@@ -314,21 +313,21 @@ ggplot(hist_data, aes(x = value, fill = jenks_bins)) +
     axis.text.y = element_text(size = 50)      # Font size for Y-axis ticks
   )
 
-if (dfd == "twitter") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/histogram/twitter_lad.png"), bg="white")
-  } else if (dfd == "fb_tts_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/histogram/fb_tts_lad_census_week.png"), bg="white")
-  } else if (dfd == "fb_tts_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/histogram/fb_tts_lad_census_month.png"), bg="white")
-  } else if (dfd == "fb_stt_census_week") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_week.png"), bg="white")
-  } else if (dfd == "fb_stt_census_month") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_month.png"), bg="white")
-  } else if (dfd == "mapp1") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/mapp1/size-bias/histogram/mapp1_lad_census_month.png"), bg="white")
-  } else if (dfd == "mapp2") {
-  ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/mapp2/size-bias/histogram/mapp2_lad_census_month.png"), bg="white")
-  }
+# if (dfd == "twitter") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/twitter/size-bias/histogram/twitter_lad.png"), bg="white")
+#   } else if (dfd == "fb_tts_census_week") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/histogram/fb_tts_lad_census_week.png"), bg="white")
+#   } else if (dfd == "fb_tts_census_month") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_tts/size-bias/histogram/fb_tts_lad_census_month.png"), bg="white")
+#   } else if (dfd == "fb_stt_census_week") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_week.png"), bg="white")
+#   } else if (dfd == "fb_stt_census_month") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/fb_stt/size-bias/histogram/fb_stt_lad_census_month.png"), bg="white")
+#   } else if (dfd == "mapp1") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/mapp1/size-bias/histogram/mapp1_lad_census_month.png"), bg="white")
+#   } else if (dfd == "mapp2") {
+#   ggsave(paste0(wd_local, "/bias-detection/outputs/preliminary/mapp2/size-bias/histogram/mapp2_lad_census_month.png"), bg="white")
+#   }
 ```
 
 # Spatial autocorrelation
@@ -360,7 +359,7 @@ if (w_scheme == 'queen'){
   # Extract the coordinates of the centroids (or your points)
   coords <- st_coordinates(st_centroid(st_bias_map))
   # Create queen neighbours list
-  nb_q <- poly2nb(df, queen = TRUE)
+  nb_q <- poly2nb(st_bias_map, queen = TRUE)
   # Create a row-standardised spatial weights matrix using distance-based neighbors
   w_matrix <- nb2listw(nb_q, style = "W", zero.policy=TRUE)
   # Compute spatial lag
@@ -499,6 +498,11 @@ result <- moran.mc(st_bias_map$bias, w_matrix, nsim=1000, alternative="two.sided
 # Extract Moran's I and p-value
 mI <- as.numeric(result$statistic)  # Moran's I statistic
 p_value_mI <- as.numeric(result$p.value)    # p-value
+```
+
+```{r}
+mI
+p_value_mI
 ```
 
 # Map bias

@@ -83,3 +83,7 @@ Tables with captions Figure captions with credits where relevant
 according to multiple spatial weighting schemes --\> compute moran's I
 and p-values, display them in a table (schemes as columns, data source
 as rows)
+
+![Supplementary Table 1. Moran's I coefficients and significance,
+computed according to four spatial weights schemes,
+](figures/Table-si.png){width="500" height="200"}
