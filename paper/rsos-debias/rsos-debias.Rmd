@@ -139,9 +139,13 @@ disparities. For instance, wealthy, young and urban populations
 generally have greater access and more intensively use of mobile phone
 applications, and therefore tend to be over-represented in MPAD [REF].
 
-The use of MPAD can thus have major practical and societal implications.
+The use of biased MPAD can thus have major practical and societal implications. Selective patterns of smartphone ownership, application usage and digital engagement may lead to inaccurately capture of population patterns and distorted representations of human activities, disproportionately reflecting behaviors of younger, urban, and higher-income users while underrepresenting marginalized or less-connected groups
 
-Direct consequences - inaccurate patterns - distorted representation
+Direct consequences 
+
+- inaccurate patterns
+
+- distorted representation
 
 ## Implications
 
