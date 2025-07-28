@@ -1,5 +1,5 @@
 ---
-title: An approach to quantifying the extent of bias in human population data from mobile phones
+title: An approach to quantifying the spatial extent of bias in human population data from mobile phones
 author:
   - name: Carmen Cabrera
     affiliation: "1"
@@ -101,7 +101,7 @@ Tables with captions Figure captions with credits where relevant
 Traditional data streams, such as the census and surveys have been the
 primary official source to provide a comprehensive representation of
 national populations in countries worldwide. However, fast-paced
-societal changes and disasters, such as climate-induced hazards and
+societal changes and emergency disasters, such as climate-induced hazards and
 COVID-19 have tested and accentuated weaknesses in traditional data
 systems [@green2021]. Traditional data systems often provide data in
 infrequent and coarse temporal and geographical resolutions
@@ -110,15 +110,15 @@ and are slow taking months or years since they data are collected to
 their release [@rowe23-bigdata]. Data collection from climate- or
 conflict-impacted areas is generally unfeasible because of restrictions
 due to high levels of insecurity and risk [@iradukunda2025]. Yet,
-fast-paced societal changes arguably require high frequency, granular
+fast-paced societal changes require high frequency, granular
 and up-to-date information to support real-time planning, policy and
 decision making.
 
 At the same time, we have seen the confluence of two diverging trends in
-data availability. On the one hand, there is growing evidence of
+data availability. On the one hand, growing evidence of
 declining survey response rates across many countries over the last 20
-years **[REF]**. Dwindling numbers in surveys tend to distort the
-reported picture of society **[REF]**. On the other hand, significant
+years is accumulating **[REF]**. Dwindling numbers in surveys can represent distorted 
+picture of society **[REF]**. On the other hand, significant
 advances in sensor technology, computational power, storage and digital
 network platforms have unleashed a data revolution producing large
 trails of digital trace data **[REF]**. These data are now routinely
@@ -129,37 +129,33 @@ real-time actionable intelligence to support decision making **[REF]**.
 Hence, national statistical offices are actively seeking to integrate
 these data into their national data infrastructure **[REF]**.
 
-Mobile phone data (MPD) have become a prominent nontraditional data
-source to monitor population changes. Increasing usage of mobile
+Mobile phone data (MPD) collected via GPS- and IP-based technology
+have become a prominent source of nontraditional data 
+to monitor population changes. Increasing usage of mobile
 services on smartphones and wearable devices have resulted in the
 generation of large volumes of geospatial data, offering novel
 opportunities to advance understanding of spatial human behaviour, and
 thus revolutionise research, business and government decision making and
-practices [@rowe23-bigdata].
-
-Mobile phone application data (MPAD) offer high spatially granular,
-frequent and instant information to capture and understand human
-activities at unprecedentedly high resolution and scale, with the
-potential to produce real-time actionable intelligence to support
-decision making. MPAD have become a critical part of the digital
+practices [@rowe23-bigdata]. MPD are now a core component of the digital
 economy, creating new market opportunities for data intelligence
-businesses, such as Cuebiq/Spectus, Safegraph and Locomizer, and
-supporting policy making prominently during the COVID-19 pandemic. MPAD
-have been deployed for inferring mode of transport [REF], monitoring
-footfall changes [REF], profiling daily mobility signatures [REF],
-sensing land use patterns [REF], predicting socioeconomic levels [REF],
-defining urban extents [REF], estimating tourism [REF] and estimating
+businesses, such as Cuebiq/Spectus, Safegraph and Locomizer. 
+They have been used to create critical evidence to support policy making, 
+prominently during the COVID-19 pandemic. 
+In research, MPD have been used to develop innovative approach to infer
+mode of transport [REF], monitor footfall changes [REF], profile daily mobility signatures [REF],
+sense land use patterns [REF], predict socioeconomic levels [REF],
+define urban extents [REF], quantify tourism activity [REF] and estimate
 migration and population displacement [REF].
 
-However, the use of MPAD present major epistemological, methodological
+However, the use of MPD present major epistemological, methodological
 and ethical challenges [@rowe23-bigdata]. A key unresolved challenge is
 potential biases in MPAD compromising their statistical
 representativeness and perpetuate social injustice [REF]. Biases reflect
 societal digital and socioeconomic inequalities. Biases emerge from
 differences in the access and use of the mobile phone applications used
-to collect data [@wesolowski13-biases]. Only a fraction of the
-population in an area owns a smartphone, and even an smaller share
-actively use a specific mobile phone app. In the UK, for example, 98% of
+to collect MPD [@wesolowski13-biases]. Only a fraction of the
+population in a geographical area owns a smartphone, and even an smaller share
+actively uses a specific mobile phone app. In the UK, for example, 98% of
 the adult population have a mobile phone and 92% of this population use
 a smartphone [@ofcom23], but a smaller percentage actively use Facebook
 (70%) or Twitter (23%) [@statista24]. Additionally, biases emerge from
@@ -167,39 +163,49 @@ differences in the access and use of digital technology across
 population subgroups reflecting socioeconomic and demographic
 disparities. For instance, wealthy, young and urban populations
 generally have greater access and more intensively use of mobile phone
-applications, and therefore tend to be over-represented in MPAD [REF].
+applications, and therefore tend to be over-represented in MPD [REF].
 
-The use of biased MPAD can thus have major practical and societal
-implications. Selective patterns of smartphone ownership, application
-usage and digital engagement may lead to inaccurately capture of
-population patterns and distorted representations of human activities,
-disproportionately reflecting behaviors of younger, urban, and
-higher-income users while underrepresenting marginalized or
-less-connected groups
-
-Direct consequences
-
--   inaccurate patterns
-
--   distorted representation
-
-## Implications
-
-As a result, population statistics derived from digital trace data
-cannot provide population-level representation. They can only offer
-rough signals about the spatial distribution of (e.g. spatial
+The use of biased MPD can thus have major practical and societal
+implications. If used uncorrected, MPD reproduce selective patterns of smartphone ownership and application
+usage, rendering inaccurate or distorted representations of human population activity.
+Such representations disproportionately reflect behaviours of younger, urban and
+higher-income users while underrepresenting marginalised or
+less-connected groups. Distorted representations based on biased MPD
+can thus misguide decision making, policy and planning interventions, 
+and thus amplify existing socio-economic disparities. 
+In practice, existing applications of MPD often use 
+uncorrected population statistics derived from MPD and 
+have thus been constrained to offer a partial picture for a limited segment of the overall population. 
+Such data can only afford to provide rough signals about the spatial distribution of (e.g. spatial
 concentration), trends (e.g. increasing) and changes (e.g. low to high)
-in populations [@rowe22-sensing-ukraine].
+in populations [@rowe22-sensing-ukraine]. 
+They have cannot provide a full representation of the overall population. 
 
-and amplify socioeconomic disparities
+Efforts have been made to measure and assess biases in aggregate population counts from digital data sources. 
+Existing analyses typically measure the extent of bias measuring the system-wide difference in the representation of population counts from digital platforms and censuses. To estimate the representation of digital data sources, the penetration rate is computed as the active user base of a digital platform over the census resident population. 
+Existing analyses have thus been able to established systematic gender, age and socio-economic biases in population data obtained via API (or Application Programming Interface) from social media platforms, such as Facebook and Twitter/X. 
+However, this approach requires information on the demographic and socio-economic attributes of the collected sample and has focused on estimating biases at the country level.
+Yet, these attributes are rarely available from mobile phone network operators. 
+In practice, they are generally unavailable for MPD, and biases may vary widely across subnational areas. 
+What is missing is an systematic approach to measure biases in population counts from digital platforms, when population attributes are unknown, and quantify the geographic variability in the extent of biases in these data. 
 
-Gaps:
+To address this gap, this paper aims to establish a standardised approach to empirically measure the extent of biases in population data derived from digital platforms across subnational areas, and identify their key underlying contextual factors. 
+Our proposed approach 
+
+- Don't want to identify and measure individual sources of error but the cumulative effect.\
+- aggregated data because of privacy reasons - main way that companies are using to provide access to data.\
+- identify methods - algorithms and data sources i.e. single app and multiple apps.\
 
 Aim: We propose an approach to measure biases -
 
 Research questions:
 
-Contribution:
+Approach: \
+- Elaborate the idea of focusing on cumulative effect of biases, not on identifying individual sources of biases.\
+
+Contribution: \
+- what we hope to achieve with our approach / quality assessment framework ideas + start setting standards of good practice in the use of MPD.\
+
 
 Structure:
 
