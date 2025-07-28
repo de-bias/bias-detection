@@ -42,7 +42,7 @@
 
 
 %%%% Article title to be placed here
-\title{An approach to quantifying the extent of bias in human population data from mobile phone applications}
+\title{An approach to quantifying the extent of bias in human population data from mobile phones}
 
 \author{
 Carmen Cabrera$^{1}$,
@@ -106,32 +106,62 @@ Tables with captions Figure captions with credits where relevant
 
 \section{Introduction (FR)}\label{introduction-fr}
 
-Technological advances in computational power, storage and digital
+Traditional data streams, such as the census and surveys have been the
+primary official source to provide a comprehensive representation of
+national populations in countries worldwide. However, fast-paced
+societal changes and disasters, such as climate-induced hazards and
+COVID-19 have tested and accentuated weaknesses in traditional data
+systems \citep{green2021}. Traditional data systems often provide data in
+infrequent and coarse temporal and geographical resolutions
+\citep{rowe23-bigdata}. Generally they are expensive to maintain and operate,
+and are slow taking months or years since they data are collected to
+their release \citep{rowe23-bigdata}. Data collection from climate- or
+conflict-impacted areas is generally unfeasible because of restrictions
+due to high levels of insecurity and risk \citep{iradukunda2025}. Yet,
+fast-paced societal changes arguably require high frequency, granular
+and up-to-date information to support real-time planning, policy and
+decision making.
+
+At the same time, we have seen the confluence of two diverging trends in
+data availability. On the one hand, there is growing evidence of
+declining survey response rates across many countries over the last 20
+years \textbf{{[}REF{]}}. Dwindling numbers in surveys tend to distort the
+reported picture of society \textbf{{[}REF{]}}. On the other hand, significant
+advances in sensor technology, computational power, storage and digital
 network platforms have unleashed a data revolution producing large
-trails of digital trace data containing location information.
-Particularly demand for mobile services have propagated the development
-and usage of mobile software applications on smartphones and wearable
-devices. These applications have resulted in the generation of large
-volumes of geospatial data offering novel opportunities to understand
-spatial human behaviour, and hence revolutionising research and business
-activities\\
-\citep{rowe23-bigdata}. Mobile phone application data (MPAD) offer high
-spatially granular, frequent and instant information to capture and
-understand human activities at unprecedentedly high resolution and
-scale, with the potential to produce real-time actionable intelligence
-to support decision making. MPAD have become a critical part of the
-digital economy, creating new market opportunities for data intelligence
+trails of digital trace data \textbf{{[}REF{]}}. These data are now routinely
+collected and stored. They offer spatially granular, frequent and
+instant information to capture and understand human activities at
+unprecedentedly high resolution and scale, with the potential to produce
+real-time actionable intelligence to support decision making \textbf{{[}REF{]}}.
+Hence, national statistical offices are actively seeking to integrate
+these data into their national data infrastructure \textbf{{[}REF{]}}.
+
+Mobile phone data (MPD) have become a prominent nontraditional data
+source to monitor population changes. Increasing usage of mobile
+services on smartphones and wearable devices have resulted in the
+generation of large volumes of geospatial data, offering novel
+opportunities to advance understanding of spatial human behaviour, and
+thus revolutionise research, business and government decision making and
+practices \citep{rowe23-bigdata}.
+
+Mobile phone application data (MPAD) offer high spatially granular,
+frequent and instant information to capture and understand human
+activities at unprecedentedly high resolution and scale, with the
+potential to produce real-time actionable intelligence to support
+decision making. MPAD have become a critical part of the digital
+economy, creating new market opportunities for data intelligence
 businesses, such as Cuebiq/Spectus, Safegraph and Locomizer, and
 supporting policy making prominently during the COVID-19 pandemic. MPAD
-have been deployed for infering mode of transport {[}REF{]}, monitoring
+have been deployed for inferring mode of transport {[}REF{]}, monitoring
 footfall changes {[}REF{]}, profiling daily mobility signatures {[}REF{]},
 sensing land use patterns {[}REF{]}, predicting socioeconomic levels {[}REF{]},
 defining urban extents {[}REF{]}, estimating tourism {[}REF{]} and estimating
-population displacement {[}REF{]}.
+migration and population displacement {[}REF{]}.
 
 However, the use of MPAD present major epistemological, methodological
 and ethical challenges \citep{rowe23-bigdata}. A key unresolved challenge is
-the potential presence of biases in MPAD compromising their statistical
+potential biases in MPAD compromising their statistical
 representativeness and perpetuate social injustice {[}REF{]}. Biases reflect
 societal digital and socioeconomic inequalities. Biases emerge from
 differences in the access and use of the mobile phone applications used
@@ -147,9 +177,22 @@ disparities. For instance, wealthy, young and urban populations
 generally have greater access and more intensively use of mobile phone
 applications, and therefore tend to be over-represented in MPAD {[}REF{]}.
 
-The use of MPAD can thus have major practical and societal implications.
+The use of biased MPAD can thus have major practical and societal
+implications. Selective patterns of smartphone ownership, application
+usage and digital engagement may lead to inaccurately capture of
+population patterns and distorted representations of human activities,
+disproportionately reflecting behaviors of younger, urban, and
+higher-income users while underrepresenting marginalized or
+less-connected groups
 
-Direct consequences - inaccurate patterns - distorted representation
+Direct consequences
+
+\begin{itemize}
+\item
+  inaccurate patterns
+\item
+  distorted representation
+\end{itemize}
 
 \subsection{Implications}\label{implications}
 
