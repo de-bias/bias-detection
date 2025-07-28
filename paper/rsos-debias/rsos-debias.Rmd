@@ -1,5 +1,5 @@
 ---
-title: An approach to quantifying the spatial extent of bias in human population data from mobile phones
+title: A systematic machine learning approach to quantifying the spatial extent of bias in human population data from mobile phones
 author:
   - name: Carmen Cabrera
     affiliation: "1"
@@ -189,9 +189,10 @@ Yet, these attributes are rarely available from mobile phone network operators.
 In practice, they are generally unavailable for MPD, and biases may vary widely across subnational areas. 
 What is missing is an systematic approach to measure biases in population counts from digital platforms, when population attributes are unknown, and quantify the geographic variability in the extent of biases in these data. 
 
-To address this gap, this paper aims to establish a standardised approach to empirically measure the extent of biases in population data derived from digital platforms across subnational areas, and identify their key underlying contextual factors. 
-Our proposed approach 
+To address this gap, this paper aims to establish a standardised approach to empirically measure the extent of biases in population data derived from digital platforms, and identify their key underlying contextual factors across subnational areas. 
+Our approach proposes a statistical indicator of population coverage to measure the geographic extent of bias, and uses explainable machine learning to identify key contextual factors contributing to spatial variations in the extent of bias. Biases in digital trace data can emerge from multiple sources, such as algorithmic changes, device duplication and geographic location accuracy. We do not intend to identify these individual sources of error. We focus on quantifying the extent of ``cumulative'' bias; that is, the resulting bias from the accumulation of these sources. We use data collected from single and multiple mobile phone apps, and compare their results. Leveraging data from multiple apps can arguably reduce the extent of biases by drawing on information from a more diverse population of users. Specifically, we use two single (i.e. Facebook and Twitter/X) and two multiple app providers (i.e. )
 
+- use of census data
 - Don't want to identify and measure individual sources of error but the cumulative effect.\
 - aggregated data because of privacy reasons - main way that companies are using to provide access to data.\
 - identify methods - algorithms and data sources i.e. single app and multiple apps.\
@@ -255,6 +256,8 @@ compared GPS data to other sources.]
 <!-- Start with overview of dta and methods. Include here a figure of overview of data+methods (see slides for 1st advisory board meeting. Need to alter figure to differentiate between single source data and multi-source (multi-app) data !-->
 
 ## Data (CC)
+
+<!-- A table describing key attributes of the data would be handy here, such as the number of unique devices, form of data collection, spatial resolution and temporal granularity. For the multi-app data, please include the number or type of apps used to collect the information. -->
 
 ### Facebook
 

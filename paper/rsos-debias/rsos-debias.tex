@@ -42,7 +42,7 @@
 
 
 %%%% Article title to be placed here
-\title{An approach to quantifying the extent of bias in human population data from mobile phones}
+\title{An approach to quantifying the spatial extent of bias in human population data from mobile phones}
 
 \author{
 Carmen Cabrera$^{1}$,
@@ -189,25 +189,38 @@ concentration), trends (e.g.~increasing) and changes (e.g.~low to high)
 in populations \citep{rowe22-sensing-ukraine}.
 They have cannot provide a full representation of the overall population.
 
-Efforts have been made to measure and assess biases in digital nontraditional data sources.
-Existing analyses typically measure the extent of bias measuring the difference in the representation of digital data forms and census data. To estimate the representation of digital data sources, the penetration rate is computed as the share of active users over the resident population.
-Existing analyses have thus been able to established systematic gender, age and socio-economic biases in digital data obtained via API (or Application Programming Interface) from social media platforms, such as Facebook and Twitter/X.
-However, this approach requires information on the demographic and socio-economic attributes of the collected sample, but
-these attributes are rarely available from mobile phone network operators.
-In practice, they are generally unavailable for MPD.
+Efforts have been made to measure and assess biases in aggregate population counts from digital data sources.
+Existing analyses typically measure the extent of bias measuring the system-wide difference in the representation of population counts from digital platforms and censuses. To estimate the representation of digital data sources, the penetration rate is computed as the active user base of a digital platform over the census resident population.
+Existing analyses have thus been able to established systematic gender, age and socio-economic biases in population data obtained via API (or Application Programming Interface) from social media platforms, such as Facebook and Twitter/X.
+However, this approach requires information on the demographic and socio-economic attributes of the collected sample and has focused on estimating biases at the country level.
+Yet, these attributes are rarely available from mobile phone network operators.
+In practice, they are generally unavailable for MPD, and biases may vary widely across subnational areas.
+What is missing is an systematic approach to measure biases in population counts from digital platforms, when population attributes are unknown, and quantify the geographic variability in the extent of biases in these data.
 
-A key limitation to address
+To address this gap, this paper aims to establish a standardised approach to empirically measure the extent of biases in population data derived from digital platforms across subnational areas, and identify their key underlying contextual factors.
+Our proposed approach
 
-Gaps:
+\begin{itemize}
+\tightlist
+\item
+  use of census data
+\item
+  Don't want to identify and measure individual sources of error but the cumulative effect.\\
+\item
+  aggregated data because of privacy reasons - main way that companies are using to provide access to data.\\
+\item
+  identify methods - algorithms and data sources i.e.~single app and multiple apps.\\
+\end{itemize}
 
 Aim: We propose an approach to measure biases -
 
 Research questions:
 
-Approach: \textbackslash{}
-- Elaborate the idea of focusing on cumulative effect of biases, not on identifying individual sources of biases.
+Approach:\\
+- Elaborate the idea of focusing on cumulative effect of biases, not on identifying individual sources of biases.\\
 
-Contribution:
+Contribution:\\
+- what we hope to achieve with our approach / quality assessment framework ideas + start setting standards of good practice in the use of MPD.\\
 
 Structure:
 

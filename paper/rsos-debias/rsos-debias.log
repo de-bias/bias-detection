@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.7.28)  28 JUL 2025 14:50
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.7.28)  28 JUL 2025 15:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -619,8 +619,32 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [3]
-Underfull \hbox (badness 2142) in paragraph at lines 192--198
-[]\T1/ppl/m/n/9 Efforts have been made to mea-sure and as-sess bi-ases in dig-i-tal non-tra-di-tional data
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 206.
+(/Users/franciscorowe/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.fd
+File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 208--210
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--212
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--221
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 222--224
+
  []
 
 
@@ -630,7 +654,7 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [4]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 259.
+(Font)              scaled to size 10.20007pt on input line 272.
 
 
 
@@ -643,30 +667,14 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [6]
 
-Package natbib Warning: Citation `friedman2001' on page 7 undefined on input line 439.
+Package natbib Warning: Citation `friedman2001' on page 7 undefined on input line 452.
 
 
-Package natbib Warning: Citation `friedman2000' on page 7 undefined on input line 439.
+Package natbib Warning: Citation `friedman2000' on page 7 undefined on input line 452.
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 445--450
+Underfull \hbox (badness 1418) in paragraph at lines 458--463
 \T1/ppl/m/n/9 hu-man be-haviours with re-mark-able tem-po-ral and spa-tial pre-ci-sion, ex-ten-sive ge-o-graphic
- []
-
-File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
-<figures/compare-surveys-two-axis.png>
-
-Overfull \hbox (29.75381pt too wide) in paragraph at lines 472--474
- [][] 
- []
-
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.22505pt on input line 474.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 474.
-
-Underfull \hbox (badness 10000) detected at line 474
-[]
  []
 
 
@@ -675,8 +683,20 @@ Underfull \hbox (badness 10000) detected at line 474
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [7]
-Underfull \hbox (badness 1762) in paragraph at lines 496--506
-\T1/ppl/m/n/9 trace data is gen-er-ated pas-sively as a byprod-uct of on-line in-ter-ac-tions, trans-ac-tions, or
+File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
+<figures/compare-surveys-two-axis.png>
+
+Overfull \hbox (29.75381pt too wide) in paragraph at lines 485--487
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.22505pt on input line 487.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 7.22505pt on input line 487.
+
+Underfull \hbox (badness 10000) detected at line 487
+[]
  []
 
 
@@ -688,18 +708,30 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [8]
+Underfull \hbox (badness 1762) in paragraph at lines 509--519
+\T1/ppl/m/n/9 trace data is gen-er-ated pas-sively as a byprod-uct of on-line in-ter-ac-tions, trans-ac-tions, or
+ []
 
-LaTeX Warning: Reference `fig:size-bias-spatial' on page 9 undefined on input line 527.
+
+LaTeX Warning: Reference `fig:size-bias-spatial' on page 9 undefined on input line 540.
 
 File: figures/Fig-size-bias.png Graphic file (type bmp)
 <figures/Fig-size-bias.png>
 
-Overfull \hbox (29.1196pt too wide) in paragraph at lines 540--541
+Overfull \hbox (29.1196pt too wide) in paragraph at lines 553--554
 [][] 
  []
 
 
-Underfull \hbox (badness 1496) in paragraph at lines 557--572
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+[9]
+Underfull \hbox (badness 1496) in paragraph at lines 570--585
 \T1/ppl/m/n/9 in [[]] used to gen-er-ate the Twit-ter/X data used here might clas-sify the work-place or
  []
 
@@ -711,19 +743,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[9] (./rsos-debias.bbl
+[10] (./rsos-debias.bbl
 
 
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
-[10]
+[11]
 Missing character: There is no ś ("15B) in font pplr8t!
 ) Setting LastPage
 
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
-[11]
+[12]
 
 Package natbib Warning: There were undefined citations.
 
@@ -743,12 +775,12 @@ Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
 (rerunfilecheck)             Checksum: 425477AAF55655461860FB81951E7B24;3033.
  ) 
 Here is how much of TeX's memory you used:
- 12063 strings out of 475964
- 186100 string characters out of 5776307
+ 12090 strings out of 475964
+ 186569 string characters out of 5776307
  578715 words of memory out of 5000000
- 34640 multiletter control sequences out of 15000+600000
- 612567 words of font info for 133 fonts, out of 8000000 for 9000
+ 34663 multiletter control sequences out of 15000+600000
+ 611949 words of font info for 133 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
- 87i,14n,93p,551b,475s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,551b,495s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-debias.pdf (11 pages).
+Output written on rsos-debias.pdf (12 pages).
