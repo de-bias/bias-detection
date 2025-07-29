@@ -189,56 +189,20 @@ Yet, these attributes are rarely available from mobile phone network operators.
 In practice, they are generally unavailable for MPD, and biases may vary widely across subnational areas. 
 What is missing is an systematic approach to measure biases in population counts from digital platforms, when population attributes are unknown, and quantify the geographic variability in the extent of biases in these data. 
 
-To address this gap, this paper aims to establish a standardised approach to empirically measure the extent of biases in population data derived from digital platforms, and identify their key underlying contextual factors across subnational areas. 
-Our approach proposes a statistical indicator of population coverage to measure the geographic extent of bias, and uses explainable machine learning to identify key contextual factors contributing to spatial variations in the extent of bias. Biases in digital trace data can emerge from multiple sources, such as algorithmic changes, device duplication and geographic location accuracy. We do not intend to identify these individual sources of error. We focus on quantifying the extent of ``cumulative'' bias; that is, the resulting bias from the accumulation of these sources. We use data collected from single and multiple mobile phone apps, and compare their results. Leveraging data from multiple apps can arguably reduce the extent of biases by drawing on information from a more diverse population of users. Specifically, we use two single (i.e. Facebook and Twitter/X) and two multiple app providers (i.e. )
+To address this gap, this paper aims to establish a standardised approach to empirically measure the extent of biases in population data derived from digital platforms, and identify their key underlying contextual factors across subnational areas. We seek to address the following research questions:
 
-- use of census data
-- Don't want to identify and measure individual sources of error but the cumulative effect.\
-- aggregated data because of privacy reasons - main way that companies are using to provide access to data.\
-- identify methods - algorithms and data sources i.e. single app and multiple apps.\
+* What is the comparative extent of population coverage of digital sources relative to widely-used traditional surveys? 
+* How systematic is the association between larger biases and the over-representation of rural, more deprived, child and elderly populations? 
+* To what extent, are population data assembled from multiple applications versus single applications associated with lower bias? 
 
-Aim: We propose an approach to measure biases -
+Our approach proposes a statistical indicator of population coverage to measure the geographic extent of bias, and uses explainable machine learning to identify key contextual factors contributing to spatial variations in the extent of bias. Biases in digital trace data can emerge from multiple sources, such as algorithmic changes, device duplication and geographic location accuracy [REF]. We do not intend to identify these individual sources of error. We focus on quantifying the extent of ``cumulative'' bias; that is, the resulting bias from the accumulation of these error sources. We use data collected from single and multiple mobile phone apps, and compare their results. As outlined above, we test the extent to which biases can be mitigated by leveraging information from multiple apps encompassing a more diverse user population. Specifically, we use two single-app (i.e. Facebook and Twitter/X) and two multi-app providers (i.e. Locomizer and a European provider). We focus on the use of aggregated population counts as this has become a common ethical and privacy-preserving practice for companies to provide access to highly sensitive data for social good.
 
-Research questions:
-
-Approach: \
-- Elaborate the idea of focusing on cumulative effect of biases, not on identifying individual sources of biases.\
-
-Contribution: \
-- what we hope to achieve with our approach / quality assessment framework ideas + start setting standards of good practice in the use of MPD.\
+Our study makes two key contributions. 
+  * Methodological contribution i.e. what we hope to achieve with our approach / quality assessment framework ideas + start setting standards of good practice in the use of MPD.\
+  * Substantive contribution - systematic evidence identifying key predictor of biases + do we find evidence of lower biases / greater population coverage for multi-app better than single app?
 
 
-Structure:
-
-Efforts have been made to correct these biases through two general
-approaches. A first general approach consists in adjusting DF-derived
-population counts from social media by developing correction factors
-(e.g. [@yildiz17-twitter], [@Hsiao24-bias]). Correction factors are
-often estimated as the ratio of active social media users to census
-population counts by demographic attributes (e.g. age). The principles
-are similar to survey post-stratification methods i.e. to make
-DF-derived population counts representative of the census populations.
-However, a key data requirement of this approach is on having data on
-population by attribute, but such data are generally unavailable from
-DFs. Only information on location, time and total active users is
-recorded. As such, this approach cannot be generalised to different DFD
-sources and geographical contexts, and when applied on total population
-counts, biases associated with demographic and socioeconomic user
-attributes are not corrected (e.g. [@rodriguez-carrion18-biases],
-[@schlosser21-biases], [@pak22-correcting-bias]). A second approach uses
-a regression modelling approach. Intuitively this approach produces
-representative population counts by explicitly measuring and removing
-the sources of biases in the data [@kramer-schadt13-bias-correction].
-This approach has primarily been used in Ecology to obtain
-representative population distributions of animal species
-[@zizka21-sampbias], but it has not been used in the context of DFD. In
-recent work, the PI adopted a similar approach to correct multiple
-sources of biases in census data to produce bias-adjusted migration
-estimates [@aparicio-castro23-bayesian]. DEBIAS builds on this work to
-develop a general framework and software package aiming to correct
-biases in origin-destination mobility counts derived from DFs in the
-absence of demographic and socioeconomic information on users of digital
-platforms.
+<!-- Structure: do we need this? -->
 
 # Data and methods
 
@@ -374,15 +338,15 @@ level to the Local Authority District Level (LAD).
 
 ## Methods
 
-In this section, we outline our proposed methodology, which consists of
-two interconnected stages aimed at quantifying two types of biases:
+Our proposed methodology consists of
+two stages aimed at quantifying two types of biases:
 coverage biases and representational biases. Coverage biases relate to
 the sample size of the dataset and refer to the proportion of the
 population covered in the dataset. Representational biases, arise from
 the demographic and socioeconomic characteristics of the users who
 generate the digital trace data through specific technologies.
 
-In the first stage of our methodology, we focus on quantifying coverage
+The first stage of our methodology seeks to quantify coverage
 biases by examining the variations in coverage across different spatial
 units. We leverage the spatial granularity of digital trace data to
 analyse coverage biases at more localised spatial scales. This allows us
@@ -390,7 +354,7 @@ to identify the extent to which different regions are represented within
 the datasets, revealing any potential underrepresentation or
 overrepresentation in specific locations.
 
-In the second stage, we focus on quantifying representational biases. To
+The second stage seeks to quantify representational biases. To
 do this, we leverage the spatial heterogeneity of coverage biases and
 model this variation in terms of demographic and socioeconomic variables
 that characterise local populations. This analysis allows us to identify
@@ -427,7 +391,7 @@ which corresponds to full population coverage ($c_i = 100$). We use this
 bias indicator to analysis the magnitude and spatial distribution of
 coverage bias across multiple sources of digital trace data.
 
-### Assessing the driving factors of bias (FR)
+### Identifying the key predictors of bias (FR)
 
 We seek to understand the association between the size of bias and
 area-level demographic and socioeconomic attributes. To what extent
