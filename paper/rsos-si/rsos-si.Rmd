@@ -74,6 +74,11 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
+# Summary description of data sources
+
+![Supplementary Table 1. Summary description of data sources used in the article, including key features.
+](figures/table-data-source.png){width="500" height="170"}
+
 # Alternative data aggregation approaches for Facebook data
 
 ![](figures/Fig-compare-bias-size.png){width="514" height="248"}
@@ -84,6 +89,6 @@ according to multiple spatial weighting schemes --\> compute moran's I
 and p-values, display them in a table (schemes as columns, data source
 as rows)
 
-![Supplementary Table 1. Moran's I coefficients and significance,
+![Supplementary Table 2. Moran's I coefficients and significance,
 computed according to four spatial weights schemes,
 ](figures/Table-si.png){width="500" height="200"}
