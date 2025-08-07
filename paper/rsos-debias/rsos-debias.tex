@@ -53,17 +53,17 @@ Francisco Rowe$^{1}$}
   $^{}$}
 %%%% Subject entries to be placed here %%%%
 \subject{
-subject 1,
-subject 2,
-subject 3}
+Mobile phone data,
+Human mobility,
+Explainable AI,
+Spatial analysis}
 
 %%%% Keyword entries to be placed here %%%%
 \keywords{
-one,
-two,
-optional,
-optional,
-optional}
+Mobile phone data,
+Human mobility,
+Explainable AI,
+Spatial analysis}
 
 %%%% Insert corresponding author and its email address}
 \corres{
@@ -230,7 +230,7 @@ following research questions:
 \end{itemize}
 
 Our approach proposes a statistical indicator of population coverage to
-measure the geographic extent of bias, and uses explainable machine
+measure the extent of bias, and uses explainable machine
 learning to identify key contextual factors contributing to spatial
 variations in the extent of bias. Biases in digital trace data can
 emerge from multiple sources, such as algorithmic changes, device
@@ -257,18 +257,17 @@ population coverage for multi-app better than single app?
 
 \section{Data and methods}\label{data-and-methods}
 
-{[}NOTE: I think that we need a paragraph describing and providing an
-overview of the methodological strategy, including both data and
-methods. Two points are particularly crucial to connect: (1) The use of
-data from March 2021 for our assessment against census data; and (2) the
-use of multiple data sources. We need to describe the idea of single-
-and multiple-sourced app data. I wonder if we should include a table
-listing their general attributes: advantages and limitations in terms of
-their temporal and spatial coverage and resolution. This may not be the
-place for the table but would be good to consider for the book if we
-compared GPS data to other sources.{]}
+We propose a systematic framework to measure and explain biases in population count data derived from multiple sources of mobile phone apps data. We focus on aggregated population counts as a privacy-preserving and ethically appropriate representation of digital mobility data. The analysis is applied on data collected during March 2021 to ensure comparability with recent the most census in the area of study. Figure 1 provides an overview of the methodological workflow, which includes data acquisition, bias estimation using a coverage indicator, and bias explanation through spatial modeling with contextual covariates. This integrated approach allows us to evaluate the representativeness of different data sources.
 
 \subsection{Data (CC)}\label{data-cc}
+
+To evaluate the extent of bias in digital population data, we assemble and compare four mobile-derived datasets representing both single- and multi-app data sources. These datasets differ in terms of their data generation mechanisms, geographic and temporal resolution, population coverage, and underlying user base. Facebook and Twitter/X data represent single-application platforms, while Locomizer and another European provider aggregate data from multiple mobile apps. Table 1 summarises the main characteristics of each dataset, including the source type, spatial coverage, temporal resolution, and known strengths and limitations. These differences are critical to understanding how data collection methods shape the representativeness of digital trace data. The following subsections describe each data source in detail.
+
+\begin{figure}
+\centering
+\includegraphics[width=5.20833in,height=1.77083in]{figures/table-data-source.png}
+\caption{Supplementary Table 1. Summary description of data sources used in the article, including key features.}
+\end{figure}
 
 \subsubsection{Facebook}\label{facebook}
 

@@ -216,7 +216,7 @@ following research questions:
     applications versus single applications associated with lower bias?
 
 Our approach proposes a statistical indicator of population coverage to
-measure the geographic extent of bias, and uses explainable machine
+measure the extent of bias, and uses explainable machine
 learning to identify key contextual factors contributing to spatial
 variations in the extent of bias. Biases in digital trace data can
 emerge from multiple sources, such as algorithmic changes, device
@@ -245,7 +245,7 @@ population coverage for multi-app better than single app?
 
 # Data and methods
 
-[NOTE: I think that we need a paragraph describing and providing an
+<!-- NOTE: I think that we need a paragraph describing and providing an
 overview of the methodological strategy, including both data and
 methods. Two points are particularly crucial to connect: (1) The use of
 data from March 2021 for our assessment against census data; and (2) the
@@ -254,13 +254,20 @@ and multiple-sourced app data. I wonder if we should include a table
 listing their general attributes: advantages and limitations in terms of
 their temporal and spatial coverage and resolution. This may not be the
 place for the table but would be good to consider for the book if we
-compared GPS data to other sources.]
+compared GPS data to other sources. !--->
 
 <!-- Start with overview of dta and methods. Include here a figure of overview of data+methods (see slides for 1st advisory board meeting. Need to alter figure to differentiate between single source data and multi-source (multi-app) data !-->
+
+We propose a systematic framework to measure and explain biases in population count data derived from multiple sources of mobile phone apps data. We use datasets collected in or around March 2021 to align as closely as possible with the dates when the most recent census in the area of study was conducting, hence enabling direct and temporally consistent comparisons. The datasets represent both single-app sources (Meta and Twitter/X) and multi-app sources (Locomizer and a European provider), with diverse user groups and data generation mechanisms. These differences allow us to examine how source characteristics influence population coverage and representativeness. We focus on aggregated population counts as a privacy-preserving and ethically appropriate representation of digital mobility data. Our methodological approach focuses on two types of biases: coverage bias, referring to the share of the population captured by each dataset; and representational bias, which reflects how well the demographic and socioeconomic composition of the digital sample aligns with that of the general population. In the first stage, we compute population coverage rates across subnational areas to assess the geographic variability of coverage bias. In the second stage, we model this spatial variation using demographic and socioeconomic covariates to understand which contextual factors contribute to representational bias. Figure 1 provides an overview of the methodological workflow, which includes data acquisition, bias estimation using a coverage indicator, and bias explanation through spatial modelling with contextual covariates.
 
 ## Data (CC)
 
 <!-- A table describing key attributes of the data would be handy here, such as the number of unique devices, form of data collection, spatial resolution and temporal granularity. For the multi-app data, please include the number or type of apps used to collect the information. -->
+
+To evaluate the extent of bias in digital population data, we assemble and compare four datasets representing both single- and multi-app data sources. Particularly, data from Meta-Facebook and Twitter/X represent single-app platforms, while Locomizer and another European provider aggregate data from multiple mobile phone apps. While Twitter/X is not exclusively accessed via mobile phone devices and does location data does not always rely on GPS, we includ it in the analysis as it has been widely used in mobility and population research due to its high temporal resolution and geogrpahic reach. Table 1 summarises the main characteristics of each dataset, including the source type, form of data collections, termporal granularity, termporal coverage, spatial resolution, access method and data acquisition cost. The following subsections describe each data source in detail.
+
+![Supplementary Table 1. Summary description of data sources used in the article, including key features.
+](figures/table-data-source.png){width="500" height="170"}
 
 ### Facebook
 
