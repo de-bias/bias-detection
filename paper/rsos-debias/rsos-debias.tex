@@ -53,17 +53,17 @@ Francisco Rowe$^{1}$}
   $^{}$}
 %%%% Subject entries to be placed here %%%%
 \subject{
-subject 1,
-subject 2,
-subject 3}
+Mobile phone data,
+Human mobility,
+Explainable AI,
+Spatial analysis}
 
 %%%% Keyword entries to be placed here %%%%
 \keywords{
-one,
-two,
-optional,
-optional,
-optional}
+Mobile phone data,
+Human mobility,
+Explainable AI,
+Spatial analysis}
 
 %%%% Insert corresponding author and its email address}
 \corres{
@@ -201,13 +201,12 @@ population data obtained via API (or Application Programming Interface)
 from social media platforms, such as Facebook and Twitter/X. However,
 this approach requires information on the demographic and socio-economic
 attributes of the collected sample and has focused on estimating biases
-at the country level. Yet, these attributes are rarely available from
-mobile phone network operators. In practice, they are generally
-unavailable for MPD, and biases may vary widely across subnational
-areas. What is missing is an systematic approach to measure biases in
-population counts from digital platforms, when population attributes are
-unknown, and quantify the geographic variability in the extent of biases
-in these data.
+at the country level. Yet, these attributes are generally unavailable
+for MPD, and biases may vary widely across subnational areas. What is
+missing is an systematic approach to measure biases in population counts
+from digital platforms, when population attributes are unknown, and
+quantify the geographic variability in the extent of biases in these
+data.
 
 To address this gap, this paper aims to establish a standardised
 approach to empirically measure the extent of biases in population data
@@ -230,22 +229,22 @@ following research questions:
 \end{itemize}
 
 Our approach proposes a statistical indicator of population coverage to
-measure the geographic extent of bias, and uses explainable machine
-learning to identify key contextual factors contributing to spatial
-variations in the extent of bias. Biases in digital trace data can
-emerge from multiple sources, such as algorithmic changes, device
-duplication and geographic location accuracy {[}REF{]}. We do not intend to
-identify these individual sources of error. We focus on quantifying the
-extent of ``cumulative'\,' bias; that is, the resulting bias from the
-accumulation of these error sources. We use data collected from single
-and multiple mobile phone apps, and compare their results. As outlined
-above, we test the extent to which biases can be mitigated by leveraging
-information from multiple apps encompassing a more diverse user
-population. Specifically, we use two single-app (i.e.~Facebook and
-Twitter/X) and two multi-app providers (i.e.~Locomizer and a European
-provider). We focus on the use of aggregated population counts as this
-has become a common ethical and privacy-preserving practice for
-companies to provide access to highly sensitive data for social good.
+measure the extent of bias, and uses explainable machine learning to
+identify key contextual factors contributing to spatial variations in
+bias. Biases in digital trace data can emerge from multiple sources,
+such as algorithmic changes, device duplication and geographic location
+accuracy {[}REF{]}. We do not intend to identify these individual sources of
+error. We focus on quantifying the extent of ``cumulative'\,' bias; that
+is, the resulting bias from the accumulation of these error sources. We
+use data collected from single and multiple mobile phone apps, and
+compare their results. As outlined above, we test the extent to which
+biases can be mitigated by leveraging information from multiple apps
+encompassing a more diverse user population. Specifically, we use two
+single-app (i.e.~Facebook and Twitter/X) and two multi-app providers
+(i.e.~Locomizer and a European provider). We focus on the use of
+aggregated population counts as this has become a common ethical and
+privacy-preserving practice for companies to provide access to highly
+sensitive data for social good.
 
 Our study makes two key contributions. * Methodological contribution
 i.e.~what we hope to achieve with our approach / quality assessment
@@ -354,8 +353,7 @@ dates covered by dataset do not exactly coincide with the 2021 UK Census
 dates, the alignment is close.
 
 We process the data to estimate users' place of residence based on a
-commonly used rule-based classification (e.g. \citep[
-\citet{zhong24working}]{wang2022}), which assumes that the residence of a device owner
+commonly used rule-based classification (e.g. \citep[@zhong24working]{wang2022}), which assumes that the residence of a device owner
 corresponds to the location with the highest number of GPS records
 during night hours (7 PM -- 7 AM). For a location to be classified as a
 residence, it must account for more than 50\% of recorded nighttime
@@ -431,27 +429,74 @@ We then define the size of bias \(e_i\) as:
 e_i = 100 - c_i
 \end{equation}
 
-In this case, a value of \(e_i = 0\) indicates a lack of coverage bias,
-which corresponds to full population coverage (\(c_i = 100\)). We use this
-bias indicator to analysis the magnitude and spatial distribution of
-coverage bias across multiple sources of digital trace data.
+A value of \(e_i = 0\) indicates a lack of coverage bias, which
+corresponds to full population coverage (\(c_i = 100\)). We use this bias
+indicator to analysis the magnitude and spatial distribution of coverage
+bias across multiple sources of digital trace data.
 
-\subsubsection{Identifying the key predictors of bias (FR)}\label{identifying-the-key-predictors-of-bias-fr}
+\subsubsection{Spatial patterns of bias (CC)}\label{spatial-patterns-of-bias-cc}
 
-We seek to understand the association between the size of bias and
-area-level demographic and socioeconomic attributes. To what extent
-different demographic and socioeconomic groups are represented in DFD?
-And how do these vary geographically and across digital platform? We
-will assess these questions by measuring the area-level association
-between our coverage indicator and key demographic and socioeconomic
-attributes. We will use a random forest to model our coverage indicator
-as a function of demographic and socioeconomic attributes. The outcomes
-will identify the most important area-level demographic and
-socioeconomic features to predict the coverage bias of a given digital
-technology. We will use this information to inform our models in WP-II.
+\subsubsection{Explainable machine learning (FR)}\label{explainable-machine-learning-fr}
 
-eXtreme Gradient Boosting (XGBoost) is an efficient and scalable
-implementation of gradient boosting framework by \citep{friedman2001, friedman2000}.
+We used explainable machine learning to identify the key predictors of
+population bias and how these the importance of these predictors varies
+across geographical areas. Existing evidence based on social media
+suggests that population location data from digital platforms are biased
+over-representing urban, wealthy and young-adult populations \textbf{{[}REF{]}}.
+We therefore modelled our measure of population bias from
+Equation\textasciitilde{}\ref{eq:size-bias} as a function of key area-level attributes
+reflecting geographical differences in engagement and access to digital
+technology across demographic, socioeconomic, household, housing and
+location factors. \textbf{TABLE XX} reports the set of predictors included in
+our analysis. We used data from the 2021 census for England and Wales to
+measure these predictors.
+
+We used an eXtreme Gradient Boosting (XGBoost) algorithm. XGBoost is an
+ensemble that combines outputs from multiple models to produce a single
+prediction and represents an efficient and scalable adaptation of the
+gradient boosting machine algorithm proposed by \citep{friedman2001a}. It
+utilises gradient descent to improve model performance, and decision
+trees are built iteratively, with each tree built to minimise the error
+residuals of a preceding iteration. XGBoost has been optimised for
+scalability and computational efficiency, providing high predictive
+accuracy with limited training time \citep{chen2016, nielsen2016tree}.
+XGBoost has also become one of the most widely-used off-the-shelf
+machine learning models in applied settings because of its built-in
+regularization that mitigates overfitting, sparsity-aware tree
+construction and parallelisation efficiency \citep{chen2016}. It can
+accommodate nonlinearities and is robust to multicollinearity
+\citep{chen2016}. We fitted the following XGBoost regression model.
+
+\begin{equation} \label{eq:xgb-model}
+\widehat{e}_i 
+= \sum_{m=1}^M f_m\bigl(D_i, S_i, H_i, U_i, L_i\bigr),
+\quad f_m \in \mathcal{F}
+\end{equation}
+
+\(e_i\) is our measure of population bias. \(f_m\) denotes an individual
+regression tree from the boosted ensemble \(\mathcal{F}\) and \(M\) is the
+total number of trees. The input variables \(D\), \(S\), \(H\), \(U\), \(L\)
+represent key demographic, socioeconomic, housing, household, and
+locational attributes of area \(i\), respectively. The model iteratively
+learns the contribution of each feature to the prediction of the bias
+indicator \(e_i\), allowing for complex, nonlinear interactions.
+
+To implement Equation\textasciitilde{}\ref{eq:xgb-model}, we randomly split the data
+into training (80\%) and testing (20\%) sets to ensure robust model
+evaluation. We used 10-fold cross validation to train models and
+performed grid search over learning rates, tree depths, subsample
+ratios, and regularisation penalties to identify optimal
+hyperparameters. We applied regularisation penalties including L1
+(Lasso) and L2 (Ridge) terms to penalise overly complex trees, promote
+feature sparsity, improve model generalisation and mitigate
+multicollinearity among predictors. XGBoost's tree-based structure
+additionally handles multicollinearity by hierarchically selecting the
+most informative splits \citep{chen2016}. We then fitted a final model on the
+full training set using these tuned settings of optimal parameters and
+evaluated on the held-out test set. We evaluated models based on the
+number of trees minimising the root mean squared error (RMSE), the
+convergence of training and test error, and difference between predicted
+and observed values.
 
 \section{Results}\label{results}
 

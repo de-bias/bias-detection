@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 superseded
-.DS_Store
+.DS_Storepaper/rsos-debias/*.aux
+paper/rsos-debias/*.out
