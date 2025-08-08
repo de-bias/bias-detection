@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  7 AUG 2025 16:35
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.16)  8 AUG 2025 10:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -278,7 +278,7 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count301
 ) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count302
 ) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
@@ -594,19 +594,19 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [2]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.6001pt on input line 107.
+(Font)              scaled to size 13.6001pt on input line 108.
 
-Underfull \hbox (badness 1688) in paragraph at lines 109--124
+Underfull \hbox (badness 1688) in paragraph at lines 110--125
 \T1/ppl/m/n/9 and COVID-19 have tested and ac-cen-tu-ated weak-nesses in tra-di-tional data sys-tems [[]].
  []
 
 
-Underfull \hbox (badness 1783) in paragraph at lines 157--174
+Underfull \hbox (badness 1783) in paragraph at lines 158--175
 []\T1/ppl/m/n/9 However, the use of MPD present ma-jor epis-te-mo-log-i-cal, method-olog-i-cal and eth-i-cal
  []
 
 
-Underfull \hbox (badness 1142) in paragraph at lines 175--191
+Underfull \hbox (badness 1142) in paragraph at lines 176--192
 \T1/ppl/m/n/9 un-cor-rected, MPD re-pro-duce se-lec-tive pat-terns of smart-phone own-er-ship and ap-pli-ca-tion
  []
 
@@ -619,7 +619,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [3]
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 221.
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 222.
 (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 )
@@ -631,16 +631,16 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 File: figures/table-data-source.png Graphic file (type bmp)
 <figures/table-data-source.png>
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.22505pt on input line 269.
+(Font)              scaled to size 7.22505pt on input line 274.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 269.
+(Font)              scaled to size 7.22505pt on input line 274.
 
-Underfull \hbox (badness 10000) detected at line 269
+Underfull \hbox (badness 10000) detected at line 274
 []
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 272.
+(Font)              scaled to size 10.20007pt on input line 278.
 
 
 
@@ -649,7 +649,7 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 [5]
 
 Package natbib Warning: Author undefined for citation`zhong24working' 
-(natbib)                on page 6 on input line 357.
+(natbib)                on page 6 on input line 334.
 
 
 
@@ -663,30 +663,30 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [7]
 
-Package natbib Warning: Citation `friedman2001' on page 8 undefined on input line 453.
+Package natbib Warning: Citation `friedman2001' on page 8 undefined on input line 434.
 
 
-Package natbib Warning: Citation `friedman2000' on page 8 undefined on input line 453.
+Package natbib Warning: Citation `friedman2000' on page 8 undefined on input line 434.
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 459--464
+Underfull \hbox (badness 1418) in paragraph at lines 442--447
 \T1/ppl/m/n/9 hu-man be-haviours with re-mark-able tem-po-ral and spa-tial pre-ci-sion, ex-ten-sive ge-o-graphic
  []
 
 File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
 <figures/compare-surveys-two-axis.png>
 
-Overfull \hbox (29.75381pt too wide) in paragraph at lines 486--488
+Overfull \hbox (29.75381pt too wide) in paragraph at lines 473--473
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) detected at line 488
+Underfull \hbox (badness 10000) detected at line 473
 []
  []
 
 
-Underfull \hbox (badness 1762) in paragraph at lines 510--520
+Underfull \hbox (badness 1762) in paragraph at lines 495--505
 \T1/ppl/m/n/9 trace data is gen-er-ated pas-sively as a byprod-uct of on-line in-ter-ac-tions, trans-ac-tions, or
  []
 
@@ -697,12 +697,12 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [8]
 
-LaTeX Warning: Reference `fig:size-bias-spatial' on page 9 undefined on input line 541.
+LaTeX Warning: Reference `fig:size-bias-spatial' on page 9 undefined on input line 527.
 
 File: figures/Fig-size-bias.png Graphic file (type bmp)
 <figures/Fig-size-bias.png>
 
-Overfull \hbox (29.1196pt too wide) in paragraph at lines 554--555
+Overfull \hbox (29.1196pt too wide) in paragraph at lines 540--541
 [][] 
  []
 
@@ -712,6 +712,11 @@ Overfull \hbox (29.1196pt too wide) in paragraph at lines 554--555
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [9]
+Underfull \hbox (badness 1496) in paragraph at lines 557--572
+\T1/ppl/m/n/9 in [[]] used to gen-er-ate the Twit-ter/X data used here might clas-sify the work-place or
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -741,15 +746,15 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: 7E5149A89A332E0CAD105153BBEBD78C;3038.
+(rerunfilecheck)             Checksum: ABA7546B625C397C0F9F3440EAB3589E;3018.
  ) 
 Here is how much of TeX's memory you used:
- 12082 strings out of 475903
- 184888 string characters out of 5774979
- 578839 words of memory out of 5000000
- 34669 multiletter control sequences out of 15000+600000
+ 12085 strings out of 475903
+ 184968 string characters out of 5774978
+ 578831 words of memory out of 5000000
+ 34672 multiletter control sequences out of 15000+600000
  611949 words of font info for 133 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 87i,14n,93p,864b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,1810b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on rsos-debias.pdf (11 pages).

@@ -104,7 +104,8 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-\section{Introduction (FR)}\label{introduction-fr}
+\hypertarget{introduction-fr}{%
+\section{Introduction (FR)}\label{introduction-fr}}
 
 Traditional data streams, such as the census and surveys have been the
 primary official source to provide a comprehensive representation of
@@ -230,22 +231,22 @@ following research questions:
 \end{itemize}
 
 Our approach proposes a statistical indicator of population coverage to
-measure the extent of bias, and uses explainable machine
-learning to identify key contextual factors contributing to spatial
-variations in the extent of bias. Biases in digital trace data can
-emerge from multiple sources, such as algorithmic changes, device
-duplication and geographic location accuracy {[}REF{]}. We do not intend to
-identify these individual sources of error. We focus on quantifying the
-extent of ``cumulative'\,' bias; that is, the resulting bias from the
-accumulation of these error sources. We use data collected from single
-and multiple mobile phone apps, and compare their results. As outlined
-above, we test the extent to which biases can be mitigated by leveraging
-information from multiple apps encompassing a more diverse user
-population. Specifically, we use two single-app (i.e.~Facebook and
-Twitter/X) and two multi-app providers (i.e.~Locomizer and a European
-provider). We focus on the use of aggregated population counts as this
-has become a common ethical and privacy-preserving practice for
-companies to provide access to highly sensitive data for social good.
+measure the extent of bias, and uses explainable machine learning to
+identify key contextual factors contributing to spatial variations in
+the extent of bias. Biases in digital trace data can emerge from
+multiple sources, such as algorithmic changes, device duplication and
+geographic location accuracy {[}REF{]}. We do not intend to identify these
+individual sources of error. We focus on quantifying the extent of
+``cumulative'\,' bias; that is, the resulting bias from the accumulation
+of these error sources. We use data collected from single and multiple
+mobile phone apps, and compare their results. As outlined above, we test
+the extent to which biases can be mitigated by leveraging information
+from multiple apps encompassing a more diverse user population.
+Specifically, we use two single-app (i.e.~Facebook and Twitter/X) and
+two multi-app providers (i.e.~Locomizer and a European provider). We
+focus on the use of aggregated population counts as this has become a
+common ethical and privacy-preserving practice for companies to provide
+access to highly sensitive data for social good.
 
 Our study makes two key contributions. * Methodological contribution
 i.e.~what we hope to achieve with our approach / quality assessment
@@ -255,69 +256,44 @@ MPD.\\
 predictor of biases + do we find evidence of lower biases / greater
 population coverage for multi-app better than single app?
 
-\section{Data and methods}\label{data-and-methods}
+\hypertarget{data-and-methods}{%
+\section{Data and methods}\label{data-and-methods}}
 
-We propose a systematic framework to measure and explain biases in population count data derived from multiple sources of mobile phone apps data. We focus on aggregated population counts as a privacy-preserving and ethically appropriate representation of digital mobility data. The analysis is applied on data collected during March 2021 to ensure comparability with recent the most census in the area of study. Figure 1 provides an overview of the methodological workflow, which includes data acquisition, bias estimation using a coverage indicator, and bias explanation through spatial modeling with contextual covariates. This integrated approach allows us to evaluate the representativeness of different data sources.
+We propose a systematic framework to measure and explain biases in population count data derived from multiple mobile phone apps. We use datasets collected in or around March 2021 to align as closely as possible with the dates of the most recent census in the area of study, hence enabling direct and temporally consistent comparisons. The datasets represent both single-app sources (Meta and Twitter/X) and multi-app sources (Locomizer and a European provider), with diverse user groups and data generation mechanisms. These differences allow us to examine how data source characteristics influence population coverage and representativeness. We focus on aggregated population counts, which are commonly used in mobility research, as a privacy-preserving and ethically responsible data format. Our methodological approach focuses on two types of biases: coverage bias, referring to the share of the population captured by each dataset; and representational bias, which reflects how well the demographic and socioeconomic composition of the digital sample aligns with that of the general population. The analysis involves three stages. In the first stage, we propose a metric of population coverage bias, and compare this across the digital data sources as well as with other widely used national surveys. In the second stage, we compute population coverage bias across subnational areas, and analyse the patterns of spatial variability. In the third stage, we model the spatial variability using demographic and socioeconomic covariates to understand which contextual factors contribute to representational bias. Figure 1 provides an overview of the methodological workflow, which includes data acquisition, bias measurement, spatial analysis of bias and bias explanation.
 
-\subsection{Data (CC)}\label{data-cc}
+\hypertarget{data-cc}{%
+\subsection{Data (CC)}\label{data-cc}}
 
-To evaluate the extent of bias in digital population data, we assemble and compare four mobile-derived datasets representing both single- and multi-app data sources. These datasets differ in terms of their data generation mechanisms, geographic and temporal resolution, population coverage, and underlying user base. Facebook and Twitter/X data represent single-application platforms, while Locomizer and another European provider aggregate data from multiple mobile apps. Table 1 summarises the main characteristics of each dataset, including the source type, spatial coverage, temporal resolution, and known strengths and limitations. These differences are critical to understanding how data collection methods shape the representativeness of digital trace data. The following subsections describe each data source in detail.
+To evaluate the extent of bias in digital population data, we assemble and compare four datasets representing both single- and multi-app data sources. Particularly, data from Meta-Facebook and Twitter/X represent single-app platforms, while Multi-app Source 1 and Multi-app Source 2 aggregate data from multiple mobile phone apps. While Twitter/X is not exclusively accessed via mobile phone devices and the available location data is not always collected via GPS, we include it in the analysis as it has been widely used in mobility and population research due to its high temporal resolution and geogrpahic reach. Table 1 summarises the main characteristics of each dataset, including the source type, form of data collections, temporal granularity, temporal coverage, spatial resolution, access method and data acquisition cost. The following subsections describe each data source in detail.
 
 \begin{figure}
 \centering
 \includegraphics[width=5.20833in,height=1.77083in]{figures/table-data-source.png}
-\caption{Supplementary Table 1. Summary description of data sources used in the article, including key features.}
+\caption{Supplementary Table 1. Summary description of data sources used in the
+article, including key
+features.}
 \end{figure}
 
-\subsubsection{Facebook}\label{facebook}
+\hypertarget{meta}{%
+\subsubsection{Meta}\label{meta}}
 
-We use anonymised aggregate location data from Facebook app users who
-have the location services setting turned on on their smartphone for the
-UK, covering March 2021, the month when the 2021 UK Census was carried
-out. We use the Facebook Population dataset created by Meta and accessed
+We use the Facebook Population dataset created by Meta and accessed
 through their Data for Good Initiative
-(\url{https://dataforgood.facebook.com}). Prior to releasing the datasets,
+(\url{https://dataforgood.facebook.com}). This consists of anonymised aggregate location data from Facebook app users in the UK, who
+have the location services setting activated on their smartphone. We selected data entries covering March 2021, the month when the most recent UK Census was carried
+out. Prior to releasing the datasets,
 Meta ensures privacy and anonymity by removing personal information and
-applying privacy-preserving techniques \citep{maas2019} . Small-count
-dropping is one of these techniques. A data entry is removed if the
-population or movement count for an area is lower than 10. The removal
-of small counts may mean that population counts in small sparsely
-populated areas are not captured. A second technique consists in adding
-a small undisclosed amount of random noise to ensure that it is not
-possible to ascertain precise, true counts for sparsely populated
-locations. Third, spatial smoothing using inverse distance-weighted
-averaging is also applied is applied to produce a smooth population
-count surface.
+applying privacy-preserving techniques, including small-count dropping for population counts under 10, addition of random noise and spatial smoothing using inverse distance-weighted
+averaging \citep{maas2019}.
 
-The Facebook Population dataset offers information on the number of
-active Facebook users in a spatial unit at a given point in time. The
-data is temporally aggregated into three daily 8-hour time windows (i.e.
-00:00-08:00, 08:00-16:00 and 16:00- 00:00). In this work, we are
-interested in capturing resident population, so we consider only data
-corresponding to the time window corresponding to the night-time hours
-(00:00-08:00).
+The dataset includes the number of
+active Facebook app users, aggregated into three daily 8-hour time windows (i.e.
+00:00-08:00, 08:00-16:00 and 16:00- 00:00). To approximate the resident population, we focus on the time window corresponding to night-time hours (00:00--08:00), when users are more likely to be at home. Spatially, the Facebook Population data is aggregated according to the Bing Maps Tile System \citep{bingmaps_tile_system}. In this study, we use data aggregated at Bing tile level 13, which corresponds to a spatial resolution of approximately 4.9 \(\times\) 4.9 km at the Equator \citep{maas2019}.
 
-Spatially, the Facebook Population dataset is aggregated according to
-the Bing Maps Tile System developed by Microsoft (Microsoft). The Tile
-System is a geospatial indexing system that partitions the world into
-tile cells in a hierarchical way, comprising 23 different levels of
-detail (Microsoft). At the lowest level of detail (Level 1), the world
-is divided into four tiles with a coarse spatial resolution. At each
-successive level, the resolution increases by a factor of two. The data
-that we used are spatially aggregated into Bing tile levels 13. That is
-about 4.9 x 4.9km at the Equator \citep{maas2019}.
+To enable comparison with UK census data, we process the Facebook Population data by averaging daily values over March 2021 and aggregating them to the level of Local Authority Districts (LADs). This harmonisation ensures temporal and spatial alignment with official census boundaries. In the Supplementary Information, we test alternative processing strategies, including averaging over a single week in March and reversing the order of spatial and temporal aggregation. These sensitivity checks confirm that our main findings are robust to variations in the data processing workflow.
 
-We process Facebook Population data to enable comparison with UK census
-data. Specifically, we take the average of daily Facebook Population
-data over March 2021, the census month, and aggregate it into UK Local
-Authority Districts (LADs) to align with the census data. This approach
-is used to generate the figures and results in the body paper. In the
-Supplementary Information, we test alternative approaches, including
-averaging over a single week in March 2021, or performing the spatial
-aggregation before temporal averaging. Our findings indicate that the
-results remain robust regardless of the chosen approach
-
-\subsubsection{Twitter}\label{twitter}
+\hypertarget{twitter}{%
+\subsubsection{Twitter}\label{twitter}}
 
 We use an anonymised, openly available, analysis-ready dataset of active
 Twitter users in the UK. The data is derived from X (previously Twitter)
@@ -341,7 +317,8 @@ Archive (\url{https://gis.harvard.edu/data}). Despite these limitations, we
 consider X data as it remains a key source of historical digital trace
 data.
 
-\subsubsection{Multi-app GPS data: source 1}\label{multi-app-gps-data-source-1}
+\hypertarget{multi-app-gps-data-source-1}{%
+\subsubsection{Multi-app GPS data: source 1}\label{multi-app-gps-data-source-1}}
 
 We sourced data from a data analytics company that collects GPS location
 data from around 26\% of smartphones in the UK. The raw data is collected
@@ -362,7 +339,8 @@ locations and be visited at least twice during the period of study. To
 ensure consistency when comparing with other data sources, we aggregate
 these residence locations at the Local Authority District (LAD) level.
 
-\subsubsection{Multi-app GPS data: source 2}\label{multi-app-gps-data-source-2}
+\hypertarget{multi-app-gps-data-source-2}{%
+\subsubsection{Multi-app GPS data: source 2}\label{multi-app-gps-data-source-2}}
 
 Our analysis includes a second source of analysis-ready GPS location
 data, which is openly-available on GitHub
@@ -380,7 +358,8 @@ To ensure consistency across datasets, we further process the data by
 aggregating it spatially from the Middle Layer Super Output Area (MSOA)
 level to the Local Authority District Level (LAD).
 
-\subsection{Methods}\label{methods}
+\hypertarget{methods}{%
+\subsection{Methods}\label{methods}}
 
 Our proposed methodology consists of two stages aimed at quantifying two
 types of biases: coverage biases and representational biases. Coverage
@@ -408,7 +387,8 @@ to be associated with higher values of coverage bias, thus highlighting
 which population groups tend to be underrepresented in different sources
 of digital trace data.
 
-\subsubsection{Measuring coverage bias (CCA)}\label{measuring-coverage-bias-cca}
+\hypertarget{measuring-coverage-bias-cca}{%
+\subsubsection{Measuring coverage bias (CCA)}\label{measuring-coverage-bias-cca}}
 
 We define a metric to quantify the magnitude of coverage bias in each
 subnational area. This metric is based on the population coverage of the
@@ -435,7 +415,8 @@ which corresponds to full population coverage (\(c_i = 100\)). We use this
 bias indicator to analysis the magnitude and spatial distribution of
 coverage bias across multiple sources of digital trace data.
 
-\subsubsection{Identifying the key predictors of bias (FR)}\label{identifying-the-key-predictors-of-bias-fr}
+\hypertarget{identifying-the-key-predictors-of-bias-fr}{%
+\subsubsection{Identifying the key predictors of bias (FR)}\label{identifying-the-key-predictors-of-bias-fr}}
 
 We seek to understand the association between the size of bias and
 area-level demographic and socioeconomic attributes. To what extent
@@ -452,9 +433,11 @@ technology. We will use this information to inform our models in WP-II.
 eXtreme Gradient Boosting (XGBoost) is an efficient and scalable
 implementation of gradient boosting framework by \citep{friedman2001, friedman2000}.
 
-\section{Results}\label{results}
+\hypertarget{results}{%
+\section{Results}\label{results}}
 
-\subsection{Varying extent of bias across data sources}\label{varying-extent-of-bias-across-data-sources}
+\hypertarget{varying-extent-of-bias-across-data-sources}{%
+\subsection{Varying extent of bias across data sources}\label{varying-extent-of-bias-across-data-sources}}
 
 As digital trace data becomes increasingly accessible, it opens up new
 avenues for studying human behaviours with remarkable temporal and
@@ -482,10 +465,12 @@ trace data, highlighting its potential to inform comprehensive empirical
 analyses.
 
 \begin{figure}
+\hypertarget{fig:survey}{%
 \centering
 \includegraphics{figures/compare-surveys-two-axis.png}
 \caption{Size of bias and population coverage (per 1,000 population) by data
 source.}\label{fig:survey}
+}
 \end{figure}
 
 While the findings in Figure \ref{fig:survey} demonstrate the potential
@@ -527,7 +512,8 @@ under or over-represented in different sources of digital trace data.
 This information is necessary to later adjust the data so that it is
 more representative of the population of interest.
 
-\subsection{The spatial distribution of biases (CC)}\label{the-spatial-distribution-of-biases-cc}
+\hypertarget{the-spatial-distribution-of-biases-cc}{%
+\subsection{The spatial distribution of biases (CC)}\label{the-spatial-distribution-of-biases-cc}}
 
 Next, we take advantage of the detailed geographic information in the
 digital trace data to analyse bias at smaller, more localised spatial
@@ -596,11 +582,14 @@ educational level. In the next section, we explore the variability of
 demographic attributes of local populations as possible determinants of
 the size of bias.
 
-\subsection{Explaining biases (FR)}\label{explaining-biases-fr}
+\hypertarget{explaining-biases-fr}{%
+\subsection{Explaining biases (FR)}\label{explaining-biases-fr}}
 
-\section{Discussion (FR)}\label{discussion-fr}
+\hypertarget{discussion-fr}{%
+\section{Discussion (FR)}\label{discussion-fr}}
 
-\section{Conclusion (CC)}\label{conclusion-cc}
+\hypertarget{conclusion-cc}{%
+\section{Conclusion (CC)}\label{conclusion-cc}}
 
 \ethics{Please provide details on the ethics.}
 
