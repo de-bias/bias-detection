@@ -32,7 +32,7 @@ source("./style/data-visualisation_theme.R")
 
 ```{r}
 # Set digital trace data source: twitter, fb_tts_census_week, fb_tts_census_month, fb_stt_census_week, fb_stt_census_month, mapp1, mapp2
-dfd <- "mapp2"
+dfd <- "mapp1"
 
 # Set weights scheme: queen, fbw, knn, db
 w_scheme <- 'db'
@@ -92,10 +92,10 @@ if (dfd == "twitter") {
   df_pop_dfd <- read.csv(paste0(wd, "/data/inputs/fb/census-month/stt/active_population.csv")) %>% 
   rename("name" = "LAD21NM")
   } else if (dfd == "mapp1") {
-  df_pop_dfd <- st_read(paste0(wd, "/data/outputs/mapp1/home-locations/lad/home-location-count_lad.shp")) %>% 
-  rename("pop_dfd" = "hm_lct_") %>% st_drop_geometry() %>% as.data.frame()
+  df_pop_dfd <- st_read(paste0(wd, "/data/outputs/mapp1/locations-home/lad/home-location-count_lda.gpkg")) %>% 
+  rename("pop_dfd" = "home_location_count") %>% st_drop_geometry() %>% as.data.frame()
   } else if (dfd == "mapp2") {
-  df_pop_dfd <- read.csv(paste0(wd, "/data/outputs/mapp2/home-locations/lad/home-location-count_lad_htw.csv")) %>% 
+  df_pop_dfd <- read.csv(paste0(wd, "/data/outputs/mapp2/locations-home/lad/home-location-count_lad_htw.csv")) %>% 
   rename("code" = "LAD22CD")
   }
 ```

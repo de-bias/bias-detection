@@ -74,10 +74,8 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-# Summary description of data sources
 
-![Supplementary Table 1. Summary description of data sources used in the article, including key features.
-](figures/table-data-source.png){width="500" height="170"}
+
 
 # Alternative data aggregation approaches for Facebook data
 

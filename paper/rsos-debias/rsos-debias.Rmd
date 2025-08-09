@@ -216,21 +216,21 @@ following research questions:
 
 Our approach proposes a statistical indicator of population coverage to
 measure the extent of bias, and uses explainable machine learning to
-identify key contextual factors contributing to spatial variations in
-bias. Biases in digital trace data can emerge from multiple sources,
-such as algorithmic changes, device duplication and geographic location
-accuracy [REF]. We do not intend to identify these individual sources of
-error. We focus on quantifying the extent of \`\`cumulative'' bias; that
-is, the resulting bias from the accumulation of these error sources. We
-use data collected from single and multiple mobile phone apps, and
-compare their results. As outlined above, we test the extent to which
-biases can be mitigated by leveraging information from multiple apps
-encompassing a more diverse user population. Specifically, we use two
-single-app (i.e. Facebook and Twitter/X) and two multi-app providers
-(i.e. Locomizer and a European provider). We focus on the use of
-aggregated population counts as this has become a common ethical and
-privacy-preserving practice for companies to provide access to highly
-sensitive data for social good.
+identify key contextual factors contributing to spatial variations in the extent of bias. Biases in digital trace data can emerge from
+multiple sources, such as algorithmic changes, device duplication and
+geographic location accuracy [REF]. We do not intend to identify these
+individual sources of error. We focus on quantifying the extent of
+\`\`cumulative'' bias; that is, the resulting bias from the accumulation
+of these error sources. We use data collected from single and multiple
+mobile phone apps, and compare their results. As outlined above, we test
+the extent to which biases can be mitigated by leveraging information
+from multiple apps encompassing a more diverse user population.
+Specifically, we use two single-app (i.e. Facebook and Twitter/X) and
+two multi-app providers (i.e. Locomizer and a European provider). We
+focus on the use of aggregated population counts as this has become a
+common ethical and privacy-preserving practice for companies to provide
+access to highly sensitive data for social good.
+
 
 Our study makes two key contributions. \* Methodological contribution
 i.e. what we hope to achieve with our approach / quality assessment
@@ -244,7 +244,8 @@ population coverage for multi-app better than single app?
 
 # Data and methods
 
-[NOTE: I think that we need a paragraph describing and providing an
+```{=html}
+<!-- NOTE: I think that we need a paragraph describing and providing an
 overview of the methodological strategy, including both data and
 methods. Two points are particularly crucial to connect: (1) The use of
 data from March 2021 for our assessment against census data; and (2) the
@@ -253,126 +254,77 @@ and multiple-sourced app data. I wonder if we should include a table
 listing their general attributes: advantages and limitations in terms of
 their temporal and spatial coverage and resolution. This may not be the
 place for the table but would be good to consider for the book if we
-compared GPS data to other sources.]
+compared GPS data to other sources. !--->
+```
 
 <!-- Start with overview of dta and methods. Include here a figure of overview of data+methods (see slides for 1st advisory board meeting. Need to alter figure to differentiate between single source data and multi-source (multi-app) data !-->
+
+We propose a systematic framework to measure and explain biases in population count data derived from multiple mobile phone apps. We use datasets collected in or around March 2021 to align as closely as possible with the dates of the most recent census in the area of study, hence enabling direct and temporally consistent comparisons. The datasets represent both single-app sources (Meta and Twitter/X) and multi-app sources (Locomizer and a European provider), with diverse user groups and data generation mechanisms. These differences allow us to examine how data source characteristics influence population coverage and representativeness. We focus on aggregated population counts, which are commonly used in mobility research, as a privacy-preserving and ethically responsible data format. Our methodological approach focuses on two types of biases: coverage bias, referring to the share of the population captured by each dataset; and representational bias, which reflects how well the demographic and socioeconomic composition of the digital sample aligns with that of the general population. The analysis involves three stages. In the first stage, we propose a metric of population coverage bias, and compare this across the digital data sources as well as with other widely used national surveys. In the second stage, we compute population coverage bias across subnational areas, and analyse the patterns of spatial variability. In the third stage, we model the spatial variability using demographic and socioeconomic covariates to understand which contextual factors contribute to representational bias. Figure 1 provides an overview of the methodological workflow, which includes data acquisition, bias measurement, spatial analysis of bias and bias explanation.
 
 ## Data (CC)
 
 <!-- A table describing key attributes of the data would be handy here, such as the number of unique devices, form of data collection, spatial resolution and temporal granularity. For the multi-app data, please include the number or type of apps used to collect the information. -->
 
-### Facebook
+To evaluate the extent of bias in digital population data, we assemble and compare four datasets representing both single- and multi-app data sources. Particularly, data from Meta-Facebook and Twitter/X represent single-app platforms, while Multi-app Source 1 and Multi-app Source 2 aggregate data from multiple mobile phone apps. Table 1 summarises the main characteristics of each dataset, including the source type, form of data collections, temporal granularity, temporal coverage, spatial resolution, access method and data acquisition cost. The following subsections describe each data source in detail.
 
-We use anonymised aggregate location data from Facebook app users who
-have the location services setting turned on on their smartphone for the
-UK, covering March 2021, the month when the 2021 UK Census was carried
-out. We use the Facebook Population dataset created by Meta and accessed
+While Twitter/X is not exclusively accessed via mobile devices and its location data are not always collected via GPS, it has nonetheless been widely used in population and mobility research for its ability to capture patterns at high spatio-temporal resolution and across broad geographic areas. Additionally, the Twitter Academic API is no longer available for free data collection, limiting access to new data. Despite these limitations, we include Twitter/X in our analysis as a representative single-application data source. Archived datasets, such as the one used in this study or the Harvard Geotweet Archive (https://gis.harvard.edu/data) continue to support population and mobility research.
+
+
+![Table 1. Summary description of data sources derived from mobile phone apps used in the
+article.](figures/table-data-source.png){width="500" height="190"}
+
+### Meta
+
+We use the Facebook Population dataset created by Meta and accessed
 through their Data for Good Initiative
-(<https://dataforgood.facebook.com>). Prior to releasing the datasets,
+(<https://dataforgood.facebook.com>). This consists of anonymised aggregate location data from Facebook app users in the UK, who
+have the location services setting activated on their smartphone. We selected data entries covering March 2021, the month when the most recent UK Census was carried
+out. Prior to releasing the datasets,
 Meta ensures privacy and anonymity by removing personal information and
-applying privacy-preserving techniques [@maas2019] . Small-count
-dropping is one of these techniques. A data entry is removed if the
-population or movement count for an area is lower than 10. The removal
-of small counts may mean that population counts in small sparsely
-populated areas are not captured. A second technique consists in adding
-a small undisclosed amount of random noise to ensure that it is not
-possible to ascertain precise, true counts for sparsely populated
-locations. Third, spatial smoothing using inverse distance-weighted
-averaging is also applied is applied to produce a smooth population
-count surface.
+applying privacy-preserving techniques, including small-count dropping for population counts under 10, addition of random noise and spatial smoothing using inverse distance-weighted
+averaging [@maas2019]. 
 
-The Facebook Population dataset offers information on the number of
-active Facebook users in a spatial unit at a given point in time. The
-data is temporally aggregated into three daily 8-hour time windows (i.e.
-00:00-08:00, 08:00-16:00 and 16:00- 00:00). In this work, we are
-interested in capturing resident population, so we consider only data
-corresponding to the time window corresponding to the night-time hours
-(00:00-08:00).
+The dataset includes the number of
+active Facebook app users, aggregated into three daily 8-hour time windows (i.e.
+00:00-08:00, 08:00-16:00 and 16:00- 00:00). To approximate the resident population, we focus on the time window corresponding to nighttime hours (00:00–08:00), when users are more likely to be at home. For the study area, this time window yields an average of 4.2 million daily user records. Spatially, the Facebook Population data is aggregated according to the Bing Maps Tile System [@bingmaps_tile_system]. In this study, we use data aggregated at Bing tile level 13, which corresponds to a spatial resolution of approximately 4.9 $\times$ 4.9 km at the Equator [@maas2019].
 
-Spatially, the Facebook Population dataset is aggregated according to
-the Bing Maps Tile System developed by Microsoft (Microsoft). The Tile
-System is a geospatial indexing system that partitions the world into
-tile cells in a hierarchical way, comprising 23 different levels of
-detail (Microsoft). At the lowest level of detail (Level 1), the world
-is divided into four tiles with a coarse spatial resolution. At each
-successive level, the resolution increases by a factor of two. The data
-that we used are spatially aggregated into Bing tile levels 13. That is
-about 4.9 x 4.9km at the Equator [@maas2019].
-
-We process Facebook Population data to enable comparison with UK census
-data. Specifically, we take the average of daily Facebook Population
-data over March 2021, the census month, and aggregate it into UK Local
-Authority Districts (LADs) to align with the census data. This approach
-is used to generate the figures and results in the body paper. In the
-Supplementary Information, we test alternative approaches, including
-averaging over a single week in March 2021, or performing the spatial
-aggregation before temporal averaging. Our findings indicate that the
-results remain robust regardless of the chosen approach
+To enable comparison with UK census data, we process the Facebook Population data by averaging daily values over March 2021 and aggregating them to the level of Local Authority Districts (LADs). This harmonisation ensures temporal and spatial alignment with official census boundaries. In the Supplementary Information, we test alternative processing strategies, including averaging over a single week in March and reversing the order of spatial and temporal aggregation. These sensitivity checks confirm that our main findings are robust to variations in the data processing workflow.
 
 ### Twitter
 
 <!-- Argue better why Twitter data also falls in the umbrella of GPS data. Some entries are from GPS (geotagged posts) but we are also including others, like those geolocated from IP addresses !-->
 
-We use an anonymised, openly available, analysis-ready dataset of active
-Twitter users in the UK. The data is derived from X (previously Twitter)
-in the form of monthly active user counts residing across the UK
-geography. The dataset is based on tweets from UK users [@wang2022]
-collected via the Twitter Academic API. These tweets are either
-geolocated at the time of posting or manually geocoded using a bounding
-box provided by the Twitter Academic API, based on the IP address of the
-posting device. The full dataset includes 161 million tweets from
-February 2019 to December 2021; however, we focus on data from March
-2021 to align with the 2021 UK Census. Users' Local Authority District
-(LAD) of residence is identified using a frequency-based home-location
-algorithm. Further details on the dataset’s methodology can be found in
-[@wang2022] .
+We use an anonymised, analysis-ready dataset of active
+X (previously Twitter) users in the UK, originally collected via the Twitter Academic API. The data consists of monthly counts of active users, spatially aggregated across the UK, and is openly available at <https://github.com/c-zhong-ucl-ac-uk/Twitter-Internal-Migration>. Geolocation is obtained either directly from geotagged tweets or through manual geocoding using bounding boxes provided by the API, based on the IP address of the posting device (for methodological details, see [@wang2022]). The full dataset includes approximately 161 million tweets from
+February 2019 to December 2021. For this study, we restrict the analysis to March 2021 to align with the timing of the 2021 UK Census, during which 125,637 user home locations were identified. Home locations are assigned to Local Authority Districts (LADs) using a frequency-based detection algorithm, further described in [@wang2022].
 
-While the X Academic API is no longer available to download data, but
-existing and future projects offer an opportunity for research based on
-X data. Global repositories of historical geolocated tweet data are
-accessed through the Internet Archive (1996) and Harvard Geotweet
-Archive (<https://gis.harvard.edu/data>). Despite these limitations, we
-consider X data as it remains a key source of historical digital trace
-data.
+### Multi-app Source 1
 
-### Multi-app GPS data: source 1
+We sourced data from a location analytics company that collects GPS data from approximately 26% of smartphones in the UK. The raw data consist of anonymised device-level GPS traces collected via a range of smartphone applications, where users have explicitly granted location-sharing permissions. The dataset spans a 7-day period corresponding to the first week of April 2021 and includes 443,553,155 GPS records. Although the dataset does not perfectly align with the official 2021 UK Census date, the temporal proximity ensures a high degree of comparability.
 
-We sourced data from a data analytics company that collects GPS location
-data from around 26% of smartphones in the UK. The raw data is collected
-for individual anonymised devices, from numerous smartphone applications
-where the users have explicitly granted location-sharing permissions.
-The full dataset covers 7 days corresponding to the first week of April
-for the UK, including X GPS records and X unique devices. While the
-dates covered by dataset do not exactly coincide with the 2021 UK Census
-dates, the alignment is close.
+To infer the place of residence of users, we apply a commonly used rule-based classification method, following approaches outlined in [@wang2022; @zhong24working]. Specifically, the place of residence associated with a device is defined as the location with the highest number of GPS records recorded during nighttime hours (10 PM–6 AM). To be classified as a residence, a location must account for more than 50% of the device nighttime records. Furthermore, the number of nighttime records during the observation period must be at least 2. For comparability across data sources, all identified residence locations are aggregated to the level of Local Authority Districts (LADs). Using this method, we detect 1,536,922 home locations.
 
-We process the data to estimate users' place of residence based on a
-commonly used rule-based classification (e.g. [@wang2022,
-@zhong24working]), which assumes that the residence of a device owner
-corresponds to the location with the highest number of GPS records
-during night hours (7 PM – 7 AM). For a location to be classified as a
-residence, it must account for more than 50% of recorded nighttime
-locations and be visited at least twice during the period of study. To
-ensure consistency when comparing with other data sources, we aggregate
-these residence locations at the Local Authority District (LAD) level.
+### Multi-app Source 2
 
-### Multi-app GPS data: source 2
-
-Our analysis includes a second source of analysis-ready GPS location
+Our analysis includes a second source of analysis-ready location
 data, which is openly-available on GitHub
 ([https://t.ly/dzlzB)](https://t.ly/dzlzB)). This dataset has already
-been processed to identify the home location of users accoring to the
+been processed to identify the home location of users according to the
 methodology described in [@zhong24working]. The raw data is collected by
 a UK-based data service company, which licenses mobile GPS data from 200
 smartphone apps and applies pre-processing methods to ensure user
-privacy and anonymity. The full dataset covers the UK in November 2021.
+privacy and anonymity. The dataset covers the entire UK for November 2021 and includes inferred home and work locations for 630,946 users.
+
 While this period does not exactly coincide with the 2021 UK Census, the
 difference of less than a year is considered sufficiently close for our
-analysis.
+analysis. To ensure consistency across datasets, we further process the data by aggregating it spatially from the Middle Layer Super Output Area (MSOA) level to the Local Authority District Level (LAD).
 
-To ensure consistency across datasets, we further process the data by
-aggregating it spatially from the Middle Layer Super Output Area (MSOA)
-level to the Local Authority District Level (LAD).
+### Other data
+
+In addition to the mobile phone app data sources described above, we use resident population counts from the 2021 UK Census, aggregated at the LAD level. These counts serve as the ground truth reference for comparing population estimates derived from each digital dataset. We also draw on a set of area-based covariates from the census, covering demographic, socioeconomic, and housing characteristics, along with the geographic coordinates of each LAD centroid. These variables are used to investigate and explain the contextual factors most strongly associated with the magnitude and spatial variation of bias in the digital trace data. The full list of covariates is provided in Table 2.
+
+![Table 2. List of covariates used in the analysis, grouped by thematic category. Variables are derived from the 2021 UK Census and aggregated to the Local Authority District (LAD) level, except for geographic coordinates, which correspond to the centroid of each LAD.](figures/table-census-data.png){width="450" height="460"}
+
 
 ## Methods
 
@@ -529,7 +481,7 @@ analyses.
 <!-- Add no. of responses in legend (black dot) !-->
 
 ![Size of bias and population coverage (per 1,000 population) by data
-source.](figures/compare-surveys-two-axis.png){#fig:survey}
+source.](figures/compare-surveys-legend.png){#fig:survey width="500" height="300"}
 
 While the findings in Figure \ref{fig:survey} demonstrate the potential
 of digital trace data compared to traditional data sources, high
