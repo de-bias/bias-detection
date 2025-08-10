@@ -1,5 +1,5 @@
 ---
-title: A systematic machine learning approach to quantifying the spatial extent of bias in human population data from mobile phones
+title: A systematic machine learning approach to quantifying the extent of bias in human population data from mobile phones
 author:
   - name: Carmen Cabrera
     affiliation: "1"
