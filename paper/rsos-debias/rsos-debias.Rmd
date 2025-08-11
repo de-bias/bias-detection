@@ -20,6 +20,7 @@ subject:
 keywords:
   - Mobile phone data
   - Human mobility
+  - Location
   - Explainable AI
   - Spatial analysis
 abstract: |
