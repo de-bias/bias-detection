@@ -74,7 +74,7 @@ Tables with captions Figure captions with credits where relevant
 
 \newpage
 
-# Introduction (FR)
+# Introduction
 
 <!-- CCA: PROPOSED PARAGRAPH STRUCTURE-->
 
@@ -242,7 +242,7 @@ population coverage for multi-app better than single app?
 
 <!-- Structure: do we need this? -->
 
-# Data and methods
+
 
 ```{=html}
 <!-- NOTE: I think that we need a paragraph describing and providing an
@@ -259,16 +259,14 @@ compared GPS data to other sources. !--->
 
 <!-- Start with overview of dta and methods. Include here a figure of overview of data+methods (see slides for 1st advisory board meeting. Need to alter figure to differentiate between single source data and multi-source (multi-app) data !-->
 
-We propose a systematic framework to measure and explain biases in population count data derived from multiple mobile phone apps. We use datasets collected in or around March 2021 to align as closely as possible with the dates of the most recent census in the area of study, hence enabling direct and temporally consistent comparisons. The datasets represent both single-app sources (Meta and Twitter/X) and multi-app sources (Locomizer and a European provider), with diverse user groups and data generation mechanisms. These differences allow us to examine how data source characteristics influence population coverage and representativeness. We focus on aggregated population counts, which are commonly used in mobility research, as a privacy-preserving and ethically responsible data format. Our methodological approach focuses on two types of biases: coverage bias, referring to the share of the population captured by each dataset; and representational bias, which reflects how well the demographic and socioeconomic composition of the digital sample aligns with that of the general population. The analysis involves three stages. In the first stage, we propose a metric of population coverage bias, and compare this across the digital data sources as well as with other widely used national surveys. In the second stage, we compute population coverage bias across subnational areas, and analyse the patterns of spatial variability. In the third stage, we model the spatial variability using demographic and socioeconomic covariates to understand which contextual factors contribute to representational bias. Figure 1 provides an overview of the methodological workflow, which includes data acquisition, bias measurement, spatial analysis of bias and bias explanation.
-
-## Data (CC)
+ 
+# Data
 
 <!-- A table describing key attributes of the data would be handy here, such as the number of unique devices, form of data collection, spatial resolution and temporal granularity. For the multi-app data, please include the number or type of apps used to collect the information. -->
 
-To evaluate the extent of bias in digital population data, we assemble and compare four datasets representing both single- and multi-app data sources. Particularly, data from Meta-Facebook and Twitter/X represent single-app platforms, while Multi-app Source 1 and Multi-app Source 2 aggregate data from multiple mobile phone apps. Table 1 summarises the main characteristics of each dataset, including the source type, form of data collections, temporal granularity, temporal coverage, spatial resolution, access method and data acquisition cost. The following subsections describe each data source in detail.
+We propose a systematic framework to measure and explain biases in population count data derived from mobile phones (MPs). We use four datasets to illustrate this framework, collected in or around March 2021 to align as closely as possible with the dates of the most recent census in the area of study to enable direct and temporally consistent comparisons. We focus on aggregated population counts, which are commonly used in mobility research, as a privacy-preserving and ethically responsible data format. The datasets include sources derived from a single MP application (Meta and Twitter/X) as well as from multiple MP applications, each capturing distinct user groups through different data generation mechanisms. These differences allow us to assess how source characteristics influence population coverage and representativeness. The multi-application sources are referred to as Multi-app Source 1, whose provider name cannot be disclosed due to a non-disclosure agreement, and Multi-app Source 2, provided in its raw format by the company Locomizer. Details of access and processing for each data source are provided in the following subsections. Table 1 summarises the main characteristics of each dataset, including the source type, form of data collections, temporal granularity, temporal coverage, spatial resolution, access method and data acquisition cost.
 
-While Twitter/X is not exclusively accessed via mobile devices and its location data are not always collected via GPS, it has nonetheless been widely used in population and mobility research for its ability to capture patterns at high spatio-temporal resolution and across broad geographic areas. Additionally, the Twitter Academic API is no longer available for free data collection, limiting access to new data. Despite these limitations, we include Twitter/X in our analysis as a representative single-application data source. Archived datasets, such as the one used in this study or the Harvard Geotweet Archive (https://gis.harvard.edu/data) continue to support population and mobility research.
-
+It is important to note that, while Twitter/X is not exclusively accessed via mobile devices and its location data are not always collected via GPS, it has nonetheless been widely used in population and mobility research for its ability to capture patterns at high spatio-temporal resolution and across broad geographic areas. Additionally, the Twitter Academic API is no longer available for free data collection, limiting access to new data. Despite these limitations, we include Twitter/X in our analysis as a representative single-application data source. Archived datasets, such as the one used in this study or the Harvard Geotweet Archive (https://gis.harvard.edu/data) continue to support population and mobility research.
 
 ![Table 1. Summary description of data sources derived from mobile phone apps used in the
 article.](figures/table-data-source.png){width="500" height="190"}
@@ -326,35 +324,11 @@ In addition to the mobile phone app data sources described above, we use residen
 ![Table 2. List of covariates used in the analysis, grouped by thematic category. Variables are derived from the 2021 UK Census and aggregated to the Local Authority District (LAD) level, except for geographic coordinates, which correspond to the centroid of each LAD.](figures/table-census-data.png){width="450" height="460"}
 
 
-## Methods
+# Methods
 
-Our proposed methodology consists of two stages aimed at quantifying two
-types of biases: coverage biases and representational biases. Coverage
-biases relate to the sample size of the dataset and refer to the
-proportion of the population covered in the dataset. Representational
-biases, arise from the demographic and socioeconomic characteristics of
-the users who generate the digital trace data through specific
-technologies.
+In the first stage, we introduce a population coverage metric to quantify coverage bias within a given spatial unit. This metric is first computed at the national level for each of the four MP data sources examined in this study. To contextualise the magnitude of bias in MP data, we also compute the same metric for several established national surveys. This enables us to directly compare the extent of coverage bias introduced by digital and traditional data sources. In the second stage, we calculate the coverage metric for subnational spatial units and anlyse its geographic variation. We map the resulting patterns to identify areas of overrepresentation and underrepresentation and perform statistical tests to assess spatial clustering using measures of spatial autocorrelation. This analysis allows us to detect the presence of systematic spatial patterns in coverage bias across different regions. In the third stage, we use explainable machine learning to model the spatial variation in coverage bias as a function of demographic and socioeconomic covariates derived from the 2021 UK Census. This modelling approach allows us to model the magnitude of bias across areas and, importantly, to quantify the relative importance of each covariate, so it is possible to identify the population characteristics (e.g. age structure, income levels, educational attainment) that are most strongly associated with overrepresentation or underrepresentation in the different sources of MP app data. Figure 1 provides an overview of the methodological workflow, which includes data acquisition, bias measurement, comparative analysis with national surveys, spatial analysis, and bias explanation through modelling.
 
-The first stage of our methodology seeks to quantify coverage biases by
-examining the variations in coverage across different spatial units. We
-leverage the spatial granularity of digital trace data to analyse
-coverage biases at more localised spatial scales. This allows us to
-identify the extent to which different regions are represented within
-the datasets, revealing any potential underrepresentation or
-overrepresentation in specific locations.
-
-The second stage seeks to quantify representational biases. To do this,
-we leverage the spatial heterogeneity of coverage biases and model this
-variation in terms of demographic and socioeconomic variables that
-characterise local populations. This analysis allows us to identify
-which specific demogrpahic and socioeconomic population attributes, such
-as average income, education level or age composition, are more likely
-to be associated with higher values of coverage bias, thus highlighting
-which population groups tend to be underrepresented in different sources
-of digital trace data.
-
-### Measuring coverage bias (CCA)
+### Measuring coverage bias
 
 We define a metric to quantify the magnitude of coverage bias in each
 subnational area. This metric is based on the population coverage of the
@@ -378,14 +352,25 @@ e_i = 100 - c_i
 
 A value of $e_i = 0$ indicates a lack of coverage bias, which
 corresponds to full population coverage ($c_i = 100$). We use this bias
-indicator to analysis the magnitude and spatial distribution of coverage
-bias across multiple sources of digital trace data.
+indicator to analyse the magnitude and spatial distribution of coverage
+bias across multiple sources of data.
 
-### Spatial patterns of bias (CC)
+### Spatial patterns of bias 
 
 <!--# FR - this section should describe the intuition of the spatial analysis i.e. why we do it and how. Key is to identify and explain the various methods to measure the spatial weight matrix. Here we should probably already state that spatial correlation is not significant in our analysis - a caveat is that this is at the LAD level. There would be reasons to believe that spatial autocorrelation may be present at lower levels of aggregation. Should we metion this? Not sure at this stage how this could be said without prompting a question on why don't you test this using your mobile phone data? -->
 
-### Explainable machine learning (FR)
+For each data source, we compute the coverage bias metric at the subnational level (Local Authority Districts; LADs) and analyse the spatial distribution of bias across the UK. The purpose of this analysis is twofold. First, by mapping and summarising the geographic variation in bias, we can detect unevenness in representation across areas. These insights can later inform the interpretation of results from our explainable machine learning models. Second, by formally testing for spatial autocorrelation, we can assess whether bias tends to cluster geographically, which could indicate common contextual drivers in neighbouring areas. We complement this anlysis with histograms to examine the distribution and spread of bias across LADs, and scatterplots comparing population coverage with actual census population to evaluate whether bias is related to the size of the LAD population.
+
+We begin by visualising the distribution of bias values for each data source using histograms, which provide an overview of the degree of skewness or dispersion and highlight whether certain regions are systematically overrepresented or underrepresented. To quantify spatial autocorrelation, we compute Moran’s I statistic, which measures the degree to which LADs with similar bias values are spatially clustered. Since Moran’s I depends on the definition of spatial neighbourhoods, we test four alternative spatial weighting schemes: 1) contiguity-based via queen adjacency, 2) adaptative distance, 3) fixed distance band, and 4) k-nearest neighbours. We do test various schemes to identify the configuration yielding the highest values of Moran’s I. This comparison allows us to determine whether the detection of spatial clustering is sensitive to the choice of spatial weights.
+
+Our results indicate that spatial autocorrelation in bias is not statistically significant at the LAD level, suggesting that clustering, if present, is weak at this scale. However, this does not preclude the possibility of stronger spatial patterns emerging at finer levels of spatial aggregation, which could be explored in future work.
+
+
+To formally test for spatial clustering, we compute Moran’s I statistic under four alternative spatial weighting schemes—queen contiguity, rook contiguity, fixed distance band, and k-nearest neighbours—selecting the configuration that produces the highest I for each dataset. This allows us to determine whether the detection of clustering is sensitive to the definition of spatial relationships.
+
+While the full results are presented in Section X, our exploratory analysis shows that spatial patterns differ markedly between datasets, with some exhibiting stronger regional clustering than others. Notably, Moran’s I values are generally low and not statistically significant at the LAD level, suggesting weak spatial autocorrelation at this scale. This does not preclude stronger patterns at finer levels of aggregation, which could be investigated in future work.
+
+### Explainable machine learning
 
 We used explainable machine learning to identify the key predictors of
 population bias and how these the importance of these predictors varies
@@ -396,7 +381,7 @@ We therefore modelled our measure of population bias from
 Equation\~\ref{eq:size-bias} as a function of key area-level attributes
 reflecting geographical differences in engagement and access to digital
 technology across demographic, socioeconomic, household, housing and
-location factors. **TABLE XX** reports the set of predictors included in
+location factors. Table 2 reports the set of predictors included in
 our analysis. We used data from the 2021 census for England and Wales to
 measure these predictors.
 
@@ -453,14 +438,14 @@ and observed values.
 
 ## Varying extent of bias across data sources
 
-As digital trace data becomes increasingly accessible, it opens up new
+As MP data becomes increasingly accessible, it opens up new
 avenues for studying human behaviours with remarkable temporal and
 spatial precision, extensive geographic coverage, and near real-time
 access. However, the potential presence of biases can undermine the
 validity of the data to deliver statistically representative evidence.
 
 In this section, we focus on quantifying the biases in multiple sources
-of digital trace data that arise due to the extent of population
+of MP data that arise due to the extent of population
 coverage, i.e. the proportion of the total population captured in the
 dataset. In Figure , we contextualise these findings by comparing them
 with various traditional datasets, particularly key UK surveys available
@@ -470,12 +455,11 @@ dataset, expressed as the number of respondents or subjects per 1,000
 people, which reflects the population coverage of the dataset; and at
 the bottom, a measure of bias in terms of this coverage, as defined in
 equation \ref{eq:size-bias}. The figure highlights the remarkable
-ability of digital trace data to capture a larger share of the total
+ability of MP data to capture a larger share of the total
 population compared to traditional surveys, thanks to the automated,
 passive nature of data collection on digital platforms. This contrasts
 with the manual recruitment and data collection processes required for
-surveys. As a result, the size of bias is generally lower for digital
-trace data, highlighting its potential to inform comprehensive empirical
+surveys. As a result, the size of bias is generally lower for MP data, highlighting its potential to inform comprehensive empirical
 analyses.
 
 <!-- Add no. of responses in legend (black dot) !-->
@@ -484,7 +468,7 @@ analyses.
 source.](figures/compare-surveys-legend.png){#fig:survey width="500" height="300"}
 
 While the findings in Figure \ref{fig:survey} demonstrate the potential
-of digital trace data compared to traditional data sources, high
+of MP data compared to traditional data sources, high
 population coverage alone does not ensure the data is representative of
 different population groups.
 
@@ -499,13 +483,13 @@ guarantee that the survey will be fully representative of the broader
 population of interest [@cochran1977sampling]. This is because
 representativeness can only be achieved with respect to a finite set of
 attributes (e.g. age, gender, income levels, location, etc.). Ensuring
-perfect representativeness would only be possible either by surveying
+perfect representativeness would only be possible by surveying
 the whole population.
 
-With digital trace data, achieving statistical representativeness is
+With MP data, achieving statistical representativeness is
 even more challenging. Unlike survey data, which is actively collected
-using structured sampling methods, digital trace data is generated
-passively as a byproduct of online interactions, transactions, or device
+using structured sampling methods, MP data is generated
+passively as a byproduct of digital interactions, transactions, or device
 usage, without any control over who is included in the dataset.
 Furthermore, by the time this data reaches researchers or analysts, it
 is often anonymised, and does not contain demographic identifiers. As a
@@ -516,16 +500,13 @@ data for improved representativeness.
 We argue that, even though we do not always have specific demographic
 information of the individuals captured through digital trace data, we
 can infer some of these characteristics by leveraging the
-spatio-temporal granularity of digital trace data. We argue that this is
-a necessary first step to understand which population groups might be
-under or over-represented in different sources of digital trace data.
-This information is necessary to later adjust the data so that it is
+spatio-temporal granularity of MP data. This is a necessary first step to understand which population groups might be overrepresented or underrepresented in different sources of MP data. This information is necessary to later adjust the data so that it is
 more representative of the population of interest.
 
-## The spatial distribution of biases (CC)
+## The spatial distribution of biases
 
 Next, we take advantage of the detailed geographic information in the
-digital trace data to analyse bias at smaller, more localised spatial
+MP data to analyse bias at smaller, more localised spatial
 levels. This helps us understand how well different geographic areas are
 represented in the datasets. Since local populations vary in their
 socioeconomic characteristics, we can use the degree of bias at these
@@ -535,7 +516,7 @@ the data.
 
 Figure \ref{fig:size-bias-spatial} shows the geographic variation of the
 size of bias at the Local Authority District (LAD) level. Each row in
-the figure corresponds to each of the digital trace datasets analysed
+the figure corresponds to each of the MP datasets analysed
 here. Within each row, we include: i) an hexagonal cartogram for the
 size of bias in each LAD, representing the LADs as hexagons of equal
 size to simplify the visualisation while maintaining relative positions;
@@ -592,10 +573,10 @@ educational level. In the next section, we explore the variability of
 demographic attributes of local populations as possible determinants of
 the size of bias.
 
-## Explaining biases (FR)
+## Explaining biases
 
-# Discussion (FR)
+# Discussion
 
-# Conclusion (CC)
+# Conclusion
 
 # References
