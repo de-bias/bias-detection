@@ -1,5 +1,5 @@
 ---
-title: A systematic machine learning approach to quantifying the spatial extent of bias in human population data from mobile phones
+title: A systematic machine learning approach to quantifying coverage and representation bias in population estimates from mobile phone app data
 author:
   - name: Carmen Cabrera
     affiliation: "1"
@@ -23,7 +23,7 @@ keywords:
   - Explainable AI
   - Spatial analysis
 abstract: |
-  The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here.
+  Traditional data sources such as censuses and surveys are costly, infrequent, and often unavailable in crisis-affected regions. User location data derived from GPS-enabled mobile phone (MP) applications offer near-real-time, high-resolution insights into population distribution, but unequal access to and use of mobile technologies introduces biases that threaten representativeness. Existing bias assessments typically require demographic attributes, which are often unavailable, and focus on national-level estimates. We present a generalisable framework to measure and explain biases in aggregated MP app data without the need for individual-level demographic data. The framework quantifies coverage bias, which relates to the share of the population captured, at national and subnational levels, evaluates spatial heterogeneity and clustering, and models the geographic variation of bias as a function of area-based covariates using explainable machine learning. We illustrate the framework using four MP app datasets for the UK, aligned with the 2021 national census. We find that MP data consistently achieve higher coverage than major national surveys, though bias varies spatially and by data source. Multi-application datasets generally reduce (?) coverage bias relative to single-application sources. X emerges as a consistent and important factor in determining the local magnitude of coverage bias.
 ethics: |
   Please provide details on the ethics.
   
@@ -76,7 +76,7 @@ Tables with captions Figure captions with credits where relevant
 
 # Introduction
 
-<!-- CCA: PROPOSED PARAGRAPH STRUCTURE-->
+<!-- PROPOSED PARAGRAPH STRUCTURE-->
 
 <!-- P1: The emergence of Digital Footprint Data (DFD) has created new opportunities, particularly for research and policy - e.g. footfall, temporary changes in population, service demand, business. -->
 
@@ -697,6 +697,18 @@ composition. We examin these factors in the third stage of our analysis.
 
 # Discussion
 
-# Conclusion
+<!-- PROPOSED PARAGRAPH STRUCTURE-->
+
+<!-- P1: Opening summarising main contributions. Restate challenge MP app data’s promise vs. representativeness challenge. Emphasise novelty: first generalisable, standardised approach to measuring and explaining bias when demographic attributes are unavailable -->
+
+<!-- P2: Highlight that coverage is not the same as representativeness. Discuss why this finding matters for policy use. Yet, many previous works in the literature address bias in digital trace data by simply reweighting population counts. -->
+
+<!-- P3: Remark observed patterns of spatial variation, i.e. varibility, but not explained by geographic location, suggesting it variability should be explained iwth other contextual, area-based covariates. Relate to intro point about missing subnational bias understanding, and how our method fills that gap -->
+
+<!-- P4: Discuss demographic and socioeconomic drivers, linking back to the point in the intro about "digital inequality"  -->
+
+<!-- P5: Any differences between single app and multi-app? -->
+
+<!-- P6:  Highlighe methodological contribution and standard-setting. Emphasise generalisability to other countries and data sources. Highlight advantage, i.e. works without individual-level demographic data. Discuss potential for integration into quality assessment pipelines for use of MP data in official statistics.-->
 
 # References

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  14 AUG 2025 17:06
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  14 AUG 2025 22:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -460,6 +460,41 @@ Package hyperref Info: Link coloring ON on input line 41.
 \@outlinefile=\write4
 \openout4 = `rsos-debias.out'.
 
+
+Underfull \hbox (badness 4981) in paragraph at lines 75--77
+\T1/ppl/m/n/9 are costly, in-fre-quent, and of-ten un-avail-able in 
+ []
+
+
+Underfull \hbox (badness 1701) in paragraph at lines 75--77
+\T1/ppl/m/n/9 crisis-affected re-gions. User lo-ca-tion data de-rived 
+ []
+
+
+Underfull \hbox (badness 4699) in paragraph at lines 75--77
+\T1/ppl/m/n/9 of-fer near-real-time, high-resolution in-sights into 
+ []
+
+
+Underfull \hbox (badness 1424) in paragraph at lines 75--77
+\T1/ppl/m/n/9 use of mo-bile tech-nolo-gies in-tro-duces bi-ases that 
+ []
+
+
+Overfull \hbox (6.06563pt too wide) in paragraph at lines 75--77
+\T1/ppl/m/n/9 of-ten un-avail-able, and fo-cus on national-level es-ti-mates. 
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 75--77
+\T1/ppl/m/n/9 sub-na-tional lev-els, eval-u-ates spa-tial het-ero-gene-ity 
+ []
+
+
+Underfull \hbox (badness 6001) in paragraph at lines 75--77
+\T1/ppl/m/n/9 of bias as a func-tion of area-based co-vari-ates 
+ []
+
 File: OPENSCIENCE.pdf Graphic file (type pdf)
 <use OPENSCIENCE.pdf>
 
@@ -729,15 +764,15 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: 8BCCA628C1660E4FCA1BA77EE95D0AFF;2807.
+(rerunfilecheck)             Checksum: 4E125AD4EE920847DE60AED171817892;2700.
  ) 
 Here is how much of TeX's memory you used:
- 12110 strings out of 475903
- 185506 string characters out of 5774979
- 578757 words of memory out of 5000000
- 34696 multiletter control sequences out of 15000+600000
+ 12109 strings out of 475903
+ 185494 string characters out of 5774979
+ 580596 words of memory out of 5000000
+ 34695 multiletter control sequences out of 15000+600000
  612880 words of font info for 134 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 87i,14n,93p,548b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,1429b,483s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on rsos-debias.pdf (13 pages).
