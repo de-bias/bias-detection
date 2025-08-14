@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  11 AUG 2025 15:34
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  14 AUG 2025 17:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -631,19 +631,19 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 File: figures/table-data-source.png Graphic file (type bmp)
 <figures/table-data-source.png>
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.22505pt on input line 266.
+(Font)              scaled to size 7.22505pt on input line 297.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 266.
+(Font)              scaled to size 7.22505pt on input line 297.
 
-Underfull \hbox (badness 10000) detected at line 266
+Underfull \hbox (badness 10000) detected at line 297
 []
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 269.
+(Font)              scaled to size 10.20007pt on input line 300.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 269.
+(hyperref)                than one, level fixed on input line 300.
 
 
 
@@ -666,7 +666,7 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 [7]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 327.
+(hyperref)                than one, level fixed on input line 440.
 
 
 
@@ -674,42 +674,32 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [8]
-File: figures/compare-surveys-legend.png Graphic file (type bmp)
-<figures/compare-surveys-legend.png>
-
-Underfull \hbox (badness 10000) detected at line 450
-[]
- []
-
-
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [9]
-
-LaTeX Warning: Reference `fig:size-bias-spatial' on page 10 undefined on input line 500.
-
+File: figures/compare-surveys-legend.png Graphic file (type bmp)
+<figures/compare-surveys-legend.png>
 
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [10]
+Underfull \hbox (badness 1275) in paragraph at lines 637--646
+\T1/ppl/m/n/9 We next lever-age the fine-grained ge-o-graphic res-o-lu-tion of the MP app data sources to
+ []
+
+
+LaTeX Warning: Reference `fig:size-bias-spatial' on page 11 undefined on input line 647.
+
 File: figures/Fig-size-bias.png Graphic file (type bmp)
 <figures/Fig-size-bias.png>
 
-Overfull \hbox (29.1196pt too wide) in paragraph at lines 513--514
+Overfull \hbox (29.1196pt too wide) in paragraph at lines 661--662
 [][] 
  []
-
-
-Underfull \hbox (badness 1496) in paragraph at lines 530--545
-\T1/ppl/m/n/9 in [[]] used to gen-er-ate the Twit-ter/X data used here might clas-sify the work-place or
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -739,15 +729,15 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: D046D0B65C797C70806A56E9D89E91CF;2741.
+(rerunfilecheck)             Checksum: 8BCCA628C1660E4FCA1BA77EE95D0AFF;2807.
  ) 
 Here is how much of TeX's memory you used:
- 12106 strings out of 475903
- 185433 string characters out of 5774979
- 578625 words of memory out of 5000000
- 34692 multiletter control sequences out of 15000+600000
- 611949 words of font info for 133 fonts, out of 8000000 for 9000
+ 12110 strings out of 475903
+ 185506 string characters out of 5774979
+ 578757 words of memory out of 5000000
+ 34696 multiletter control sequences out of 15000+600000
+ 612880 words of font info for 134 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 87i,14n,93p,1749b,499s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,14n,93p,548b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on rsos-debias.pdf (13 pages).
