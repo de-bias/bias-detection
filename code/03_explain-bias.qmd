@@ -59,8 +59,12 @@ This first line defines the data source to be analysed. We have three options:
 
 -   `fb_tts`
 
+-   `mapp1`
+
+-   `mapp2`
+
 ```{r}
-dfd <- "fb_tts"
+dfd <- "fb_stt"
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -167,6 +171,7 @@ input_df <- merge(df_standardised, df_bias[, c("geography.code", "bias")], by = 
 print(which(is.na(input_df), arr.ind = TRUE))
 
 input_df <- input_df %>% 
+  select(-longitude, -latitude) %>% 
   drop_na()
 ```
 
@@ -546,7 +551,7 @@ write_csv(optimal_pars[1, ], paste0("../outputs/preliminary/",dfd,"/explain-bias
 ```{r}
 # Training sample
 ## predicted flow
-aux_train_sample <- setNames(train_sample[ ,3:45], xgb.fit.final$feature_names)
+aux_train_sample <- setNames(train_sample[ ,3:ncol(train_sample)], xgb.fit.final$feature_names)
 aux_train_sample <- aux_train_sample[, !is.na(names(aux_train_sample))]
   
 train_sample$bias_prediction <- predict(xgb.fit.final, as.matrix(aux_train_sample))
@@ -561,7 +566,7 @@ train_sample_sd_error <- sd(train_sample$bias - train_sample$bias_prediction)
 
 # Test sample
 ## predicted flow
-aux_test_sample <- setNames(test_sample[ ,3:45], xgb.fit.final$feature_names)
+aux_test_sample <- setNames(test_sample[ ,3:ncol(test_sample)], xgb.fit.final$feature_names)
 aux_test_sample <- aux_test_sample[, !is.na(names(aux_test_sample))]
 
 test_sample$bias_prediction <- predict(xgb.fit.final, as.matrix(aux_test_sample))
@@ -661,10 +666,23 @@ feature_lbl <- sv_importance(shp, kind = "bee",
   rename(labels = ".$feature") %>% 
   left_join(., df_var_lbl, join_by(labels == var_label0))
 
+# Extract data from sv_importance plot
+p_data <- sv_importance(shp, kind = "bar", 
+                        viridis_args = list(option = "viridis"),
+                        max_display = 20L)$data
+
+min_val <- min(p_data$value, na.rm = TRUE)
+max_val <- max(p_data$value, na.rm = TRUE)
+
 sv_importance(shp, kind = "bar", 
               viridis_args = list(option = "viridis"),
               max_display = 20L) +
   scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
+  scale_x_continuous(
+    labels = label_scientific(digits = 2),
+    breaks = pretty_breaks(n = 3),
+    expand = expansion(mult = c(0.02, 0.02))  # small padding left/right
+  ) + 
   labs(
     x = "Mean SHAP value",
     y = "Features"
@@ -679,6 +697,16 @@ sv_importance(shp, kind = "bar",
 png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance.png"), units="in", width=8, height=10, res=300)
   last_plot()
 dev.off()
+```
+
+### Extract data
+
+```{r}
+fi_data <- last_plot() %>% 
+  .$data
+
+
+write_csv(fi_data, paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance-data.csv"))
 ```
 
 ```{r}
