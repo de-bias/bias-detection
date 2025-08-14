@@ -64,7 +64,7 @@ This first line defines the data source to be analysed. We have three options:
 -   `mapp2`
 
 ```{r}
-dfd <- "fb_stt"
+dfd <- "mapp2"
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -722,6 +722,11 @@ sv_importance(shp,
               max_display = 20L,
               viridis_args = list(option = "viridis") ) +
   scale_y_discrete( labels = rev(feature_lbl$var_label2)) +
+  scale_x_continuous(
+    labels = label_scientific(digits = 2),
+    breaks = pretty_breaks(n = 3),
+    expand = expansion(mult = c(0.02, 0.02))  # small padding left/right
+  ) + 
   theme_plot_tufte() +
   theme(
     axis.title = element_text(size = 26),

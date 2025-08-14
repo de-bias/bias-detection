@@ -1,5 +1,5 @@
 metric,train,test,data_source
-rmse,0.001,0.011,mapp1
-pearson,0.999,0.055,mapp1
-spearman,0.998,0.231,mapp1
-standard_dev,0,0.008,mapp1
+rmse,0.002,0.013,mapp1
+pearson,0.992,-0.031,mapp1
+spearman,0.989,0.082,mapp1
+standard_dev,0.001,0.008,mapp1
