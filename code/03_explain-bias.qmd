@@ -64,7 +64,7 @@ This first line defines the data source to be analysed. We have three options:
 -   `mapp2`
 
 ```{r}
-dfd <- "mapp2"
+dfd <- "mapp1"
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -99,7 +99,7 @@ if (dfd == "twitter") {
   } else if (dfd == "fb_stt") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   }  else if (dfd == "mapp1") {
-  df_bias <- read.csv(paste0(wd, "/data/outputs/mapp1/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
+  df_bias <- read.csv(paste0(wd, "/data/outputs/mapp1/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code") %>% dplyr::filter(name != "City of London")
   }  else if (dfd == "mapp2") {
   df_bias <- read.csv(paste0(wd, "/data/outputs/mapp2/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>% rename("geography.code" = "code")
   }
@@ -702,7 +702,9 @@ dev.off()
 ### Extract data
 
 ```{r}
-fi_data <- last_plot() %>% 
+fi_data <- sv_importance(shp, kind = "bar", 
+              viridis_args = list(option = "viridis"),
+              max_display = 40L) %>% 
   .$data
 
 
