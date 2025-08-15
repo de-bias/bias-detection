@@ -62,7 +62,7 @@ df_meta <- tribble(
   "socioeconomic", "per_NS_SeC_L13_routine",                               5,
   "socioeconomic", "per_NS_SeC_L141142_never_worked_unemployed",           5,
   "socioeconomic", "per_NS_SeC_L15_ft_students",                           5,
-  "socioeconomic", "per_no_qualifications",                                5,
+  "socioeconomic", "per_no_qualifications",                                3,
   "socioeconomic", "per_level4",                                           3
 )
 ```
@@ -93,6 +93,18 @@ df_raw <- df_raw %>%
   importance = value
 )
 
+df_raw  <- df_raw   %>%
+  mutate(variable = variable %>%
+           str_replace(regex("^\\s*SEC\\s*-\\s*", ignore_case = TRUE), "") %>%  # strip leading 'SEC -'
+           str_squish() %>%
+           str_to_sentence()                                                   # e.g., "lower supervisory" -> "Lower supervisory"
+         )
+
+replacements <- c("Severe disability (%)" = "Disability (%)",
+                  "Not deprived (% hh)" = "Not deprived",
+                  "No central heating (% hh)" = "No central heating")
+df_raw  <- df_raw   %>%
+  mutate(variable = recode(variable, !!!replacements))
 ```
 
 # Formatting
@@ -127,17 +139,17 @@ porter_layers <- function(){
 
 ## Scaling
 ```{r}
-scale01_by_var <- function(dat){
+scale01_by_series <- function(dat){
   dat %>%
-    group_by(variable) %>%
+    group_by(series) %>%
     mutate(
-      vmin    = min(importance, na.rm = TRUE),
-      vmax    = max(importance, na.rm = TRUE),
-      rng     = vmax - vmin,
-      value01 = ifelse(rng > 0, (importance - vmin) / rng, 0.5)
+      s_min   = min(importance, na.rm = TRUE),
+      s_max   = max(importance, na.rm = TRUE),
+      s_rng   = s_max - s_min,
+      value01 = ifelse(s_rng > 0, (importance - s_min) / s_rng, 0.5)
     ) %>%
     ungroup() %>%
-    select(-vmin, -vmax, -rng)
+    select(-s_min, -s_max, -s_rng)
 }
 ```
 
@@ -159,7 +171,7 @@ var_order <- df_raw %>%
 ```{r}
 df <- df_raw %>%
   inner_join(var_order, by = c("variable","domain","plot_grouping")) %>%
-  scale01_by_var()
+  scale01_by_series()
 ```
 
 ## Widening
@@ -205,7 +217,6 @@ radar_plot_global <- function(wide_df){
     axis.line.colour = "grey70",
     fill = TRUE
   ) +
-    # hide line legend (but keep mapping) and order legend by `legend_order`
     scale_colour_manual(values = porter_cols, breaks = legend_order, guide = "none") +
     scale_fill_manual(values = porter_fills_global, breaks = legend_order) +
     guides(fill = guide_legend(override.aes = list(colour = NA, linetype = 0))) +
@@ -221,7 +232,7 @@ radar_plot_single <- function(wide_df, series_name){
     values.radar = c("0","0.5","1"),
     group.line.width = 1.3,
     group.point.size = 2.4,
-    axis.label.size = 5,
+    axis.label.size = 4.6,
     background.circle.colour = "white",
     gridline.min.colour = "grey85",
     gridline.mid.colour = "grey90",
@@ -256,9 +267,9 @@ global_files <- c()
 for (g in group_ids) {
   d_g <- df %>% filter(plot_grouping == g)
   wide <- make_wide_for_ggradar(d_g)
-  
+
   p <- radar_plot_global(wide)  # no title argument
-  
+
   f <- file.path(outdir, paste0("radar_global_group", g, ".png"))
   ggsave(f, p, width = 7, height = 7, dpi = 300)
   global_files <- c(global_files, f)
@@ -271,14 +282,14 @@ for (s in series_levels) {
   for (g in group_ids) {
     d_sg <- df %>% filter(series == s, plot_grouping == g)
     if (nrow(d_sg) == 0) next
-    
+
     wide <- make_wide_for_ggradar(d_sg) %>% slice(1)  # one row for single-series
-    
+
     p <- radar_plot_single(
       wide,
-      series_name = s      # only include series_name = s (no title argument)
+      series_name = s
     )
-    
+
     f <- file.path(outdir, paste0("radar_", s, "_group", g, ".png"))
     ggsave(f, p, width = 7, height = 7, dpi = 300)
     per_series_files <- c(per_series_files, f)
