@@ -64,7 +64,7 @@ This first line defines the data source to be analysed. We have three options:
 -   `mapp2`
 
 ```{r}
-dfd <- "mapp1"
+dfd <- "mapp2"
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -79,6 +79,10 @@ The next code chunk can be run using spatial weights and nonspatial weights opti
 
 -   nonspatial: `active_population_bias_lad.csv`
 
+df_var_lbl \<- read_csv(paste0(wd,"/data/inputs/census/census2021-ts/dictionary.csv")) %\>%
+
+filter(!grepl("excluded", .\$group, ignore.case = TRUE))
+
 ```{r}
 # Read in data
 
@@ -86,7 +90,8 @@ The next code chunk can be run using spatial weights and nonspatial weights opti
 df <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/combined-data-ltla.csv")) 
 
 # census labels
-df_var_lbl <- read_csv(paste0(wd,"/data/inputs/census/census2021-ts/dictionary.csv"))
+df_var_lbl <- read_csv(paste0(wd,"/data/inputs/census/census2021-ts/dictionary.csv")) %>% 
+  filter(!grepl("excluded", .$group, ignore.case = TRUE))
 
 # administrative boundaries
 lda_sdf <- st_read("/Volumes/DEBIAS/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg")
@@ -119,6 +124,13 @@ if ("bias_w" %in% names(df_bias)) {
 # from boundaries
 lda_sdf <- lda_sdf %>%
   filter(!grepl("^[SN]", `code`))
+```
+
+## Select input predictors
+
+```{r}
+df <- df %>%
+  select(all_of(df_var_lbl$var_label5))
 ```
 
 ### Extract centroids
@@ -159,7 +171,7 @@ if ("bias_w" %in% names(df_bias)) {
 ```{r}
 # select numeric columns and standardize them
 df_standardised <- df_extended %>%
-  dplyr::select(-c(X, date)) %>% 
+  dplyr::select(-c(date)) %>% 
   mutate(across(where(is.numeric), ~ (. - mean(.)) / sd(.)))
 ```
 
@@ -214,6 +226,8 @@ split_df <- initial_split(input_df, prop = train_sample_prop)
 train_sample <- training(split_df)
 test_sample  <- testing(split_df)
 ```
+
+features
 
 ```{r}
 # variable names
@@ -632,9 +646,9 @@ left_join(importance_matrix, df_var_lbl, join_by( Feature == var_label0)) %>%
 ```
 
 ```{r}
-# png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance.png"), units="in", width=8, height=10, res=300)
-#   last_plot()
-# dev.off()
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance_v2.png"), units="in", width=8, height=10, res=300)
+   last_plot()
+dev.off()
 ```
 
 ## SHAP

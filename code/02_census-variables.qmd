@@ -38,8 +38,6 @@ df <- df %>% left_join(df_read,
                 by = join_by(geography.code))
 ```
 
-
-
 ## Percentage of migrants LTLA
 
 ```{r}
@@ -56,6 +54,7 @@ df <- df %>% left_join(df_read,
 ```
 
 ## Population density
+
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts006/census2021-ts006-ltla.csv"))
 
@@ -125,6 +124,7 @@ df <- df %>% left_join(df_read,
 ```
 
 ## Year of arrival in UK
+
 ```{r}
 # df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts015/census2021-ts015-ltla.csv")) 
 # 
@@ -135,7 +135,9 @@ df <- df %>% left_join(df_read,
 # df <- df %>% left_join(df_read,
 #                 by = join_by(geography.code))
 ```
+
 ## Length of residence
+
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts016/census2021-ts016-ltla.csv")) 
 
@@ -149,6 +151,7 @@ df <- df %>% left_join(df_read,
 ```
 
 ## Household size
+
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts017/census2021-ts017-ltla.csv")) 
 
@@ -166,7 +169,6 @@ df <- df %>% left_join(df_read,
                 by = join_by(geography.code))
 ```
 
-
 ## Ethnic group, non-white (white being UK's racial majority)
 
 ```{r}
@@ -179,8 +181,6 @@ df_read <- df_read %>% select(geography.code, per_non_white)
 df <- df %>% left_join(df_read,
                 by = join_by(geography.code))
 ```
-
-
 
 ## General health, percentage of bad or very bad health
 
@@ -260,7 +260,6 @@ df <- df %>% left_join(df_read,
                 by = join_by(geography.code))
 ```
 
-
 ## NS-SeC, percentage of adults over 16 by employment category (inc full-time students)
 
 ```{r}
@@ -291,7 +290,6 @@ df <- df %>% left_join(df_read,
 
 
 ```
-
 
 ## Highest qual, percentage of adults over 16 by qualification (no qualification or \> level 4)
 
@@ -361,8 +359,6 @@ ltla_rural_pct <- ltla_rural_pct %>% select(LAD22CD, rural_pop, rural_pct)
 df <- df %>% left_join(ltla_rural_pct,
                 join_by("geography.code" == "LAD22CD"))
 ```
-
-
 
 # Save data
 

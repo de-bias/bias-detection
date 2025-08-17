@@ -12,23 +12,21 @@ library(webshot2)
 
 # --- original rows ----------------------------------------------------------
 raw_tbl <- tribble(
-  ~Dimension,           ~Variable,
-  "Demographic",    "Residents",
-  "",               "Households",
-  "",               "UK (%)",
-  "",               "Female (%)",
-  "",               "Age bands (%): 0-4, 5-9, 10-14, ..., 85-89",
-  "Socioeconomic",  "Not deprived (% households)",
-  "",               "Non-white (%)",
-  "",               "Bad health (%)",
-  "",               "Severe disability (%)",
-  "",               "Socioeconomic classification [SEC] (%): higher managerial, lower managerial, intermediate, small employers, lower supervisory, semi-routine, routine, no work, students",
-  "",               "Qualifications (%): no qualifications, level 4 qualifications",
-  "Housing",       "No car (% households)",
-  "",               "No central heating (% households)",
-  "",               "Owned (% households)",
-  "Location",      "Longitude",
-  "",               "Latitude"
+  ~Domain,           ~Variable,
+  "Demographic",    "Household size",
+  "",               "Female",
+  "",               "Age bands",
+  "Socioeconomic",  "Socioeconomic classification",
+  "",               "Qualifications",
+  "Resource accessibility",               "Deprivation",
+  "",               "Car ownership",
+  "",               "Home ownership",
+  "",               "Central heating",
+  "Mobility",       "Non-UK born",
+  "",               "Recent migrant",
+  "",               "Commuting",
+  "Geographic",      "Population density",
+  "",               "Rural"
 )
 
 # --- clean Variable + add Description ---------------------------------------
@@ -43,33 +41,31 @@ tbl <- raw_tbl %>%
     Variable = if_else(Variable == "", "", variable_clean),
     Description = case_when(
       Variable == "" ~ "",
-      Variable == "Residents" ~ "Number of resident population.",
-      Variable == "Households" ~ "Number of households.",
-      Variable == "UK" ~ "Percentage of people who were born in the United Kingdom.",
+      Variable == "Household size" ~ "Percentage of households with six or more people.",
       Variable == "Female" ~ "Percentage of residents who are female.",
-      Variable == "Age bands" ~ "Percentage of residents in each age band: 0-4, 5-9, 10-14, ..., 85-89.",
-      Variable == "Not deprived" ~ "Percentage of households not experiencing deprivation.",
-      Variable == "Non-white" ~ "Percentage of residents who are non‑white.",
-      Variable == "Bad health" ~ "Percentage of residents reporting bad or very bad health.",
-      Variable == "Severe disability" ~ "Percentage of residents with a severe disability.",
+      Variable == "Age bands" ~ "Percentage of residents in 10-year age band: 0-9, 10-19, ..., 70+.",
       Variable == "Socioeconomic classification" ~ "Percentage of residents by group based on the National Statistics Socio-economic Classification (NS-SEC).",
-      Variable == "Qualifications" ~ "Percentage of residents by highest qualification level: no qualifications, level 4 qualifications.",
-      Variable == "No car" ~ "Percentage of households with no car.",
-      Variable == "No central heating" ~ "Percentage of households without central heating.",
-      Variable == "Owned" ~ "Percentage of households that are owner‑occupied.",
-      Variable == "Longitude" ~ "Longitude coordinate of area centroid.",
-      Variable == "Latitude" ~ "Latitude coordinate of area centroid.",
+      Variable == "Qualifications" ~ "Percentage of residents by highest qualification level: no qualification or level 4 qualification.",
+      Variable == "Deprivation" ~ "Percentage of households not experiencing deprivation in any dimension.",
+      Variable == "Car ownership" ~ "Percentage of households with no car.",
+      Variable == "Home ownership" ~ "Percentage of households that are owner‑occupied.",
+      Variable == "Central heating" ~ "Percentage of households without central heating.",
+      Variable == "Non-UK born" ~ "Percentage of residents who are non‑UK born.",
+      Variable == "Recent migrant" ~ "Percentage of migrant residents with less than two years in the UK over the resident population.",
+      Variable == "Commuting" ~ "Percentage of residents working mainly or only from home.",
+      Variable == "Population density" ~ "Number of residents per square kilometre.",
+      Variable == "Rural" ~ "Percentage of population living in rural areas.",
       TRUE ~ ""
     )
   ) %>%
-  select(Dimension, Variable, Description)
+  select(Domain, Variable, Description)
 
 # --- render table -----------------------------------------------------------
 tbl_vars <- tbl %>%
   gt() %>%
   opt_table_font(list(google_font("Roboto Condensed"))) %>%
   cols_align("left", columns = everything()) %>%
-  cols_width(Dimension ~ px(130), Variable ~ px(160), Description ~ px(450)) %>%
+  cols_width(Domain ~ px(130), Variable ~ px(160), Description ~ px(450)) %>%
   # tab_options needs color/style/width separately
   tab_options(
     table.border.top.color = "black",
@@ -99,7 +95,7 @@ tbl_vars <- tbl %>%
   ) %>%
   tab_style(
     style = cell_borders(sides = "top", color = "black", style = "solid", weight = px(3)),
-    locations = cells_body(rows = Dimension != "")
+    locations = cells_body(rows = Domain != "")
   )
 
 print(tbl_vars)
@@ -115,4 +111,169 @@ gtsave(tbl_vars, "/Users/franciscorowe/Library/CloudStorage/Dropbox/Francisco/Re
   vheight = 3200,    # tall enough to fit the whole table
   zoom    = 1
   )
+```
+
+```{r}
+library(dplyr)
+library(stringr)
+library(gt)
+library(webshot2)
+library(purrr)   # used in text_transform
+
+# --- original rows ----------------------------------------------------------
+raw_tbl <- tribble(
+  ~Dimension,           ~Variable,
+  "Demographic",    "Household size",
+  "",               "Female",
+  "",               "Age bands",
+  "Socioeconomic",  "Socioeconomic classification",
+  "",               "Qualifications",
+  "Resource accessibility", "Deprivation",
+  "",               "Car ownership",
+  "",               "Home ownership",
+  "",               "Central heating",
+  "Mobility",       "Non-UK born",
+  "",               "Recent migrant",
+  "",               "Commuting",
+  "Geographic",     "Population density",
+  "",               "Rural"
+)
+
+# --- clean Variable + add Description + Bias_explanation --------------------
+tbl <- raw_tbl %>%
+  mutate(
+    variable_clean = Variable %>%
+      str_replace_all("\\s*\\[[^\\]]*\\]", "") %>%
+      str_replace_all("\\s*\\([^\\)]*\\)", "") %>%
+      str_replace("\\s*:.*$", "") %>%
+      str_replace("\\s*%\\s*$", "") %>%
+      str_squish(),
+    Variable = if_else(Variable == "", "", variable_clean),
+
+    # Short operational descriptions
+    Description = case_when(
+      Variable == "" ~ "",
+      Variable == "Household size" ~ "Households with ≥6 people (share of all households).",
+      Variable == "Female" ~ "Residents who are female (% of population).",
+      Variable == "Age bands" ~ "Population by 10-year bands: 0–9, 10–19, …, 70+.",
+      Variable == "Socioeconomic classification" ~ "Population by NS-SEC categories.",
+      Variable == "Qualifications" ~ "Population by highest qualification (e.g., none, Level 4+).",
+      Variable == "Deprivation" ~ "Households not deprived in any dimension (%).",
+      Variable == "Car ownership" ~ "Households with no car (%).",
+      Variable == "Home ownership" ~ "Owner-occupied households (%).",
+      Variable == "Central heating" ~ "Households without central heating (%).",
+      Variable == "Non-UK born" ~ "Residents born outside the UK (%).",
+      Variable == "Recent migrant" ~ "Residents in UK <2 years (% of population).",
+      Variable == "Commuting" ~ "Residents working mainly or only from home (%).",
+      Variable == "Population density" ~ "Usual residents per km².",
+      Variable == "Rural" ~ "Population living in rural areas (%).",
+      TRUE ~ ""
+    ),
+
+    # Domain-aware bias mechanisms (≤2 sentences)
+    Bias_explanation = case_when(
+      Variable == "" ~ "",
+      # Demographic
+      Variable == "Household size" ~
+        "Large households may share devices, lowering per-capita ownership and digital visibility. Shared phones reduce stability of inferred home locations.",
+      Variable == "Female" ~
+        "Gendered differences in app use and daily routines can alter detection of trips and stays. If women carry or use devices differently, inferred home location can be biased.",
+      Variable == "Age bands" ~
+        "Smartphone ownership and location-service use vary sharply by age. Older groups show lower adoption and usage intensity, leading to under-representation.",
+      # Socioeconomic
+      Variable == "Socioeconomic classification" ~
+        "NS-SEC correlates with income and job conditions, shaping handset quality, data plans, and app usage. Lower classes face affordability constraints and intermittent connectivity.",
+      Variable == "Qualifications" ~
+        "Education relates to digital literacy and intensity of technology use. Lower qualifications tend to associate with lower adoption of location-enabled services.",
+      # Resource accessibility (digital access)
+      Variable == "Deprivation" ~
+        "Higher deprivation implies barriers to devices and data plans, reducing digital visibility. Prepaid SIM churn may degrade longitudinal tracking of home locations.",
+      Variable == "Car ownership" ~
+        "No-car households proxy lower material resources and different mobility modes. They often have lower device affordability and different app ecosystems, affecting capture.",
+      Variable == "Home ownership" ~
+        "Owners have higher income stability and better digital access, improving persistent device presence and home inference. Renters show higher SIM churn and instability in traces.",
+      Variable == "Central heating" ~
+        "Lack of central heating is a deprivation proxy linked to lower digital access. Housing quality can also affect indoor signal conditions, increasing missingness.",
+      # Migration & mobility history
+      Variable == "Non-UK born" ~
+        "Foreign operator SIMs, language settings, and app ecosystems can reduce inclusion in domestic panels. Roaming and multi-SIM use complicate home/work inference.",
+      Variable == "Recent migrant" ~
+        "Short residence duration implies unstable addresses and higher SIM turnover, lowering longitudinal representativeness. Temporary housing can degrade location inference.",
+      Variable == "Commuting" ~
+        "Work-from-home reduces observable trips and alters diurnal patterns used for home/work inference. Mode and route choices also affect signal continuity and coverage.",
+      # Geographic
+      Variable == "Population density" ~
+        "Dense urban areas have better coverage but more multipath and building interference, distorting stay detection. Sparse areas suffer coverage gaps, undercounting movements.",
+      Variable == "Rural" ~
+        "Rural coverage is patchier and devices may be offline longer, increasing under-representation. Longer mast distances reduce spatial precision of traces.",
+      TRUE ~ ""
+    )
+  ) %>%
+  select(Dimension, Variable, Bias_explanation, Description)
+
+# --- render table (A4 portrait–friendly) -----------------------------------
+tbl_vars <- tbl %>%
+  gt() %>%
+  # Label only affects the header; keep using the data name 'Bias_explanation' elsewhere
+  cols_label(Bias_explanation = "Bias explanation") %>%
+  opt_table_font(list(google_font("Roboto Condensed"))) %>%
+  cols_align("left", columns = everything()) %>%
+  cols_width(
+    Dimension ~ px(90),
+    Variable ~ px(90),
+    Bias_explanation ~ px(320),  # <-- use the data column name
+    Description ~ px(240)
+  ) %>%
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4),
+    table.border.top.color = "black",
+    table.border.top.style = "solid",
+    table.border.top.width = px(2),
+    table.border.bottom.color = "black",
+    table.border.bottom.style = "solid",
+    table.border.bottom.width = px(2),
+    column_labels.border.bottom.color = "black",
+    column_labels.border.bottom.style = "solid",
+    column_labels.border.bottom.width = px(2)
+  ) %>%
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  ) %>%
+  tab_style(
+    style = cell_text(v_align = "top"),
+    locations = cells_body()
+  ) %>%
+  tab_style(
+    style = cell_borders(sides = "top", color = "black", style = "solid", weight = px(2)),
+    locations = cells_body(rows = Dimension != "")
+  ) %>%
+  # Justify + hyphenate Bias_explanation; avoid manual wraps/breaks
+  text_transform(
+    locations = cells_body(columns = Bias_explanation),  # <-- use data column name
+    fn = function(x) {
+      map(
+        x,
+        ~ gt::html(
+          paste0(
+            "<div lang='en' style='text-align:justify; hyphens:auto; -webkit-hyphens:auto; ",
+            "line-height:1.15; word-break:normal; overflow-wrap:anywhere;'>",
+            .x,
+            "</div>"
+          )
+        )
+      )
+    }
+  )
+
+# --- save to PDF (A4 portrait–suitable viewport) ---------------------------
+gtsave(
+  tbl_vars,
+  "/Users/franciscorowe/Library/CloudStorage/Dropbox/Francisco/Research/grants/2023/digital-footprint-accelerator/debias/github/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary_explain.pdf",
+  vwidth  = 900,   # ~A4 portrait-friendly viewport
+  vheight = 1250,
+  zoom    = 1
+)
+
 ```
