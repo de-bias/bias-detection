@@ -683,7 +683,7 @@ include spatial dependence terms (e.g. spatial lag) in the subsequent
 modelling stage of our framework.
 
 Third, the variability in coverage bias is not explained by the absolute
-population size of each subnational unit. Scatterplots comparing
+population size of each subnational unit. Scatter plots comparing
 population counts derived from MP app sources and from the census reveal
 strong linear relationships. This is quantitatively supported by Pearson
 correlation coefficients consistently close to one and statistically
