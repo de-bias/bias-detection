@@ -292,8 +292,7 @@ Additionally, the Twitter Academic API is no longer available for free
 data collection, limiting access to new data. Despite these limitations,
 we include Twitter/X in our analysis as a representative
 single-application data source. Archived datasets, such as the one used
-in this study or the Harvard Geotweet Archive
-(<https://gis.harvard.edu/data>) continue to support population and
+in this study or the Harvard Geotweet Archive (<https://gis.harvard.edu/data>) continue to support population and
 mobility research.
 
 ![Table 1. Summary description of data sources derived from mobile phone
@@ -596,10 +595,10 @@ and on the bottom x-axis the corresponding measure of coverage bias.
 source.](figures/compare-surveys-legend.png){#fig:survey width="500"
 height="300"}
 
+
 Figure \ref{fig:survey} suggest that, with comparatively greater
 population coverage and lower coverage bias, MP data have a strong
-potential to support large-scale empirical analyses. However, high
-population coverage alone does not ensure the data is representative of
+potential to support large-scale empirical analyses. However, high population coverage alone does not ensure the data is representative of
 different population groups. In surveys, specific strategies are usually
 implemented during the data generation process to improve the
 statistical representativeness of the sample. For example, sampling
