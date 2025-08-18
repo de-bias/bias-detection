@@ -42,38 +42,30 @@
 
 
 %%%% Article title to be placed here
-\title{A systematic machine learning approach to quantifying coverage and representation bias in population estimates from mobile phone app data}
+\title{}
 
 \author{
-Carmen Cabrera$^{1}$,
-Francisco Rowe$^{1}$}
+}
 
 \address{
-  $^{1}$Geographic Data Science Lab, Department of Geography and Planning, University of Liverpool, Liverpool, United Kingdom.\\
-  $^{}$}
+}
 %%%% Subject entries to be placed here %%%%
 \subject{
-Mobile phone data,
-Human mobility,
-Explainable AI,
-Spatial analysis}
+}
 
 %%%% Keyword entries to be placed here %%%%
 \keywords{
-Mobile phone data,
-Human mobility,
-Explainable AI,
-Spatial analysis}
+}
 
 %%%% Insert corresponding author and its email address}
 \corres{
-  Carmen Cabrera\\
-  e-mail: \href{mailto:C.Cabrera@liverpool.ac.uk}{\nolinkurl{C.Cabrera@liverpool.ac.uk}}
+  \\
+  e-mail: 
 }
 
 %%%% Abstract text to be placed here %%%%%%%%%%%%
 \begin{abstract}
-Traditional data sources such as censuses and surveys are costly, infrequent, and often unavailable in crisis-affected regions. User location data derived from GPS-enabled mobile phone (MP) applications offer near-real-time, high-resolution insights into population distribution, but unequal access to and use of mobile technologies introduces biases that threaten representativeness. Existing bias assessments typically require demographic attributes, which are often unavailable, and focus on national-level estimates. We present a generalisable framework to measure and explain biases in aggregated MP app data without the need for individual-level demographic data. The framework quantifies coverage bias, which relates to the share of the population captured, at national and subnational levels, evaluates spatial heterogeneity and clustering, and models the geographic variation of bias as a function of area-based covariates using explainable machine learning. We illustrate the framework using four MP app datasets for the UK, aligned with the 2021 national census. We find that MP data consistently achieve higher coverage than major national surveys, though bias varies spatially and by data source. Multi-application datasets generally reduce (?) coverage bias relative to single-application sources. X emerges as a consistent and important factor in determining the local magnitude of coverage bias.
+
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -81,6 +73,60 @@ Traditional data sources such as censuses and surveys are costly, infrequent, an
 }
 
 \maketitle
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+title: A systematic machine learning approach to quantifying coverage and representation bias in population estimates from mobile phone app data
+author:
+- name: Carmen Cabrera
+affiliation: ``1''
+- name: Francisco Rowe
+affiliation: ``1''
+address:
+- code: ``1''
+address: Geographic Data Science Lab, Department of Geography and Planning, University of Liverpool, Liverpool, United Kingdom.
+- code: ``\,''
+address:
+corresp\_author\_name: ``Carmen Cabrera''
+corresp\_author\_email: ``\href{mailto:C.Cabrera@liverpool.ac.uk}{\nolinkurl{C.Cabrera@liverpool.ac.uk}}''
+subject:
+- ``Mobile phone data''
+- ``Human mobility''
+- ``Explainable AI''
+- ``Spatial analysis''
+keywords:
+- Mobile phone data
+- Human mobility
+- Location
+- Explainable AI
+- Spatial analysis
+abstract: \textbar{}
+Traditional data sources such as censuses and surveys are costly, infrequent, and often unavailable in crisis-affected regions. User location data derived from GPS-enabled mobile phone (MP) applications offer near-real-time, high-resolution insights into population distribution, but unequal access to and use of mobile technologies introduces biases that threaten representativeness. Existing bias assessments typically require demographic attributes, which are often unavailable, and focus on national-level estimates. We present a generalisable framework to measure and explain biases in aggregated MP app data without the need for individual-level demographic data. The framework quantifies coverage bias, which relates to the share of the population captured, at national and subnational levels, evaluates spatial heterogeneity and clustering, and models the geographic variation of bias as a function of area-based covariates using explainable machine learning. We illustrate the framework using four MP app datasets for the UK, aligned with the 2021 national census. We find that MP data consistently achieve higher coverage than major national surveys, though bias varies spatially and by data source. Multi-application datasets generally reduce (?) coverage bias relative to single-application sources. X emerges as a consistent and important factor in determining the local magnitude of coverage bias.
+ethics: \textbar{}
+Please provide details on the ethics.
+
+data\_accessibility: \textbar{}
+Please provide details on the data availability.
+author\_contributions: \textbar{}
+Please provide details of author contributions here.
+conflict\_of\_interest: \textbar{}
+Please declare any conflict of interest here.
+funding: \textbar{}
+Please provide details on funding
+disclaimer: \textbar{}
+Please provide disclaimer text here.
+acknowledgements: \textbar{}
+Please include your acknowledgments here, set in a single paragraph. Please do not include any acknowledgments in the Supporting Information, or anywhere else in the manuscript.
+bibliography: sample.bib
+lineno: false
+site: bookdown::bookdown\_site
+output:
+bookdown::pdf\_book:
+base\_format: rticles::rsos\_article
+editor\_options:
+markdown:
+wrap: 72
+---
 
 The main document should include:
 
@@ -694,22 +740,16 @@ composition. We examin these factors in the third stage of our analysis.
 
 \section{Discussion}\label{discussion}
 
-\ethics{Please provide details on the ethics.}
 
-\dataccess{Please provide details on the data availability.}
 
-\aucontribute{Please provide details of author contributions here.}
+\aucontribute{}
 
-\competing{Please declare any conflict of interest here.}
 
-\funding{Please provide details on funding}
 
-\disclaimer{Please provide disclaimer text here.}
 
-\ack{Please include your acknowledgments here, set in a single paragraph. Please do not include any acknowledgments in the Supporting Information, or anywhere else in the manuscript.}
 
 \bibliographystyle{RS}
-\bibliography{sample.bib}
+\bibliography{}
 
 
 \end{document}

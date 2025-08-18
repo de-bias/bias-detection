@@ -1,0 +1,309 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+# Clean environment
+
+```{r}
+rm(list=ls())
+```
+
+# Libraries
+
+```{r}
+library(tidyverse)   # %>% and ggplot2
+library(scales)
+library(colorspace)
+library(ggradar)
+
+# Use Roboto for ALL radar plots (register Google font and enable showtext)
+library(sysfonts)
+library(showtext)
+sysfonts::font_add_google("Roboto", "Roboto")
+showtext::showtext_auto()
+
+# Make Roboto the default ggplot font (helps ggradar too)
+theme_set(theme_minimal(base_family = "Roboto"))
+```
+
+# Data
+
+```{r}
+# ---- Variable metadata (updated list; rename 'group' -> 'domain') ----
+df_meta <- tribble(
+  ~domain,          ~var_label0,                                           ~plot_grouping,
+  "mobility",       "per_nonukborn",                                       4,
+  "geographic",     "pop_density",                                         4,
+  "demographic",    "per_age_0_9",                                         1,
+  "demographic",    "per_age_10_19",                                       1,
+  "demographic",    "per_age_20_29",                                       1,
+  "demographic",    "per_age_30_39",                                       1,
+  "demographic",    "per_age_40_49",                                       1,
+  "demographic",    "per_age_50_59",                                       1,
+  "demographic",    "per_age_60_69",                                       1,
+  "demographic",    "per_age_70plus",                                      1,
+  "demographic",    "per_female",                                          1,
+  "resource_access","per_hh_notdeprived",                                  3,
+  "mobility",       "per_recent_migrant",                                  4,
+  "demographic",    "per_large_households",                                1,
+  "resource_access","per_hh_no_car",                                       3,
+  "resource_access","per_hh_no_centralheat",                               3,
+  "resource_access","per_hh_owned",                                        3,
+  "mobility",       "per_home_work",                                       4,
+  "socioeconomic",  "per_NS_SeC_L123_higher_managerial_administrative_professional", 2,
+  "socioeconomic",  "per_NS_SeC_L456_lower_managerial_administrative_professional",  2,
+  "socioeconomic",  "per_NS_SeC_L7_intermediate",                           2,
+  "socioeconomic",  "per_NS_SeC_L89_small_employers_own_account",           2,
+  "socioeconomic",  "per_NS_SeC_L1011_lower_supervisory_technical",         2,
+  "socioeconomic",  "per_NS_SeC_L12_semi_routine",                          2,
+  "socioeconomic",  "per_NS_SeC_L13_routine",                               2,
+  "socioeconomic",  "per_NS_SeC_L141142_never_worked_unemployed",           2,
+  "socioeconomic",  "per_NS_SeC_L15_ft_students",                           2,
+  "socioeconomic",  "per_no_qualifications",                                2,
+  "socioeconomic",  "per_level4",                                           2,
+  "geographic",     "rural_pct",                                           4
+)
+```
+
+```{r}
+# ---- Load series-specific feature importance ----
+df_twitter <- read_csv("../outputs/preliminary/twitter/explain-bias/feature-importance-data.csv") %>%
+  mutate(series = "Twitter")
+df_fb <- read_csv("../outputs/preliminary/fb_stt/explain-bias/feature-importance-data.csv") %>%
+  mutate(series = "Facebook")
+df_mapp1 <- read_csv("../outputs/preliminary/mapp1/explain-bias/feature-importance-data.csv") %>%
+  mutate(series = "Mapp1")
+df_mapp2 <- read_csv("../outputs/preliminary/mapp2/explain-bias/feature-importance-data.csv") %>%
+  mutate(series = "Mapp2")
+
+# census labels
+wd <- "/Volumes/DEBIAS"
+df_var_lbl <- read_csv(paste0(wd,"/data/inputs/census/census2021-ts/dictionary.csv"))
+
+# Join all series + metadata + variable labels
+df_raw <- bind_rows(df_twitter, df_fb, df_mapp1, df_mapp2) %>% 
+  left_join(df_meta,  by = join_by(feature == var_label0)) %>% 
+  left_join(df_var_lbl, by = join_by(feature == var_label0))
+
+# Keep required columns and rename to modelling names
+df_raw <- df_raw %>% 
+  select(var_label2, series, value, domain, plot_grouping) %>% 
+  rename(
+    variable   = var_label2,
+    importance = value
+  )
+
+# Clean selected variable names
+# (i) strip leading 'SEC -', (ii) remove '(%)', (iii) tidy whitespace/case,
+# (iv) replace 'non-uk' (any case, hyphen or space) with 'non-UK'
+df_raw <- df_raw %>%
+  mutate(variable = variable %>%
+           str_replace(regex("^\\s*SEC\\s*-\\s*", ignore_case = TRUE), "") %>%  # drop 'SEC -'
+           str_replace_all("\\s*\\(\\s*%\\s*\\)", "") %>%                       # remove '(%)'
+           str_squish() %>%
+           str_to_sentence() %>%                                                # sentence case
+           str_replace_all(regex("non[-\\s]?uk", ignore_case = TRUE), "non-UK") # fix non-UK casing
+  )
+```
+
+# Formatting
+
+```{r}
+# ---- Okabe–Ito palette & fills (lighter fills + transparency) ----
+okabe_ito <- c(
+  Twitter  = "#CC79A7",  # reddish purple
+  Facebook = "#0072B2",  # blue
+  Mapp1    = "#E69F00",  # orange
+  Mapp2    = "#D55E00"   # vermilion
+)
+series_levels <- df_raw %>% distinct(series) %>% pull()
+porter_cols   <- okabe_ito[names(okabe_ito) %in% series_levels]
+
+porter_fills_global <- lighten(porter_cols, amount = 0.3) %>% alpha(0.18)
+porter_fills_single <- lighten(porter_cols, amount = 0.3) %>% alpha(0.35)
+
+# ---- Plot theme helper (no subtitle/title) ----
+porter_layers <- function(){
+  list(
+    ggplot2::theme(
+      text            = element_text(family = "Roboto"),
+      plot.title      = element_blank(),
+      plot.subtitle   = element_blank(),
+      legend.position = "bottom",
+      legend.title    = element_blank(),
+      legend.text     = element_text(family = "Roboto", size = 48)
+    )
+  )
+}
+```
+
+# Data wrangling
+
+## Scaling
+
+```{r}
+# Per-series scaling to [0,1] across variables (constants -> 0.5)
+scale01_by_series <- function(dat){
+  dat %>%
+    group_by(series) %>%
+    mutate(
+      s_min   = min(importance, na.rm = TRUE),
+      s_max   = max(importance, na.rm = TRUE),
+      s_rng   = s_max - s_min,
+      value01 = ifelse(s_rng > 0, (importance - s_min) / s_rng, 0.5)
+    ) %>%
+    ungroup() %>%
+    select(-s_min, -s_max, -s_rng)
+}
+```
+
+## Ordering
+
+```{r}
+# Overall (within-plot-group) mean importance for axis ordering
+var_order <- df_raw %>%
+  group_by(plot_grouping, variable, domain) %>%
+  summarise(overall_importance = mean(importance, na.rm = TRUE), .groups = "drop") %>%
+  group_by(plot_grouping) %>%
+  arrange(plot_grouping, desc(overall_importance), .by_group = TRUE) %>%
+  mutate(within_group_rank = row_number()) %>%
+  ungroup()
+
+```
+
+## Joining
+
+```{r}
+df <- df_raw %>%
+  inner_join(var_order, by = c("variable","domain","plot_grouping")) %>%
+  scale01_by_series()
+```
+
+## Widening
+
+```{r}
+make_wide_for_ggradar <- function(d) {
+  d %>%
+    arrange(within_group_rank) %>%
+    group_by(series, variable) %>%
+    summarise(value01 = mean(value01, na.rm = TRUE), .groups = "drop") %>%
+    mutate(variable = factor(variable, levels = unique(variable))) %>%
+    tidyr::pivot_wider(
+      names_from  = variable,
+      values_from = value01,
+      values_fill = 0
+    ) %>%
+    rename(group = series) %>%
+    mutate(across(-group, as.numeric))
+}
+
+```
+
+# Radar wrappers
+
+```{r}
+# Legend order on global plots (fill legend only)
+legend_order <- c("Twitter","Facebook","Mapp1","Mapp2")
+legend_order <- legend_order[legend_order %in% names(porter_cols)]  # keep only present series
+
+# Global (all series). Legend: fill only (line legend suppressed). Roboto font applied.
+radar_plot_global <- function(wide_df){
+  ggradar(
+    plot.data = wide_df,
+    grid.min = 0, grid.mid = 0.5, grid.max = 1,
+    values.radar = c("0","0.5","1"),
+    group.line.width = 1.1,
+    group.point.size = 2.0,
+    axis.label.size = 18,
+    background.circle.colour = "white",
+    gridline.min.colour = "grey85",
+    gridline.mid.colour = "grey90",
+    gridline.max.colour = "grey85",
+    axis.line.colour = "grey70",
+    fill = TRUE,
+    font.radar = "Roboto"
+  ) +
+    scale_colour_manual(values = porter_cols, breaks = legend_order, guide = "none") +
+    scale_fill_manual(values = porter_fills_global, breaks = legend_order) +
+    guides(fill = guide_legend(override.aes = list(colour = NA, linetype = 0))) +
+    porter_layers()
+}
+
+# Single-series plots. No legend. Roboto font applied.
+radar_plot_single <- function(wide_df, series_name){
+  ggradar(
+    plot.data = wide_df,
+    grid.min = 0, grid.mid = 0.5, grid.max = 1,
+    values.radar = c("0","0.5","1"),
+    group.line.width = 1.3,
+    group.point.size = 2.4,
+    axis.label.size = 16,
+    background.circle.colour = "white",
+    gridline.min.colour = "grey85",
+    gridline.mid.colour = "grey90",
+    gridline.max.colour = "grey85",
+    axis.line.colour = "grey70",
+    fill = TRUE,
+    font.radar = "Roboto"
+  ) +
+    scale_colour_manual(values = porter_cols[series_name], guide = "none") +
+    scale_fill_manual(values = porter_fills_single[series_name], guide = "none") +
+    porter_layers() +
+    theme(legend.position = "none")
+}
+
+```
+
+# Set output folder
+
+```{r}
+outdir <- "../outputs/preliminary/summary-figs/radial-plot/radar_out"
+if (!dir.exists(outdir)) dir.create(outdir, recursive = TRUE)
+```
+
+# Plotting
+
+## GLOBAL RADAR PLOTS: 4 plots, each with all four series
+
+```{r}
+# ---------- (A) GLOBAL RADAR PLOTS: 4 plots, each with all four series (shaded) ----------
+group_ids <- df %>% distinct(plot_grouping) %>% arrange(plot_grouping) %>% pull()
+
+global_files <- c()
+for (g in group_ids) {
+  d_g <- df %>% filter(plot_grouping == g)
+  wide <- make_wide_for_ggradar(d_g)
+
+  p <- radar_plot_global(wide)
+
+  f <- file.path(outdir, paste0("radar_global_group", g, ".png"))
+  ggsave(f, p, width = 7, height = 7, dpi = 300)
+  global_files <- c(global_files, f)
+}
+
+
+# ---------- (B) PER-SERIES RADAR PLOTS: for each series, 4 plots (shaded) ----------
+per_series_files <- c()
+for (s in series_levels) {
+  for (g in group_ids) {
+    d_sg <- df %>% filter(series == s, plot_grouping == g)
+    if (nrow(d_sg) == 0) next
+
+    wide <- make_wide_for_ggradar(d_sg)
+
+    p <- radar_plot_single(wide, series_name = s)
+
+    f <- file.path(outdir, paste0("radar_", s, "_group", g, ".png"))
+    ggsave(f, p, width = 7, height = 7, dpi = 300)
+    per_series_files <- c(per_series_files, f)
+  }
+}
+```
+
+```{r}
+message("Done. Files saved in: ", normalizePath(outdir))
+cat("Global plots:\n", paste(global_files, collapse = "\n"), "\n\n")
+cat("Per-series plots:\n", paste(per_series_files, collapse = "\n"))
+```

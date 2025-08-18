@@ -5,6 +5,10 @@ editor: visual
 ---
 
 ```{r}
+rm(list = ls())
+```
+
+```{r}
 library(dplyr)
 
 wd <- "/Volumes/rdm04/DEBIAS"
@@ -34,18 +38,29 @@ df <- df %>% left_join(df_read,
                 by = join_by(geography.code))
 ```
 
-```{r}
-df_read
-```
-
 ## Percentage of migrants LTLA
 
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts004/census2021-ts004-ltla.csv"))
 
-df_read$per_ukborn <- df_read$Country.of.birth..Europe..United.Kingdom..measures..Value/df_read$Country.of.birth..Total..measures..Value
+df_read$per_ukborn <- (df_read$Country.of.birth..Europe..United.Kingdom..measures..Value/df_read$Country.of.birth..Total..measures..Value) * 100
 
-df_read <- df_read %>% select(geography.code, per_ukborn)
+df_read$per_nonukborn <- (100 - df_read$Country.of.birth..Europe..United.Kingdom..measures..Value/df_read$Country.of.birth..Total..measures..Value) 
+
+df_read <- df_read %>% select(geography.code, per_ukborn, per_nonukborn)
+
+df <- df %>% left_join(df_read, 
+                by = join_by(geography.code))
+```
+
+## Population density
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts006/census2021-ts006-ltla.csv"))
+
+df_read$pop_density <- df_read$Population.Density..Persons.per.square.kilometre..measures..Value
+
+df_read <- df_read %>% select(geography.code, pop_density)
 
 df <- df %>% left_join(df_read, 
                 by = join_by(geography.code))
@@ -63,6 +78,21 @@ for (i in 5:22) {
 
 df_read <- df_read %>% select(geography.code, colnames(df_read)[23:40])
 
+df_read[,2:19] <- df_read[,2:19] * 100
+
+df_read <- df_read %>%
+  mutate(
+    `per_age_0-9`   = `per_age_0-4`  + `per_age_5-9`,
+    `per_age_10-19` = `per_age_10-14` + `per_age_15-19`,
+    `per_age_20-29` = `per_age_20-24` + `per_age_25-29`,
+    `per_age_30-39` = `per_age_30-34` + `per_age_35-39`,
+    `per_age_40-49` = `per_age_40-44` + `per_age_45-49`,
+    `per_age_50-59` = `per_age_50-54` + `per_age_55-59`,
+    `per_age_60-69` = `per_age_60-64` + `per_age_65-69`,
+    `per_age_70plus` = `per_age_70-74` + `per_age_75-79` +
+                     `per_age_80-84` + `per_age_85-89`
+  )
+
 df <- df %>% left_join(df_read, 
                 by = join_by(geography.code))
 ```
@@ -72,7 +102,7 @@ df <- df %>% left_join(df_read,
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts008/census2021-ts008-ltla.csv")) 
 
-df_read$per_female <- df_read$Sex..Female..measures..Value/df_read$Sex..All.persons..measures..Value
+df_read$per_female <- (df_read$Sex..Female..measures..Value/df_read$Sex..All.persons..measures..Value) * 100
 
 df_read <- df_read %>% select(geography.code, per_female)
 
@@ -85,11 +115,57 @@ df <- df %>% left_join(df_read,
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts011/census2021-ts011-ltla.csv")) 
 
-df_read$per_hh_notdeprived <- df_read$Household.deprivation..Household.is.not.deprived.in.any.dimension..measures..Value/df_read$Household.deprivation..Total..All.households..measures..Value
+df_read$per_hh_notdeprived <- (df_read$Household.deprivation..Household.is.not.deprived.in.any.dimension..measures..Value/df_read$Household.deprivation..Total..All.households..measures..Value) * 100
 
 df_read <- df_read %>% select(geography.code, per_hh_notdeprived)
 
 df <- df %>% left_join(df_read, 
+                by = join_by(geography.code))
+```
+
+## Year of arrival in UK
+
+```{r}
+# df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts015/census2021-ts015-ltla.csv")) 
+# 
+# df_read$per_recent_migrant <- df_read$Year.of.arrival.in.the.UK..Arrived.2020.to.2021..measures..Value/df$total_residents
+# 
+# df_read <- df_read %>% select(geography.code, per_recent_migrant)
+# 
+# df <- df %>% left_join(df_read,
+#                 by = join_by(geography.code))
+```
+
+## Length of residence
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts016/census2021-ts016-ltla.csv")) 
+
+df_read$per_recent_migrant <- (df_read$Length.of.residence.in.the.UK..Less.than.2.years..measures..Value/df$total_residents ) * 100
+
+df_read <- df_read %>% select(geography.code, per_recent_migrant)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+
+```
+
+## Household size
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts017/census2021-ts017-ltla.csv")) 
+
+df_read$house_six <- (df_read$Household.size..6.people.in.household..measures..Value/df_read$Household.size..Total..All.household.spaces..measures..Value ) * 100
+
+df_read$house_seven <- (df_read$Household.size..7.people.in.household..measures..Value/df_read$Household.size..Total..All.household.spaces..measures..Value ) * 100
+
+df_read$house_eightplus <- (df_read$Household.size..8.or.more.people.in.household..measures..Value/df_read$Household.size..Total..All.household.spaces..measures..Value ) * 100
+
+df_read$per_large_households <- df_read$house_six + df_read$house_seven + df_read$house_eightplus
+
+df_read <- df_read %>% select(geography.code, per_large_households)
+
+df <- df %>% left_join(df_read,
                 by = join_by(geography.code))
 ```
 
@@ -98,7 +174,7 @@ df <- df %>% left_join(df_read,
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts021/census2021-ts021-ltla.csv")) 
 
-df_read$per_non_white <- 1 - df_read$Ethnic.group..White/df_read$Ethnic.group..Total..All.usual.residents
+df_read$per_non_white <- (1 - df_read$Ethnic.group..White/df_read$Ethnic.group..Total..All.usual.residents) * 100
 
 df_read <- df_read %>% select(geography.code, per_non_white)
 
@@ -111,7 +187,7 @@ df <- df %>% left_join(df_read,
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts037/census2021-ts037-ltla.csv")) 
 
-df_read$per_bad_health <- (df_read$General.health..Bad.health + df_read$General.health..Very.bad.health)/df_read$General.health..Total..All.usual.residents
+df_read$per_bad_health <- ((df_read$General.health..Bad.health + df_read$General.health..Very.bad.health)/df_read$General.health..Total..All.usual.residents) * 100
 
 df_read <- df_read %>% select(geography.code, per_bad_health)
 
@@ -124,7 +200,7 @@ df <- df %>% left_join(df_read,
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts038/census2021-ts038-ltla.csv")) 
 
-df_read$per_severe_disability <- df_read$Disability..Disabled.under.the.Equality.Act..Day.to.day.activities.limited.a.lot/df_read$Disability..Total..All.usual.residents
+df_read$per_severe_disability <- (df_read$Disability..Disabled.under.the.Equality.Act..Day.to.day.activities.limited.a.lot/df_read$Disability..Total..All.usual.residents) * 100
 
 df_read <- df_read %>% select(geography.code, per_severe_disability)
 
@@ -137,7 +213,7 @@ df <- df %>% left_join(df_read,
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts045/census2021-ts045-ltla.csv")) 
 
-df_read$per_hh_no_car <- df_read$Number.of.cars.or.vans..No.cars.or.vans.in.household/df_read$Number.of.cars.or.vans..Total..All.households
+df_read$per_hh_no_car <- (df_read$Number.of.cars.or.vans..No.cars.or.vans.in.household/df_read$Number.of.cars.or.vans..Total..All.households) * 100
 
 df_read <- df_read %>% select(geography.code, per_hh_no_car)
 
@@ -150,7 +226,7 @@ df <- df %>% left_join(df_read,
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts046/census2021-ts046-ltla.csv")) 
 
-df_read$per_hh_no_centralheat <- df_read$Type.of.central.heating.in.household..No.central.heating/df_read$Type.of.central.heating.in.household..Total..All.households
+df_read$per_hh_no_centralheat <- (df_read$Type.of.central.heating.in.household..No.central.heating/df_read$Type.of.central.heating.in.household..Total..All.households) * 100
 
 df_read <- df_read %>% select(geography.code, per_hh_no_centralheat)
 
@@ -163,9 +239,22 @@ df <- df %>% left_join(df_read,
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts054/census2021-ts054-ltla.csv")) 
 
-df_read$per_hh_owned <- df_read$Tenure.of.household..Owned/df_read$Tenure.of.household..Total..All.households
+df_read$per_hh_owned <- (df_read$Tenure.of.household..Owned/df_read$Tenure.of.household..Total..All.households) * 100
 
 df_read <- df_read %>% select(geography.code, per_hh_owned)
+
+df <- df %>% left_join(df_read,
+                by = join_by(geography.code))
+```
+
+## Method of travel to work
+
+```{r}
+df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts061/census2021-ts061-ltla.csv")) 
+
+df_read$per_home_work <- (df_read$Method.of.travel.to.workplace..Work.mainly.at.or.from.home/df_read$Method.of.travel.to.workplace..Total..All.usual.residents.aged.16.years.and.over.in.employmen) * 100
+
+df_read <- df_read %>% select(geography.code, per_home_work)
 
 df <- df %>% left_join(df_read,
                 by = join_by(geography.code))
@@ -184,6 +273,8 @@ for (i in 5:13) {
 
 df_read <- df_read %>% select(geography.code, colnames(df_read)[14:22])
 
+df_read[, 2:10] <- df_read[, 2:10] * 100
+
 df <- df %>% left_join(df_read,
                 by = join_by(geography.code)) %>%
   rename("per_NS_SeC_L123_higher_managerial_administrative_professional" = "per_National.Statistics.Socio.economic.Classification..NS.SEC...L1..L2.and.L3.Higher.managerial..administrative.and.professional.occupations",
@@ -200,13 +291,12 @@ df <- df %>% left_join(df_read,
 
 ```
 
-
 ## Highest qual, percentage of adults over 16 by qualification (no qualification or \> level 4)
 
 ```{r}
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts067/census2021-ts067-ltla.csv")) 
 
-df_read$per_no_qualifications <- df_read$Highest.level.of.qualification..No.qualifications/df_read$Highest.level.of.qualification..Total..All.usual.residents.aged.16.years.and.over
+df_read$per_no_qualifications <- ( df_read$Highest.level.of.qualification..No.qualifications/df_read$Highest.level.of.qualification..Total..All.usual.residents.aged.16.years.and.over) * 100
 
 df_read <- df_read %>% select(geography.code, per_no_qualifications)
 
@@ -216,14 +306,58 @@ df <- df %>% left_join(df_read,
 
 df_read <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts067/census2021-ts067-ltla.csv")) 
 
-df_read$per_level4 <- df_read$
-Highest.level.of.qualification..Level.4.qualifications.and.above/df_read$Highest.level.of.qualification..Total..All.usual.residents.aged.16.years.and.over
+df_read$per_level4 <- (df_read$
+Highest.level.of.qualification..Level.4.qualifications.and.above/df_read$Highest.level.of.qualification..Total..All.usual.residents.aged.16.years.and.over) * 100
 
 df_read <- df_read %>% select(geography.code, per_level4)
 
 df <- df %>% left_join(df_read,
                 by = join_by(geography.code))
 
+```
+
+## Rural population
+
+```{r}
+# 1. Load Census population by OA
+pop_oa <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/census2021-ts001/census2021-ts001-oa.csv")) %>%
+  select(geography.code, population = `Residence.type..Total..measures..Value`)
+
+# 2. Load Rural–Urban Classification
+ruc <- read.csv(paste0(wd, "/data/inputs/ons_rural-urban-classification/Rural_Urban_Classification_(2021)_of_Output_Areas_in_EW.csv")) %>%
+  select(OA21CD, Urban_rural_flag)
+
+# 3. Load OA to LTLA lookup
+oa_ltla <- read.csv(paste0(wd, "/data/inputs/ons_rural-urban-classification/Output_Area_to_Lower_layer_Super_Output_Area_to_Middle_layer_Super_Output_Area_to_Local_Authority_District_(December_2021)_Lookup_in_England_and_Wales_v3.csv")) %>%
+  select(OA21CD, LAD22CD, LAD22NM)
+
+# 4. Merge datasets
+data <- pop_oa %>%
+  left_join(ruc, join_by("geography.code" == "OA21CD")) %>%
+  left_join(oa_ltla, join_by("geography.code" == "OA21CD"))
+
+# 5. Define rural categories
+rural_categories <- c(
+  "Rural"
+)
+
+# 6. Compute rural percentage by LTLA
+ltla_rural_pct <- data %>%
+  group_by(LAD22CD, LAD22NM) %>%
+  summarise(
+    total_pop = sum(population, na.rm = TRUE),
+    rural_pop = sum(population[Urban_rural_flag %in% rural_categories], na.rm = TRUE),
+    rural_pct = 100 * rural_pop / total_pop
+  ) %>%
+  arrange(desc(rural_pct))
+
+# View results
+head(ltla_rural_pct)
+
+ltla_rural_pct <- ltla_rural_pct %>% select(LAD22CD, rural_pop, rural_pct)
+
+df <- df %>% left_join(ltla_rural_pct,
+                join_by("geography.code" == "LAD22CD"))
 ```
 
 # Save data
