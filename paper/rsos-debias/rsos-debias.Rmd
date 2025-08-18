@@ -1,5 +1,4 @@
 ---
-
 title: A systematic machine learning approach to quantifying coverage and representation bias in population estimates from mobile phone app data
 author:
   - name: Carmen Cabrera
@@ -52,27 +51,7 @@ editor_options:
     wrap: 72
 ---
 
-::: {.callout-note icon="false"}
-The main document should include:
 
-Title (no more than 150 characters)
-
-Author names and affiliations, and ORCID iDs where available
-
-Abstract (no more than 200 words). (This will be used in reviewer
-invitation emails so please think about how to describe your work to
-make it easy for a potential reviewer to determine whether they would be
-suitable.)
-
-All main manuscript text. Ensure that all figures, tables and any
-relevant supplementary materials are mentioned within the text
-References
-
-Acknowledgements and funding statement (ensure that you have included
-grant numbers and the names of any funding providers)
-
-Tables with captions Figure captions with credits where relevant
-:::
 
 \newpage
 
@@ -234,13 +213,15 @@ focus on the use of aggregated population counts as this has become a
 common ethical and privacy-preserving practice for companies to provide
 access to highly sensitive data for social good.
 
-Our study makes two key contributions. \* Methodological contribution
-i.e. what we hope to achieve with our approach / quality assessment
-framework ideas + start setting standards of good practice in the use of
-MPD.\
-\* Substantive contribution - systematic evidence identifying key
-predictor of biases + do we find evidence of lower biases / greater
-population coverage for multi-app better than single app?
+Our study makes two key contributions.
+
+-   Methodological contribution i.e. what we hope to achieve with our
+    approach / quality assessment framework ideas + start setting
+    standards of good practice in the use of MPD.
+
+-   Substantive contribution - systematic evidence identifying key
+    predictor of biases + do we find evidence of lower biases / greater
+    population coverage for multi-app better than single app?
 
 <!-- Structure: do we need this? -->
 
@@ -274,14 +255,14 @@ application (Meta and Twitter/X) as well as from multiple MP
 applications, each capturing distinct user groups through different data
 generation mechanisms. These differences allow us to assess how source
 characteristics influence population coverage and representativeness.
-The multi-application sources are referred to as Multi-app Source 1,
-whose provider name cannot be disclosed due to a non-disclosure
-agreement, and Multi-app Source 2, provided in its raw format by the
-company Locomizer. Table 1 summarises the main characteristics of each
-dataset, including the source type, form of data collections, temporal
-granularity, temporal coverage, spatial resolution, access method and
-data acquisition cost. Further details of access and processing for each
-data source are provided in the following subsections.
+The multi-application sources are referred to as Multi-app1, whose
+provider name cannot be disclosed due to a non-disclosure agreement, and
+Multi-app2, provided in its raw format by the company Locomizer. Table 1
+summarises the main characteristics of each dataset, including the
+source type, form of data collections, temporal granularity, temporal
+coverage, spatial resolution, access method and data acquisition cost.
+Further details of access and processing for each data source are
+provided in the following subsections.
 
 It is important to note that, while Twitter/X is not exclusively
 accessed via mobile devices and its location data are not always
@@ -292,7 +273,8 @@ Additionally, the Twitter Academic API is no longer available for free
 data collection, limiting access to new data. Despite these limitations,
 we include Twitter/X in our analysis as a representative
 single-application data source. Archived datasets, such as the one used
-in this study or the Harvard Geotweet Archive (<https://gis.harvard.edu/data>) continue to support population and
+in this study or the Harvard Geotweet Archive
+(<https://gis.harvard.edu/data>) continue to support population and
 mobility research.
 
 ![Table 1. Summary description of data sources derived from mobile phone
@@ -304,14 +286,16 @@ height="190"}
 We use the Facebook Population dataset created by Meta and accessed
 through their Data for Good Initiative
 (<https://dataforgood.facebook.com>). This consists of anonymised
-aggregate location data from Facebook app users in the UK, who have the
-location services setting activated on their smartphone. We selected
-data entries covering March 2021, the month when the most recent UK
-Census was carried out. Prior to releasing the datasets, Meta ensures
-privacy and anonymity by removing personal information and applying
-privacy-preserving techniques, including small-count dropping for
-population counts under 10, addition of random noise and spatial
-smoothing using inverse distance-weighted averaging [@maas2019].
+aggregate location data from Facebook app accounts in the UK, who have
+the location services setting activated. We take the number of unique
+accounts as a proxy for the number of unique users, although it could be
+the case that one user has more than one account. We selected data
+entries covering March 2021, the month when the most recent UK Census
+was carried out. Prior to releasing the datasets, Meta ensures privacy
+and anonymity by removing personal information and applying several
+techniques which include small-count dropping for population counts
+under 10, addition of random noise and spatial smoothing using inverse
+distance-weighted averaging [@maas2019].
 
 The dataset includes the number of active Facebook app users, aggregated
 into three daily 8-hour time windows (i.e. 00:00-08:00, 08:00-16:00 and
@@ -338,8 +322,10 @@ workflow.
 <!-- Argue better why Twitter data also falls in the umbrella of GPS data. Some entries are from GPS (geotagged posts) but we are also including others, like those geolocated from IP addresses !-->
 
 We use an anonymised, analysis-ready dataset of active X (previously
-Twitter) users in the UK, originally collected via the Twitter Academic
-API. The data consists of monthly counts of active users, spatially
+Twitter) accounts in the UK, originally collected via the Twitter
+Academic API. Like in the data for Meta, we take the number of unique
+accounts as a proxy for the number of unique users. The data consists of
+monthly records for the location of unique Twitter accounts, spatially
 aggregated across the UK, and is openly available at
 <https://github.com/c-zhong-ucl-ac-uk/Twitter-Internal-Migration>.
 Geolocation is obtained either directly from geotagged tweets or through
@@ -352,16 +338,18 @@ during which 125,637 user home locations were identified. Home locations
 are assigned to Local Authority Districts (LADs) using a frequency-based
 detection algorithm, further described in [@wang2022].
 
-### Multi-app Source 1
+### Multi-app1
 
 We sourced data from a location analytics company that collects GPS data
 from approximately 26% of smartphones in the UK. The raw data consist of
 anonymised device-level GPS traces collected via a range of smartphone
 applications, where users have explicitly granted location-sharing
-permissions. The dataset spans a 7-day period corresponding to the first
-week of April 2021 and includes 443,553,155 GPS records. Although the
-dataset does not perfectly align with the official 2021 UK Census date,
-the temporal proximity ensures a high degree of comparability.
+permissions. We consider the number of devices as a proxy for the number
+of unique users, although it could be the case that some users have more
+than one device. The dataset spans a 7-day period corresponding to the
+first week of April 2021 and includes 443,553,155 GPS records. Although
+the dataset does not perfectly align with the official 2021 UK Census
+date, the temporal proximity ensures a high degree of comparability.
 
 To infer the place of residence of users, we apply a commonly used
 rule-based classification method, following approaches outlined in
@@ -375,7 +363,7 @@ comparability across data sources, all identified residence locations
 are aggregated to the level of Local Authority Districts (LADs). Using
 this method, we detect 1,536,922 home locations.
 
-### Multi-app Source 2
+### Multi-app2
 
 Our analysis includes a second source of analysis-ready location data,
 which is openly-available on GitHub
@@ -393,24 +381,25 @@ analysis. To ensure consistency across datasets, we further process the
 data by aggregating it spatially from the Middle Layer Super Output Area
 (MSOA) level to the Local Authority District Level (LAD).
 
-### Other data
+### Census data
+
+<!---Explain why census data--->
 
 In addition to the mobile phone app data sources described above, we use
 resident population counts from the 2021 UK Census, aggregated at the
-LAD level. These counts serve as the ground truth reference for
-comparing population estimates derived from each digital dataset. We
-also draw on a set of area-based covariates from the census, covering
-demographic, socioeconomic, and housing characteristics, along with the
-geographic coordinates of each LAD centroid. These variables are used to
-investigate and explain the contextual factors most strongly associated
-with the magnitude and spatial variation of bias in the digital trace
-data. The full list of covariates is provided in Table 2.
+LAD level. UK Census is trusted as the official benchmark for population
+counts, so we take these as the ground truth for comparing estimates
+derived from each digital dataset. We also draw on a set of area-based
+covariates from the census, covering demographic, socioeconomic, and
+housing characteristics, along with the geographic coordinates of each
+LAD centroid. These variables are used to investigate and explain the
+contextual factors most strongly associated with the magnitude and
+spatial variation of bias in the digital trace data. The full list of
+covariates is provided in Table 2.
 
 ![Table 2. List of covariates used in the analysis, grouped by thematic
 category. Variables are derived from the 2021 UK Census and aggregated
-to the Local Authority District (LAD) level, except for geographic
-coordinates, which correspond to the centroid of each
-LAD.](figures/table-census-data.png){width="450" height="460"}
+to the Local Authority District (LAD) level.](figures/01_table-variable-dictionary_explain.png){width="500" height="640"}
 
 # Methods
 
@@ -467,6 +456,8 @@ across multiple sources of data and geographic areas.
 ### Identifying spatial patterns of bias
 
 <!--# FR - this section should describe the intuition of the spatial analysis i.e. why we do it and how. Key is to identify and explain the various methods to measure the spatial weight matrix. Here we should probably already state that spatial correlation is not significant in our analysis - a caveat is that this is at the LAD level. There would be reasons to believe that spatial autocorrelation may be present at lower levels of aggregation. Should we metion this? Not sure at this stage how this could be said without prompting a question on why don't you test this using your mobile phone data? -->
+
+<!---Explain differences in patterns single app and multi app. What percentage of spatial units are above a certain threshold of bias for each? Are multiapps better at evenning out bias?--->
 
 For each data source, we compute the coverage bias metric at the
 subnational level and examine its geographic variation. This stage has
@@ -595,10 +586,10 @@ and on the bottom x-axis the corresponding measure of coverage bias.
 source.](figures/compare-surveys-legend.png){#fig:survey width="500"
 height="300"}
 
-
 Figure \ref{fig:survey} suggest that, with comparatively greater
 population coverage and lower coverage bias, MP data have a strong
-potential to support large-scale empirical analyses. However, high population coverage alone does not ensure the data is representative of
+potential to support large-scale empirical analyses. However, high
+population coverage alone does not ensure the data is representative of
 different population groups. In surveys, specific strategies are usually
 implemented during the data generation process to improve the
 statistical representativeness of the sample. For example, sampling
