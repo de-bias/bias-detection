@@ -62,6 +62,7 @@ Spatial analysis}
 \keywords{
 Mobile phone data,
 Human mobility,
+Location,
 Explainable AI,
 Spatial analysis}
 
@@ -422,7 +423,7 @@ data. The full list of covariates is provided in Table 2.
 
 \begin{figure}
 \centering
-\includegraphics[width=4.79167in,height=4.89583in]{figures/01_table-variable-dictionary.pdf}
+\includegraphics[width=4.6875in,height=4.79167in]{figures/table-census-data.png}
 \caption{Table 2. List of covariates used in the analysis, grouped by thematic
 category. Variables are derived from the 2021 UK Census and aggregated
 to the Local Authority District (LAD) level, except for geographic
@@ -585,10 +586,10 @@ analyses.
 source.}\label{fig:survey}
 \end{figure}
 
-While the findings in Figure \citet{fig:survey} demonstrate the potential of
-digital trace data compared to traditional data sources, high population
-coverage alone does not ensure the data is representative of different
-population groups.
+While the findings in Figure \ref{fig:survey} demonstrate the potential
+of digital trace data compared to traditional data sources, high
+population coverage alone does not ensure the data is representative of
+different population groups.
 
 In surveys, specific strategies are usually implemented during the data
 generation process to improve the statistical representativeness of the
@@ -635,13 +636,13 @@ smaller scales in the next step of our analysis, to determine which
 population attributes are most associated with underrepresentation in
 the data.
 
-Figure \citet{fig:size-bias-spatial} shows the geographic variation of the size
-of bias at the Local Authority District (LAD) level. Each row in the
-figure corresponds to each of the digital trace datasets analysed here.
-Within each row, we include: i) an hexagonal cartogram for the size of
-bias in each LAD, representing the LADs as hexagons of equal size to
-simplify the visualisation while maintaining relative positions; with
-this cartogram, we report Moran's I as a measure of spatial
+Figure \ref{fig:size-bias-spatial} shows the geographic variation of the
+size of bias at the Local Authority District (LAD) level. Each row in
+the figure corresponds to each of the digital trace datasets analysed
+here. Within each row, we include: i) an hexagonal cartogram for the
+size of bias in each LAD, representing the LADs as hexagons of equal
+size to simplify the visualisation while maintaining relative positions;
+with this cartogram, we report Moran's I as a measure of spatial
 autocorrelation and its associated p-value, ii) a histogram of the size
 of bias, showing the distribution of values across LADs, iii) a scatter
 plot of the population covered by the digital trace data vs.~the actual
@@ -694,6 +695,14 @@ demographic attributes of local populations as possible determinants of
 the size of bias.
 
 \subsection{Explaining biases (FR)}\label{explaining-biases-fr}
+
+\phantomsection\label{fig:radial-plots}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth,height=0.5\textheight]{figures/radial-plots_feature-importance.pdf}
+\caption{Feature importance of predictors contributing to data production bias,
+XGboost estimates}\label{fig:radial-plots-composite}
+\end{figure}
 
 \section{Discussion (FR)}\label{discussion-fr}
 
