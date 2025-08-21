@@ -18,14 +18,26 @@ library(scales)
 library(colorspace)
 library(ggradar)
 
-# Use Roboto for ALL radar plots (register Google font and enable showtext)
 library(sysfonts)
 library(showtext)
-sysfonts::font_add_google("Roboto Condensed", "robotocondensed")
+
+# Register two aliases:
+# - "robotocondensed"      -> regular weight (400)
+# - "robotocondensed_bold" -> bold weight (700) to FORCE bold wherever we pass this family
+sysfonts::font_add_google("Roboto Condensed", "robotocondensed",       regular.wt = 400, bold.wt = 700)
+sysfonts::font_add_google("Roboto Condensed", "robotocondensed_bold",  regular.wt = 700, bold.wt = 700)
+
+# Turn on showtext so HTML/PNG devices render these fonts
 showtext::showtext_auto()
 
-# Make Roboto the default ggplot font (helps ggradar too)
-theme_set(theme_minimal(base_family = "robotocondensed"))
+# Make Roboto Condensed the default ggplot family; set bold face in theme for non-ggradar text
+theme_set(
+  theme_minimal(base_family = "robotocondensed") +
+    theme(
+      text         = element_text(family = "robotocondensed", face = "bold"),
+      legend.text  = element_text(family = "robotocondensed", face = "bold")
+    )
+)
 ```
 
 # Data
@@ -229,7 +241,7 @@ radar_plot_global <- function(wide_df){
     gridline.max.colour = "grey85",
     axis.line.colour = "grey70",
     fill = TRUE,
-    font.radar = "robotocondensed"
+    font.radar = "robotocondensed_bold"
   ) +
     scale_colour_manual(values = porter_cols, breaks = legend_order, guide = "none") +
     scale_fill_manual(values = porter_fills_global, breaks = legend_order) +
