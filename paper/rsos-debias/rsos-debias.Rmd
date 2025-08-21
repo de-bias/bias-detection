@@ -399,7 +399,7 @@ covariates is provided in Table 2.
 
 ![Table 2. List of covariates used in the analysis, grouped by thematic
 category. Variables are derived from the 2021 UK Census and aggregated
-to the Local Authority District (LAD) level.](figures/01_table-variable-dictionary_explain.png){width="500" height="640"}
+to the Local Authority District (LAD) level.](figures/01_table-variable-dictionary_explain.png){width="500" height="620"}
 
 # Methods
 
@@ -686,6 +686,13 @@ other area-level characteristics such as demographic or socioeconomic
 composition. We examin these factors in the third stage of our analysis.
 
 ## Explaining biases
+
+
+::: {#fig-radialplots_ref layout="[[1], [1]]"}
+![](figures//radial-plots_feature-importance.pdf){#fig-radialplots height="60%"}
+
+**Top ten raions with the largest cumulative net negative (in blue) and positive (in red) migration balance organised from the largest to the smallest, February to August 2022.**
+:::
 
 # Discussion
 
