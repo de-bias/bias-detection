@@ -453,7 +453,7 @@ corresponds to full population coverage (\(c_i = 100\)). We use this bias
 indicator to analyse the magnitude and distribution of coverage bias
 across multiple sources of data and geographic areas.
 
-\subsubsection{Identifying spatial patterns of bias}\label{identifying-spatial-patterns-of-bias}
+\subsubsection{Identifying spatial patterns of population bias}\label{identifying-spatial-patterns-of-population-bias}
 
 For each data source, we compute the coverage bias metric at the
 subnational level and examine its geographic variation. This stage has
@@ -487,7 +487,7 @@ a stable slope would suggest that bias is largely independent of
 population size. We quantify this relationship by computing Pearson's
 correlation coefficient.
 
-\subsubsection{Explainable machine learning}\label{explainable-machine-learning}
+\subsubsection{Explainable machine learning}\label{sec-eml}
 
 We used explainable machine learning to identify the key predictors of
 population bias and how these the importance of these predictors varies
@@ -684,13 +684,27 @@ composition. We examine these factors in the third stage of our analysis.
 
 \subsection{Key contextual features explain population biases}\label{key-contextual-features-explain-population-biases}
 
-Figure \ref{fig:radialplots}
+We assessed the contribution of key contextual features to explaining spatial variations in population biases across demographic, socioeconomic, resource accessibility, mobility and geographic domains. Figure \ref{fig:radialplots} displays the relative importance of each individual model feature, representing the average absolute SHapley Additive exPlanations (SHAP) value per feature including in our XGBoost model described in Section \ref{sec-eml} \textbf{{[}REF{]}}. SHAP values are standardised by data source based on minimum and maximum scores to enable comparability. \ref{fig:radialplots} highlights features with standardised importance scores over 0.5 for individual data source.
 
 \begin{figure}
 \centering
-\includegraphics[width=14.2cm,height=16cm]{figures/radial-plots_feature-importance.png}
+\includegraphics[width=14.2cm,height=15.8cm]{figures/radial-plots_feature-importance.png}
 \caption{\textbf{Radial charts illustrating the importance of, and contribution to, explaining differences in population biases across local authority districts.} The importance is estimated based on SHAP feature importance scores, calculated as the average absolute SHAP value per feature using an XGBoost machine learning algorithm. Average absolute SHAP values were normalised across individual data using minimum and maximum scores, to ensure comparability across data sources. First column displays the estimates for all data sources and model features. Subsequent columns highlight features scoring SHAP values over 0.5 within a 0-1 range for individual data sources.}\label{fig:radialplots}
 \end{figure}
+
+The results reveal wide variability
+
+\begin{itemize}
+\tightlist
+\item
+  Wide variations in the predictors of biases across digital data sources\\
+\item
+  Systematic nonlinearities / thresholds in the association between bias and contextual attributes\\
+\item
+  Age structure has less predictive importance than socioeconomic and geographic factors\\
+\item
+  Consistency across temporal and spatial aggregations for a given data source?
+\end{itemize}
 
 \section{Discussion}\label{discussion}
 

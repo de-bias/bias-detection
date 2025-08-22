@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.11)  21 AUG 2025 15:41
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.11)  22 AUG 2025 11:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -803,19 +803,29 @@ LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [10]
+Underfull \hbox (badness 1466) in paragraph at lines 687--688
+\T1/ppl/m/n/9 pop-u-la-tion bi-ases across de-mo-graphic, so-cioe-co-nomic, re-
+source ac-ces-si-bil-ity, mo-bil-ity and
+ []
+
 File: figures/radial-plots_feature-importance.png Graphic file (type bmp)
 <figures/radial-plots_feature-importance.png>
 
-Overfull \hbox (19.87625pt too wide) in paragraph at lines 691--692
+Overfull \hbox (19.82317pt too wide) in paragraph at lines 691--692
  [][] 
  []
 
-(./rsos-debias.bbl
+
+Underfull \hbox (badness 10000) in paragraph at lines 700--702
+
+ []
 
 
-Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 702--704
 
-[11]
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -823,7 +833,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
-[12]) Setting LastPage
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 704--706
+
+ []
+
+
+
+
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+[12] (./rsos-debias.bbl) Setting LastPage
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
@@ -838,12 +858,12 @@ LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.25pt have occurred.
 
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: F60633CFCCC0C45626DA32EAC52FBEEE;2891.
+(rerunfilecheck)             Checksum: D74E19D0EF2D86AB646A23583A37DA5E;2949.
  ) 
 Here is how much of TeX's memory you used:
  12205 strings out of 473832
- 186762 string characters out of 5729481
- 593461 words of memory out of 5000000
+ 186752 string characters out of 5729481
+ 593530 words of memory out of 5000000
  35024 multiletter control sequences out of 15000+600000
  617948 words of font info for 150 fonts, out of 8000000 for 9000
  1358 hyphenation exceptions out of 8191

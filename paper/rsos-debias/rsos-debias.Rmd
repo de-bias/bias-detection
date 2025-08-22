@@ -495,7 +495,7 @@ a stable slope would suggest that bias is largely independent of
 population size. We quantify this relationship by computing Pearson’s
 correlation coefficient.
 
-### Explainable machine learning
+### Explainable machine learning {#sec-eml}
 
 We used explainable machine learning to identify the key predictors of
 population bias and how these the importance of these predictors varies
@@ -570,7 +570,7 @@ alignment ensures comparability, as the census data serve as the ground
 truth against which population counts from the digital sources are
 evaluated.
 
-<!-- FR: To elaborate subsections (a) and (b) of the Results Section to focus on discussing the reported patterns and figures. For example, the subsection (a) needs to explain what the results mean; establish the extent of difference in terms of coverage between the digital sources and survey data; and, elaborate on how and why these differences are important in terms of survey sources only offering representation at a national level and at a cross section but wide variations exist geographically and social processes are temporally dynamic. Similarly subsection (b) needs to build more on the reported results. For example, it needs to assess the extent of differences in population bias across LADs and across sources. Is it high/low? Are some areas consistently under/over-represented? Educate people to read what a 86 size of bias means in a LAD.-->
+<!-- FR: To elaborate subsections (a) and (b) of the Results Section to focus on discussing the reported patterns and figures. For example, the subsection (a) needs to explain what the results mean; establish the extent of difference in terms of coverage between the digital sources and survey data; and, elaborate on how and why these differences are important in terms of survey sources only offering representation at a national level and at a cross section but wide variations exist geographically and social processes are temporally dynamic. Similarly subsection (b) needs to build more on the reported results. For example, it needs to assess the extent of differences in population bias across LADs and across sources. Is it high/low? Are some areas consistently under/over-represented? Educate people to read what a 86 size of bias means in a LAD. I tend to prefer the results section being in past (i.e. we analysed) as I feel it enables me to make stronger statements. Though, I would be happy to use present tense but it's something we should agree for consistency. I use past tense in the subsection that I wrote. -->
 
 ## The extent of population bias varies across data sources
 
@@ -691,13 +691,16 @@ composition. We examine these factors in the third stage of our analysis.
 
 ## Key contextual features explain population biases
 
-We assessed the contribution of key contextual features to explaining spatial variations in population biases across demographic, socioeconomic, resource accessibility, mobility and geographic domains. 
-
-
-Figure \ref{fig:radialplots}
+We assessed the contribution of key contextual features to explaining spatial variations in population biases across demographic, socioeconomic, resource accessibility, mobility and geographic domains. Figure \ref{fig:radialplots} displays the relative importance of each individual model feature, representing the average absolute SHapley Additive exPlanations (SHAP) value per feature including in our XGBoost model described in Section \@ref(sec-eml) **[REF]**. SHAP values are standardised by data source based on minimum and maximum scores to enable comparability. \ref{fig:radialplots} highlights features with standardised importance scores over 0.5 for individual data source. 
 
 ![**Radial charts illustrating the importance of, and contribution to, explaining differences in population biases across local authority districts.** The importance is estimated based on SHAP feature importance scores, calculated as the average absolute SHAP value per feature using an XGBoost machine learning algorithm. Average absolute SHAP values were normalised across individual data using minimum and maximum scores, to ensure comparability across data sources. First column displays the estimates for all data sources and model features. Subsequent columns highlight features scoring SHAP values over 0.5 within a 0-1 range for individual data sources.](figures/radial-plots_feature-importance.png){#fig:radialplots width="14.2cm" height="15.8cm"}
 
+The results reveal wide variability 
+
+- Wide variations in the predictors of biases across digital data sources \
+- Systematic nonlinearities / thresholds in the association between bias and contextual attributes \
+- Age structure has less predictive importance than socioeconomic and geographic factors \
+- Consistency across temporal and spatial aggregations for a given data source?
 
 # Discussion
 
