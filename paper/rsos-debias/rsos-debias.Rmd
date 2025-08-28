@@ -729,7 +729,7 @@ low and high end values of the contextual feature relative to middle range featu
 
 ## Key findings
 
-- MPD as a key asset but bias remains a key issue.
+MPD have become a key data asset to understanding population dynamics in near real-time at high spatial and temporal resolution. Yet, biases have remained a major barrier eroding their trust and wider adoption. A key limitation to tackle this issue has been the lack of a standardised method to estimate and analyse coverage biases in MPD-derived population data. In this study, we sought to contribute a systematic and generalisable approach to measure and analyse coverage biases in MP-derived population data, when access to individual-level demographic attributes are lacking. Implementing this approach on UK data, we presented evidence showing that MDP tend to provide greater population coverage than widely used traditional surveys. Our findings reveal that coverage biases vary markedly across data sources and subnational areas, that multi-app data sources does not necessarily offer broader coverage than single-app sources, and that demographic, socioeconomic and geographic features consistently explain a large share of spatial variation in coverage bias. We also identified distinctive nonlinear effects in the association between contextual features and coverage bias, suggesting that such biases cannot be addressed with simple linear adjustment.
 
 - 
 
