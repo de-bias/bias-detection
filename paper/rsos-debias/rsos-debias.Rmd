@@ -157,7 +157,7 @@ from MPD and have thus been constrained to offer a partial picture for a
 limited segment of the overall population. Such data can only afford to
 provide rough signals about the spatial distribution of (e.g. spatial
 concentration), trends (e.g. increasing) and changes (e.g. low to high)
-in populations [@rowe22-sensing-ukraine]. They have cannot provide a
+in populations [@rowe22-sensing-ukraine]. Unadjusted, they have cannot provide a
 full representation of the overall population.
 
 Efforts have been made to measure and assess biases in aggregate
@@ -185,13 +185,14 @@ derived from digital platforms, and identify their key underlying
 contextual factors across subnational areas. We seek to address the
 following research questions:
 
--   What is the comparative extent of population coverage of digital
-    sources relative to widely-used traditional surveys?
--   How systematic is the association between larger biases and the
-    over-representation of rural, more deprived, child and elderly
+-   What is the relative level of population coverage and bias of MPD
+    sources to widely-used traditional surveys? 
+-   To what extent, does the level of population bias vary across subnational areas and cluster in particular regions?
+-   How systematic is the association between larger population biases and
+    over-representation of particular population subgroups, such as rural, more deprived and elderly
     populations?
--   To what extent, are population data assembled from multiple
-    applications versus single applications associated with lower bias?
+-   To what extent, are MP-based population data from multiple
+    applications versus single applications associated with lower population bias?
 
 Our approach proposes a statistical indicator of population coverage to
 measure the extent of bias, and uses explainable machine learning to
@@ -200,7 +201,7 @@ the extent of bias. Biases in digital trace data can emerge from
 multiple sources, such as algorithmic changes, device duplication and
 geographic location accuracy [REF]. We do not intend to identify these
 individual sources of error. We focus on quantifying the extent of
-\`\`cumulative'' bias; that is, the resulting bias from the accumulation
+``cumulative'' bias; that is, the resulting bias from the accumulation
 of these error sources. We use data collected from single and multiple
 mobile phone apps, and compare their results. As outlined above, we test
 the extent to which biases can be mitigated by leveraging information
@@ -602,13 +603,17 @@ data sources, showing on the top x-axis the population coverage
 (expressed as the number of respondents or subjects per 1,000 people)
 and on the bottom x-axis the corresponding measure of coverage bias.
 
+<!-- The figure below needs more explaining. Explain what means high or low coverage and bias. -->
+
 
 ![Size of coverage bias (bottom x-axis) and population coverage per 1,000 population (top-x-axis) by data source.](figures/compare-surveys-legend.png){#fig:survey width="14cm" height="8.5cm"}
 
 
 Figure \@ref(fig:survey) suggests that, with comparatively greater
-population coverage and lower coverage bias, MP data have a strong
-potential to support large-scale empirical analyses. However, high
+population coverage and lower coverage bias, MPD have a strong
+potential to support large-scale empirical analyses.
+<!-- FR: How is this supported by the analysis / data-->
+However, high
 population coverage alone does not ensure the data is representative of
 different population groups. In surveys, specific strategies are usually
 implemented during the data generation process to improve the
@@ -732,9 +737,11 @@ low and high end values of the contextual feature relative to middle range featu
 
 ## Implications
 
-- 
+- We contributed a systematic and general approach to measure and explain biases when population features are unavailable.
 
-- 
+- Findings suggest how data should be adjusted to reduce bias and augment representativeness of the data. Highlight potential approaches to adjust biases.
+
+- Multi-app may require a more complicated set of weighting schemes to adjust MPD-based population counts - more features emege as important
 
 
 
@@ -744,7 +751,8 @@ low and high end values of the contextual feature relative to middle range featu
 
 <!-- P1: Opening summarising main contributions. Restate challenge MP app data’s promise vs. representativeness challenge. Emphasise novelty: first generalisable, standardised approach to measuring and explaining bias when demographic attributes are unavailable -->
 
-<!-- UNSURE: P2: Highlight that coverage is not the same as representativeness. Discuss why this finding matters for policy use. Yet, many previous works in the literature address bias in digital trace data by simply reweighting population counts. Is this a finding? I feel we know this already and this feels more like the motivation of our work. -->
+<!-- UNSURE: P2: Highlight that coverage is not the same as representativeness. Discuss why this finding matters for policy use. Yet, many previous works in the literature address bias in digital trace data by simply reweighting population counts. --> 
+      <!-- Don't think this a finding. I feel we know already this. It feels more like the motivation of our work. -->
 
 <!-- P3: Remark observed patterns of spatial variation, i.e. varibility, but not explained by geographic location, suggesting it variability should be explained iwth other contextual, area-based covariates. Relate to intro point about missing subnational bias understanding, and how our method fills that gap -->
 
