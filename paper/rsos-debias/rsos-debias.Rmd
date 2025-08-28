@@ -386,6 +386,8 @@ data by aggregating it spatially from the Middle Layer Super Output Area
 
 <!---Explain why census data - FR: The current text suggests census data are a benchmark but it does not say how **we** use it.--->
 
+<!-- FR: Need to also explain the Table listing the coviarites a bit more. Though, it may be better to do this later when the ML analysis is described. At this point we can explain that we have used information from the census to measure population and key population features, and point that the ML section provides more details. -->
+
 We use resident population counts from the 2021 UK Census, aggregated at the
 LAD level. UK Census is trusted as the official benchmark for population
 counts, so we take these as the ground truth for comparing estimates
@@ -395,7 +397,7 @@ housing characteristics, along with the geographic coordinates of each
 LAD centroid. These variables are used to investigate and explain the
 contextual factors most strongly associated with the magnitude and
 spatial variation of bias in the digital trace data. The full list of
-covariates is provided in Table \ref{tab:covariates} .
+covariates is provided in Table \ref{tab:covariates}.
 
 \begin{table}[h]
 \centering
@@ -510,8 +512,8 @@ over-representing urban, wealthy and young-adult populations **[REF]**.
 We therefore modelled our measure of population bias from
 Equation\~\ref{eq:size-bias} as a function of key area-level attributes
 reflecting geographical differences in engagement and access to digital
-technology across demographic, socioeconomic, household, housing and
-location factors. Table 2 reports the set of predictors included in our
+technology across demographic, socioeconomic, resource accessibility, mobility and
+geographic factors. Table 2 reports the set of predictors included in our
 analysis. We used data from the 2021 census for England and Wales to
 measure these predictors.
 
@@ -693,7 +695,7 @@ modelling stage of our framework.
 
 Third, the variability in coverage bias is not explained by the absolute
 population size of each subnational unit. Scatter plots comparing
-population counts derived from MP app sources and from the census reveal
+population counts derived from MP data and from the census reveal
 strong linear relationships. This is quantitatively supported by Pearson
 correlation coefficients consistently close to one and statistically
 significant.
