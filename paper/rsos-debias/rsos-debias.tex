@@ -138,7 +138,7 @@ displacement \citep{cepal24}.
 
 However, the use of MPD present major epistemological, methodological
 and ethical challenges \citep{rowe23-bigdata}. A key unresolved challenge is
-potential biases in MPAD compromising their statistical
+potential biases in MPD compromising their statistical
 representativeness and perpetuate social injustice {[}REF{]}. Biases reflect
 societal digital and socioeconomic inequalities. Biases emerge from
 differences in the access and use of the mobile phone applications used
@@ -167,9 +167,9 @@ applications of MPD often use uncorrected population statistics derived
 from MPD and have thus been constrained to offer a partial picture for a
 limited segment of the overall population. Such data can only afford to
 provide rough signals about the spatial distribution of (e.g.~spatial
-concentration), trends (e.g.~increasing) and changes (e.g.~low to high)
-in populations \citep{rowe22-sensing-ukraine}. Unadjusted, they have cannot
-provide a full representation of the overall population.
+concentration), trends (e.g.~increasing) and changes (e.g.~low to high) in populations \citep{rowe22-sensing-ukraine}.
+Unadjusted, they have cannot provide a full representation of the
+overall population.
 
 Efforts have been made to measure and assess biases in aggregate
 population counts from digital data sources. Existing analyses typically
@@ -261,12 +261,12 @@ generation mechanisms. These differences allow us to assess how source
 characteristics influence population coverage and representativeness.
 The multi-application sources are referred to as Multi-app1, whose
 provider name cannot be disclosed due to a non-disclosure agreement, and
-Multi-app2, provided in its raw format by the company Locomizer. Table 1
-summarises the main characteristics of each dataset, including the
-source type, form of data collections, temporal granularity, temporal
-coverage, spatial resolution, access method and data acquisition cost.
-Further details of access and processing for each data source are
-provided in the following subsections.
+Multi-app2, provided in its raw format by the company Locomizer. Table
+\ref{tab:data-source} summarises the main characteristics of each
+dataset, including the source type, form of data collections, temporal
+granularity, temporal coverage, spatial resolution, access method and
+data acquisition cost. Further details of access and processing for each
+data source are provided in the following subsections.
 
 It is important to note that, while Twitter/X is not exclusively
 accessed via mobile devices and its location data are not always
@@ -287,8 +287,9 @@ mobility research.
 \caption{Summary description of mobile phone data sources.}
 \label{tab:data-source}
 \end{table}
+HEAD
 
-\subsubsection{Meta}\label{meta}
+\subsection{Meta}\label{meta}
 
 We use the Facebook Population dataset created by Meta and accessed
 through their Data for Good Initiative
@@ -324,7 +325,7 @@ of spatial and temporal aggregation. These sensitivity tests confirm
 that our main findings are robust to variations in the data processing
 workflow.
 
-\subsubsection{Twitter}\label{twitter}
+\subsection{Twitter}\label{twitter}
 
 We use an anonymised, analysis-ready dataset of active X (previously
 Twitter) accounts in the UK, originally collected via the Twitter
@@ -343,7 +344,7 @@ during which 125,637 user home locations were identified. Home locations
 are assigned to Local Authority Districts (LADs) using a frequency-based
 detection algorithm, further described in \citep{wang2022}.
 
-\subsubsection{Multi-app1}\label{multi-app1}
+\subsection{Multi-app1}\label{multi-app1}
 
 We sourced data from a location analytics company that collects GPS data
 from approximately 26\% of smartphones in the UK. The raw data consist of
@@ -368,10 +369,10 @@ comparability across data sources, all identified residence locations
 are aggregated to the level of Local Authority Districts (LADs). Using
 this method, we detect 1,536,922 home locations.
 
-\subsubsection{Multi-app2}\label{multi-app2}
+\subsection{Multi-app2}\label{multi-app2}
 
-Our analysis includes a second source of analysis-ready dataset of
-population counts. This dataset is openly-available on GitHub
+Our analysis includes a second source of analysis-ready
+dataset of population counts. This dataset is openly-available on GitHub
 (\href{https://t.ly/dzlzB}{https://t.ly/dzlzB)}), and has been processed to
 identify the home location of users according to the methodology
 described in \citep{zhong24working}. The raw data is collected by a UK-based
@@ -386,12 +387,12 @@ analysis. To ensure consistency across datasets, we further process the
 data by aggregating it spatially from the Middle Layer Super Output Area
 (MSOA) level to the Local Authority District Level (LAD).
 
-\subsubsection{Census data}\label{census-data}
+\subsection{Census data}\label{census-data}
 
-We use 2021 UK Census, aggregated at the LAD level for two main
-purposes. First, we use resident population counts derived from the
-census as the denominator of the population coverage measure in the
-first stage of the methodology (see Methods section). The resident
+We use 2021 UK Census, aggregated at the LAD level
+for two main purposes. First, we use resident population counts derived
+from the census as the denominator of the population coverage measure in
+the first stage of the methodology (see Methods section). The resident
 population count derived from the census is taken as the official
 benchmark for population counts, so we take these as the ground truth
 for resident populations and use it to compare with the population
@@ -465,7 +466,7 @@ corresponds to full population coverage (\(c_i = 100\)). We use this bias
 indicator to analyse the magnitude and distribution of coverage bias
 across multiple sources of data and geographic areas.
 
-\subsubsection{Identifying spatial patterns of bias}\label{identifying-spatial-patterns-of-bias}
+\subsubsection{Identifying spatial patterns of population bias}\label{identifying-spatial-patterns-of-population-bias}
 
 For each data source, we compute the coverage bias metric at the
 subnational level and examine its geographic variation. This stage has
@@ -475,38 +476,40 @@ sufficiently strong to consider them in the subsequent methodological
 stage through the inclusion of spatial lag terms in the explainable
 machine learning model.
 
-To evaluate the variability of bias across geographies, we first
-conducted exploratory analyses using thematic maps and histograms. To
-formally test for spatial clustering, we calculate Moran's I statistic
-for each dataset. Because Moran's I is sensitive to the definition of
-spatial relationships, we evaluate four alternative spatial weighting
-schemes: 1) queen neighbourhood, 2) k-nearest neighbours, 3) distance
-band (set by algorithm), and 4) distance band (set by user) \citep{rey2023}.
-Comparing results across these schemes enables us to assess the
-robustness of clustering patterns to different definitions of the
-spatial weight matrix. In the main body of the paper, we report Moran's
-I values obtained using scheme 1, as it produces the highest statistic
-across datasets when statistically significant, thereby providing the
-most conservative test for the presence of spatial clustering. Results
-for the other schemes are provided in the Supplementary Information. For
-each dataset, we compute the range of Moran's I values across the four
-spatial weighting schemes (maximum minus minimum). The largest such
-range observed across all datasets is 0.286. This indicates that, while
-the exact values of Moran's I vary somewhat with the choice of weighting
-scheme, the differences are small and the resulting statistics remain
-relatively close.
+To evaluate the variability of bias across
+geographies, we first conducted exploratory analyses using thematic maps
+and histograms. To formally test for spatial clustering, we calculate
+Moran's I statistic for each dataset. Because Moran's I is sensitive to
+the definition of spatial relationships, we evaluate four alternative
+spatial weighting schemes: 1) queen neighbourhood, 2) k-nearest
+neighbours, 3) distance band (set by algorithm), and 4) distance band
+(set by user) \citep{rey2023}. Comparing results across these schemes enables
+us to assess the robustness of clustering patterns to different
+definitions of the spatial weight matrix. In the main body of the paper,
+we report Moran's I values obtained using scheme 1, as it produces the
+highest statistic across datasets when statistically significant,
+thereby providing the most conservative test for the presence of spatial
+clustering. Results for the other schemes are provided in the
+Supplementary Information. For each dataset, we compute the range of
+Moran's I values across the four spatial weighting schemes (maximum
+minus minimum). The largest such range observed across all datasets is
+0.286. This indicates that, while the exact values of Moran's I vary
+somewhat with the choice of weighting scheme, the differences are small
+and the resulting statistics remain relatively close.
 
 Finally, to assess whether bias is associated with population size, we
 examine the relationship between population counts from digital data
 sources and census population counts. If bias varies systematically with
-population size, we would expect departures from proportionality.
-Conversely, an approximately linear relationship through the origin with
-a stable slope would suggest that bias is largely independent of
-population size. To test this, we generate scatterplots comparing the
-two sources and quantify the strength of the relationship using
-Pearson's correlation coefficient.
+population size, we would expect departures from proportionality. Conversely, an
+approximately linear relationship through the origin with a stable slope
+would suggest that bias is largely independent of population size. To
+test this, we generate scatterplots comparing the two sources and
+quantify the strength of the relationship using Pearson's correlation
+coefficient.
 
-\subsubsection{Analysing representativeness bias with explainable machine learning}\label{sec-eml}
+\subsubsection{Analysing representativeness bias with}\label{analysing-representativeness-bias-with}
+
+explainable machine learning \{\#sec-eml\}
 
 We used explainable machine learning to identify the key predictors of
 population bias and how the importance of these predictors varies across
@@ -515,11 +518,10 @@ that population location data from digital platforms are biased
 over-representing urban, wealthy and young-adult populations \textbf{{[}REF{]}}.
 We therefore modelled our measure of population bias from
 Equation\textasciitilde{}\ref{eq:size-bias} as a function of key area-level attributes
-reflecting geographical differences in engagement and access to digital
-technology across demographic, socioeconomic, resource accessibility,
-mobility and geographic factors. Table 2 reports the set of predictors
-included in our analysis. We used data from the 2021 census for England
-and Wales to measure these predictors.
+reflecting geographical differences in engagement and access to digital technology across demographic, socioeconomic,
+resource accessibility, mobility and geographic factors. Table 2 reports
+the set of predictors included in our analysis. We used data from the
+2021 census for England and Wales to measure these predictors.
 
 We used an eXtreme Gradient Boosting (XGBoost) algorithm. XGBoost is an
 ensemble that combines outputs from multiple models to produce a single
@@ -636,7 +638,7 @@ necessary to develop subsequent data adjustment strategies that can
 improve the representativeness of the data relative to the target
 population.
 
-\subsection{The spatial variability of bias}\label{the-spatial-variability-of-bias}
+\subsection{Population bias varies widely over space}\label{population-bias-varies-widely-over-space}
 
 To examine coverage bias at subnational levels, we leveraged the
 fine-grained geographic resolution of the MP app data sources. Analysing
@@ -648,25 +650,25 @@ further research and for deciding whether spatial dependence terms
 should be incorporated into the subsequent modelling stage
 @\ref(\#sec-explain).
 
-Figure \citet{ref}(fig:bias-size) summarises these analyses for each dataset.
-Each row corresponds to a data source and includes three elements: A) a
-hexagonal cartogram showing the size of coverage bias in each LAD,
-alongside the Moran's I statistic and corresponding p-value as a measure
-of spatial autocorrelation; B) a histogram showing the distribution of
-coverage bias across LADs; and C) a scatter plot comparing population
-counts derived from each MP dataset with census population counts for
-the same LADs, together with Pearson's correlation coefficient and
-p-value.
+Figure \citet{ref}(fig:bias-size) summarises these analyses
+for each dataset. Each row corresponds to a data source and includes
+three elements: A) a hexagonal cartogram showing the size of coverage
+bias in each LAD, alongside the Moran's I statistic and corresponding
+p-value as a measure of spatial autocorrelation; B) a histogram showing
+the distribution of coverage bias across LADs; and C) a scatter plot
+comparing population counts derived from each MP dataset with census
+population counts for the same LADs, together with Pearson's correlation
+coefficient and p-value.
 
 \begin{figure}
 \centering
 \includegraphics[width=14cm,height=13cm]{figures/Fig-size-bias.png}
-\caption{\textbf{Extent and spatial distribution of population bias across local
-authority districts in the UK.} \textbf{A.} Hexagon map of the size of
-population bias across local authority districts. \(I\) represents the
-Moran's I and \(p\) denotes the associated p-value. \textbf{B.} Histogram of
-the distribution of the size of population bias. \textbf{C.} Scatter plot of
-the relationship between population size and size of
+\caption{Extent and spatial distribution of population bias across local
+authority districts in the UK. A. Hexagon map of the size of population
+bias across local authority districts. \$I\$ represents the Moran's I
+and \$p\$ denotes the associated p-value. B. Histogram of the
+distribution of the size of population bias. C. Scatter plot of the
+relationship between population size and size of
 bias.}\label{fig:bias-size}
 \end{figure}
 
@@ -690,11 +692,12 @@ clustering is weak at the LAD scale. Consequently, we concluded that it
 is unnecessary to include spatial dependence terms (e.g.~spatial lag) in
 the subsequent modelling stage of our framework.
 
-Third, the variability in coverage bias was not explained by the
-absolute population size of each LAD. Scatter plots comparing population
-counts derived from MP data and from the census revealed strong linear
-relationships. This was quantitatively supported by Pearson correlation
-coefficients consistently close to one and statistically significant.
+Third, the variability in coverage bias was not
+explained by the absolute population size of each LAD. Scatter plots
+comparing population counts derived from MP data and from the census
+revealed strong linear relationships. This was quantitatively supported
+by Pearson correlation coefficients consistently close to one and
+statistically significant.
 
 In terms of specific patterns of population coverage bias, we observed
 some differences across datasets. We found that Twitter/X data shows the
@@ -866,25 +869,25 @@ across variables.
 
 \subsection{Key findings}\label{key-findings}
 
-MPD have become a key data asset to understanding population dynamics in
-near real-time at high spatial and temporal resolution. Yet, biases have
-remained a major barrier eroding their trust and wider adoption. A key
-limitation to tackle this issue has been the lack of a standardised
-method to estimate and analyse coverage biases in MPD-derived population
-data. In this study, we sought to contribute a systematic and
-generalisable approach to measure and analyse coverage biases in
-MP-derived population data, when access to individual-level demographic
-attributes are lacking. Implementing this approach on UK data, we
-presented evidence showing that MDP tend to provide greater population
-coverage than widely used traditional surveys. Our findings also
-revealed that coverage biases vary markedly across data sources and
-subnational areas, that multi-app data sources does not necessarily
-offer broader coverage than single-app sources, and that demographic,
-socioeconomic and geographic features consistently explain a large share
-of spatial variation in coverage bias. Additionally, we identified
-distinctive nonlinear effects in the association between contextual
-features and coverage bias, suggesting that such biases cannot be
-addressed with simple linear adjustment.
+MPD have become a key data asset to understanding
+population dynamics in near real-time at high spatial and temporal
+resolution. Yet, biases have remained a major barrier eroding their
+trust and wider adoption. A key limitation to tackle this issue has been
+the lack of a standardised method to estimate and analyse coverage
+biases in MPD-derived population data. In this study, we sought to
+contribute a systematic and generalisable approach to measure and
+analyse coverage biases in MP-derived population data, when access to
+individual-level demographic attributes are lacking. Implementing this
+approach on UK data, we presented evidence showing that MDP tend to
+provide greater population coverage than widely used traditional
+surveys. Our findings also revealed that coverage biases vary markedly
+across data sources and subnational areas, that multi-app data sources
+does not necessarily offer broader coverage than single-app sources, and
+that demographic, socioeconomic and geographic features consistently
+explain a large share of spatial variation in coverage bias.
+Additionally, we identified distinctive nonlinear effects in the
+association between contextual features and coverage bias, suggesting
+that such biases cannot be addressed with simple linear adjustment.
 
 \subsection{Implications}\label{implications}
 
@@ -912,6 +915,15 @@ response, public health monitoring and infrastructure planning.
 \subsection{Challenges and limitations}\label{challenges-and-limitations}
 
 \subsection{Future directions}\label{future-directions}
+
+For multi-app - wider set of factors contribute to explaining biases
+
+\begin{itemize}
+\tightlist
+\item
+  Age structure has less predictive importance than socioeconomic and
+  geographic factors
+\end{itemize}
 
 \ethics{Please provide details on the ethics.}
 

@@ -18,14 +18,26 @@ library(scales)
 library(colorspace)
 library(ggradar)
 
-# Use Roboto for ALL radar plots (register Google font and enable showtext)
 library(sysfonts)
 library(showtext)
-sysfonts::font_add_google("Roboto", "Roboto")
+
+# Register two aliases:
+# - "robotocondensed"      -> regular weight (400)
+# - "robotocondensed_bold" -> bold weight (700) to FORCE bold wherever we pass this family
+sysfonts::font_add_google("Roboto Condensed", "robotocondensed",       regular.wt = 400, bold.wt = 700)
+sysfonts::font_add_google("Roboto Condensed", "robotocondensed_bold",  regular.wt = 700, bold.wt = 700)
+
+# Turn on showtext so HTML/PNG devices render these fonts
 showtext::showtext_auto()
 
-# Make Roboto the default ggplot font (helps ggradar too)
-theme_set(theme_minimal(base_family = "Roboto"))
+# Make Roboto Condensed the default ggplot family; set bold face in theme for non-ggradar text
+theme_set(
+  theme_minimal(base_family = "robotocondensed") +
+    theme(
+      text         = element_text(family = "robotocondensed", face = "bold"),
+      legend.text  = element_text(family = "robotocondensed", face = "bold")
+    )
+)
 ```
 
 # Data
@@ -128,12 +140,18 @@ porter_fills_single <- lighten(porter_cols, amount = 0.3) %>% alpha(0.35)
 porter_layers <- function(){
   list(
     ggplot2::theme(
-      text            = element_text(family = "Roboto"),
+      text            = element_text(family = "robotocondensed"),
       plot.title      = element_blank(),
+      # scale_x_discrete(labels = label_wrap(10)),
+      # scale_y_discrete(labels = label_wrap(10)),
       plot.subtitle   = element_blank(),
       legend.position = "bottom",
       legend.title    = element_blank(),
-      legend.text     = element_text(family = "Roboto", size = 48)
+      legend.text     = element_text(family = "robotocondensed", size = 48),
+      plot.margin = margin(t = 0,  # Top margin
+                             r = 0,  # Right margin
+                             b = 0,  # Bottom margin
+                             l = 0) # Left margin
     )
   )
 }
@@ -216,14 +234,14 @@ radar_plot_global <- function(wide_df){
     values.radar = c("0","0.5","1"),
     group.line.width = 1.1,
     group.point.size = 2.0,
-    axis.label.size = 18,
+    axis.label.size = 28,
     background.circle.colour = "white",
     gridline.min.colour = "grey85",
     gridline.mid.colour = "grey90",
     gridline.max.colour = "grey85",
     axis.line.colour = "grey70",
     fill = TRUE,
-    font.radar = "Roboto"
+    font.radar = "robotocondensed_bold"
   ) +
     scale_colour_manual(values = porter_cols, breaks = legend_order, guide = "none") +
     scale_fill_manual(values = porter_fills_global, breaks = legend_order) +
@@ -239,14 +257,14 @@ radar_plot_single <- function(wide_df, series_name){
     values.radar = c("0","0.5","1"),
     group.line.width = 1.3,
     group.point.size = 2.4,
-    axis.label.size = 16,
+    axis.label.size = 0.1,
     background.circle.colour = "white",
     gridline.min.colour = "grey85",
     gridline.mid.colour = "grey90",
     gridline.max.colour = "grey85",
     axis.line.colour = "grey70",
     fill = TRUE,
-    font.radar = "Roboto"
+    font.radar = "robotocondensed"
   ) +
     scale_colour_manual(values = porter_cols[series_name], guide = "none") +
     scale_fill_manual(values = porter_fills_single[series_name], guide = "none") +
