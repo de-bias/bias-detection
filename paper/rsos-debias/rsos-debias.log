@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  18 AUG 2025 15:44
-=======
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  28 AUG 2025 17:57
->>>>>>> Stashed changes
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  28 AUG 2025 22:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -435,7 +431,8 @@ File: l3backend-xetex.def 2024-05-08 L3 backend support: XeTeX
 \l__pdf_internal_box=\box72
 \g__pdf_backend_annotation_int=\count331
 \g__pdf_backend_link_int=\count332
-) (./rsos-debias.aux)
+)
+No file rsos-debias.aux.
 \openout1 = `rsos-debias.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
@@ -460,9 +457,11 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
 LaTeX Font Info:    ... okay on input line 41.
 Package crop Info: using `pdftex' graphics driver on input line 41.
 Package hyperref Info: Link coloring ON on input line 41.
-(./rsos-debias.out) (./rsos-debias.out)
 \@outlinefile=\write4
 \openout4 = `rsos-debias.out'.
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 
 Underfull \hbox (badness 4981) in paragraph at lines 76--78
@@ -628,9 +627,36 @@ Overfull \hbox (14.27687pt too wide) has occurred while \output is active
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 13.6001pt on input line 88.
 
-Underfull \hbox (badness 1688) in paragraph at lines 90--105
-\T1/ppl/m/n/9 and COVID-19 have tested and ac-cen-tu-ated weak-nesses in tra-di-tional data sys-tems [[]].
+Package natbib Warning: Citation `green2021' on page 2 undefined on input line 95.
+
+
+Package natbib Warning: Citation `rowe23-bigdata' on page 2 undefined on input line 97.
+
+
+Package natbib Warning: Citation `rowe23-bigdata' on page 2 undefined on input line 99.
+
+
+Package natbib Warning: Citation `iradukunda2025' on page 2 undefined on input line 102.
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 90--105
+\T1/ppl/m/n/9 and COVID-19 have tested and ac-cen-tu-ated weak-nesses in tra-di-tional data sys-tems [\T1/ppl/b/n/9 ? \T1/ppl/m/n/9 ].
  []
+
+
+Package natbib Warning: Citation `rowe23-bigdata' on page 2 undefined on input line 127.
+
+
+Package natbib Warning: Citation `rowe23-bigdata' on page 2 undefined on input line 139.
+
+
+Package natbib Warning: Citation `wesolowski13-biases' on page 2 undefined on input line 144.
+
+
+Package natbib Warning: Citation `ofcom23' on page 2 undefined on input line 148.
+
+
+Package natbib Warning: Citation `statista24' on page 2 undefined on input line 149.
 
 
 Underfull \hbox (badness 1783) in paragraph at lines 138--155
@@ -638,7 +664,13 @@ Underfull \hbox (badness 1783) in paragraph at lines 138--155
  []
 
 
-Underfull \hbox (badness 1142) in paragraph at lines 156--172
+Package natbib Warning: Citation `rowe22-sensing-ukraine' on page 2 undefined on input line 171.
+
+
+Package natbib Warning: Citation `rowe22-sensing-ukraine' on page 2 undefined on input line 174.
+
+
+Underfull \hbox (badness 1142) in paragraph at lines 156--177
 \T1/ppl/m/n/9 un-cor-rected, MPD re-pro-duce se-lec-tive pat-terns of smart-phone own-er-ship and ap-pli-ca-tion
  []
 
@@ -648,23 +680,20 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.65005pt on input line 172.
+(Font)              scaled to size 7.65005pt on input line 177.
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [2]
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 201.
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 206.
 (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 )
-<<<<<<< Updated upstream
-=======
-Underfull \hbox (badness 3364) in paragraph at lines 207--211
+Underfull \hbox (badness 3364) in paragraph at lines 212--216
 []\T1/ppl/m/n/9 How sys-tem-atic is the as-so-ci-a-tion be-tween larger pop-u-la-tion bi-ases and over-
  []
 
 
->>>>>>> Stashed changes
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
@@ -673,34 +702,22 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 File: figures/table-data-source.png Graphic file (type bmp)
 <figures/table-data-source.png>
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-<<<<<<< Updated upstream
-(Font)              scaled to size 7.22505pt on input line 283.
+(Font)              scaled to size 7.22505pt on input line 291.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 283.
+(Font)              scaled to size 7.22505pt on input line 291.
 
-Underfull \hbox (badness 10000) detected at line 283
-=======
-(Font)              scaled to size 7.22505pt on input line 286.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 286.
-
-Underfull \hbox (badness 10000) detected at line 286
->>>>>>> Stashed changes
+Underfull \hbox (badness 10000) detected at line 291
 []
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-<<<<<<< Updated upstream
-(Font)              scaled to size 10.20007pt on input line 286.
+(Font)              scaled to size 10.20007pt on input line 295.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 286.
-=======
-(Font)              scaled to size 10.20007pt on input line 290.
+(hyperref)                than one, level fixed on input line 295.
 
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 290.
->>>>>>> Stashed changes
+
+Package natbib Warning: Citation `maas2019' on page 4 undefined on input line 309.
 
 
 
@@ -708,13 +725,31 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [4]
-<<<<<<< Updated upstream
-Underfull \hbox (badness 1152) in paragraph at lines 324--340
-=======
-Underfull \hbox (badness 1152) in paragraph at lines 328--344
->>>>>>> Stashed changes
+
+Package natbib Warning: Citation `bingmaps_tile_system' on page 5 undefined on input line 318.
+
+
+Package natbib Warning: Citation `maas2019' on page 5 undefined on input line 320.
+
+
+Package natbib Warning: Citation `wang2022' on page 5 undefined on input line 343.
+
+
+Package natbib Warning: Citation `wang2022' on page 5 undefined on input line 348.
+
+
+Underfull \hbox (badness 1152) in paragraph at lines 333--349
 \T1/pcr/m/n/9 Twitter-[]Internal-[]Migration$[][]\T1/ppl/m/n/9 . Ge-olo-ca-tion is ob-tained ei-ther di-rectly from geo-tagged
  []
+
+
+Package natbib Warning: Citation `wang2022' on page 5 undefined on input line 365.
+
+
+Package natbib Warning: Citation `zhong24working' on page 5 undefined on input line 365.
+
+
+Package natbib Warning: Citation `zhong24working' on page 5 undefined on input line 381.
 
 
 
@@ -722,14 +757,13 @@ Underfull \hbox (badness 1152) in paragraph at lines 328--344
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [5]
+
+LaTeX Warning: Reference `tab:covariates' on page 6 undefined on input line 406.
+
 File: figures/01_table-variable-dictionary_explain.png Graphic file (type bmp)
 <figures/01_table-variable-dictionary_explain.png>
 
-<<<<<<< Updated upstream
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 431.
-=======
-Underfull \hbox (badness 10000) detected at line 410
+Underfull \hbox (badness 10000) detected at line 415
 []
  []
 
@@ -738,8 +772,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 440.
->>>>>>> Stashed changes
+(hyperref)                than one, level fixed on input line 445.
 
 
 
@@ -753,77 +786,110 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [7]
 
+Package natbib Warning: Citation `rey2023' on page 8 undefined on input line 487.
+
+
+LaTeX Warning: Reference `eq:size-bias' on page 8 undefined on input line 519.
+
+
+Package natbib Warning: Citation `friedman2001a' on page 8 undefined on input line 528.
+
+
+Package natbib Warning: Citation `chen2016' on page 8 undefined on input line 533.
+
+
+Package natbib Warning: Citation `nielsen2016tree' on page 8 undefined on input line 533.
+
+
+Package natbib Warning: Citation `chen2016' on page 8 undefined on input line 537.
+
+
+Package natbib Warning: Citation `chen2016' on page 8 undefined on input line 539.
+
+
+
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [8]
+
+LaTeX Warning: Reference `eq:xgb-model' on page 9 undefined on input line 555.
+
+
+Package natbib Warning: Citation `chen2016' on page 9 undefined on input line 565.
+
+
+LaTeX Warning: Reference `sec-data' on page 9 undefined on input line 577.
+
+
+LaTeX Warning: Reference `eq:size-bias' on page 9 undefined on input line 587.
+
+
+Package natbib Warning: Citation `ukdataserviceSurveysData' on page 9 undefined on input line 591.
+
+
+LaTeX Warning: Reference `fig:survey' on page 9 undefined on input line 592.
+
 File: figures/compare-surveys-legend.png Graphic file (type bmp)
 <figures/compare-surveys-legend.png>
 
-<<<<<<< Updated upstream
-=======
-Overfull \hbox (14.22751pt too wide) in paragraph at lines 598--601
+Overfull \hbox (14.22751pt too wide) in paragraph at lines 599--602
  [][] 
  []
 
 
->>>>>>> Stashed changes
+LaTeX Warning: Reference `fig:survey' on page 9 undefined on input line 605.
+
+
+Package natbib Warning: Citation `lohr2021' on page 9 undefined on input line 615.
+
+
+Package natbib Warning: Citation `cochran1977sampling' on page 9 undefined on input line 618.
+
+
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [9]
-<<<<<<< Updated upstream
-Underfull \hbox (badness 1275) in paragraph at lines 628--637
-=======
 Underfull \hbox (badness 1275) in paragraph at lines 647--656
->>>>>>> Stashed changes
 \T1/ppl/m/n/9 We next lever-age the fine-grained ge-o-graphic res-o-lu-tion of the MP app data sources to
  []
 
 
-LaTeX Warning: Reference `fig:size-bias-spatial' on page 10 undefined on input line 638.
+LaTeX Warning: Reference `fig:bias-size' on page 10 undefined on input line 657.
 
 File: figures/Fig-size-bias.png Graphic file (type bmp)
 <figures/Fig-size-bias.png>
 
-<<<<<<< Updated upstream
-Overfull \hbox (29.1196pt too wide) in paragraph at lines 652--653
-[][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-=======
-Overfull \hbox (14.20956pt too wide) in paragraph at lines 673--680
+Overfull \hbox (14.20956pt too wide) in paragraph at lines 672--679
  [][] 
  []
 
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 680.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 679.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 680.
+(Font)              size <8> substituted on input line 679.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.25> not available
-(Font)              size <5> substituted on input line 680.
+(Font)              size <5> substituted on input line 679.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <8.5> not available
-(Font)              size <8> substituted on input line 680.
+(Font)              size <8> substituted on input line 679.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.25> not available
-(Font)              size <5> substituted on input line 680.
+(Font)              size <5> substituted on input line 679.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 680.
+(Font)              size <8> substituted on input line 679.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
-(Font)              size <5> substituted on input line 680.
->>>>>>> Stashed changes
+(Font)              size <5> substituted on input line 679.
 
 
 
@@ -831,124 +897,45 @@ LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [10]
-<<<<<<< Updated upstream
-=======
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \hbox (badness 2495) in paragraph at lines 703--706
+[]\T1/ppl/m/n/9 population counts de-rived from MP data and from the cen-sus re-veal strong lin-ear
+ []
 
 
->>>>>>> Stashed changes
 
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
-<<<<<<< Updated upstream
-[11] (./rsos-debias.bbl) Setting LastPage
-=======
 [11]
-Underfull \hbox (badness 1466) in paragraph at lines 716--726
+
+LaTeX Warning: Reference `fig:radialplots' on page 12 undefined on input line 718.
+
+
+LaTeX Warning: Reference `sec-eml' on page 12 undefined on input line 721.
+
+
+LaTeX Warning: Reference `fig:radialplots' on page 12 undefined on input line 723.
+
+
+Underfull \hbox (badness 1466) in paragraph at lines 715--725
 \T1/ppl/m/n/9 pop-u-la-tion bi-ases across de-mo-graphic, so-cioe-co-nomic, re-source ac-ces-si-bil-ity, mo-bil-ity and
  []
 
-File: figures/radial-plots_feature-importance.png Graphic file (type bmp)
-<figures/radial-plots_feature-importance.png>
 
-Overfull \hbox (19.82317pt too wide) in paragraph at lines 729--740
- [][] 
- []
+LaTeX Warning: File `figures/radial-plots_feature-importance.png' not found on input line 728.
 
-File: figures/explain-bias.png Graphic file (type bmp)
-<figures/explain-bias.png>
-
-Overfull \hbox (17.06105pt too wide) in paragraph at lines 772--784
- [][] 
- []
-
-
->>>>>>> Stashed changes
-
-
-Overfull \vbox (21.4162pt too high) has occurred while \output is active []
-
-<<<<<<< Updated upstream
-[12] (./rsos-debias.aux)
-=======
-[12]
-Underfull \hbox (badness 1237) in paragraph at lines 816--844
-[]\T1/ppl/m/n/9 Figure [][]4[][][] also re-veals sys-tem-atic com-plex non-lin-ear shapes in the as-so-ci-a-tion be-tween
- []
-
-
-
-
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-[13]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-
-Overfull \vbox (21.4162pt too high) has occurred while \output is active []
-
-[14]
-Underfull \hbox (badness 4859) in paragraph at lines 864--868
-[]\T1/ppl/m/n/9 Findings sug-gest how data should be ad-justed to re-duce bias and aug-ment
- []
-
-
-Overfull \hbox (231.4871pt too wide) in paragraph at lines 879--879
-[]  \T1/pcr/m/n/9 <!-- Don't think this a finding. I feel we know already this. It feels more like the motivation of our work. -->[] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 886--888
-
- []
-
-(./rsos-debias.bbl
-
-
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-[15]) Setting LastPage
-
-
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-[16] (./rsos-debias.aux)
->>>>>>> Stashed changes
- ***********
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-11-02>
- ***********
-
-LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 1.25pt have occurred.
-
-
-LaTeX Warning: There were undefined references.
-
-Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-<<<<<<< Updated upstream
-(rerunfilecheck)             Checksum: F19012F473E209FBD07AB4BCB90ADF42;2613.
- ) 
+! Unable to load picture or PDF file 'figures/radial-plots_feature-importance.png'.
+<to be read again> 
+                   }
+l.728 ...ures/radial-plots_feature-importance.png}
+                                                   
 Here is how much of TeX's memory you used:
- 12108 strings out of 475903
- 185637 string characters out of 5774979
- 583493 words of memory out of 5000000
- 34694 multiletter control sequences out of 15000+600000
- 611949 words of font info for 133 fonts, out of 8000000 for 9000
-=======
-(rerunfilecheck)             Checksum: CDCFBF7777405CCC6BCFA319FB01E1C6;4050.
- ) 
-Here is how much of TeX's memory you used:
- 12171 strings out of 475903
- 187099 string characters out of 5774979
- 587419 words of memory out of 5000000
- 34752 multiletter control sequences out of 15000+600000
- 615318 words of font info for 148 fonts, out of 8000000 for 9000
->>>>>>> Stashed changes
+ 12092 strings out of 475903
+ 186709 string characters out of 5774979
+ 579354 words of memory out of 5000000
+ 34686 multiletter control sequences out of 15000+600000
+ 613490 words of font info for 146 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
  87i,13n,93p,1429b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-debias.pdf (12 pages).
+Output written on rsos-debias.pdf (11 pages).
