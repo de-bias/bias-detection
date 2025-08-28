@@ -735,11 +735,6 @@ MPD have become a key data asset to understanding population dynamics in near re
 
 These findings carry wide-ranging implications for the use of MPD in research and official statistics. First, the framework we propose offers a replicable approach for evaluating the quality of MP-derived population counts when demographic information is unavailable, establishing a baseline for transparent quality assessment. Second, the evidence provided here underscores the need for source-specific adjustment strategies to mitigate data biases. While single-app datasets show biases predominantly related to a reduced set of factors -such as age and geographic features- multi-app sources require more complex calibration that accounts for variations across a wider range expanding from educational and occupational to age and household features. This finding suggests that improving the representativeness of statistics derived from multi-app sources will require more sophisticated reweighting and debiasing strategies than those from single-app data. More broadly, our study reinforces the view that digital trace data should not be treated as neutral reflections of population activity but rather as selective windows shaped by persistent digital divides. Recognising and adjusting for these divides is essential if MPD are to contribute effectively to decision-making in contexts such as crisis response, public health monitoring and infrastructure planning.
 
-- We contributed a systematic and general approach to measure and explain biases when population features are unavailable.
-
-- Findings suggest how data should be adjusted to reduce bias and augment representativeness of the data. Highlight potential approaches to adjust biases.
-
-- Multi-app may require a more complicated set of weighting schemes to adjust MPD-based population counts - more features emege as important
 
 
 
