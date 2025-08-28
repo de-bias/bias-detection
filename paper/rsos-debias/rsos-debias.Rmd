@@ -479,16 +479,21 @@ relationships, we evaluate four alternative spatial weighting schemes:
 1) queen neighbourhood, 2) k-nearest neighbours, 3) distance band (set
 by algorithm), and 4) distance band (set by user) [**REF**]. Comparing
 results across these schemes enables us to assess the robustness of
-clustering patterns to different neighbourhood definitions. In the main
+clustering patterns to different neighbourhood definitions.
+<!-- FR: Neighbourhood definitions may be misleading. Different definitions of the spatial weight matrix may be clearer -->
+In the main
 body of the paper, we report Moran’s I values obtained using scheme 1,
 as it produces the highest statistic across datasets when statistically
 significant, thereby providing the most conservative test for the
 presence of spatial clustering. Results for the other schemes are
 provided in the Supplementary Information.
+<!-- FR: We should provide a statement as to how robust the results are given variations to the spatial weight definition and spatial aggregation. -->
 
 Finally, to examine whether bias is associated with population size, we
 generate scatterplots comparing population counts from the digital data
-sources with census population counts. If bias varies with population
+sources with census population counts. 
+<!-- FR: rather than starting with what we have done, would suggest to start with the purpose. Establish the purpose first and then explain how this is done. Would suggest the same approach for all the methods section.-->
+If bias varies with population
 size, we would expect systematic departures from proportionality.
 Conversely, an approximately linear relationship through the origin with
 a stable slope would suggest that bias is largely independent of
@@ -579,14 +584,18 @@ evaluated.
 
 ## The extent of population bias varies across data sources
 
-We begin by quantifying coverage bias in each of the mobile phone (MP)
-datasets, defined as a function of the proportion of the total
+We first quantified coverage bias in each of the mobile phone (MP)
+datasets,
+<!-- FR: This acronym should have been introduced by now -->
+defined as a function of the proportion of the total
 population captured by the dataset, as defined in Equation
-\ref{eq:size-bias}. Coverage bias is first computed at the national
+\ref{eq:size-bias}. 
+<!-- FR: would remove the sentence above. Repetitive - has been explained already. -->
+Coverage bias is first computed at the national
 level for each MP data source. To contextualise these results, we
 compare the MP sources with several widely used traditional datasets,
 including major UK surveys available through the UK Data Service
-[@ukdataserviceSurveysData]. Figure X presents these comparisons across
+[@ukdataserviceSurveysData]. Figure \@ref(fig:survey) presents these comparisons across
 data sources, showing on the top x-axis the population coverage
 (expressed as the number of respondents or subjects per 1,000 people)
 and on the bottom x-axis the corresponding measure of coverage bias.
