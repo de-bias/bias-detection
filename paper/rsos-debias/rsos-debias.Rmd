@@ -127,7 +127,7 @@ activity [REF] and estimate migration and population displacement [REF].
 
 However, the use of MPD present major epistemological, methodological
 and ethical challenges [@rowe23-bigdata]. A key unresolved challenge is
-potential biases in MPAD compromising their statistical
+potential biases in MPD compromising their statistical
 representativeness and perpetuate social injustice [REF]. Biases reflect
 societal digital and socioeconomic inequalities. Biases emerge from
 differences in the access and use of the mobile phone applications used
@@ -729,6 +729,8 @@ low and high end values of the contextual feature relative to middle range featu
 
 ## Key findings
 
+- MPD as a key asset but bias remains a key issue.
+
 - 
 
 - 
@@ -746,6 +748,8 @@ low and high end values of the contextual feature relative to middle range featu
 
 
 ## Challenges and limitations
+
+## Future directions
 
 <!-- PROPOSED PARAGRAPH STRUCTURE-->
 

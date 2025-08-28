@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.11)  28 AUG 2025 12:42
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.11)  28 AUG 2025 13:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -678,6 +678,12 @@ LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 2
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 )
+Underfull \hbox (badness 3364) in paragraph at lines 206--210
+[]\T1/ppl/m/n/9 How sys-tem-atic is the as-so-ci-a-tion be-tween larger pop-u-l
+a-tion bi-ases and over-
+ []
+
+
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
@@ -686,19 +692,19 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 File: figures/table-data-source.png Graphic file (type bmp)
 <figures/table-data-source.png>
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.22505pt on input line 282.
+(Font)              scaled to size 7.22505pt on input line 284.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 282.
+(Font)              scaled to size 7.22505pt on input line 284.
 
-Underfull \hbox (badness 10000) detected at line 282
+Underfull \hbox (badness 10000) detected at line 284
 []
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 286.
+(Font)              scaled to size 10.20007pt on input line 288.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 286.
+(hyperref)                than one, level fixed on input line 288.
 
 
 
@@ -706,7 +712,7 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [4]
-Underfull \hbox (badness 1152) in paragraph at lines 324--340
+Underfull \hbox (badness 1152) in paragraph at lines 326--342
 \T1/pcr/m/n/9 Twitter-[]Internal-[]Migration$[][]\T1/ppl/m/n/9 . Ge-olo-ca-tion
  is ob-tained ei-ther di-rectly from geo-tagged
  []
@@ -720,7 +726,7 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 File: figures/01_table-variable-dictionary_explain.png Graphic file (type bmp)
 <figures/01_table-variable-dictionary_explain.png>
 
-Underfull \hbox (badness 10000) detected at line 399
+Underfull \hbox (badness 10000) detected at line 401
 []
  []
 
@@ -729,7 +735,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 428.
+(hyperref)                than one, level fixed on input line 430.
 
 
 
@@ -750,7 +756,7 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 File: figures/compare-surveys-legend.png Graphic file (type bmp)
 <figures/compare-surveys-legend.png>
 
-Overfull \hbox (14.22751pt too wide) in paragraph at lines 583--584
+Overfull \hbox (14.22751pt too wide) in paragraph at lines 585--586
  [][] 
  []
 
@@ -760,7 +766,7 @@ Overfull \hbox (14.22751pt too wide) in paragraph at lines 583--584
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [9]
-Underfull \hbox (badness 1275) in paragraph at lines 629--638
+Underfull \hbox (badness 1275) in paragraph at lines 632--641
 \T1/ppl/m/n/9 We next lever-age the fine-grained ge-o-graphic res-o-lu-tion of 
 the MP app data sources to
  []
@@ -768,34 +774,34 @@ the MP app data sources to
 File: figures/Fig-size-bias.png Graphic file (type bmp)
 <figures/Fig-size-bias.png>
 
-Overfull \hbox (14.13942pt too wide) in paragraph at lines 655--656
+Overfull \hbox (14.13942pt too wide) in paragraph at lines 658--659
  [][] 
  []
 
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 656.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 659.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 656.
+(Font)              size <8> substituted on input line 659.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.25> not available
-(Font)              size <5> substituted on input line 656.
+(Font)              size <5> substituted on input line 659.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <8.5> not available
-(Font)              size <8> substituted on input line 656.
+(Font)              size <8> substituted on input line 659.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.25> not available
-(Font)              size <5> substituted on input line 656.
+(Font)              size <5> substituted on input line 659.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 656.
+(Font)              size <8> substituted on input line 659.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
-(Font)              size <5> substituted on input line 656.
+(Font)              size <5> substituted on input line 659.
 
 
 
@@ -803,7 +809,7 @@ LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [10]
-Underfull \hbox (badness 1466) in paragraph at lines 691--692
+Underfull \hbox (badness 1466) in paragraph at lines 694--695
 \T1/ppl/m/n/9 pop-u-la-tion bi-ases across de-mo-graphic, so-cioe-co-nomic, re-
 source ac-ces-si-bil-ity, mo-bil-ity and
  []
@@ -811,7 +817,7 @@ source ac-ces-si-bil-ity, mo-bil-ity and
 File: figures/radial-plots_feature-importance.png Graphic file (type bmp)
 <figures/radial-plots_feature-importance.png>
 
-Overfull \hbox (19.82317pt too wide) in paragraph at lines 695--696
+Overfull \hbox (19.82317pt too wide) in paragraph at lines 698--699
  [][] 
  []
 
@@ -829,7 +835,7 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 File: figures/explain-bias.png Graphic file (type bmp)
 <figures/explain-bias.png>
 
-Overfull \hbox (17.06105pt too wide) in paragraph at lines 703--704
+Overfull \hbox (17.06105pt too wide) in paragraph at lines 706--707
  [][] 
  []
 
@@ -842,27 +848,47 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [13]
-Underfull \hbox (badness 1237) in paragraph at lines 709--711
+Underfull \hbox (badness 1237) in paragraph at lines 712--714
 []\T1/ppl/m/n/9 Figure [][]4[][][] also re-veals sys-tem-atic com-plex non-lin-
 ear shapes in the as-so-ci-a-tion be-tween
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 738--739
-
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
-[14] (./rsos-debias.bbl) Setting LastPage
+[14]
+Underfull \hbox (badness 4859) in paragraph at lines 733--735
+[]\T1/ppl/m/n/9 Findings sug-gest how data should be ad-justed to re-duce bias 
+and aug-ment
+ []
+
+
+Overfull \hbox (231.4871pt too wide) in paragraph at lines 742--742
+[]  \T1/pcr/m/n/9 <!-- Don't think this a finding. I feel we know already this.
+ It feels more like the motivation of our work. -->[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 749--750
+
+ []
+
+(./rsos-debias.bbl
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[15] (./rsos-debias.aux)
+[15]) Setting LastPage
+
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+[16] (./rsos-debias.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -876,11 +902,11 @@ Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  12220 strings out of 473832
- 187117 string characters out of 5729481
+ 187151 string characters out of 5729481
  595271 words of memory out of 5000000
  35038 multiletter control sequences out of 15000+600000
- 617948 words of font info for 150 fonts, out of 8000000 for 9000
+ 616086 words of font info for 148 fonts, out of 8000000 for 9000
  1358 hyphenation exceptions out of 8191
- 87i,13n,93p,1975b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 87i,13n,93p,1975b,489s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-debias.pdf (15 pages).
+Output written on rsos-debias.pdf (16 pages).
