@@ -702,59 +702,39 @@ The results reveal wide variability in the key predictors of population biases a
 
 Expanding this evidence, Figure \ref{fig:shap-plots} depicts the way these contextual features contribute to increasing or reducing the extent of population bias across LADs. Figure \ref{fig:shap-plots}.a shows the top 20 features based on their average SHAP value from the highest to the lowest. Figure \ref{fig:shap-plots}.b displays top six of these features revealing how changes in feature values contribute to changes in population bias, with colour encoding feature values. For instance, the first column of plots show that areas with larger shares of population aged 20-29 and lacking central heating tend to have lower population bias compared to those with larger shares in Twitter/X-derived estimates. In contrast, areas with larger shares of population aged 10-19 are associated with higher Twitter/X-based population bias, potentially reflecting a limited number of active Twitter/X users in this age range. Of the features highlighted in Figure \ref{fig:radialplots}, Figure \ref{fig:shap-plots} indicates that population estimates derived from Meta tend to have larger biases in areas with higher population density and greater percentages of people lacking central heating. Operating in the opposite direction, larger shares of people working in routine-level jobs and living in rural areas display lower Meta-based population bias, reflecting greater engagement with Facebook among these communities. For multi-app1-derived estimates, biases are larger for areas with greater shares of population with Level 4 or no qualification, working in routine-level jobs, lacking central heating, living in rural communities and population aged 60-69. For multi-app2-derived estimates, biases are greater for areas with smaller shares of people working in intermediate-level jobs and self-employed in small businesses, but displaying larger percentages of students, people with Level 4 qualification and living in large households.
 
-Figure \ref{fig:shap-plots} also reveals systematic complex nonlinear shapes in the association between contextual features and population bias. We identified three types of nonlinear relationships. Curvilinear associations in the way of U-shape or inverse U shapes.
+Figure \ref{fig:shap-plots} also reveals systematic complex nonlinear shapes in the association between contextual features and population bias. We identified three types of nonlinear relationships. First is curvilinear associations in the way of U-shape or inverse U shapes. These involve patterns of population biases decreasing at low values of contextual features, increasing at medium values and reducing again - or the reverse. A distinctive pattern of these associations is their curvature representing a reversal in the direction of the relationship between population bias and a contextual feature. Meta-based population density and Multi-app2-based intermediate feature estimates represent prominent curvilinear relationships. A second pattern takes the form of S-shaped associations. The distinctive feature of these associations is their multiple phase composition displaying a different pattern of population biases at
+low and high end values of the contextual feature relative to middle range feature values. Twitter/X-based 20-29 age estimates, for example, display high and unchanging population bias at low feature values, highly variable bias at mid values and low but increasing population bias at high values. A third pattern is threshold/stepwise associations representing sharp changes at a cut-off. The distinctive feature of this pattern is sharp ``steps'' or thresholds where the relationship between population bias and a contextual feature changes abruptly. Population biases would remain flat at low values and then jump and plateau at higher values. Our Multi-app1 estimates for Level 4 qualification represent a clear illustrative of this type of association displaying flat small population bias at low feature values but, then jump and remain high at higher feature values. These shapes do not appear to be data source specific and vary in unpredictable ways across variables.
 
-Threshold/stepwise (sharp change at cut-off)
-Flat at low values, then a jump or plateau at higher values.
-Examples:
-Students (\%) -- flat at low--medium values, then sharp decrease beyond a threshold.
-Age 10--19 (\%) -- flat until a point, then sharp increase.
-No car (\%) -- jump at specific cut-off.
-Distinctive feature: sharp ``steps'' or thresholds where effect changes abruptly.
+\section{Discussion}\label{discussion}
 
-Curvilinear (U-shape / inverse U)
-Bias decreases at low values, increases at medium, then decreases again --- or the reverse.
-Examples:
-Pop\_density -- increases up to a mid-point, then declines (inverse U-shape).
-Routine (\%) -- rise then fall pattern.
-Distinctive feature: curvature --- effect reverses direction once or twice.
-
-S-shaped (multi-phase, reversal at ends)
-Low values push SHAP in one direction, mid values stabilise, and high values reverse again.
-Examples:
-Age 20--29 (\%) -- high SHAP at low values, sharp drop in mid-range, flat at high values.
-Large households (\%) -- gradual S-shaped rise.
-Lower supervisory (\%) -- flat, then step up, then stabilisation.
-Distinctive feature: multiple ``phases'' --- low/high ends behave differently from the middle.
+\subsection{Key findings}\label{key-findings}
 
 \begin{itemize}
 \tightlist
 \item
-  Wide variations in the predictors of biases across digital data sources\\
 \item
-  Systematic nonlinearities / thresholds in the association between bias and contextual attributes\\
 \item
-  Age structure has less predictive importance than socioeconomic and geographic factors\\
-\item
-  Consistency across temporal and spatial aggregations for a given data source?
 \end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
+\subsection{Implications}\label{implications}
+
+\begin{itemize}
 \tightlist
 \item
-  Flat / Weak Relationships
-  No strong directional trend, SHAP values clustered near zero.
-  Examples:
-  Not deprived (\%) -- small variations, weak effect.
-  Intermediate (\%) -- mild downward slope, but weak overall.
-  Distinctive feature: very small marginal effect relative to others.
-\end{enumerate}
+\item
+\end{itemize}
 
-\section{Discussion}\label{discussion}
+\subsection{Challenges and limitations}\label{challenges-and-limitations}
 
 For multi-app - wider set of factors contribute to explaining biases
+
+\begin{itemize}
+\tightlist
+\item
+  Age structure has less predictive importance than socioeconomic and geographic factors\\
+\end{itemize}
+
+\section{Conclusion (CC)}\label{conclusion-cc}
 
 \ethics{Please provide details on the ethics.}
 
