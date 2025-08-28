@@ -431,6 +431,8 @@ modelling.
 
 ### Measuring coverage bias
 
+<!-- FR: If we are to identify our measure as coverage bias, we also need to establish how we analyse representativeness bias since the latter should be the primary objective - and the connection between these two types of biases should be clear from the outset. -->
+
 We define a metric to quantify the magnitude of coverage bias in each
 subnational area. This metric is based on the population coverage of the
 dataset, which we compute as the ratio of the population captured by
@@ -459,7 +461,7 @@ across multiple sources of data and geographic areas.
 
 <!--# FR - this section should describe the intuition of the spatial analysis i.e. why we do it and how. Key is to identify and explain the various methods to measure the spatial weight matrix. Here we should probably already state that spatial correlation is not significant in our analysis - a caveat is that this is at the LAD level. There would be reasons to believe that spatial autocorrelation may be present at lower levels of aggregation. Should we metion this? Not sure at this stage how this could be said without prompting a question on why don't you test this using your mobile phone data? I would start this section stating the purpose of our analysis, rather than how we do this. -->
 
-<!---Explain differences in patterns single app and multi app. What percentage of spatial units are above a certain threshold of bias for each? Are multiapps better at evenning out bias?--->
+<!---Explain differences in patterns single app and multi app. What percentage of spatial units are above a certain threshold of bias for each? Are multiapps better at evening out bias?--->
 
 For each data source, we compute the coverage bias metric at the
 subnational level and examine its geographic variation. This stage has
