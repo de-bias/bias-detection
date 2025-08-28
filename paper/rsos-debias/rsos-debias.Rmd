@@ -367,9 +367,8 @@ this method, we detect 1,536,922 home locations.
 
 ### Multi-app2
 
-Our analysis includes a second source of analysis-ready location data,
-which is openly-available on GitHub
-([https://t.ly/dzlzB)](https://t.ly/dzlzB)). This dataset has already
+Our analysis includes a second source of analysis-ready dataset of population counts. This dataset is openly-available on GitHub
+([https://t.ly/dzlzB)](https://t.ly/dzlzB)), and has 
 been processed to identify the home location of users according to the
 methodology described in [@zhong24working]. The raw data is collected by
 a UK-based data service company, which licenses mobile GPS data from 200
@@ -385,10 +384,9 @@ data by aggregating it spatially from the Middle Layer Super Output Area
 
 ### Census data
 
-<!---Explain why census data--->
+<!---Explain why census data - FR: The current text suggests census data are a benchmark but it does not say how **we** use it.--->
 
-In addition to the mobile phone app data sources described above, we use
-resident population counts from the 2021 UK Census, aggregated at the
+We use resident population counts from the 2021 UK Census, aggregated at the
 LAD level. UK Census is trusted as the official benchmark for population
 counts, so we take these as the ground truth for comparing estimates
 derived from each digital dataset. We also draw on a set of area-based
@@ -459,7 +457,7 @@ across multiple sources of data and geographic areas.
 
 ### Identifying spatial patterns of population bias
 
-<!--# FR - this section should describe the intuition of the spatial analysis i.e. why we do it and how. Key is to identify and explain the various methods to measure the spatial weight matrix. Here we should probably already state that spatial correlation is not significant in our analysis - a caveat is that this is at the LAD level. There would be reasons to believe that spatial autocorrelation may be present at lower levels of aggregation. Should we metion this? Not sure at this stage how this could be said without prompting a question on why don't you test this using your mobile phone data? -->
+<!--# FR - this section should describe the intuition of the spatial analysis i.e. why we do it and how. Key is to identify and explain the various methods to measure the spatial weight matrix. Here we should probably already state that spatial correlation is not significant in our analysis - a caveat is that this is at the LAD level. There would be reasons to believe that spatial autocorrelation may be present at lower levels of aggregation. Should we metion this? Not sure at this stage how this could be said without prompting a question on why don't you test this using your mobile phone data? I would start this section stating the purpose of our analysis, rather than how we do this. -->
 
 <!---Explain differences in patterns single app and multi app. What percentage of spatial units are above a certain threshold of bias for each? Are multiapps better at evenning out bias?--->
 
@@ -471,7 +469,7 @@ sufficiently strong to consider them in the subsequent methodological
 stage through the inclusion of spatial lag terms in the explainable
 machine learning model.
 
-To evaluate the variability of bias across geographies, we first conduct
+To evaluate the variability of bias across geographies, we first conducted
 exploratory analyses using thematic maps and histograms. To formally
 test for spatial clustering, we calculate Moran’s I statistic for each
 dataset. Because Moran’s I is sensitive to the definition of spatial
