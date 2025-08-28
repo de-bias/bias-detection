@@ -684,7 +684,7 @@ composition. We examine these factors in the third stage of our analysis.
 
 \subsection{Key contextual features explain population biases}\label{key-contextual-features-explain-population-biases}
 
-We assessed the contribution of key contextual features to explaining spatial variations in population biases across demographic, socioeconomic, resource accessibility, mobility and geographic domains. Figure \ref{fig:radialplots} displays the relative importance of each individual model feature, representing the average absolute SHapley Additive exPlanations (SHAP) value per feature including in our XGBoost model described in Section \ref{sec-eml} \textbf{{[}REF{]}}. SHAP values are standardised by data source based on minimum and maximum scores to enable comparability. \ref{fig:radialplots} highlights features with standardised importance scores over 0.5 for individual data source.
+We assessed the contribution of key contextual features to explaining spatial variations in population biases across demographic, socioeconomic, resource accessibility, mobility and geographic domains. Figure \ref{fig:radialplots} displays the relative importance of each individual model feature, representing the average absolute SHapley Additive exPlanations (SHAP) value per feature including in our XGBoost model described in Section \ref{sec-eml} \textbf{{[}REF{]}}. SHAP values are standardised by data source based on minimum and maximum scores to enable comparability. Figure \ref{fig:radialplots} highlights features with standardised importance scores over 0.5 for individual data source.
 
 \begin{figure}
 \centering
@@ -692,7 +692,40 @@ We assessed the contribution of key contextual features to explaining spatial va
 \caption{\textbf{Radial charts illustrating the importance of, and contribution to, explaining differences in population biases across local authority districts.} The importance is estimated based on SHAP feature importance scores, calculated as the average absolute SHAP value per feature using an XGBoost machine learning algorithm. Average absolute SHAP values were normalised across individual data using minimum and maximum scores, to ensure comparability across data sources. First column displays the estimates for all data sources and model features. Subsequent columns highlight features scoring SHAP values over 0.5 within a 0-1 range for individual data sources.}\label{fig:radialplots}
 \end{figure}
 
-The results reveal wide variability
+The results reveal wide variability in the key predictors of population biases across digital data sources. Demographic and socioeconomic features appear as the most important predictors of population bias in Twitter/X data. Two features standout -the shares of population aged 20-29 and no car ownership- reflecting the over-representation of the young adult populations or population with access to resources on active Twitter/X users. In addition to demographic and socioeconomic features, resource accessibility and geographic attributes also display some of the largest contributions to explain population biases across Meta, Multi-app1 and Multi-app2 platforms. Coupled to the share of population in routine occupations and lacking central heating, geographical factors particularly population density and rurality report the highest SHAP averages, contributing to explain the spatial variability of Meta-derived population biases. Socioeconomic features standout as the most important predictors of population biases across both multi-app platforms, though differences exist. The population share with high or no qualification, and working in low skill occupations emerge as the most important features in explaining population biases in Multi-app1. This is in addition to the population share aged 60-69, residing in households lacking central heating and living in rural areas. For multi-app2-derived estimates, the share of student population, working in intermediate-level jobs, small employers, having a Level 4 qualification and living in large households score the highest average SHAP values. The variability in feature importance ranking across data sources reflects differences in the contextual features that contribute to explaining biases in their respective population estimates.
+
+\begin{figure}
+\centering
+\includegraphics[width=14.1cm,height=12.2cm]{figures/explain-bias.png}
+\caption{\textbf{Top ranked model features contributing to explaining population biases across local authority districts from an XGboost model.} (a) beeswarm plots of SHAP feature values displaying the relative importance and direction of influence of the top 20 contextual features on the extent of population bias. Features are ranked by their mean absolute SHAP value, with colours indicating feature values (low to high). (b) SHAP dependence plots for the top six features based on their mean absolute SHAP value, illustrating the marginal effect of variation in each predictor on population bias. Local polynomial regression modelling was used to represent local trends with 95\% confidence intervals. Each point represents a local authority district.}\label{fig:shap-plots}
+\end{figure}
+
+Expanding this evidence, Figure \ref{fig:shap-plots} depicts the way these contextual features contribute to increasing or reducing the extent of population bias across LADs. Figure \ref{fig:shap-plots}.a shows the top 20 features based on their average SHAP value from the highest to the lowest. Figure \ref{fig:shap-plots}.b displays top six of these features revealing how changes in feature values contribute to changes in population bias, with colour encoding feature values. For instance, the first column of plots show that areas with larger shares of population aged 20-29 and lacking central heating tend to have lower population bias compared to those with larger shares in Twitter/X-derived estimates. In contrast, areas with larger shares of population aged 10-19 are associated with higher Twitter/X-based population bias, potentially reflecting a limited number of active Twitter/X users in this age range. Of the features highlighted in Figure \ref{fig:radialplots}, Figure \ref{fig:shap-plots} indicates that population estimates derived from Meta tend to have larger biases in areas with higher population density and greater percentages of people lacking central heating. Operating in the opposite direction, larger shares of people working in routine-level jobs and living in rural areas display lower Meta-based population bias, reflecting greater engagement with Facebook among these communities. For multi-app1-derived estimates, biases are larger for areas with greater shares of population with Level 4 or no qualification, working in routine-level jobs, lacking central heating, living in rural communities and population aged 60-69. For multi-app2-derived estimates, biases are greater for areas with smaller shares of people working in intermediate-level jobs and self-employed in small businesses, but displaying larger percentages of students, people with Level 4 qualification and living in large households.
+
+Figure \ref{fig:shap-plots} also reveals systematic complex nonlinear shapes in the association between contextual features and population bias. We identified three types of nonlinear relationships. Curvilinear associations in the way of U-shape or inverse U shapes.
+
+Threshold/stepwise (sharp change at cut-off)
+Flat at low values, then a jump or plateau at higher values.
+Examples:
+Students (\%) -- flat at low--medium values, then sharp decrease beyond a threshold.
+Age 10--19 (\%) -- flat until a point, then sharp increase.
+No car (\%) -- jump at specific cut-off.
+Distinctive feature: sharp ``steps'' or thresholds where effect changes abruptly.
+
+Curvilinear (U-shape / inverse U)
+Bias decreases at low values, increases at medium, then decreases again --- or the reverse.
+Examples:
+Pop\_density -- increases up to a mid-point, then declines (inverse U-shape).
+Routine (\%) -- rise then fall pattern.
+Distinctive feature: curvature --- effect reverses direction once or twice.
+
+S-shaped (multi-phase, reversal at ends)
+Low values push SHAP in one direction, mid values stabilise, and high values reverse again.
+Examples:
+Age 20--29 (\%) -- high SHAP at low values, sharp drop in mid-range, flat at high values.
+Large households (\%) -- gradual S-shaped rise.
+Lower supervisory (\%) -- flat, then step up, then stabilisation.
+Distinctive feature: multiple ``phases'' --- low/high ends behave differently from the middle.
 
 \begin{itemize}
 \tightlist
@@ -706,7 +739,22 @@ The results reveal wide variability
   Consistency across temporal and spatial aggregations for a given data source?
 \end{itemize}
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Flat / Weak Relationships
+  No strong directional trend, SHAP values clustered near zero.
+  Examples:
+  Not deprived (\%) -- small variations, weak effect.
+  Intermediate (\%) -- mild downward slope, but weak overall.
+  Distinctive feature: very small marginal effect relative to others.
+\end{enumerate}
+
 \section{Discussion}\label{discussion}
+
+For multi-app - wider set of factors contribute to explaining biases
 
 \ethics{Please provide details on the ethics.}
 
