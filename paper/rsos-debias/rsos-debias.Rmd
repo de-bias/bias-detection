@@ -429,7 +429,7 @@ which includes data acquisition, bias measurement, comparative analysis
 with national surveys, spatial analysis, and bias explanation through
 modelling.
 
-### Measuring coverage bias
+### Measuring population coverage bias
 
 <!-- FR: If we are to identify our measure as coverage bias, we also need to establish how we analyse representativeness bias since the latter should be the primary objective - and the connection between these two types of biases should be clear from the outset. -->
 
@@ -561,14 +561,19 @@ and observed values.
 
 # Results
 
-In this section, we illustrate our proposed methodological framework on
-four sources of digital data derived from mobile phone (MP) apps. As
-described in the Data section, these sources include data for the UK,
+Next, we illustrate our proposed methodological framework on
+four sources of digital data derived from mobile phone (MP) apps 
+<!-- FR: This acronym should have been introduced by now -->
+. As
+described in the Data section
+<!-- FR: Include hyperlink -->
+, these sources include data for the UK,
 collected in or around March 2021 to align as closely as possible with
 the reference date of the most recent national census. This temporal
 alignment ensures comparability, as the census data serve as the ground
 truth against which population counts from the digital sources are
 evaluated.
+<!-- FR: All of these comments about the census should be clear by now. If not, should go in the methods section and be removed from here. -->
 
 <!-- FR: To elaborate subsections (a) and (b) of the Results Section to focus on discussing the reported patterns and figures. For example, the subsection (a) needs to explain what the results mean; establish the extent of difference in terms of coverage between the digital sources and survey data; and, elaborate on how and why these differences are important in terms of survey sources only offering representation at a national level and at a cross section but wide variations exist geographically and social processes are temporally dynamic. Similarly subsection (b) needs to build more on the reported results. For example, it needs to assess the extent of differences in population bias across LADs and across sources. Is it high/low? Are some areas consistently under/over-represented? Educate people to read what a 86 size of bias means in a LAD. I tend to prefer the results section being in past (i.e. we analysed) as I feel it enables me to make stronger statements. Though, I would be happy to use present tense but it's something we should agree for consistency. I use past tense in the subsection that I wrote. -->
 
