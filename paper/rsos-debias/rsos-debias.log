@@ -1,62 +1,64 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.12.1)  29 AUG 2025 00:28
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.11)  29 AUG 2025 16:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **rsos-debias.tex
 (./rsos-debias.tex
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-11-02>
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
 (./rsos.cls
 
 LaTeX Warning: You have requested document class `rsos',
                but the document class provides `rsproca'.
 
 Document Class: rsproca 2005/12/01 v1.1 Standard LaTeX document class
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/vruler/vruler.sty 2.3 <24/10/96>
+(/usr/local/texlive/2025/texmf-dist/tex/latex/vruler/vruler.sty 2.3 <24/10/96>
     VRULER version 2.3 Octorber 1996 By Z Jiang
     University of New England, Australia
     Email: zhuhan@neumann.une.edu.au
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/crop/crop.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/crop/crop.sty
 Package: crop 2017/11/19 1.10 crop marks (mf)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifluatex.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifluatex.sty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
 \CROP@index=\count268
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2024/06/23 v1.3e Standard LaTeX Color (DPC)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: xetex.def on input line 149.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/xetex.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-def/xetex.def
 File: xetex.def 2022/09/22 v5.0n Graphics/color driver for xetex
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/usr/
+local/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: xetex.def on input line 106.
 )
 \CROP@offset=\count269
 Package crop Info: Local config file crop.cfg used on input line 622.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/xelatex/xetexconfig/crop.cfg)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+(/usr/local/texlive/2025/texmf-dist/tex/xelatex/xetexconfig/crop.cfg)) (/usr/lo
+cal/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2024/11/05 v2.17t AMS math features
 \@mathmargin=\skip49
 For additional information on amsmath, use the `?' option.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks34
 \ex@=\dimen146
-)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen147
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count270
@@ -106,18 +108,18 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks38
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amscls/upref.sty
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/amscls/upref.sty
 Package: upref 2007/03/14 v2.04
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/endnotes/endnotes.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/endnotes/endnotes.sty
 Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 118 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 121 replaced by U+FFFD.
@@ -126,7 +128,7 @@ Package: endnotes 2020-01-02 endnotes package
 \c@endnote=\count282
 \endnotesep=\dimen155
 \@enotes=\write3
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amscls/amsthm.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
 \thm@style=\toks39
 \thm@bodyfont=\toks40
@@ -137,12 +139,12 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@postskip=\skip53
 \thm@headsep=\skip54
 \dth@everypar=\toks44
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/marginnote/marginnote.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/marginnote/marginnote.sty
 Package: marginnote 2018/08/09 1.4b non floating margin notes for LaTeX
 \c@mn@abspage=\count283
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/soul/soul.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/soul/soul.sty
 Package: soul 2023-06-14 v3.1 Permit use of UTF-8 characters in soul (HO)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/soul/soul-ori.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/soul/soul-ori.sty
 Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
 \SOUL@word=\toks45
 \SOUL@lasttoken=\toks46
@@ -164,21 +166,21 @@ Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
 \SOUL@ttwidth=\dimen162
 \SOUL@uldp=\dimen163
 \SOUL@ulht=\dimen164
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
-)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks51
 )
 \Gin@req@height=\dimen165
 \Gin@req@width=\dimen166
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/graphics/rotating.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/rotating.sty
 Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
 \c@r@tfl@t=\count288
@@ -186,9 +188,9 @@ Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 \rotFPbot=\skip57
 \rot@float@box=\box60
 \rot@mess@toks=\toks52
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/tools/dcolumn.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/tools/dcolumn.sty
 Package: dcolumn 2023/07/08 v1.06 decimal alignment package (DPC)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/array.sty
 Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
 \col@sep=\dimen167
 \ar@mcellbox=\box61
@@ -197,22 +199,24 @@ Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
 \extratabsurround=\skip58
 \backup@length=\skip59
 \ar@cellbox=\box62
-)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 116.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
+6.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/palatino.sty
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/palatino.sty
 Package: palatino 2020/03/25 PSNFSS-v9.3 (SPQR) 
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/helvet.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/helvet.sty
 Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
 )
 \catchlinewd=\dimen169
 \dcht=\dimen170
 \frametextht=\dimen171
 \myrunhwidth=\skip60
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 479.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1phv.fd
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 47
+9.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -229,7 +233,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 \abovecaptionskip=\skip61
 \belowcaptionskip=\skip62
 \leftnoteskip=\dimen172
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
 \everycr=\toks54
 \minrowclearance=\skip63
@@ -244,58 +248,63 @@ Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
 LaTeX Font Info:    Redeclaring math symbol \intop on input line 1447.
 LaTeX Font Info:    Redeclaring math symbol \ointop on input line 1448.
 \eqntext=\dimen175
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip64
 \bibsep=\skip65
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count300
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode not found.
-)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count301
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count302
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
 )
 \@linkdim=\dimen176
 \Hy@linkcounter=\count303
 \Hy@pagecounter=\count304
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2024-11-05 v7.01l Hyperref: PDFDocEncoding definition (HO)
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count305
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2024-11-05 v7.01l Hyperref: PDF Unicode definition (HO)
 )
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 4040.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 4040
+.
 Package hyperref Info: Option `raiselinks' set `true' on input line 4040.
 Package hyperref Info: Option `breaklinks' set `true' on input line 4040.
 Package hyperref Info: Hyper figures OFF on input line 4157.
@@ -306,16 +315,17 @@ Package hyperref Info: Backreferencing OFF on input line 4177.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4424.
 \c@Hy@tempcnt=\count306
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4763.
 \XeTeXLinkMargin=\dimen177
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
 ))
 \Fld@menulength=\count307
 \Field@Width=\dimen178
@@ -327,7 +337,7 @@ Package hyperref Info: backreferencing OFF on input line 6057.
 Package hyperref Info: Link coloring OFF on input line 6062.
 Package hyperref Info: Link coloring with OCG OFF on input line 6067.
 Package hyperref Info: PDF/A mode OFF on input line 6072.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
@@ -336,39 +346,44 @@ package with kernel methods
 \c@Hfootnote=\count310
 )
 Package hyperref Info: Driver (autodetected): hxetex.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hxetex.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hxetex.def
 File: hxetex.def 2024-11-05 v7.01l Hyperref driver for XeTeX
 \pdfm@box=\box65
 \c@Hy@AnnotLevel=\count311
 \HyField@AnnotCount=\count312
 \Fld@listcount=\count313
 \c@bookmark@seq@number=\count314
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
 with kernel methods
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
 )
 \Hy@SectionHShift=\skip66
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 1524.
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-LaTeX Font Info:    Trying to load font information for T1+ppl on input line 116.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ppl.fd
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 11
+6.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/t1ppl.fd
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-)) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks55
 \inpenc@posthook=\toks56
 
 Package inputenc Warning: inputenc package ignored with utf8 based engines.
 
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2024-10-27 v4.22 Multi-page Table package (DPC)
 \LTleft=\skip67
 \LTright=\skip68
@@ -386,7 +401,7 @@ Package: longtable 2024-10-27 v4.22 Multi-page Table package (DPC)
 \c@LT@tables=\count318
 \c@LT@chunks=\count319
 \LT@p@ftn=\toks57
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen181
 \lightrulewidth=\dimen182
@@ -405,7 +420,7 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count322
 \@lastruleclass=\count323
 \@thisrulewidth=\dimen193
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count324
 \calc@Bcount=\count325
@@ -417,15 +432,16 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count326
 \calc@Cskip=\skip73
-) (/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
-Package: footnote 1997/01/28 1.13 Save footnotes around boxes
-\fn@notes=\box71
-\fn@width=\dimen196
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty
+Package: footnotehyper 2021/08/13 v1.1e hyperref aware footnote.sty (JFB)
+\FNH@notes=\box71
+\FNH@width=\dimen196
+\FNH@toks=\toks58
 )
 \c@theorem=\count327
 \c@condition=\count328
 \c@corollary=\count329
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2024-05-08 L3 backend support: XeTeX
 \g__graphics_track_int=\count330
 \l__pdf_internal_box=\box72
@@ -461,105 +477,164 @@ Package hyperref Info: Link coloring ON on input line 41.
 \openout4 = `rsos-debias.out'.
 
 
-Underfull \hbox (badness 4981) in paragraph at lines 76--78
-\T1/ppl/m/n/9 are costly, in-fre-quent, and of-ten un-avail-able in 
+Underfull \hbox (badness 4328) in paragraph at lines 81--83
+\T1/ppl/m/n/9 Traditional sources of pop-u-la-tion data, such as 
  []
 
 
-Underfull \hbox (badness 1701) in paragraph at lines 76--78
-\T1/ppl/m/n/9 crisis-affected re-gions. User lo-ca-tion data de-rived 
+Underfull \hbox (badness 1796) in paragraph at lines 81--83
+\T1/ppl/m/n/9 cen-suses and sur-veys, are costly, in-fre-quent, and 
  []
 
 
-Underfull \hbox (badness 4699) in paragraph at lines 76--78
-\T1/ppl/m/n/9 of-fer near-real-time, high-resolution in-sights into 
+Underfull \hbox (badness 1237) in paragraph at lines 81--83
+\T1/ppl/m/n/9 phone ap-pli-ca-tion data of-fer near--real-time, high- 
  []
 
 
-Underfull \hbox (badness 1424) in paragraph at lines 76--78
-\T1/ppl/m/n/9 use of mo-bile tech-nolo-gies in-tro-duces bi-ases that 
+Underfull \hbox (badness 1688) in paragraph at lines 81--83
+\T1/ppl/m/n/9 their util-ity is un-der-mined by un-equal ac-cess to 
  []
 
 
-Overfull \hbox (6.06563pt too wide) in paragraph at lines 76--78
-\T1/ppl/m/n/9 of-ten un-avail-able, and fo-cus on national-level es-ti-mates. 
+Underfull \hbox (badness 4832) in paragraph at lines 81--83
+\T1/ppl/m/n/9 and use of dig-i-tal tech-nolo-gies, cre-at-ing bi-ases 
  []
 
 
-Underfull \hbox (badness 1931) in paragraph at lines 76--78
-\T1/ppl/m/n/9 sub-na-tional lev-els, eval-u-ates spa-tial het-ero-gene-ity 
+Underfull \hbox (badness 2689) in paragraph at lines 81--83
+\T1/ppl/m/n/9 that threaten rep-re-sen-ta-tive-ness. De-spite grow-ing 
  []
 
 
-Underfull \hbox (badness 6001) in paragraph at lines 76--78
-\T1/ppl/m/n/9 of bias as a func-tion of area-based co-vari-ates 
+Underfull \hbox (badness 2941) in paragraph at lines 81--83
+\T1/ppl/m/n/9 frame-work to mea-sure and ex-plain such bi-ases, 
+ []
+
+
+Underfull \hbox (badness 3179) in paragraph at lines 81--83
+\T1/ppl/m/n/9 re-quir-ing individual-level de-mo-graphic at-tributes. 
+ []
+
+
+Underfull \hbox (badness 5711) in paragraph at lines 81--83
+\T1/ppl/m/n/9 The ap-proach com-bines a trans-par-ent in-di-ca-tor 
+ []
+
+
+Underfull \hbox (badness 1596) in paragraph at lines 81--83
+\T1/ppl/m/n/9 of pop-u-la-tion cov-er-age with ex-plain-able ma-chine 
+ []
+
+
+Underfull \hbox (badness 2529) in paragraph at lines 81--83
+\T1/ppl/m/n/9 learn-ing to iden-tify con-tex-tual drivers of spa-tial 
+ []
+
+
+Underfull \hbox (badness 2726) in paragraph at lines 81--83
+\T1/ppl/m/n/9 bench-marked against the 2021 cen-sus, we show 
+ []
+
+
+Underfull \hbox (badness 1342) in paragraph at lines 81--83
+\T1/ppl/m/n/9 pop-u-la-tion cov-er-age than ma-jor na-tional sur-veys, 
+ []
+
+
+Underfull \hbox (badness 1852) in paragraph at lines 81--83
+\T1/ppl/m/n/9 but sub-stan-tial bi-ases per-sist across data sources 
+ []
+
+
+Underfull \hbox (badness 2020) in paragraph at lines 81--83
+\T1/ppl/m/n/9 and sub-na-tional ar-eas. Cov-er-age bias is strongly 
+ []
+
+
+Underfull \hbox (badness 1968) in paragraph at lines 81--83
+\T1/ppl/m/n/9 as-so-ci-ated with de-mo-graphic, so-cioe-co-nomic, and 
+ []
+
+
+Underfull \hbox (badness 1057) in paragraph at lines 81--83
+\T1/ppl/m/n/9 datasets do not nec-es-sar-ily re-duce bias com-pared 
+ []
+
+
+Underfull \hbox (badness 5203) in paragraph at lines 81--83
+\T1/ppl/m/n/9 to single-app sources. Our find-ings es-tab-lish a 
  []
 
 File: OPENSCIENCE.pdf Graphic file (type pdf)
 <use OPENSCIENCE.pdf>
 
-Overfull \hbox (11.30959pt too wide) in paragraph at lines 85--85
+Overfull \hbox (11.30959pt too wide) in paragraph at lines 90--90
 [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.47508pt on input line 85.
+(Font)              scaled to size 11.47508pt on input line 90.
 
-Overfull \hbox (13.63518pt too wide) in paragraph at lines 85--85
+Overfull \hbox (13.63518pt too wide) in paragraph at lines 90--90
 [][]\T1/phv/m/n/13.5 rsos.royalsocietypublishing.org[] 
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 15.30011pt on input line 85.
+(Font)              scaled to size 15.30011pt on input line 90.
 File: OpenAccesslogo_bw.pdf Graphic file (type pdf)
 <use OpenAccesslogo_bw.pdf>
 File: RS_crossmark_logo.pdf Graphic file (type pdf)
 <use RS_crossmark_logo.pdf>
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.50006pt on input line 85.
+(Font)              scaled to size 8.50006pt on input line 90.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 8.50006pt on input line 85.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 85.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+(Font)              scaled to size 8.50006pt on input line 90.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 90.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 85.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+LaTeX Font Info:    Trying to load font information for U+msb on input line 90.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+euex on input line 85.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/ueuex.fd
+LaTeX Font Info:    Trying to load font information for U+euex on input line 90
+.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/ueuex.fd
 File: ueuex.fd 2013/01/14 v3.01 Euler extra symbols
 )
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 85.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1pcr.fd
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 90
+.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 17.00012pt on input line 85.
+(Font)              scaled to size 17.00012pt on input line 90.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.90009pt on input line 85.
-LaTeX Font Info:    Calculating math sizes for size <14> on input line 85.
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 85.
+(Font)              scaled to size 11.90009pt on input line 90.
+LaTeX Font Info:    Calculating math sizes for size <14> on input line 90.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 90.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 85.
+(Font)              size <5> substituted on input line 90.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <5.5> not available
-(Font)              size <5> substituted on input line 85.
+(Font)              size <5> substituted on input line 90.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 85.
+(Font)              size <5> substituted on input line 90.
 
 
-Overfull \hbox (170.71654pt too wide) in paragraph at lines 85--85
+Overfull \hbox (170.71654pt too wide) in paragraph at lines 90--90
 [] 
  []
 
 
-Overfull \hbox (11.48364pt too wide) in paragraph at lines 85--85
+Overfull \hbox (11.48364pt too wide) in paragraph at lines 90--90
 $[]$|  $[]$ 
  []
 
@@ -576,42 +651,43 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 File: RSOS_Pubs_Logo_Line_CMYK.pdf Graphic file (type pdf)
 <use RSOS_Pubs_Logo_Line_CMYK.pdf>
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.37505pt on input line 86.
-LaTeX Font Info:    Calculating math sizes for size <7.5> on input line 86.
+(Font)              scaled to size 6.37505pt on input line 91.
+LaTeX Font Info:    Calculating math sizes for size <7.5> on input line 91.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <7.5> not available
-(Font)              size <7> substituted on input line 86.
+(Font)              size <7> substituted on input line 91.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.75> not available
-(Font)              size <5> substituted on input line 86.
+(Font)              size <5> substituted on input line 91.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <7.5> not available
-(Font)              size <7> substituted on input line 86.
+(Font)              size <7> substituted on input line 91.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.75> not available
-(Font)              size <5> substituted on input line 86.
+(Font)              size <5> substituted on input line 91.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <7.5> not available
-(Font)              size <7> substituted on input line 86.
+(Font)              size <7> substituted on input line 91.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.75> not available
-(Font)              size <5> substituted on input line 86.
+(Font)              size <5> substituted on input line 91.
 
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 86.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1phv.fd
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 9
+1.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 6.37505pt on input line 86.
+(Font)              scaled to size 6.37505pt on input line 91.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 4.4625pt on input line 86.
+(Font)              scaled to size 4.4625pt on input line 91.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 3.18752pt on input line 86.
+(Font)              scaled to size 3.18752pt on input line 91.
 
 Overfull \hbox (14.27687pt too wide) has occurred while \output is active
 []  [][][][][][] 
@@ -622,20 +698,23 @@ Overfull \hbox (14.27687pt too wide) has occurred while \output is active
 
 ]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.6001pt on input line 88.
+(Font)              scaled to size 13.6001pt on input line 93.
 
-Underfull \hbox (badness 1688) in paragraph at lines 90--105
-\T1/ppl/m/n/9 and COVID-19 have tested and ac-cen-tu-ated weak-nesses in tra-di-tional data sys-tems [[]].
+Underfull \hbox (badness 1688) in paragraph at lines 95--110
+\T1/ppl/m/n/9 and COVID-19 have tested and ac-cen-tu-ated weak-nesses in tra-di
+-tional data sys-tems [[]].
  []
 
 
-Underfull \hbox (badness 1783) in paragraph at lines 139--156
-[]\T1/ppl/m/n/9 However, the use of MPD present ma-jor epis-te-mo-log-i-cal, method-olog-i-cal and eth-i-cal
+Underfull \hbox (badness 1783) in paragraph at lines 145--164
+[]\T1/ppl/m/n/9 However, the use of MPD present ma-jor epis-te-mo-log-i-cal, me
+thod-olog-i-cal and eth-i-cal
  []
 
 
-Underfull \hbox (badness 1142) in paragraph at lines 157--173
-\T1/ppl/m/n/9 un-cor-rected, MPD re-pro-duce se-lec-tive pat-terns of smart-phone own-er-ship and ap-pli-ca-tion
+Underfull \hbox (badness 1142) in paragraph at lines 165--182
+\T1/ppl/m/n/9 un-cor-rected, MPD re-pro-duce se-lec-tive pat-terns of smart-pho
+ne own-er-ship and ap-pli-ca-tion
  []
 
 
@@ -644,17 +723,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.65005pt on input line 173.
+(Font)              scaled to size 7.65005pt on input line 182.
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [2]
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 202.
-(/Users/carmen/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.fd
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 2
+12.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 )
-Underfull \hbox (badness 3364) in paragraph at lines 208--212
-[]\T1/ppl/m/n/9 How sys-tem-atic is the as-so-ci-a-tion be-tween larger pop-u-la-tion bi-ases and over-
+Underfull \hbox (badness 3364) in paragraph at lines 218--222
+[]\T1/ppl/m/n/9 How sys-tem-atic is the as-so-ci-a-tion be-tween larger pop-u-l
+a-tion bi-ases and over-
  []
 
 
@@ -663,16 +744,35 @@ Underfull \hbox (badness 3364) in paragraph at lines 208--212
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [3]
-File: figures/table-data-source.png Graphic file (type bmp)
-<figures/table-data-source.png>
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.22505pt on input line 287.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 287.
 
-Underfull \hbox (badness 10000) detected at line 287
+Package natbib Warning: Author undefined for citation`barreras2024exciting' 
+(natbib)                on page 4 on input line 283.
+
+File: figures/debias-approach.png Graphic file (type bmp)
+<figures/debias-approach.png>
+
+Overfull \hbox (14.11266pt too wide) in paragraph at lines 325--327
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.22505pt on input line 327.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 7.22505pt on input line 327.
+
+Underfull \hbox (badness 10000) detected at line 327
 []
  []
+
+File: figures/table-data-source.png Graphic file (type bmp)
+<figures/table-data-source.png>
+
+Underfull \hbox (badness 10000) detected at line 333
+[]
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
@@ -680,56 +780,38 @@ Underfull \hbox (badness 10000) detected at line 287
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [4]
-Underfull \hbox (badness 1152) in paragraph at lines 330--346
-\T1/pcr/m/n/9 Twitter-[]Internal-[]Migration$[][]\T1/ppl/m/n/9 . Ge-olo-ca-tion is ob-tained ei-ther di-rectly from geo-tagged
- []
-
-
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [5]
-File: figures/01_table-variable-dictionary_explain.png Graphic file (type bmp)
-<figures/01_table-variable-dictionary_explain.png>
-
-Underfull \hbox (badness 10000) detected at line 412
-[]
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 443.
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 443.
-
-
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [6]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 10.20007pt on input line 475.
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 475.
+
+
 
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [7]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [8]
-File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
-<figures/compare-surveys-two-axis.png>
+File: figures/01_table-variable-dictionary_explain.png Graphic file (type bmp)
+<figures/01_table-variable-dictionary_explain.png>
 
-Overfull \hbox (14.13742pt too wide) in paragraph at lines 595--598
- [][] 
+Underfull \hbox (badness 10000) detected at line 595
+[]
  []
 
 
@@ -738,16 +820,10 @@ Overfull \hbox (14.13742pt too wide) in paragraph at lines 595--598
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [9]
+File: figures/compare-surveys-two-axis.png Graphic file (type bmp)
+<figures/compare-surveys-two-axis.png>
 
-LaTeX Warning: Reference `(' on page 10 undefined on input line 651.
-
-
-Package natbib Warning: Citation `ref' on page 10 undefined on input line 653.
-
-File: figures/Fig-size-bias.png Graphic file (type bmp)
-<figures/Fig-size-bias.png>
-
-Overfull \hbox (14.20956pt too wide) in paragraph at lines 665--672
+Overfull \hbox (14.13742pt too wide) in paragraph at lines 638--641
  [][] 
  []
 
@@ -758,39 +834,47 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [10]
 
+LaTeX Warning: Reference `(' on page 11 undefined on input line 694.
+
+
+Package natbib Warning: Citation `ref' on page 11 undefined on input line 696.
+
+File: figures/Fig-size-bias.png Graphic file (type bmp)
+<figures/Fig-size-bias.png>
+
+Overfull \hbox (14.20956pt too wide) in paragraph at lines 708--715
+ [][] 
+ []
+
+
+
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [11]
 
-LaTeX Warning: Reference `sec-eml' on page 12 undefined on input line 745.
 
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
-Underfull \hbox (badness 1466) in paragraph at lines 739--749
-\T1/ppl/m/n/9 pop-u-la-tion bi-ases across de-mo-graphic, so-cioe-co-nomic, re-source ac-ces-si-bil-ity, mo-bil-ity and
+[12]
+Underfull \hbox (badness 1466) in paragraph at lines 781--791
+\T1/ppl/m/n/9 pop-u-la-tion bi-ases across de-mo-graphic, so-cioe-co-nomic, re-
+source ac-ces-si-bil-ity, mo-bil-ity and
  []
 
 File: figures/radial-plots_feature-importance.png Graphic file (type bmp)
 <figures/radial-plots_feature-importance.png>
 
-Overfull \hbox (19.82317pt too wide) in paragraph at lines 752--763
+Overfull \hbox (19.82317pt too wide) in paragraph at lines 794--805
  [][] 
  []
 
 File: figures/explain-bias.png Graphic file (type bmp)
 <figures/explain-bias.png>
 
-Overfull \hbox (17.06105pt too wide) in paragraph at lines 795--807
+Overfull \hbox (17.06105pt too wide) in paragraph at lines 837--849
  [][] 
  []
-
-
-
-
-Overfull \vbox (21.4162pt too high) has occurred while \output is active []
-
-[12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -798,12 +882,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 [13]
-Underfull \hbox (badness 1237) in paragraph at lines 839--867
-[]\T1/ppl/m/n/9 Figure [][]4[][][] also re-veals sys-tem-atic com-plex non-lin-ear shapes in the as-so-ci-a-tion be-tween
+Underfull \hbox (badness 1237) in paragraph at lines 881--909
+[]\T1/ppl/m/n/9 Figure [][]5[][][] also re-veals sys-tem-atic com-plex non-lin-
+ear shapes in the as-so-ci-a-tion be-tween
  []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -811,28 +893,95 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [14]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[15] (./rsos-debias.bbl
+[15]
+Underfull \hbox (badness 1173) in paragraph at lines 952--980
+\T1/ppl/m/n/9 strate-gies to mit-i-gate data bi-ases. Single-app datasets, such
+ as those de-rived from so-cial
+ []
+
+
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
-[16]) Setting LastPage
+[16]
+Underfull \hbox (badness 1342) in paragraph at lines 1047--1066
+\T1/ppl/m/n/9 This pa-per has in-tro-duced a sys-tem-atic ap-proach to quan-tif
+y and ex-plain cov-er-age and
+ []
+
+
 
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
-[17]
+[17] (./rsos-debias.bbl
+
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+[18]
+Underfull \hbox (badness 1264) in paragraph at lines 84--87
+[]\T1/ppl/m/n/9 Moro E, Calacci D, Dong X, Pent-land A. 2021 Mo-bil-ity pat-ter
+ns are as-so-ci-ated with
+ []
+
+Missing character: There is no – ("2013) in font pplr8t!
+
+Underfull \hbox (badness 4254) in paragraph at lines 171--175
+[]\T1/ppl/m/n/9 UK Gov-ern-ment. 2025 Pop-u-la-tion Move-ment Data: Un-lock-ing
+ Op-por-tu-ni-ties for a
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--175
+\T1/ppl/m/n/9 Mod-ern Dig-i-tal Gov-ern-ment. [][]$\T1/pcr/m/n/9 https : / / ww
+w . gov . uk / government / publications /
+ []
+
+
+Overfull \hbox (72.73721pt too wide) in paragraph at lines 171--175
+\T1/pcr/m/n/9 population-[]movement-[]data-[]unlocking-[]opportunities-[]for-[]
+a-[]modern-[]digital-[]government /
+ []
+
+
+Overfull \hbox (69.58722pt too wide) in paragraph at lines 171--175
+\T1/pcr/m/n/9 population-[]movement-[]data-[]unlocking-[]opportunities-[]for-[]
+a-[]modern-[]digital-[]government$[][]\T1/ppl/m/n/9 .
+ []
+
+
+
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+[19]
+Underfull \hbox (badness 3240) in paragraph at lines 231--234
+[]\T1/ppl/m/n/9 Dindi PD, Stiegler N. 2025 Chart-ing the fu-ture of cen-suses: 
+In-sights, lessons and
+ []
+
+) Setting LastPage
+
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+[20]
 
 Package natbib Warning: There were undefined citations.
 
 (./rsos-debias.aux)
  ***********
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-11-02>
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
  ***********
 
 LaTeX Font Warning: Size substitutions with differences
@@ -842,15 +991,15 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `rsos-debias.out' has not changed.
-(rerunfilecheck)             Checksum: 7994B2CAFB477FE140212E153A5F4DCC;3798.
+(rerunfilecheck)             Checksum: 6428F13C823F52EAA8E3C7E459FE1E10;3440.
  ) 
 Here is how much of TeX's memory you used:
- 12147 strings out of 475903
- 186751 string characters out of 5774979
- 587101 words of memory out of 5000000
- 34731 multiletter control sequences out of 15000+600000
- 611949 words of font info for 133 fonts, out of 8000000 for 9000
- 46 hyphenation exceptions out of 8191
- 87i,13n,93p,1429b,501s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 12296 strings out of 473832
+ 189007 string characters out of 5729481
+ 597599 words of memory out of 5000000
+ 35116 multiletter control sequences out of 15000+600000
+ 615832 words of font info for 137 fonts, out of 8000000 for 9000
+ 1358 hyphenation exceptions out of 8191
+ 87i,13n,93p,1665b,580s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on rsos-debias.pdf (17 pages).
+Output written on rsos-debias.pdf (20 pages).
