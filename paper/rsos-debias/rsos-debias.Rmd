@@ -521,8 +521,7 @@ test this, we generate scatterplots comparing the two sources and
 quantify the strength of the relationship using Pearson’s correlation
 coefficient.
 
-### Analysing representativeness bias with
-explainable machine learning {#sec-eml} 
+### Identifying sources of representativeness bias via explainable machine learning {#sec-eml}
 
 We used explainable machine learning to identify the key predictors of
 population bias and how the importance of these predictors varies across
@@ -878,7 +877,7 @@ across variables.
 
 # Discussion
 
-## Key findings
+<!-- ## Key findings -->
 
 MPD have become a key data asset to understanding
 population dynamics in near real-time at high spatial and temporal
@@ -900,13 +899,15 @@ Additionally, we identified distinctive nonlinear effects in the
 association between contextual features and coverage bias, suggesting
 that such biases cannot be addressed with simple linear adjustment.
 
-## Implications
+<!-- ## Implications -->
 
 These findings carry wide-ranging implications for the use of MPD in
-research and official statistics. First, the framework we propose offers
+research and official statistics. First, the framework that we propose offers
 a replicable approach for evaluating the quality of MP-derived
-population counts when demographic information is unavailable,
-establishing a baseline for transparent quality assessment. Second, the
+population counts when information on population characteristics is unavailable,
+establishing a baseline for transparent quality assessment. A key contribution is that it allows researchers and statistical agencies to move beyond anecdotal assumptions about representativeness and instead adopt a systematic, quantitative measure of bias that can be applied consistently across data sources and geographies. In practice, this means that MP datasets can be assessed before they are used in substantive analyses, enabling the identification of contexts where the data are reliable and those where caution is warranted. By being source-agnostic and privacy-preserving, the framework provides a common standard of evaluation that can be integrated into official workflows for producing population estimates, mobility indicators, or crisis response statistics. In doing so, it helps bridge the gap between innovative but often opaque digital trace data and the established norms of transparency and accountability that underpin official statistics.
+
+Second, the
 evidence provided here underscores the need for source-specific
 adjustment strategies to mitigate data biases. While single-app datasets
 show biases predominantly related to a reduced set of factors -such as
@@ -915,17 +916,20 @@ calibration that accounts for variations across a wider range expanding
 from educational and occupational to age and household features. This
 finding suggests that improving the representativeness of statistics
 derived from multi-app sources will require more sophisticated
-reweighting and debiasing strategies than those from single-app data.
-More broadly, our study reinforces the view that digital trace data
-should not be treated as neutral reflections of population activity but
-rather as selective windows shaped by persistent digital divides.
-Recognising and adjusting for these divides is essential if MPD are to
-contribute effectively to decision-making in contexts such as crisis
-response, public health monitoring and infrastructure planning. 
+reweighting and debiasing strategies than those from single-app data. 
+At the same time, it offers evidence of 
 
-## Challenges and limitations
+Second, the evidence provided here underscores the need for source-specific adjustment strategies to mitigate data biases. Single-app datasets, such as those derived from social media platforms, tend to display biases that are largely concentrated around a narrower set of characteristics, most notably age profiles, patterns of digital engagement, and certain geographic features. These biases, while still consequential, are comparatively easier to model and adjust for through established weighting or calibration techniques. Our evidence goes some way in validating the use of existing simple re-weighting scheme to mitigate biases based on age and sex structures. By contrast, multi-app datasets, which aggregate signals from a diverse set of platforms, capture broader segments of the population but at the cost of introducing more complex and multidimensional biases. These include systematic under- or over-representation linked to age and geography, and also to education, occupation, income and household structure. As a result, correcting multi-app data requires adjustment strategies that go beyond conventional post-stratification, demanding more sophisticated statistical tools that can simultaneously account for multiple intersecting dimensions of inequality. Such tools may include multilevel reweighting schemes, Bayesian hierarchical modelling, or data-fusion approaches that integrate auxiliary information from surveys or administrative records. Such distinction suggests that efforts to improve the representativeness of MP-derived statistics should be tailored to the nature of the data source, recognising that multi-app datasets, while promising in their breadth—pose greater methodological challenges and cannot be assumed to be inherently less biased than single-app data.
+
+Third, our study reinforces the view that digital trace data should not be treated as neutral reflections of population activity but rather as selective windows shaped by persistent digital divides. Digital engagement is deeply patterned by age, gender, socioeconomic status and geography, meaning that the traces people leave behind are systematically unequal. Treating these data as representative without adjustment risks reproducing and amplifying existing inequalities in the evidence base used for public policy. By contrast, explicitly recognising the partial and selective nature of MPD allows researchers to design strategies to correct for these divides, improving both validity and fairness. This is particularly important in applications with direct policy relevance, such as crisis response, public health monitoring, transport planning and infrastructure investment, where decisions informed by biased data could inadvertently exclude or disadvantage already vulnerable groups. Ensuring that MPD are used critically and responsibly therefore requires integrating bias assessments and corrections into routine analytical practice, thereby maximising their potential to contribute to equitable decision-making.
+
+<!-- ## Challenges and limitations -->
+
+At the same time, our analysis faces important limitations. We benchmarked MPD against the 2021 UK census, a high-quality reference point that is not available in many parts of the world. The absence of equivalent ground truth data elsewhere may constrain the transferability of our approach. Our focus on aggregated population counts, although necessary for privacy protection, restricts the possibility of directly quantifying demographic-specific biases. In addition, our modelling relies on area-based covariates, which may conceal heterogeneity within local units and risk ecological fallacy. Finally, we analysed four datasets; further work is needed to assess whether our findings generalise across additional providers, time periods and national contexts.
 
 ## Future directions
+
+Future research should build on this framework in at least three directions. First, applications in low- and middle-income countries, where mobile penetration is uneven, are crucial to assess how bias manifests in settings of greater digital inequality. Second, comparative work across datasets and providers is needed to identify which sources are most representative under different conditions and to establish standards of validation and robustness. Third, integrating this framework with emerging adjustment methods—such as data fusion with household surveys, imputation techniques, and post-stratification weighting—offers a pathway to correct biases and improve representativeness. Advances in trusted research environments and synthetic data generation may also provide new avenues to interrogate raw data more transparently while safeguarding privacy. Taken together, these efforts will be vital to ensure that MP data can be harnessed as a timely, granular and adaptive complement to censuses and surveys, enhancing the capacity of researchers and policymakers to monitor population distributions in an era of accelerating social and environmental change.
 
 <!-- PROPOSED PARAGRAPH STRUCTURE-->
 
@@ -944,10 +948,11 @@ response, public health monitoring and infrastructure planning.
 
 <!-- P6:  Highlighe methodological contribution and standard-setting. Emphasise generalisability to other countries and data sources. Highlight advantage, i.e. works without individual-level demographic data. Discuss potential for integration into quality assessment pipelines for use of MP data in official statistics.-->
 
-For multi-app - wider set of factors contribute to explaining biases
 
--   Age structure has less predictive importance than socioeconomic and
-    geographic factors
+# Conclusion
 
+This paper has introduced a systematic framework to quantify and explain coverage biases in mobile phone application data without relying on individual-level demographic attributes. Applying the framework to four datasets for the UK, we show that MP data can achieve higher overall coverage than traditional surveys, yet substantial biases persist across sources and subnational areas. We demonstrate that these biases are systematically associated with demographic, socioeconomic and geographic characteristics, often in nonlinear and thresholded ways, and that multi-app datasets, while broader in coverage, present more complex patterns of bias than single-app data.
+
+By establishing a transparent and replicable approach, our study provides a foundation for assessing the quality of digital trace data and offers guidance for designing adjustment strategies to improve their representativeness. In doing so, we take a step towards enabling MP data to complement censuses and surveys as reliable sources for research and policy. Realising this potential will require continued validation across diverse contexts, the integration of bias-adjustment techniques, and collaborative efforts between data providers, researchers and statistical agencies to ensure that the societal benefits of MP data are equitably realised.
 
 # References
