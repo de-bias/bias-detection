@@ -13,7 +13,7 @@
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}
 
-\title{A systematic machine learning approach to assess biases in mobile phone population data}
+\title{A systematic machine learning approach to measure and assess biases in mobile phone population data}
 
 \author{
     Carmen Cabrera\textsuperscript{*}
@@ -126,9 +126,9 @@ societal changes and emergency disasters, such as climate-induced
 hazards and COVID-19 have tested and accentuated weaknesses in
 traditional data systems (Green, Pollock, and Rowe 2021). Traditional data systems often
 provide data in infrequent and coarse temporal and geographical
-resolutions (Francisco Rowe 2023). Generally they are expensive to maintain
+resolutions (Rowe 2023). Generally they are expensive to maintain
 and operate, and are slow taking months or years since they data are
-collected to their release (Francisco Rowe 2023). Data collection from
+collected to their release (Rowe 2023). Data collection from
 climate- or conflict-impacted areas is generally unfeasible because of
 restrictions due to high levels of insecurity and risk
 (Iradukunda, Rowe, and Pietrostefani 2025). Yet, fast-paced societal changes require high
@@ -147,7 +147,7 @@ data (Kitchin 2014). These data are now routinely collected and
 stored. They offer spatially granular, frequent and instant information
 to capture and understand human activities at unprecedentedly high
 resolution and scale, with the potential to produce real-time actionable
-intelligence to support decision making (Francisco Rowe 2023). Hence,
+intelligence to support decision making (Rowe 2023). Hence,
 national statistical offices are actively seeking to integrate these
 data into their national data infrastructure (United Nations Statistics Division 2025; UK Research and Innovation 2025).
 
@@ -157,7 +157,7 @@ changes. Increasing usage of mobile services on smartphones and wearable
 devices have resulted in the generation of large volumes of geospatial
 data, offering novel opportunities to advance understanding of spatial
 human behaviour, and thus revolutionise research, business and
-government decision making and practices (Francisco Rowe 2023). MPD are now
+government decision making and practices (Rowe 2023). MPD are now
 a core component of the digital economy, creating new market
 opportunities for data intelligence businesses, such as Cuebiq/Spectus,
 Safegraph and Locomizer. They have been used to create critical evidence
@@ -167,10 +167,10 @@ mode of transport (Graells-Garrido et al. 2023), monitor footfall changes
 (Ballantyne, Singleton, and Dolega 2022; Hunter et al. 2021), profile daily mobility signatures
 (Cabrera-Arnau et al. 2023), sense mobility accessibility
 (Graells-Garrido et al. 2021), predict socioeconomic levels (Soto et al. 2011; Blumenstock, Cadamuro, and On 2015), estimate income segregation (Moro et al. 2021), quantify
-tourism activity (Raun, Ahas, and Tiru 2016) and estimate migration (Francisco Rowe et al. 2024; González-Leonardo et al. 2025) and population displacement (Francisco Rowe et al. 2022; Iradukunda, Rowe, and Pietrostefani 2025).
+tourism activity (Raun, Ahas, and Tiru 2016) and estimate migration (Rowe et al. 2024; González-Leonardo et al. 2025) and population displacement (Rowe et al. 2022; Iradukunda, Rowe, and Pietrostefani 2025).
 
 However, the use of MPD present major epistemological, methodological
-and ethical challenges (Francisco Rowe 2023). A key unresolved challenge is
+and ethical challenges (Rowe 2023). A key unresolved challenge is
 potential biases in MPD compromising their statistical
 representativeness and perpetuate social injustice
 (Wesolowski et al. 2013). Biases reflect societal digital and
@@ -204,7 +204,7 @@ thus been constrained to offer a partial picture for a limited segment
 of the overall population. Such data can only afford to provide rough
 signals about the spatial distribution of (e.g.~spatial concentration),
 trends (e.g.~increasing) and changes (e.g.~low to high) in populations
-(F. Rowe, Neville, and González-Leonardo 2022). Unadjusted, they have cannot provide a full
+(Rowe, Neville, and González-Leonardo 2022). Unadjusted, they have cannot provide a full
 representation of the overall population.
 
 Efforts have been made to measure and assess biases in aggregate
@@ -256,7 +256,7 @@ measure the extent of bias, and uses explainable machine learning to
 identify key contextual factors contributing to spatial variations in
 the extent of bias. Biases in digital trace data can emerge from
 multiple sources, such as algorithmic changes, device duplication and
-geographic location accuracy (Francisco Rowe et al. 2025). We do not intend to
+geographic location accuracy (Rowe et al. 2025). We do not intend to
 identify these individual sources of error. We focus on quantifying the
 extent of ``cumulative'\,' bias; that is, the resulting bias from the
 accumulation of these error sources. We identify this as population
@@ -282,7 +282,7 @@ coverage bias, our approach provides a practical tool to evaluate
 digital trace data prior to substantive analysis. In doing so, we
 respond directly to recent calls in the human mobility literature for
 greater transparency and standardisation in the processing and
-validation of digital trace data (Barreras and Watts 2024; Francisco Rowe et al. 2025; UK Government 2025). While prior work has
+validation of digital trace data (Barreras and Watts 2024; Rowe et al. 2025; UK Government 2025). While prior work has
 emphasised the fragility of analytical choices and the absence of good
 practices in this field, our approach establishes a clear set of
 indicators and procedures that can be applied consistently across
@@ -349,7 +349,7 @@ data source are provided next.
 
 \begin{figure}
 \centering
-\includegraphics[width=15cm,height=7cm]{figures/debias-approach.png}
+\includegraphics[width=14.5cm,height=7.2cm]{figures/debias-approach.png}
 \caption{Systematic approach to measure and explain biases from MP-based
 population estimates.}\label{fig:debias-approach}
 \end{figure}
@@ -428,7 +428,7 @@ degree of comparability.
 
 To infer the place of residence of users, we applied a commonly used
 rule-based classification method, following approaches outlined in
-(Zhong et al. 2024; Francisco Rowe et al. 2025). Specifically, the place of
+(Zhong et al. 2024; Rowe et al. 2025). Specifically, the place of
 residence associated with a device is defined as the location with the
 highest number of GPS records recorded during nighttime hours (10 PM--6
 AM). To be classified as a residence, a location must account for more
@@ -662,7 +662,7 @@ coverage bias.
 
 \begin{figure}
 \centering
-\includegraphics[width=14cm,height=8.5cm]{figures/compare-surveys-two-axis.png}
+\includegraphics[width=14.5cm,height=8.5cm]{figures/compare-surveys-two-axis.png}
 \caption{Size of coverage bias (bottom x-axis) and population coverage per
 1,000 population (top-x-axis) by data
 source.}\label{fig:survey}
@@ -718,25 +718,25 @@ whether these patterns exhibit spatial clustering. These assessments
 were important both for evaluating the limitations of each dataset for
 further research and for deciding whether spatial dependence terms
 should be incorporated into the subsequent modelling stage
-@\ref(\#sec-explain).
+\ref{sec-explain}.
 
-Figure (\textbf{ref?})(fig:bias-size) summarises these analyses for each dataset.
-Each row corresponds to a data source and includes three elements: A) a
+Figure \ref{fig:bias-size} summarises these analyses for each dataset.
+Each row corresponds to a data source and includes three elements. The first shows a
 hexagonal cartogram showing the size of coverage bias in each LAD,
 alongside the Moran's I statistic and corresponding p-value as a measure
-of spatial autocorrelation; B) a histogram showing the distribution of
-coverage bias across LADs; and C) a scatter plot comparing population
+of spatial autocorrelation. The second shows a histogram showing the distribution of
+coverage bias across LADs. The third displays a scatter plot comparing population
 counts derived from each MP dataset with census population counts for
 the same LADs, together with Pearson's correlation coefficient and
 p-value.
 
 \begin{figure}
 \centering
-\includegraphics[width=14cm,height=13cm]{figures/Fig-size-bias.png}
+\includegraphics[width=14.5cm,height=13.5cm]{figures/Fig-size-bias.png}
 \caption{Extent and spatial distribution of population bias across local
 authority districts in the UK. A. Hexagon map of the size of population
-bias across local authority districts. \$I\$ represents the Moran's I
-and \$p\$ denotes the associated p-value. B. Histogram of the
+bias across local authority districts. \(I\) represents the Moran's I
+and \(p\) denotes the associated p-value. B. Histogram of the
 distribution of the size of population bias. C. Scatter plot of the
 relationship between population size and size of
 bias.}\label{fig:bias-size}
@@ -779,7 +779,7 @@ locations was detected. This pattern is likely related to the unique
 demographic and spatial context of the City of London. Although it has a
 very small resident population, it is a major centre of employment and
 commuting. Because home locations are inferred from the most frequently
-recorded nighttime position (Wang et al. 2022), even a relatively modest number
+recorded nighttime position, even a relatively modest number
 of residents or temporary visitors can yield an unusually high apparent
 population coverage compared to larger LADs. By contrast, data from Meta
 displayed the lower values of population coverage bias, ranging from
@@ -818,7 +818,7 @@ with standardised importance scores over 0.5 for individual data source.
 
 \begin{figure}
 \centering
-\includegraphics[width=14.2cm,height=15.8cm]{figures/radial-plots_feature-importance.png}
+\includegraphics[width=14.5cm,height=16cm]{figures/radial-plots_feature-importance.png}
 \caption{\textbf{Radial charts illustrating the importance of, and contribution to,
 explaining differences in population biases across local authority
 districts.} The importance is estimated based on SHAP feature
@@ -852,7 +852,7 @@ no qualification, and working in low skill occupations emerge as the
 most important features in explaining population biases in Multi-app1.
 This is in addition to the population share aged 60-69, residing in
 households lacking central heating and living in rural areas. For
-multi-app2-derived estimates, the share of student population, working
+Multi-app2-derived estimates, the share of student population, working
 in intermediate-level jobs, small employers, having a Level 4
 qualification and living in large households score the highest average
 SHAP values. The variability in feature importance ranking across data
@@ -861,7 +861,7 @@ to explaining biases in their respective population estimates.
 
 \begin{figure}
 \centering
-\includegraphics[width=14.1cm,height=12.2cm]{figures/explain-bias.png}
+\includegraphics[width=14.5cm,height=12.5cm]{figures/explain-bias.png}
 \caption{\textbf{Top ranked model features contributing to explaining population
 biases across local authority districts from an XGboost model.} (a)
 beeswarm plots of SHAP feature values displaying the relative importance
@@ -896,11 +896,11 @@ areas with higher population density and greater percentages of people
 lacking central heating. Operating in the opposite direction, larger
 shares of people working in routine-level jobs and living in rural areas
 display lower Meta-based population bias, reflecting greater engagement
-with Facebook among these communities. For multi-app1-derived estimates,
+with Facebook among these communities. For Multi-app1-derived estimates,
 biases are larger for areas with greater shares of population with Level
 4 or no qualification, working in routine-level jobs, lacking central
 heating, living in rural communities and population aged 60-69. For
-multi-app2-derived estimates, biases are greater for areas with smaller
+Multi-app2-derived estimates, biases are greater for areas with smaller
 shares of people working in intermediate-level jobs and self-employed in
 small businesses, but displaying larger percentages of students, people
 with Level 4 qualification and living in large households.
@@ -974,7 +974,7 @@ for producing population estimates, mobility indicators or crisis
 response statistics. In doing so, it helps bridge the gap between
 innovative but often opaque digital trace data and the established norms
 of transparency and accountability that underpin official statistics
-(Francisco Rowe et al. 2025).
+(Rowe et al. 2025).
 
 Second, the evidence provided here underscores the need for
 source-specific adjustment strategies to mitigate data biases.
@@ -1184,13 +1184,10 @@ Raun, Janika, Rein Ahas, and Margus Tiru. 2016. {``Measuring Tourism Destination
 Rey, Sergio, Dani Arribas-Bel, and Levi John Wolf. 2023. {``Geographic Data Science with Python,''} May. \url{https://doi.org/10.1201/9780429292507}.
 
 \bibitem[\citeproctext]{ref-ribeiro20-facebook}
-Ribeiro, Filipe N., Fabrı́cio Benevenuto, and Emilio Zagheni. 2020. {``How Biased Is the Population of Facebook Users? Comparing the Demographics of Facebook Users with Census Data to Generate Correction Factors.''} In \emph{Proceedings of the 12th ACM Conference on Web Science}, 325--34. WebSci '20. New York, NY, USA: Association for Computing Machinery. \url{https://doi.org/10.1145/3394231.3397923}.
-
-\bibitem[\citeproctext]{ref-rowe22-sensing-ukraine}
-Rowe, F., R. Neville, and Miguel González-Leonardo. 2022. {``Sensing Population Displacement from Ukraine Using Facebook Data: Potential Impacts and Settlement Areas.''} \emph{OSF Preprints}. \url{https://doi.org/doi:10.31219/osf.io/7n6wm}.
+Ribeiro, Filipe N., Fabr'ıcio Benevenuto, and Emilio Zagheni. 2020. {``How Biased Is the Population of Facebook Users? Comparing the Demographics of Facebook Users with Census Data to Generate Correction Factors.''} In \emph{Proceedings of the 12th ACM Conference on Web Science}, 325--34. WebSci '20. New York, NY, USA: Association for Computing Machinery. \url{https://doi.org/10.1145/3394231.3397923}.
 
 \bibitem[\citeproctext]{ref-rowe23-bigdata}
-Rowe, Francisco. 2023. {``9.: Big Data.''} In \emph{Concise Encyclopedia of Human Geography}, 42--47. Cheltenham, UK: Edward Elgar Publishing. \url{https://doi.org/10.4337/9781800883499.ch09}.
+Rowe, Francisco. 2023. {``Big Data.''} In \emph{Concise Encyclopedia of Human Geography}, 42--47. Cheltenham, UK: Edward Elgar Publishing. \url{https://doi.org/10.4337/9781800883499.ch09}.
 
 \bibitem[\citeproctext]{ref-cepal24}
 Rowe, Francisco, Carmen Cabrera-Arnau, Miguel González-Leonardo, Andrea Nasuto, and Ruth Neville. 2024. {``Medium-Term Changes in the Patterns of Internal Population Movements in Latin American Countries: Effects of the COVID-19 Pandemic.''} Población y Desarrollo. Naciones Unidas Comisión Económica para América Latina y el Caribe (CEPAL). \url{https://doi.org/None}.
@@ -1200,6 +1197,9 @@ Rowe, Francisco, Alessia Calafiore, Daniel Arribas-Bel, Krasen Samardzhiev, and 
 
 \bibitem[\citeproctext]{ref-unstatsMPDMS2025}
 Rowe, Francisco, Esperanza Magpantay, Mariana Jalagonia, Siim Esko, Elena De Jesus, Ronald Jansen, Francesca Grum, Paul Baptiste Blanchard, and William Lumala. 2025. {``Mobile Phone Data for Migration Statistics (MPDMS) Guide.''} United Nations Statistics Division; \url{https://unstats.un.org/wiki/spaces/MPDMS/overview}.
+
+\bibitem[\citeproctext]{ref-rowe22-sensing-ukraine}
+Rowe, Francisco, Ruth Neville, and Miguel González-Leonardo. 2022. {``Sensing Population Displacement from Ukraine Using Facebook Data: Potential Impacts and Settlement Areas.''} \emph{OSF Preprints}. \url{https://doi.org/doi:10.31219/osf.io/7n6wm}.
 
 \bibitem[\citeproctext]{ref-schlosser21-biases}
 Schlosser, Frank, Vedran Sekara, Dirk Brockmann, and Manuel Garcia-Herranz. 2021. {``Biases in Human Mobility Data Impact Epidemic Modeling.''} \url{https://arxiv.org/abs/2112.12521}.
@@ -1246,7 +1246,7 @@ Zhong, C., N. Sari Aslam, Y. Wang, Z. Zhou, and A. Enaya. 2024. {``Anonymised Hu
 \end{CSLReferences}
 
 \bibliographystyle{unsrt}
-\bibliography{sample.bib}
+\bibliography{arxiv-preprint.bib}
 
 
 \end{document}

@@ -1,5 +1,5 @@
 ---
-title: A systematic machine learning approach to assess biases in mobile phone population data
+title: A systematic machine learning approach to measure and assess biases in mobile phone population data
 authors:
   - name: "Carmen Cabrera\\textsuperscript{*}"
     department: Geographic Data Science Lab, Department of Geography and Planning
@@ -25,7 +25,7 @@ keywords:
   - Explainable AI
   - Machine learning
   - Spatial bias
-bibliography: sample.bib
+bibliography: arxiv-preprint.bib
 biblio-style: unsrt
 header-includes:
   - \usepackage{amsmath}
@@ -446,10 +446,6 @@ across multiple sources of data and geographic areas.
 
 ### Identifying spatial patterns of population bias
 
-<!--# FR - this section should describe the intuition of the spatial analysis i.e. why we do it and how. Key is to identify and explain the various methods to measure the spatial weight matrix. Here we should probably already state that spatial correlation is not significant in our analysis - a caveat is that this is at the LAD level. There would be reasons to believe that spatial autocorrelation may be present at lower levels of aggregation. Should we metion this? Not sure at this stage how this could be said without prompting a question on why don't you test this using your mobile phone data? I would start this section stating the purpose of our analysis, rather than how we do this. -->
-
-<!---Explain differences in patterns single app and multi app. What percentage of spatial units are above a certain threshold of bias for each? Are multiapps better at evening out bias?--->
-
 For each data source, we computed the coverage bias metric at the
 subnational level and examined its geographic variation. This stage has
 two main objectives. The first assesses the extent of geographical unevenness in bias 
@@ -581,7 +577,7 @@ coverage bias.
 
 ![Size of coverage bias (bottom x-axis) and population coverage per
 1,000 population (top-x-axis) by data
-source.](figures/compare-surveys-two-axis.png){#fig:survey width="14cm"
+source.](figures/compare-surveys-two-axis.png){#fig:survey width="14.5cm"
 height="8.5cm"}
 
 Figure \@ref(fig:survey) shows differences between MP data and
@@ -635,26 +631,26 @@ whether these patterns exhibit spatial clustering. These assessments
 were important both for evaluating the limitations of each dataset for
 further research and for deciding whether spatial dependence terms
 should be incorporated into the subsequent modelling stage
-\@\ref(#sec-explain).
+\@ref(sec-explain).
 
-Figure @ref(fig:bias-size) summarises these analyses for each dataset.
-Each row corresponds to a data source and includes three elements: A) a
+Figure \@ref(fig:bias-size) summarises these analyses for each dataset.
+Each row corresponds to a data source and includes three elements. The first shows a
 hexagonal cartogram showing the size of coverage bias in each LAD,
 alongside the Moran’s I statistic and corresponding p-value as a measure
-of spatial autocorrelation; B) a histogram showing the distribution of
-coverage bias across LADs; and C) a scatter plot comparing population
+of spatial autocorrelation. The second shows a histogram showing the distribution of
+coverage bias across LADs. The third displays a scatter plot comparing population
 counts derived from each MP dataset with census population counts for
 the same LADs, together with Pearson’s correlation coefficient and
 p-value.
 
 ![Extent and spatial distribution of population bias across local
 authority districts in the UK. A. Hexagon map of the size of population
-bias across local authority districts. \$I\$ represents the Moran's I
-and \$p\$ denotes the associated p-value. B. Histogram of the
+bias across local authority districts. $I$ represents the Moran's I
+and $p$ denotes the associated p-value. B. Histogram of the
 distribution of the size of population bias. C. Scatter plot of the
 relationship between population size and size of
-bias.](figures/Fig-size-bias.png){#fig:bias-size width="14cm"
-height="13cm"}
+bias.](figures/Fig-size-bias.png){#fig:bias-size width="14.5cm"
+height="13.5cm"}
 
 Our spatial analysis revealed several patterns in the distribution of
 coverage bias which are consistent across the MP
@@ -694,7 +690,7 @@ locations was detected. This pattern is likely related to the unique
 demographic and spatial context of the City of London. Although it has a
 very small resident population, it is a major centre of employment and
 commuting. Because home locations are inferred from the most frequently
-recorded nighttime position [@wang2022], even a relatively modest number
+recorded nighttime position, even a relatively modest number
 of residents or temporary visitors can yield an unusually high apparent
 population coverage compared to larger LADs. By contrast, data from Meta
 displayed the lower values of population coverage bias, ranging from
@@ -742,7 +738,7 @@ column displays the estimates for all data sources and model features.
 Subsequent columns highlight features scoring SHAP values over 0.5
 within a 0-1 range for individual data
 sources.](figures/radial-plots_feature-importance.png){#fig:radialplots
-width="14.2cm" height="15.8cm"}
+width="14.5cm" height="16cm"}
 
 The results reveal wide variability in the key predictors of population
 biases across digital data sources. Demographic and socioeconomic
@@ -764,7 +760,7 @@ no qualification, and working in low skill occupations emerge as the
 most important features in explaining population biases in Multi-app1.
 This is in addition to the population share aged 60-69, residing in
 households lacking central heating and living in rural areas. For
-multi-app2-derived estimates, the share of student population, working
+Multi-app2-derived estimates, the share of student population, working
 in intermediate-level jobs, small employers, having a Level 4
 qualification and living in large households score the highest average
 SHAP values. The variability in feature importance ranking across data
@@ -782,8 +778,8 @@ absolute SHAP value, illustrating the marginal effect of variation in
 each predictor on population bias. Local polynomial regression modelling
 was used to represent local trends with 95% confidence intervals. Each
 point represents a local authority
-district.](figures/explain-bias.png){#fig:shap-plots width="14.1cm"
-height="12.2cm"}
+district.](figures/explain-bias.png){#fig:shap-plots width="14.5cm"
+height="12.5cm"}
 
 Expanding this evidence, Figure \ref{fig:shap-plots} depicts the way
 these contextual features contribute to increasing or reducing the
@@ -805,11 +801,11 @@ areas with higher population density and greater percentages of people
 lacking central heating. Operating in the opposite direction, larger
 shares of people working in routine-level jobs and living in rural areas
 display lower Meta-based population bias, reflecting greater engagement
-with Facebook among these communities. For multi-app1-derived estimates,
+with Facebook among these communities. For Multi-app1-derived estimates,
 biases are larger for areas with greater shares of population with Level
 4 or no qualification, working in routine-level jobs, lacking central
 heating, living in rural communities and population aged 60-69. For
-multi-app2-derived estimates, biases are greater for areas with smaller
+Multi-app2-derived estimates, biases are greater for areas with smaller
 shares of people working in intermediate-level jobs and self-employed in
 small businesses, but displaying larger percentages of students, people
 with Level 4 qualification and living in large households.

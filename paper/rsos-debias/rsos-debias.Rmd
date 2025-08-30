@@ -667,22 +667,22 @@ whether these patterns exhibit spatial clustering. These assessments
 were important both for evaluating the limitations of each dataset for
 further research and for deciding whether spatial dependence terms
 should be incorporated into the subsequent modelling stage
-\@\ref(#sec-explain).
+\@ref(sec-explain).
 
-Figure @ref(fig:bias-size) summarises these analyses for each dataset.
-Each row corresponds to a data source and includes three elements: A) a
+Figure \@ref(fig:bias-size) summarises these analyses for each dataset.
+Each row corresponds to a data source and includes three elements. The first shows a
 hexagonal cartogram showing the size of coverage bias in each LAD,
 alongside the Moran’s I statistic and corresponding p-value as a measure
-of spatial autocorrelation; B) a histogram showing the distribution of
-coverage bias across LADs; and C) a scatter plot comparing population
+of spatial autocorrelation. The second shows a histogram showing the distribution of
+coverage bias across LADs. The third displays a scatter plot comparing population
 counts derived from each MP dataset with census population counts for
 the same LADs, together with Pearson’s correlation coefficient and
 p-value.
 
 ![Extent and spatial distribution of population bias across local
 authority districts in the UK. A. Hexagon map of the size of population
-bias across local authority districts. \$I\$ represents the Moran's I
-and \$p\$ denotes the associated p-value. B. Histogram of the
+bias across local authority districts. $I$ represents the Moran's I
+and $p$ denotes the associated p-value. B. Histogram of the
 distribution of the size of population bias. C. Scatter plot of the
 relationship between population size and size of
 bias.](figures/Fig-size-bias.png){#fig:bias-size width="14cm"
@@ -727,7 +727,7 @@ locations was detected. This pattern is likely related to the unique
 demographic and spatial context of the City of London. Although it has a
 very small resident population, it is a major centre of employment and
 commuting. Because home locations are inferred from the most frequently
-recorded nighttime position [@wang2022], even a relatively modest number
+recorded nighttime position, even a relatively modest number
 of residents or temporary visitors can yield an unusually high apparent
 population coverage compared to larger LADs. By contrast, data from Meta
 displayed the lower values of population coverage bias, ranging from
@@ -838,7 +838,7 @@ areas with higher population density and greater percentages of people
 lacking central heating. Operating in the opposite direction, larger
 shares of people working in routine-level jobs and living in rural areas
 display lower Meta-based population bias, reflecting greater engagement
-with Facebook among these communities. For multi-app1-derived estimates,
+with Facebook among these communities. For Multi-app1-derived estimates,
 biases are larger for areas with greater shares of population with Level
 4 or no qualification, working in routine-level jobs, lacking central
 heating, living in rural communities and population aged 60-69. For
