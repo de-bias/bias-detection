@@ -51,10 +51,10 @@ ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_
   scale_fill_manual(
     name = "",  # Removes the legend title
     values = c("FALSE" = "#69b3a2", "TRUE" = "#FF5733"),  # Define colors
-    labels = c("FALSE" = "DFD", "TRUE" = "Survey")  # Custom labels for legend items
+    labels = c("FALSE" = "Mobile phone app", "TRUE" = "Survey")  # Custom labels for legend items
   ) +
   coord_flip(ylim = c(0.92, 1)) +
-  labs(x = "Data source", y = "Size of bias") +
+  labs(x = "Data source", y = "Population coverage bias") +
   theme_plot_tufte() +
   theme(
     axis.title.x = element_text(size = 14, face = "bold", color = "black"),
@@ -74,16 +74,16 @@ ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_
   geom_point(aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = (1-Size_bias_include)+0.92), 
              color = "black", size = 2) +  # Add dots for Size_bias_include * 1000
   scale_fill_manual(
-    name = "Size of bias",  # Removes the legend title
+    name = "Population coverage bias",  # Removes the legend title
     values = c("FALSE" = "#69b3a2", "TRUE" = "#FF5733"),  # Define colors
-    labels = c("FALSE" = "Survey", "TRUE" = "DFD")  # Custom labels for legend items
+    labels = c("FALSE" = "Survey", "TRUE" = "Mobile phone app")  # Custom labels for legend items
   ) +
   coord_flip(ylim = c(0.92, 1)) +
   # coord_flip() +
-  labs(x = "Data source", y = "Size of bias") +
+  labs(x = "Data source", y = "Population coverage bias") +
   scale_y_continuous(
     sec.axis = sec_axis(~  (. -0.92)*1000 ,
-      name = "Number of responses per 1,000"  # Name for secondary y-axis
+      name = "Population coverage per 1,000"  # Name for secondary y-axis
     )
   ) +
   theme_plot_tufte() +
@@ -106,18 +106,18 @@ ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_
   geom_point(aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = (1 - Size_bias_include) + 0.92, color = "Response rate"), 
              size = 2) +  
   scale_fill_manual(
-    name = "Source of data",  
+    name = "Population coverage bias",  
     values = c("FALSE" = "#69b3a2", "TRUE" = "#FF5733"),  
-    labels = c("FALSE" = "DFD", "TRUE" = "Survey")  
+    labels = c("FALSE" = "Mobile phone app", "TRUE" = "Survey")  
   ) +
   scale_color_manual(
     name = "Response rate",  
     values = c("Response rate" = "black")  
   ) +
   coord_flip(ylim = c(0.92, 1)) +
-  labs(x = "Data source", y = "Size of bias") +
+  labs(x = "Data source", y = "Population coverage bias") +
   scale_y_continuous(
-    sec.axis = sec_axis(~ (. - 0.92) * 1000, name = "Response rate (per 1,000)")  
+    sec.axis = sec_axis(~ (. - 0.92) * 1000, name = "Population coverage (per 1,000)")  
   ) +
   theme_plot_tufte() +
   theme(

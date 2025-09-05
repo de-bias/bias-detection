@@ -1,5 +1,5 @@
 ---
-title: Supplementary Information
+title: Supplementary Material - A systematic machine learning approach to assess biases in population data from mobile phone applications
 author:
   - name: Carmen Cabrera
     affiliation: "1"
@@ -10,83 +10,103 @@ address:
     address: Geographic Data Science Lab, Department of Geography and Planning, University of Liverpool, Liverpool, United Kingdom.
   - code: ""
     address: 
-corresp_author_name:  "Carmen Cabrera"
-corresp_author_email: "C.Cabrera@liverpool.ac.uk"
+corresp_author_name:  "Carmen Cabrera, Francisco Rowe"
+corresp_author_email: "c.cabrera@liverpool.ac.uk; fcorowe@liverpool.ac.uk"
 subject:
-  - "subject 1"
-  - "subject 2"
-  - "subject 3"
+  - "Mobile phone data"
+  - "Human mobility"
+  - "Explainable AI"
+  - "Spatial analysis"
 keywords:
-  - one
-  - two
-  - optional
-  - optional
-  - optional
+  - Mobile phone data
+  - Human mobility
+  - Digital trace data
+  - Population estimates
+  - Coverage bias
+  - Data representativeness
+  - Location
+  - Explainable AI
+  - Machine learning
+  - Spatial bias
 abstract: |
-  The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here. The abstract text goes here.
+  Traditional sources of population data, such as censuses and surveys, are costly, infrequent, and often unavailable in crisis-affected regions. Mobile phone application data (MPD) offer near–real-time, high-resolution insights into population distribution, but their utility is undermined by unequal access to digital technologies, creating biases that threaten representativeness. Despite recognition of these issues, no standard framework exists to address such biases, limiting the reliability of MPD for research and policy. We develop and implement a systematic, replicable framework to quantify and explain population coverage bias in aggregated mobile phone application data without requiring individual-level attributes. The approach combines an indicator of population coverage bias with explainable machine learning to identify contextual drivers of spatial variation in bias. Using four datasets for the United Kingdom benchmarked against the 2021 census, we show that MPD achieve higher population coverage than national surveys, but biases persist across sources and subnational areas. Population coverage bias is strongly associated with demographic, socioeconomic, and geographic features, often in complex nonlinear ways. Contrary to common assumptions, multi-application datasets do not necessarily reduce bias compared to single-app sources. Our findings establish a foundation for bias assessment standards in MPD, offering practical tools for researchers, statistical agencies, and policymakers.
 ethics: |
-  Please provide details on the ethics.
-  
+  This research was conducted in accordance with the ethical standards of the University of Liverpool. All data used were anonymised and analysed at an aggregate level. No identifiable personal data were accessed or processed by the authors.
 data_accessibility: |
-  Please provide details on the data availability.
+  Please see data accessibility in the Data section. Code is openly available at https://github.com/de-bias/bias-detection.
 author_contributions: |
-  Please provide details of author contributions here.
+  Both authors contributed equally.
 conflict_of_interest: |
-  Please declare any conflict of interest here.
+  The authors declare that they have no conflicts of interest relevant to this work.
 funding: |
-  Please provide details on funding
+  This work was supported by the Economic and Social Research Council (ESRC) through Smart Data Research UK programme [Project reference: ES/Y010787/1].
 disclaimer: |
   Please provide disclaimer text here.
 acknowledgements: |
-  Please include your acknowledgments here, set in a single paragraph. Please do not include any acknowledgments in the Supporting Information, or anywhere else in the manuscript.
+   The authors acknowledge the support of UK ESRC and of project partners: the International Organization for Migration (IOM), Meta Platforms, Inc., and Prof. Esteban Moro.
 bibliography: sample.bib
 lineno: false
 site: bookdown::bookdown_site
 output: 
   bookdown::pdf_book:
     base_format: rticles::rsos_article
+header-includes:
+  - \usepackage{float}
 editor_options: 
   markdown: 
     wrap: 72
 ---
 
-::: {.callout-note icon="false"}
-The main document should include:
-
-Title (no more than 150 characters)
-
-Author names and affiliations, and ORCID iDs where available
-
-Abstract (no more than 200 words). (This will be used in reviewer
-invitation emails so please think about how to describe your work to
-make it easy for a potential reviewer to determine whether they would be
-suitable.)
-
-All main manuscript text. Ensure that all figures, tables and any
-relevant supplementary materials are mentioned within the text
-References
-
-Acknowledgements and funding statement (ensure that you have included
-grant numbers and the names of any funding providers)
-
-Tables with captions Figure captions with credits where relevant
-:::
-
 \newpage
-
-
-
 
 # Alternative data aggregation approaches for Facebook data
 
-![](figures/Fig-compare-bias-size.png){width="514" height="248"}
+Facebook Population data was aggregated temporally by averaging daily
+population counts over a month and then spatially, by aggregating it
+into Local Authority Districts (LADs), ensuring alignment with official
+census data. To test the robustness of the population coverage bias
+indicator (Equation 3.2 in the main text) under data aggregation strategies, we compared results from this
+chosen approach with alternative ones. To this end, we examined
+the relationship between the LAD-level bias indicator obtained from
+Facebook data according to the chosen approach and from alternative
+aggregation approaches. We expect to find strong linear correlations if
+the bias indicator is robust to the aggregation approach. The robustness
+test is shown in Figure \@ref(fig:sensitivity), where the x-axis shows
+the bias indicators under the chosen method, while the y-axis shows
+alternative aggregation approaches by: A) grouping into LADs, then
+averaging over a month; B) averaging over a week from March 2021, then
+grouping into LADs; C) grouping into LADs, then averaging over a week.
+For completeness we also compare bias indicators derived from Facebook
+under the chosen aggregation approach and bias indicators derived from
+other data sources: D) Twitter/X, E) Multi-app 1, F) Mult-app 2.
 
-# Testing for spatial autocorrelation in the size of bias
+Strong linear relationships are observed between Facebook bias
+indicators across all aggregation approaches, with Pearson correlation
+coefficients of 1, confirming robustness to aggregation choices. In
+contrast, comparisons with other data sources show no such correlation,
+indicating that different LADs exhibit larger biases depending on the
+data source. 
 
-according to multiple spatial weighting schemes --\> compute moran's I
-and p-values, display them in a table (schemes as columns, data source
-as rows)
+\begin{figure}[h]\label{fig:sensitivity}
+\includegraphics[width=\textwidth]{figures/Fig-compare-bias-size.png}
+\caption{Robustness test of population coverage bias indicators derived from Facebook data, under alternative data aggregation approaches.}
+\end{figure}
 
-![Supplementary Table 2. Moran's I coefficients and significance,
-computed according to four spatial weights schemes,
-](figures/Table-si.png){width="500" height="200"}
+
+
+\newpage
+
+# Testing for spatial autocorrelation in population coverage bias
+
+We analysed the spatial distribution of the population coverage bias indicator across LADs. Figure 3 in the main text reports Moran’s I values computed using queen contiguity neighbourhoods. For comparison, Table \@ref(fig:table-neighbour) presents Moran’s I values and associated p-values obtained under alternative spatial weighting schemes.
+
+\begin{figure}[h]
+\label{fig:table-neighbour}
+\includegraphics[width=\textwidth]{figures/Table-si.png}
+\caption{Moran's I coefficients and significance,
+computed according to four spatial weights schemes, 1) queen
+neighbourhood, 2) k-nearest neighbours, 3) optimal distance band, and 4)
+user-defined distance band.}
+\end{figure}
+
+\newpage

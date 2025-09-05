@@ -32,7 +32,7 @@ source("./style/data-visualisation_theme.R")
 
 ```{r}
 # Set digital trace data source: twitter, fb_tts_census_week, fb_tts_census_month, fb_stt_census_week, fb_stt_census_month, mapp1, mapp2
-dfd <- "mapp1"
+dfd <- "twitter"
 
 # Set weights scheme: queen, fbw, knn, db
 w_scheme <- 'db'
