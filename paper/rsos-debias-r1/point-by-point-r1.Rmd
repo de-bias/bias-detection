@@ -1,0 +1,130 @@
+------------------------------------------------------------------------
+
+## Point-by-point response to reviewers
+
+### Reviewer 1
+
+ This is a good paper that addresses some important issues with mobile phone data (MPD) in assessing the effects of shocks. I have a number of concerns that should be addressed before it is ready for publication, however.
+
+##### Motivation and base case
+
+**Reviewer 1, Comment 1 (R1.1).** First, at a meta level, I wonder about impact. Many researchers working with MPD will have already shown population-coverage correlations and looked at demographic biases in deviations/residuals. Because many reviewers/researchers will address bias in the SI of their papers, I think the study would benefit from more work on whether or not the typical strategies are insufficient. This could be as simple as using a linear model, residualising coverage on population and looking at demographic/spatial biases in the residuals. I think the strength of this study actually lies in the spatial dimension, since most data validations will not include checks for spatial autocorrelation on the residuals of this coverage \~ population model, but these are important as diagnostics that indicate unmodelled spatial structure, whether or not there might be some sort of unobserved/unmodelled bias in the data. Building this “base case” and finding out if it is insufficient, then, represents an important first step in improving the paper.
+
+<p style="text-indent: 2em;">
+**Authors response to R1.1 (A1.1).** asdfasdf
+</p>
+
+##### Bias measure
+
+**R1.2**. The authors present a measure of bias $e_i$ that represents the deviations from perfect coverage They suggest that a situation wherein there more mobile devices that people within a given areal unit, such that $1 - c_i < 0$, is rare, so the measure functionally bounded [0, 1]. Because it could happen, though, a mention of how it is handled is also important—eg winsorisation/censoring.
+
+<p style="text-indent: 2em;">
+**A1.2.** asdfasdf
+</p>
+
+**R1.3**. Another problem is that the bias might be subtler than that because coverage is often low that even devices doubled or tripled in some households would still not push $c_i > 1$: that is, because these samples are often on the order \~10% of the population, there could still be many duplicates per household. I do not think there is a good solution here, and likely only exists for MPD, not for Facebook/Twitter, but I think the authors should comment on it and include a check for devices that display X% similarity. A complete process for finding duplicates is beyond the scope of the paper but it could be an important source of bias so I also do not think we can write it off out of hand; some parsimonious check would help.
+
+<p style="text-indent: 2em;">
+**A1.3.** asdfasdf
+</p>
+
+##### Model
+
+**R1.4**. Given that the paper explores potential spatial biases in the data, the k-fold cross-validation should include spatial folds as well; k-fold with contiguity clusters would help and something with regions (like leaving London out) would be even stronger.
+
+<p style="text-indent: 2em;">
+**A1.4.** asdfasdf
+</p>
+
+**R1.5**. The authors also opt out of using spatial lags in the model, because there is not strong autocorrelation in the DV, but this is probably the wrong call: a lack of autocorrelation in the DV does not guarantee that the residuals are not autocorrelated. Further, because this approach is automated, using regularisation to determine what makes the cut, it makes more sense to include lags (of predictors) and let ML do the work of figuring out if they are important. Please also report Moran’s I of residuals.
+
+<p style="text-indent: 2em;">
+**A1.5.** asdfasdf
+</p>
+
+##### Less important
+
+**R1.6**. There is no mention of how many LADs are in England but it seems small. XGBoost is fit for purpose here, but including hyperparameters to alleviate any concerns about overfitting would be good. Please report capacity controls; add a brief calibration plot (predicted vs. observed) and residual maps.
+
+<p style="text-indent: 2em;">
+**A1.6.** asdfasdf
+</p>
+
+**R1.7**. Figure 4 looks great but “Lower supervisory” should be put either at noon or 6 (as it were, on the clock) so that it doesn’t protrude so far off to the side. As it is, that text pushes all the other figures off to the left side.
+
+<p style="text-indent: 2em;">
+**A1.7.** asdfasdf
+</p>
+
+### Reviewer 2
+
+The paper presents a national-scale assessment of bias in social media and multi-source mobile phone application data by comparing these sources to the census, then linking patterns to area characteristics using an interpretable machine-learning approach. The study is ambitious, the analysis appears robust, and the figures and overall presentation are mostly strong. A revision that clarifies a few key points would strengthen the paper and make the contribution easier to interpret and reuse.
+
+**Reviewer 2, Comment 1 (R2.1).** At the moment, the paper reads more strongly as a set of findings for these specific data sources in the UK than as a general workflow. This is mainly because the home-area approach builds on existing methods and the analysis is then carried out at Local Authority District (LAD) level, which is higher than the scale many studies would use to link census/IMD variables or to adjust for bias. It may help to either frame the contribution more clearly as UK-wide evidence, or explain more directly how and why the approach would transfer to other places and finer geographic scales.
+
+<p style="text-indent: 2em;">
+**A2.1.** asdfasdf
+</p>
+
+**R2.2**. The choice to work at LAD level needs a clearer justification and a fuller discussion of what it means for interpretation. LADs are useful for a national overview, but many common uses of these data (including mobility analysis) rely on smaller areas. The paper notes that results may differ at other geographies (page 14, line 9); expanding this would help readers understand whether the LAD patterns are likely to hold when broken down into smaller areas. The home-area workflow also needs a little more detail: the paper should state the geography at which home area is first estimated (before aggregation to LAD), whether the same method is used for multi-source dataset 1 and dataset 2, and what “privacy preserving” means in practice for this study.
+
+<p style="text-indent: 2em;">
+**A2.2.** asdfasdf
+</p>
+
+**R2.3**. Population coverage measures should be defined more clearly. In particular, it should be stated whether the denominator is the adult population only, given that GDPR mobile app products typically cover users aged 16+. If children are included in the denominator, that should be acknowledged as a limitation. It would also be useful to note how differences in the adult share across areas might affect equation 3.1 and later steps that use “population coverage bias”.
+
+<p style="text-indent: 2em;">
+**A2.3.** asdfasdf
+</p>
+
+**R2.4**. In a few places, the text would benefit from clearer separation between coverage, bias, and representativeness. Higher penetration for Facebook and X does not necessarily mean these sources are representative, and multi-source app data may have lower coverage but still be more balanced across some groups (as suggested in prior UK evidence). This distinction is mentioned in the discussion, but it should be applied more consistently in the Results and Discussion, especially in section 4b where social media show higher coverage.
+
+<p style="text-indent: 2em;">
+**A2.4.** asdfasdf
+</p>
+
+**R2.5**. Some figure captions and labels could be made clearer. Figure 1 is difficult to interpret due to the dual axis and unclear mapping between axes and legend. In Figure 3, “population coverage bias” appears to be on a 0–100 scale, but the wording (“size of the bias”) suggests higher values are worse. If values closer to 100 indicate higher coverage, the terminology and caption should make the direction of interpretation explicit. Relatedly, page 11, line 55 states that mobile phone app data have strong potential for large-scale empirical analysis; this would read better with a short qualification that coverage/volume alone do not resolve known measurement issues linked to how these data are collected and processed.
+
+<p style="text-indent: 2em;">
+**A2.5.** asdfasdf
+</p>
+
+**R2.6**. The reported coverage levels for multi-source app data also need clearer support. The paper refers to high coverage values (e.g., ~70% and 26% for an undisclosed provider), which appear high compared with common estimates for these datasets (often single-digit percentages or around ~10%, depending on definition and time window). The paper should state exactly what these percentages represent (time window, unique active users, de-duplication, denominator) and provide evidence or careful qualification, particularly for the 26% figure.
+
+<p style="text-indent: 2em;">
+**A2.6.** asdfasdf
+</p>
+
+**R2.7**. Processing choices for Twitter/X should be described. Twitter geolocation can differ between GPS geotags and platform-assigned locations, and these can conflict; the paper should state how this was handled because it affects any bias/coverage comparisons for X/Twitter.
+
+<p style="text-indent: 2em;">
+**A2.7.** asdfasdf
+</p>
+
+**R2.8**. The interpretation of results would be stronger with more engagement with related studies, particularly in the introduction and discussion, for example:
+• https://doi.org/10.1038/s41597-024-03490-y
+• https://doi.org/10.1016/j.apgeog.2023.102997
+• https://doi.org/10.1016/j.apgeog.2024.103260
+• https://doi.org/10.1140/epjds/s13688-023-00447-w
+• https://doi.org/10.1111/geoj.70033
+• https://doi.org/10.3390/app15020982
+• https://doi.org/10.1371/journal.pone.0294430
+
+<p style="text-indent: 2em;">
+**A2.8.** asdfasdf
+</p>
+
+**R2.9**. The ethics section could also be clearer in plain terms, ideally within the paper rather than only as a brief statement. The current wording says approval was not required because no personal identifiers were processed and that the work followed University of Liverpool ethical standards. Given the use of Twitter Academic API data, estimation of home area from high-resolution traces, and processing of at least one multi-source dataset, the paper should briefly describe the safeguards in place (secure access, aggregation/suppression rules, limits on outputs) and whether the work was reviewed or formally exempted, noting that re-identification risk can still exist even when data are de-identified.
+
+<p style="text-indent: 2em;">
+**A2.9.** asdfasdf
+</p>
+
+**R2.0**. Finally, the data/code availability statement should be clearer and aligned with journal requirements. The manuscript points to GitHub, but it is unclear whether data from Locomizer and the undisclosed provider will be shared (and Table 1 suggests they may not). Given TOP standards (Data transparency Level 2: data posted to a trusted repository; exceptions identified at submission), the paper should state what will be publicly available and where. If the underlying data cannot be shared due to licensing, it should state if anything be shared instead (e.g., aggregated outputs or a reproducible pipeline for authorised users) and how any exception was handled at submission.
+
+<p style="text-indent: 2em;">
+**A2.10.** asdfasdf
+</p>
+
+### References
