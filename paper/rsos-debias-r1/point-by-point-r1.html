@@ -363,7 +363,7 @@ concerns that should be addressed before it is ready for publication,
 however.</p>
 <div id="motivation-and-base-case" class="section level5">
 <h5>Motivation and base case</h5>
-<p><strong>Reviewer 1, Comment 1 (R1.1).</strong> First, at a meta
+<p><em><strong>Reviewer 1, Comment 1 (R1.1).</strong> First, at a meta
 level, I wonder about impact. Many researchers working with MPD will
 have already shown population-coverage correlations and looked at
 demographic biases in deviations/residuals. Because many
@@ -378,9 +378,48 @@ residuals of this coverage ~ population model, but these are important
 as diagnostics that indicate unmodelled spatial structure, whether or
 not there might be some sort of unobserved/unmodelled bias in the data.
 Building this “base case” and finding out if it is insufficient, then,
-represents an important first step in improving the paper.</p>
-<p style="text-indent: 2em;">
-<strong>Authors response to R1.1 (A1.1).</strong> asdfasdf
+represents an important first step in improving the paper.</em></p>
+<p style="margin-left: 45px;">
+<strong>Authors response to R1.1 (A1.1).</strong> We agree that many
+studies working with mobile phone data (MPD) assess, to some extents,
+data quality. Typically, this is done by examining correlations between
+platform-derived population counts and census population counts [and
+sometimes by analysing demographic patterns in residuals from simple
+linear models]. These approaches provide a useful first-order diagnostic
+of proportional agreement.
+</p>
+<p style="margin-left: 45px;">
+However, as the reviewer notes, it is important to establish whether
+such standard validation strategies are sufficient. In response, we have
+now strengthened the manuscript by explicitly discussing this ``base
+case’’ validation strategy and clarifying its limitations. In
+particular, we highlight that:
+</p>
+<p style="margin-left: 45px;">
+<ol style="list-style-type: lower-roman">
+<li>High correlations between MPD-derived and census population counts
+are often driven by shared scaling with area population size and
+therefore do not necessarily imply representativeness.
+</p></li>
+</ol>
+<p style="margin-left: 45px;">
+<ol start="2" style="list-style-type: lower-roman">
+<li>Assessment strategies based on linear regression, assume a linear
+relationship between bias and population size, and typically do not test
+for spatial autocorrelation in residuals. Spatially structured or
+nonlinear patterns of bias may therefore remain undetected under
+conventional approaches.
+</p></li>
+</ol>
+<p style="margin-left: 45px;">
+We have revised the Introduction and Methods sections to clarify …
+Specifically, our approach formalises coverage bias as an explicit
+proportional metric, diagnoses its spatial structure through Moran’s I
+statistics, and identifies multidimensional and nonlinear contextual
+drivers using explainable machine learning. By explicitly evaluating
+spatial dependence and nonlinear effects, our framework provides a more
+systematic and diagnostic assessment of representativeness than
+correlation-based validation alone.
 </p>
 </div>
 <div id="bias-measure" class="section level5">
@@ -390,8 +429,22 @@ perfect coverage They suggest that a situation wherein there more mobile
 devices that people within a given areal unit, such that <span class="math inline">\(1 - c_i &lt; 0\)</span>, is rare, so the measure
 functionally bounded [0, 1]. Because it could happen, though, a mention
 of how it is handled is also important—eg winsorisation/censoring.</p>
-<p style="text-indent: 2em;">
-<strong>A1.2.</strong> asdfasdf
+<p style="margin-left: 45px;">
+<strong>A1.2.</strong> The reviewer is correct that our definition of
+coverage <span class="math inline">\(c_i = P_i^D/P_i \times 100\)</span>
+allows <span class="math inline">\(c_i&gt;100\)</span> when the observed
+number of devices or users exceeds the census population in an area,
+which would yield negative values of our bias measure <span class="math inline">\(e_i = 100-c_i\)</span>. While this situation is
+theoretically possible (e.g. due to device duplication, temporal
+mismatch or other measurement artefacts), it is far from arising in our
+empirical application. We therefore do not need to apply winsorisation
+or censoring. In principle, allowing <span class="math inline">\(e_i\)</span> to take negative values is
+methodologically acceptable and interpretable as ``over-coverage’’
+relative to the census benchmark. Our modelling approach can accommodate
+such values without difficulty.
+</p>
+<p style="margin-left: 45px; color: blue;">
+<strong>ACTION.</strong> –<em>TO DO</em>
 </p>
 <p><strong>R1.3</strong>. Another problem is that the bias might be
 subtler than that because coverage is often low that even devices
@@ -404,8 +457,14 @@ devices that display X% similarity. A complete process for finding
 duplicates is beyond the scope of the paper but it could be an important
 source of bias so I also do not think we can write it off out of hand;
 some parsimonious check would help.</p>
-<p style="text-indent: 2em;">
-<strong>A1.3.</strong> asdfasdf
+<p style="margin-left: 45px;&gt;**A1.3.** We agree that multi-device ownership or duplication is a potential source of inflation in device-based population counts. In principle, individuals may own multiple devices or generate multiple identifiers and such duplication could introduce systematic overestimation in certain areas.&lt;/p&gt;
+
+&lt;p style=" margin-left: 45px;>Conceptually, our framework measures cumulative population coverage bias, defined as the deviation between platform-derived counts and census population counts. Any inflation arising from ownership of more than one device is therefore captured within the coverage bias metric. In other words, we do not assume that there is no duplication but is treated as one potential component of the overall bias we seek to quantify.</p>
+<p style="margin-left: 45px;&gt;Regarding household-level duplication specifically, our unit of inference is the individual population count rather than households. Duplication would only constitute a systematic concern if multi-device ownership varies spatially in ways correlated with area-level characteristics (e.g. income, level of urbanisation). In such cases, our explainable machine learning framework is designed precisely to detect these contextual associations. For example, if multi-device ownership is more prevalent in affluent or highly urbanised areas, this would be reflected in the importance of socioeconomic or geographic predictors in explaining coverage bias.&lt;/p&gt;
+
+&lt;p style=" margin-left: 45px;>We acknowledge, however, that a complete identification of duplicate devices would require access to individual-level or cross-device linkage data, which is not available in aggregated and privacy-preserving datasets. Generalisability is a key principle of our proposed methodology, therefore... </p>
+<p style="margin-left: 45px; color: blue;">
+<strong>ACTION.</strong> –<em>TO DO</em>
 </p>
 </div>
 <div id="model" class="section level5">
@@ -415,8 +474,36 @@ spatial biases in the data, the k-fold cross-validation should include
 spatial folds as well; k-fold with contiguity clusters would help and
 something with regions (like leaving London out) would be even
 stronger.</p>
-<p style="text-indent: 2em;">
-<strong>A1.4.</strong> asdfasdf
+<p style="margin-left: 45px">
+<strong>A1.4.</strong> This is an important methodological suggestion
+that we have now implemented. In response, we have implemented
+additional spatially structured validation procedures as robustness
+checks.
+</p>
+<p style="margin-left: 45px; color: blue;">
+<strong>ACTION.</strong> We have implemented additional spatially
+structured validation procedures as robustness checks. Specifically:
+</p>
+<ul style="margin-left:45px; color:blue;">
+<li>
+We conducted spatial block cross-validation, where folds were defined
+using geographically contiguous clusters of Local Authority Districts to
+reduce spatial leakage between training and testing samples. –<em>TO
+DO</em>
+</li>
+<li>
+We implemented a leave-one-region-out validation scheme based on NUTS1
+regions (including a hold-out of London), training the model on all
+remaining regions and testing on the excluded region.–<em>TO DO</em>
+</li>
+</ul>
+<p style="margin-left: 45px; color: blue;">
+Across these spatial validation schemes, model performance metrics were
+comparable to …. (?) those obtained under standard k-fold
+cross-validation, and the ranking of feature importance remained
+substantively stable. These results confirm our earlier finding that
+spatial autocorrelation in coverage bias is weak at the LAD scale and
+does not impact inference (?) –&gt; Update from results.
 </p>
 <p><strong>R1.5</strong>. The authors also opt out of using spatial lags
 in the model, because there is not strong autocorrelation in the DV, but
@@ -426,9 +513,39 @@ because this approach is automated, using regularisation to determine
 what makes the cut, it makes more sense to include lags (of predictors)
 and let ML do the work of figuring out if they are important. Please
 also report Moran’s I of residuals.</p>
-<p style="text-indent: 2em;">
-<strong>A1.5.</strong> asdfasdf
+<p style="margin-left: 45px;">
+<strong>A1.5.</strong> We agree that weak spatial autocorrelation in the
+dependent variable does not rule out spatial dependence in model errors.
+We incorporate the reviewer’s suggestions in our methodology and based
+on these additional tests, we find that residual spatial autocorrelation
+is negligible (?) at the LAD scale and inclusion of spatially lagged
+predictors does not materially change model performance or the
+substantive conclusions regarding the leading contextual drivers of
+population coverage bias. –TO UPDATE
 </p>
+<p style="margin-left: 45px; color: blue;">
+<strong>ACTION.</strong> We have revised the manuscript to clarify this
+distinction and to avoid implying that the small magnitude of Moran’s I
+in the outcome is sufficient evidence that spatial effects can be
+ignored.–TODO
+</p>
+<ul style="margin-left:45px; color:blue;">
+<li>
+We now report Moran’s I for the model residuals for each data source,
+using the same spatial weighting scheme(s) considered in the paper. This
+provides a diagnostic of any remaining unmodelled spatial structure
+after accounting for the covariates. – TODO
+</li>
+<li>
+We augmented the set of covaraites with spatially lagged versions of key
+covariates (constructed using contiguity-based spatial weights) and
+re-estimated the XGBoost models.–TODO
+</li>
+<li>
+We report these results in Section X and provide full details in
+Supplementary Material Section Y –TODO.
+</li>
+</ul>
 </div>
 <div id="less-important" class="section level5">
 <h5>Less important</h5>
@@ -438,14 +555,14 @@ including hyperparameters to alleviate any concerns about overfitting
 would be good. Please report capacity controls; add a brief calibration
 plot (predicted vs. observed) and residual maps.</p>
 <p style="text-indent: 2em;">
-<strong>A1.6.</strong> asdfasdf
+<p><strong>A1.6.</strong> asdfasdf</p>
 </p>
 <p><strong>R1.7</strong>. Figure 4 looks great but “Lower supervisory”
 should be put either at noon or 6 (as it were, on the clock) so that it
 doesn’t protrude so far off to the side. As it is, that text pushes all
 the other figures off to the left side.</p>
 <p style="text-indent: 2em;">
-<strong>A1.7.</strong> asdfasdf
+<p><strong>A1.7.</strong> asdfasdf</p>
 </p>
 </div>
 </div>
@@ -469,7 +586,7 @@ adjust for bias. It may help to either frame the contribution more
 clearly as UK-wide evidence, or explain more directly how and why the
 approach would transfer to other places and finer geographic scales.</p>
 <p style="text-indent: 2em;">
-<strong>A2.1.</strong> asdfasdf
+<p><strong>A2.1.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.2</strong>. The choice to work at LAD level needs a
 clearer justification and a fuller discussion of what it means for
@@ -484,7 +601,7 @@ aggregation to LAD), whether the same method is used for multi-source
 dataset 1 and dataset 2, and what “privacy preserving” means in practice
 for this study.</p>
 <p style="text-indent: 2em;">
-<strong>A2.2.</strong> asdfasdf
+<p><strong>A2.2.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.3</strong>. Population coverage measures should be defined
 more clearly. In particular, it should be stated whether the denominator
@@ -495,7 +612,7 @@ be useful to note how differences in the adult share across areas might
 affect equation 3.1 and later steps that use “population coverage
 bias”.</p>
 <p style="text-indent: 2em;">
-<strong>A2.3.</strong> asdfasdf
+<p><strong>A2.3.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.4</strong>. In a few places, the text would benefit from
 clearer separation between coverage, bias, and representativeness.
@@ -506,7 +623,7 @@ prior UK evidence). This distinction is mentioned in the discussion, but
 it should be applied more consistently in the Results and Discussion,
 especially in section 4b where social media show higher coverage.</p>
 <p style="text-indent: 2em;">
-<strong>A2.4.</strong> asdfasdf
+<p><strong>A2.4.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.5</strong>. Some figure captions and labels could be made
 clearer. Figure 1 is difficult to interpret due to the dual axis and
@@ -520,7 +637,7 @@ empirical analysis; this would read better with a short qualification
 that coverage/volume alone do not resolve known measurement issues
 linked to how these data are collected and processed.</p>
 <p style="text-indent: 2em;">
-<strong>A2.5.</strong> asdfasdf
+<p><strong>A2.5.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.6</strong>. The reported coverage levels for multi-source
 app data also need clearer support. The paper refers to high coverage
@@ -532,7 +649,7 @@ represent (time window, unique active users, de-duplication,
 denominator) and provide evidence or careful qualification, particularly
 for the 26% figure.</p>
 <p style="text-indent: 2em;">
-<strong>A2.6.</strong> asdfasdf
+<p><strong>A2.6.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.7</strong>. Processing choices for Twitter/X should be
 described. Twitter geolocation can differ between GPS geotags and
@@ -540,13 +657,13 @@ platform-assigned locations, and these can conflict; the paper should
 state how this was handled because it affects any bias/coverage
 comparisons for X/Twitter.</p>
 <p style="text-indent: 2em;">
-<strong>A2.7.</strong> asdfasdf
+<p><strong>A2.7.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.8</strong>. The interpretation of results would be
 stronger with more engagement with related studies, particularly in the
 introduction and discussion, for example: • <a href="https://doi.org/10.1038/s41597-024-03490-y" class="uri">https://doi.org/10.1038/s41597-024-03490-y</a> • <a href="https://doi.org/10.1016/j.apgeog.2023.102997" class="uri">https://doi.org/10.1016/j.apgeog.2023.102997</a> • <a href="https://doi.org/10.1016/j.apgeog.2024.103260" class="uri">https://doi.org/10.1016/j.apgeog.2024.103260</a> • <a href="https://doi.org/10.1140/epjds/s13688-023-00447-w" class="uri">https://doi.org/10.1140/epjds/s13688-023-00447-w</a> • <a href="https://doi.org/10.1111/geoj.70033" class="uri">https://doi.org/10.1111/geoj.70033</a> • <a href="https://doi.org/10.3390/app15020982" class="uri">https://doi.org/10.3390/app15020982</a> • <a href="https://doi.org/10.1371/journal.pone.0294430" class="uri">https://doi.org/10.1371/journal.pone.0294430</a></p>
 <p style="text-indent: 2em;">
-<strong>A2.8.</strong> asdfasdf
+<p><strong>A2.8.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.9</strong>. The ethics section could also be clearer in
 plain terms, ideally within the paper rather than only as a brief
@@ -560,7 +677,7 @@ aggregation/suppression rules, limits on outputs) and whether the work
 was reviewed or formally exempted, noting that re-identification risk
 can still exist even when data are de-identified.</p>
 <p style="text-indent: 2em;">
-<strong>A2.9.</strong> asdfasdf
+<p><strong>A2.9.</strong> asdfasdf</p>
 </p>
 <p><strong>R2.0</strong>. Finally, the data/code availability statement
 should be clearer and aligned with journal requirements. The manuscript
@@ -573,7 +690,7 @@ be shared due to licensing, it should state if anything be shared
 instead (e.g., aggregated outputs or a reproducible pipeline for
 authorised users) and how any exception was handled at submission.</p>
 <p style="text-indent: 2em;">
-<strong>A2.10.</strong> asdfasdf
+<p><strong>A2.10.</strong> asdfasdf</p>
 </p>
 </div>
 <div id="references" class="section level3">
