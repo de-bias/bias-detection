@@ -1,0 +1,214 @@
+---
+title: "proportional-baseline-holdout"
+format: html
+editor: visual
+---
+
+# Setup
+
+```{r}
+rm(list = ls())
+```
+
+```{r}
+#| warning: false
+#| message: false
+library(dplyr)
+library(readr)
+library(rsample)
+library(sf)
+library(spdep)
+```
+
+# Parameters
+
+```{r}
+wd <- "/Volumes/DEBIAS"
+repo_root <- "/Users/carmen/Documents/github/de-bias/bias-detection"
+
+dfd <- "mapp2"  # twitter, fb_tts, fb_stt, mapp1, mapp2
+train_sample_prop <- 0.7
+set.seed(123)
+
+output_tag <- "_lad_holdout_proportional_baseline"
+```
+
+# Helpers
+
+```{r}
+get_bias_path <- function(dfd, wd) {
+  if (dfd == "twitter") {
+    file.path(wd, "data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")
+  } else if (dfd == "fb_tts") {
+    file.path(wd, "data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")
+  } else if (dfd == "fb_stt") {
+    file.path(wd, "data/outputs/fb/census-month/populations/stt/active-population-bias/active_population_bias_lad.csv")
+  } else if (dfd == "mapp1") {
+    file.path(wd, "data/outputs/mapp1/census-month/populations/active-population-bias/active_population_bias_lad.csv")
+  } else if (dfd == "mapp2") {
+    file.path(wd, "data/outputs/mapp2/census-month/populations/active-population-bias/active_population_bias_lad.csv")
+  } else {
+    stop("Unknown dfd value: ", dfd)
+  }
+}
+
+safe_cor <- function(x, y, method) {
+  if (length(x) < 2 || length(y) < 2) return(NA_real_)
+  if (!all(is.finite(x)) || !all(is.finite(y))) return(NA_real_)
+  if (sd(x) == 0 || sd(y) == 0) return(NA_real_)
+  stats::cor(x, y, method = method)
+}
+```
+
+# Data
+
+```{r}
+prelim_output_dir <- file.path(repo_root, "outputs/preliminary", dfd, "explain-bias")
+dir.create(prelim_output_dir, recursive = TRUE, showWarnings = FALSE)
+
+df_bias <- read.csv(get_bias_path(dfd, wd)) %>%
+  rename(geography.code = code) %>%
+  filter(is.finite(pop), is.finite(pop_dfd), is.finite(bias))
+
+if ("name" %in% names(df_bias) && dfd %in% c("twitter", "mapp1")) {
+  df_bias <- df_bias %>% filter(name != "City of London")
+}
+```
+
+```{r}
+lda_sdf <- st_read(
+  file.path(wd, "data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg"),
+  quiet = TRUE
+)
+
+boundary_code_col <- if ("code" %in% names(lda_sdf)) {
+  "code"
+} else {
+  grep("CD$", names(lda_sdf), value = TRUE)[1]
+}
+
+if (is.na(boundary_code_col)) {
+  stop("Could not detect boundary code column in LAD boundary file.")
+}
+
+lda_sdf <- lda_sdf %>%
+  rename(code = all_of(boundary_code_col)) %>%
+  filter(!grepl("^[SN]", code))
+
+nb_q <- spdep::poly2nb(lda_sdf, queen = TRUE)
+```
+
+# Holdout split
+
+```{r}
+split_df <- initial_split(df_bias, prop = train_sample_prop)
+train_sample <- training(split_df)
+test_sample <- testing(split_df)
+```
+
+# Fit proportional baseline
+
+```{r}
+baseline_fit <- lm(pop_dfd ~ 0 + pop, data = train_sample)
+
+alpha_hat <- unname(coef(baseline_fit)["pop"])
+alpha_ci <- confint(baseline_fit, "pop", level = 0.95)
+predicted_bias <- 1 - alpha_hat
+
+train_sample$bias_prediction <- predicted_bias
+test_sample$bias_prediction <- predicted_bias
+```
+
+# Performance
+
+```{r}
+train_sample_rmse <- sqrt(mean((train_sample$bias - train_sample$bias_prediction)^2))
+train_sample_pearson_cor <- safe_cor(train_sample$bias, train_sample$bias_prediction, method = "pearson")
+train_sample_spearman_cor <- safe_cor(train_sample$bias, train_sample$bias_prediction, method = "spearman")
+train_sample_sd_error <- sd(train_sample$bias - train_sample$bias_prediction)
+
+test_sample_rmse <- sqrt(mean((test_sample$bias - test_sample$bias_prediction)^2))
+test_sample_pearson_cor <- safe_cor(test_sample$bias, test_sample$bias_prediction, method = "pearson")
+test_sample_spearman_cor <- safe_cor(test_sample$bias, test_sample$bias_prediction, method = "spearman")
+test_sample_sd_error <- sd(test_sample$bias - test_sample$bias_prediction)
+```
+
+```{r}
+summary_table <- tibble::tibble(
+  metric = c("rmse", "pearson", "spearman", "standard_dev"),
+  train = c(train_sample_rmse, train_sample_pearson_cor, train_sample_spearman_cor, train_sample_sd_error),
+  test = c(test_sample_rmse, test_sample_pearson_cor, test_sample_spearman_cor, test_sample_sd_error),
+  data_source = dfd
+) %>%
+  mutate(
+    train = round(train, 3),
+    test = round(test, 3)
+  )
+
+write_csv(
+  summary_table,
+  file.path(prelim_output_dir, paste0("model-performance", output_tag, ".csv"))
+)
+
+summary_table
+```
+
+# Residual Moran's I
+
+```{r}
+test_sample$model_residual <- test_sample$bias - test_sample$bias_prediction
+
+resid_aligned <- lda_sdf %>%
+  st_set_geometry(NULL) %>%
+  transmute(geography.code = code) %>%
+  left_join(
+    test_sample %>% select(geography.code, model_residual),
+    by = "geography.code"
+  )
+
+keep <- is.finite(resid_aligned$model_residual)
+nb_sub <- spdep::subset.nb(nb_q, subset = keep)
+lw_sub <- spdep::nb2listw(nb_sub, style = "W", zero.policy = TRUE)
+x_sub <- resid_aligned$model_residual[keep]
+
+resid_moran <- spdep::moran.mc(
+  x = x_sub,
+  listw = lw_sub,
+  nsim = 999,
+  zero.policy = TRUE
+)
+
+model_residual_moran <- tibble::tibble(
+  data_source = dfd,
+  moran_i_residuals = as.numeric(resid_moran$statistic),
+  p_value_residuals = resid_moran$p.value
+)
+
+write_csv(
+  model_residual_moran,
+  file.path(prelim_output_dir, paste0("model-residual-moran", output_tag, ".csv"))
+)
+
+model_residual_moran
+```
+
+# Baseline parameters
+
+```{r}
+baseline_parameters <- tibble::tibble(
+  data_source = dfd,
+  alpha_hat = alpha_hat,
+  alpha_ci_lower = alpha_ci[1],
+  alpha_ci_upper = alpha_ci[2],
+  predicted_bias = predicted_bias,
+  n_train = nrow(train_sample),
+  n_test = nrow(test_sample)
+)
+
+write_csv(
+  baseline_parameters,
+  file.path(prelim_output_dir, paste0("proportional-baseline-parameters", output_tag, ".csv"))
+)
+
+baseline_parameters
+```

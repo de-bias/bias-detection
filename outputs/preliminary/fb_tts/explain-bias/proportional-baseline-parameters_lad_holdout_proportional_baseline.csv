@@ -1,0 +1,2 @@
+data_source,alpha_hat,alpha_ci_lower,alpha_ci_upper,predicted_bias,n_train,n_test
+fb_tts,0.08294196164683178,0.08035577987859792,0.08552814341506564,0.9170580383531682,231,100

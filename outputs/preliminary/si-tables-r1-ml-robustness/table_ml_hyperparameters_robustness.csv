@@ -1,0 +1,17 @@
+Dataset,Model Specification,eta,Max Depth,Min Child Weight,Subsample,Column Subsampling,L2 Penalty,L1 Penalty,Optimal Trees,Min RMSE
+Twitter/X,Holdout,0.30,3,3,0.80,1.00,1.00,0.00,37,0.000
+Twitter/X,Holdout (lagged cov.),0.30,5,3,1.00,0.80,0.00,0.00,44,0.000
+Twitter/X,Spatial CV,0.10,2,1,0.70,1.00,0.50,0.00,145,0.001
+Twitter/X,Spatial CV (lagged cov.),0.05,2,1,0.70,0.85,0.50,0.00,331,0.000
+Meta,Holdout,0.05,7,7,0.65,0.90,0.00,0.00,125,0.019
+Meta,Holdout (lagged cov.),0.10,3,1,0.65,0.80,0.00,0.00,90,0.018
+Meta,Spatial CV,0.03,5,1,0.85,0.70,0.00,0.00,218,0.019
+Meta,Spatial CV (lagged cov.),0.03,3,1,0.70,1.00,0.50,0.00,221,0.018
+Multi-app1,Holdout,0.30,1,3,0.65,0.80,1.00,0.00,20,0.005
+Multi-app1,Holdout (lagged cov.),0.05,3,3,0.80,0.90,1.00,0.00,158,0.005
+Multi-app1,Spatial CV,0.10,2,5,1.00,0.70,1.00,0.00,73,0.005
+Multi-app1,Spatial CV (lagged cov.),0.10,2,3,1.00,0.70,1.00,0.00,70,0.005
+Multi-app2,Holdout,0.05,5,3,1.00,1.00,0.00,0.00,205,0.002
+Multi-app2,Holdout (lagged cov.),0.05,5,5,0.65,0.80,0.00,0.00,190,0.002
+Multi-app2,Spatial CV,0.10,5,3,0.70,0.85,0.50,0.00,86,0.002
+Multi-app2,Spatial CV (lagged cov.),0.10,5,1,0.85,1.00,0.50,0.00,101,0.002

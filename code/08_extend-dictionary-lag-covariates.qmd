@@ -1,0 +1,116 @@
+---
+title: "extend-dictionary-lag-covariates"
+format: html
+editor: visual
+---
+
+# Clear environment
+
+```{r}
+rm(list = ls())
+```
+
+# Libraries
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+```
+
+# Parameters
+
+```{r}
+wd <- "/Volumes/DEBIAS"
+
+in_path <- file.path(wd, "data/inputs/census/census2021-ts/dictionary.csv")
+out_path <- file.path(wd, "data/inputs/census/census2021-ts/dictionary_with_lags.csv")
+
+# Suffix used in modelling script for lagged covariates
+lag_suffix <- "_lagq"
+```
+
+# Load dictionary
+
+```{r}
+dict <- read_csv(in_path, show_col_types = FALSE)
+glimpse(dict)
+```
+
+# Detect key columns
+
+```{r}
+col_var0 <- if ("var_label0" %in% names(dict)) "var_label0" else NA_character_
+col_var2 <- if ("var_label2" %in% names(dict)) "var_label2" else NA_character_
+col_var5 <- if ("var_label5" %in% names(dict)) "var_label5" else NA_character_
+col_group <- if ("group" %in% names(dict)) "group" else NA_character_
+
+if (is.na(col_var0) || is.na(col_var5)) {
+  stop("Dictionary must contain at least var_label0 and var_label5.")
+}
+
+cat("Detected columns:\n")
+cat("  var_label0:", col_var0, "\n")
+cat("  var_label2:", col_var2, "\n")
+cat("  var_label5:", col_var5, "\n")
+cat("  group:", col_group, "\n")
+```
+
+# Build lagged entries
+
+```{r}
+# Exclude non-covariates commonly present in dictionary
+excluded_names <- c("bias", "bias_w", "date", "geography", "geography.code", "code", "name")
+
+base_rows <- dict %>%
+  filter(!.data[[col_var0]] %in% excluded_names)
+
+lag_rows <- base_rows %>%
+  mutate(
+    "{col_var0}" := paste0(.data[[col_var0]], lag_suffix),
+    "{col_var5}" := paste0(.data[[col_var5]], lag_suffix)
+  )
+
+if (!is.na(col_var2)) {
+  lag_rows <- lag_rows %>%
+    mutate("{col_var2}" := paste0("Spatial lag: ", .data[[col_var2]]))
+}
+
+if (!is.na(col_group)) {
+  lag_rows <- lag_rows %>%
+    mutate("{col_group}" := if_else(is.na(.data[[col_group]]), "spatial_lag", paste0(.data[[col_group]], "_lag")))
+}
+
+# Keep only lag rows not already present
+lag_rows_new <- lag_rows %>%
+  anti_join(dict %>% select(all_of(col_var0)), by = setNames(col_var0, col_var0))
+
+dict_out <- bind_rows(dict, lag_rows_new)
+```
+
+# QA checks
+
+```{r}
+cat("Original rows: ", nrow(dict), "\n")
+cat("New lag rows added: ", nrow(lag_rows_new), "\n")
+cat("Final rows: ", nrow(dict_out), "\n")
+
+# Quick preview of new rows
+lag_rows_new %>%
+  select(all_of(c(col_var0, col_var2, col_var5)[!is.na(c(col_var0, col_var2, col_var5))])) %>%
+  head(10)
+```
+
+# Save output
+
+```{r}
+write_csv(dict_out, out_path)
+cat("Saved extended dictionary to:\n", out_path, "\n")
+```
+
+# Optional: overwrite original dictionary
+
+```{r}
+# If needed, uncomment:
+# write_csv(dict_out, in_path)
+```

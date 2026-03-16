@@ -1,0 +1,5 @@
+metric,in_sample,blocked_cv_mean,blocked_cv_sd,optimal_trees,data_source
+rmse,0.004,0.006,0.001,70,mapp1
+pearson,0.754,0.299,0.174,NA,mapp1
+spearman,0.742,0.289,0.168,NA,mapp1
+standard_dev,0.004,0.006,0.001,NA,mapp1

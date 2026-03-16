@@ -1,0 +1,464 @@
+---
+title: "07_make-si-tables-r1"
+format: html
+editor: visual
+---
+
+# Setup
+
+```{r}
+#| warning: false
+#| message: false
+library(dplyr)
+library(readr)
+library(tidyr)
+```
+
+```{r}
+wd_outputs <- "/Volumes/rdm04/DEBIAS/data/outputs"
+dict_path <- "/Volumes/rdm04/DEBIAS/data/inputs/census/census2021-ts/dictionary.csv"
+repo_root <- "/Users/carmen/Documents/github/de-bias/bias-detection"
+out_dir <- file.path(repo_root, "outputs/preliminary/si-tables-r1-ml-robustness")
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+dataset_paths <- tibble::tribble(
+  ~dataset_label, ~dataset_key, ~base_case_dir, ~explain_bias_dir,
+  "Twitter/X", "twitter", file.path(wd_outputs, "twitter/monthly/populations/active-population-bias/base-case"), file.path(repo_root, "outputs/preliminary/twitter/explain-bias"),
+  "Meta", "meta", file.path(wd_outputs, "fb/census-month/populations/tts/active-population-bias/base-case"), file.path(repo_root, "outputs/preliminary/fb_tts/explain-bias"),
+  "Multi-app1", "mapp1", file.path(wd_outputs, "mapp1/census-month/populations/active-population-bias/base-case"), file.path(repo_root, "outputs/preliminary/mapp1/explain-bias"),
+  "Multi-app2", "mapp2", file.path(wd_outputs, "mapp2/census-month/populations/active-population-bias/base-case"), file.path(repo_root, "outputs/preliminary/mapp2/explain-bias")
+)
+```
+
+# Helpers
+
+```{r}
+pick_latest <- function(path_dir, pattern) {
+  files <- list.files(path_dir, pattern = pattern, full.names = TRUE)
+  if (length(files) == 0) return(NA_character_)
+  files[which.max(file.info(files)$mtime)]
+}
+
+read_or_empty <- function(path_file) {
+  if (is.na(path_file) || !file.exists(path_file)) return(data.frame())
+  readr::read_csv(path_file, show_col_types = FALSE) %>% as.data.frame()
+}
+
+build_dict_df <- function(path_file) {
+  df <- read_or_empty(path_file)
+  if (!is.data.frame(df) || nrow(df) == 0) {
+    return(tibble::tibble(variable = character(), variable_label = character()))
+  }
+  if (all(c("var_label5", "var_label2") %in% names(df))) {
+    return(
+      df %>%
+        as_tibble() %>%
+        transmute(variable = var_label5, variable_label = var_label2) %>%
+        distinct(variable, .keep_all = TRUE)
+    )
+  }
+  if (all(c("var_label0", "var_label2") %in% names(df))) {
+    return(
+      df %>%
+        as_tibble() %>%
+        transmute(variable = var_label0, variable_label = var_label2) %>%
+        distinct(variable, .keep_all = TRUE)
+    )
+  }
+  tibble::tibble(variable = character(), variable_label = character())
+}
+
+round_numeric <- function(df, digits = 2) {
+  df %>% mutate(across(where(is.numeric), ~ round(., digits)))
+}
+
+sig_stars <- function(p) {
+  dplyr::case_when(
+    is.na(p) ~ "",
+    p < 0.01 ~ "***",
+    p < 0.05 ~ "**",
+    p < 0.10 ~ "*",
+    TRUE ~ ""
+  )
+}
+
+extract_first <- function(df, colname) {
+  if (!is.data.frame(df) || nrow(df) == 0 || !(colname %in% names(df))) return(NA_real_)
+  as.numeric(df[[colname]][1])
+}
+
+to_pretty_base <- function(df) {
+  df %>%
+    rename(
+      `Data Source` = data_source,
+      `Alpha Hat` = alpha_hat,
+      `Predicted Bias` = predicted_bias,
+      `R Squared` = r_squared,
+      `RMSE` = rmse,
+      `Moran's I (Residuals)` = moran_i_residuals,
+      `P Value (Residuals)` = p_value_residuals
+    )
+}
+
+to_pretty_corr <- function(df) {
+  df %>%
+    select(any_of(c(
+      "variable_label", "n",
+      "pearson_r", "pearson_p", "spearman_rho", "spearman_p",
+      "distance_correlation",
+      "lm_aic", "lm_bic", "gam_aic", "gam_bic"
+    ))) %>%
+    mutate(
+      pearson_r = paste0(sprintf("%.2f", pearson_r), sig_stars(pearson_p)),
+      spearman_rho = paste0(sprintf("%.2f", spearman_rho), sig_stars(spearman_p)),
+      distance_correlation = sprintf("%.2f", distance_correlation)
+    ) %>%
+    rename(
+      `Covariate` = variable_label,
+      `N` = n,
+      `Pearson r` = pearson_r,
+      `Spearman rho` = spearman_rho,
+      `Distance Correlation` = distance_correlation,
+      `Linear AIC` = lm_aic,
+      `Linear BIC` = lm_bic,
+      `GAM AIC` = gam_aic,
+      `GAM BIC` = gam_bic
+    ) %>%
+    select(-any_of(c("pearson_p", "spearman_p")))
+}
+
+to_pretty_cov_moran <- function(df) {
+  df %>%
+    select(any_of(c("variable_label", "variable", "moran_i_queen", "p_value_queen", "n_used"))) %>%
+    mutate(
+      variable_label = ifelse(is.na(variable_label) | variable_label == "", variable, variable_label),
+      `Moran's I (Queen)` = sprintf("%.2f", moran_i_queen),
+      `P Value (Queen)` = paste0(sprintf("%.2f", p_value_queen), sig_stars(p_value_queen))
+    ) %>%
+    rename(
+      `Covariate` = variable_label,
+      `N Used` = n_used
+    ) %>%
+    select(`Covariate`, `Moran's I (Queen)`, `P Value (Queen)`, `N Used`)
+}
+
+read_ml_perf_table <- function(base_dir, dataset_label, validation, lagged_covariates, perf_file, moran_file, value_col) {
+  perf_path <- file.path(base_dir, perf_file)
+  moran_path <- file.path(base_dir, moran_file)
+  
+  perf_df <- read_or_empty(perf_path)
+  moran_df <- read_or_empty(moran_path)
+  
+  if (!is.data.frame(perf_df) || nrow(perf_df) == 0) {
+    return(tibble())
+  }
+  
+  perf_long <- perf_df %>%
+    as_tibble() %>%
+    select(metric, value = all_of(value_col)) %>%
+    mutate(
+      dataset = dataset_label,
+      validation = validation,
+      lagged_covariates = lagged_covariates
+    )
+  
+  perf_wide <- perf_long %>%
+    tidyr::pivot_wider(names_from = metric, values_from = value)
+  
+  perf_wide %>%
+    mutate(
+      moran_i_residuals = extract_first(moran_df, "moran_i_residuals"),
+      p_value_residuals = extract_first(moran_df, "p_value_residuals")
+    )
+}
+
+read_ml_hyper_table <- function(base_dir, dataset_label, validation, lagged_covariates, param_file) {
+  param_path <- file.path(base_dir, param_file)
+  param_df <- read_or_empty(param_path)
+  
+  if (!is.data.frame(param_df) || nrow(param_df) == 0) {
+    return(tibble())
+  }
+  
+  param_df %>%
+    as_tibble() %>%
+    mutate(
+      dataset = dataset_label,
+      model_specification = dplyr::case_when(
+        validation == "Holdout" & !lagged_covariates ~ "Holdout",
+        validation == "Holdout" & lagged_covariates ~ "Holdout (lagged cov.)",
+        validation == "Spatial block CV" & !lagged_covariates ~ "Spatial CV",
+        validation == "Spatial block CV" & lagged_covariates ~ "Spatial CV (lagged cov.)",
+        TRUE ~ validation
+      )
+    ) %>%
+    select(
+      dataset,
+      model_specification,
+      any_of(c(
+        "eta", "max_depth", "min_child_weight", "subsample",
+        "colsample_bytree", "lambda", "alpha", "optimal_trees", "min_RMSE"
+      ))
+    )
+}
+
+to_pretty_ml_perf <- function(df) {
+  df %>%
+    mutate(
+      `Lagged Covariates` = dplyr::if_else(as.character(lagged_covariates) == "TRUE", "Yes", "No"),
+      `Residual Moran p-value` = paste0(sprintf("%.2f", p_value_residuals), sig_stars(p_value_residuals))
+    ) %>%
+    transmute(
+      Dataset = dataset,
+      Validation = validation,
+      `Lagged Covariates` = `Lagged Covariates`,
+      RMSE = sprintf("%.3f", rmse),
+      Pearson = sprintf("%.3f", pearson),
+      Spearman = sprintf("%.3f", spearman),
+      `SD Error` = sprintf("%.3f", standard_dev),
+      `Residual Moran's I` = sprintf("%.3f", moran_i_residuals),
+      `Residual Moran p-value` = `Residual Moran p-value`
+    )
+}
+
+to_pretty_ml_hyper <- function(df) {
+  df %>%
+    transmute(
+      Dataset = dataset,
+      `Model Specification` = model_specification,
+      eta = sprintf("%.2f", eta),
+      `Max Depth` = max_depth,
+      `Min Child Weight` = min_child_weight,
+      Subsample = sprintf("%.2f", subsample),
+      `Column Subsampling` = sprintf("%.2f", colsample_bytree),
+      `L2 Penalty` = sprintf("%.2f", lambda),
+      `L1 Penalty` = sprintf("%.2f", alpha),
+      `Optimal Trees` = optimal_trees,
+      `Min RMSE` = sprintf("%.3f", min_RMSE)
+    )
+}
+```
+
+# Build Table S1: baseline summary
+
+```{r}
+summary_rows <- lapply(seq_len(nrow(dataset_paths)), function(i) {
+  ds_label <- dataset_paths$dataset_label[i]
+  ds_dir <- dataset_paths$base_case_dir[i]
+  
+  metrics_file <- pick_latest(ds_dir, "^base_case_metrics.*\\.csv$")
+  moran_file <- pick_latest(ds_dir, "^base_case_residual_moran.*\\.csv$")
+  
+  metrics_df <- read_or_empty(metrics_file)
+  moran_df <- read_or_empty(moran_file)
+  
+  data.frame(
+    data_source = ds_label,
+    alpha_hat = extract_first(metrics_df, "alpha_hat"),
+    predicted_bias = extract_first(metrics_df, "predicted_bias"),
+    r_squared = extract_first(metrics_df, "r_squared"),
+    rmse = extract_first(metrics_df, "rmse"),
+    moran_i_residuals = extract_first(moran_df, "moran_i_residuals"),
+    p_value_residuals = extract_first(moran_df, "p_value_residuals")
+  )
+})
+
+base_summary <- bind_rows(summary_rows) %>% round_numeric()
+base_summary <- base_summary %>% to_pretty_base()
+readr::write_csv(base_summary, file.path(out_dir, "table_basecase_summary.csv"))
+
+base_summary
+```
+
+# Build Table S2+: per-dataset covariate tables
+
+```{r}
+corr_tables <- list()
+dict_df <- build_dict_df(dict_path)
+
+for (i in seq_len(nrow(dataset_paths))) {
+  corr_file <- pick_latest(dataset_paths$base_case_dir[i], "^base_case_residual_pairwise_correlations.*\\.csv$")
+  corr_df <- read_or_empty(corr_file)
+  
+  if (!is.data.frame(corr_df) || nrow(corr_df) == 0) {
+    message("No pairwise table found for: ", dataset_paths$dataset_label[i])
+    next
+  }
+  
+  corr_df <- corr_df %>%
+    as_tibble() %>%
+    left_join(dict_df, by = "variable") %>%
+    mutate(variable_label = ifelse(is.na(variable_label) | variable_label == "", variable, variable_label)) %>%
+    arrange(gam_aic) %>%
+    round_numeric() %>%
+    to_pretty_corr()
+  
+  out_csv <- file.path(out_dir, paste0("table_residual_covariates_", dataset_paths$dataset_key[i], ".csv"))
+  readr::write_csv(corr_df, out_csv)
+  corr_tables[[dataset_paths$dataset_label[i]]] <- corr_df
+}
+
+names(corr_tables)
+```
+
+# Build Table S+: covariate Moran's I table (Queen)
+
+```{r}
+# Covariate Moran's I is dataset-invariant in practice (same geography/covariates),
+# so we keep one SI table to avoid redundant duplicates.
+moran_cov_candidates <- unlist(lapply(dataset_paths$explain_bias_dir, pick_latest, pattern = "^covariate-moran-queen.*\\.csv$"))
+moran_cov_candidates <- moran_cov_candidates[!is.na(moran_cov_candidates)]
+
+if (length(moran_cov_candidates) == 0) {
+  cov_moran_table <- data.frame()
+  message("No covariate Moran table found in explain-bias output directories.")
+} else {
+  moran_cov_file <- moran_cov_candidates[which.max(file.info(moran_cov_candidates)$mtime)]
+  cov_moran_table <- read_or_empty(moran_cov_file) %>%
+    as_tibble() %>%
+    arrange(desc(abs(moran_i_queen))) %>%
+    to_pretty_cov_moran()
+  
+  readr::write_csv(cov_moran_table, file.path(out_dir, "table_covariate_moran_queen.csv"))
+}
+
+cov_moran_table
+```
+
+# Build Table S+: ML performance robustness across validation schemes
+
+```{r}
+ml_specs <- tibble::tribble(
+  ~validation, ~lagged_covariates, ~perf_file, ~moran_file, ~value_col, ~param_file,
+  "Holdout", FALSE, "model-performance_lad_holdout_nolagcov.csv", "model-residual-moran_lad_holdout_nolagcov.csv", "test", "optimal_parameters_lad_holdout_nolagcov.csv",
+  "Holdout", TRUE,  "model-performance_lad_holdout_lagcov.csv",   "model-residual-moran_lad_holdout_lagcov.csv",   "test", "optimal_parameters_lad_holdout_lagcov.csv",
+  "Spatial block CV", FALSE, "model-performance_lad_spatialcv_nolagcov.csv", "model-residual-moran_lad_spatialcv_nolagcov.csv", "blocked_cv_mean", "optimal_parameters_lad_spatialcv_nolagcov.csv",
+  "Spatial block CV", TRUE,  "model-performance_lad_spatialcv_lagcov.csv",   "model-residual-moran_lad_spatialcv_lagcov.csv",   "blocked_cv_mean", "optimal_parameters_lad_spatialcv_lagcov.csv"
+)
+
+ml_perf_rows <- lapply(seq_len(nrow(dataset_paths)), function(i) {
+  ds_label <- dataset_paths$dataset_label[i]
+  ds_dir <- dataset_paths$explain_bias_dir[i]
+  
+  bind_rows(lapply(seq_len(nrow(ml_specs)), function(j) {
+    read_ml_perf_table(
+      base_dir = ds_dir,
+      dataset_label = ds_label,
+      validation = ml_specs$validation[j],
+      lagged_covariates = ml_specs$lagged_covariates[j],
+      perf_file = ml_specs$perf_file[j],
+      moran_file = ml_specs$moran_file[j],
+      value_col = ml_specs$value_col[j]
+    )
+  }))
+})
+
+ml_perf_table <- bind_rows(ml_perf_rows) %>%
+  mutate(
+    validation = factor(validation, levels = c("Holdout", "Spatial block CV")),
+    lagged_covariates = factor(lagged_covariates, levels = c(FALSE, TRUE))
+  ) %>%
+  arrange(dataset, validation, lagged_covariates) %>%
+  to_pretty_ml_perf()
+
+readr::write_csv(ml_perf_table, file.path(out_dir, "table_ml_performance_robustness.csv"))
+
+ml_perf_table
+```
+
+# Build Table S+: ML hyperparameter robustness across validation schemes
+
+```{r}
+ml_hyper_rows <- lapply(seq_len(nrow(dataset_paths)), function(i) {
+  ds_label <- dataset_paths$dataset_label[i]
+  ds_dir <- dataset_paths$explain_bias_dir[i]
+  
+  bind_rows(lapply(seq_len(nrow(ml_specs)), function(j) {
+    read_ml_hyper_table(
+      base_dir = ds_dir,
+      dataset_label = ds_label,
+      validation = ml_specs$validation[j],
+      lagged_covariates = ml_specs$lagged_covariates[j],
+      param_file = ml_specs$param_file[j]
+    )
+  }))
+})
+
+ml_hyper_table <- bind_rows(ml_hyper_rows) %>%
+  mutate(
+    dataset = factor(dataset, levels = dataset_paths$dataset_label),
+    model_specification = factor(
+      model_specification,
+      levels = c("Holdout", "Holdout (lagged cov.)", "Spatial CV", "Spatial CV (lagged cov.)")
+    )
+  ) %>%
+  arrange(dataset, model_specification) %>%
+  to_pretty_ml_hyper()
+
+readr::write_csv(ml_hyper_table, file.path(out_dir, "table_ml_hyperparameters_robustness.csv"))
+
+ml_hyper_table
+```
+
+# Optional: build formatted Word document
+
+```{r}
+has_officer <- requireNamespace("officer", quietly = TRUE)
+has_flextable <- requireNamespace("flextable", quietly = TRUE)
+
+if (has_officer && has_flextable) {
+  library(officer)
+  library(flextable)
+  
+  make_ft <- function(df) {
+    flextable(df) %>%
+      theme_booktabs() %>%
+      bold(part = "header") %>%
+      fontsize(size = 10, part = "all") %>%
+      autofit()
+  }
+  
+  doc <- read_docx()
+  doc <- doc %>%
+    body_add_par("Supplementary Tables (R1 Revision)", style = "heading 1") %>%
+    body_add_par("Table S1. Proportional baseline summary by data source.", style = "heading 2") %>%
+    body_add_flextable(make_ft(base_summary))
+  
+  for (nm in names(corr_tables)) {
+    doc <- doc %>%
+      body_add_par(paste0("Table S: ", nm, " residual-covariate assessments (ordered by GAM AIC)."), style = "heading 2") %>%
+      body_add_flextable(make_ft(corr_tables[[nm]]))
+  }
+  
+  if (is.data.frame(cov_moran_table) && nrow(cov_moran_table) > 0) {
+    doc <- doc %>%
+      body_add_par("Table S: Moran's I (Queen) for model covariates.", style = "heading 2") %>%
+      body_add_flextable(make_ft(cov_moran_table))
+  }
+  
+  if (is.data.frame(ml_perf_table) && nrow(ml_perf_table) > 0) {
+    doc <- doc %>%
+      body_add_par("Table S: Performance of the four machine-learning specifications by dataset.", style = "heading 2") %>%
+      body_add_flextable(make_ft(ml_perf_table))
+  }
+  
+  if (is.data.frame(ml_hyper_table) && nrow(ml_hyper_table) > 0) {
+    doc <- doc %>%
+      body_add_par("Table S: Selected XGBoost hyperparameters for the four machine-learning specifications by dataset.", style = "heading 2") %>%
+      body_add_flextable(make_ft(ml_hyper_table))
+  }
+  
+  out_docx <- file.path(out_dir, "si_tables_r1.docx")
+  print(doc, target = out_docx)
+  out_docx
+} else {
+  message("Skipping Word export. Install `officer` and `flextable` to create si_tables_r1.docx.")
+}
+```
+
+# Output directory
+
+```{r}
+out_dir
+list.files(out_dir)
+```

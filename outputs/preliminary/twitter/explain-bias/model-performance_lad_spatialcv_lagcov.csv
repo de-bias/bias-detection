@@ -1,0 +1,5 @@
+metric,in_sample,blocked_cv_mean,blocked_cv_sd,optimal_trees,data_source
+rmse,0,0.001,0,331,twitter
+pearson,0.889,0.681,0.058,NA,twitter
+spearman,0.812,0.496,0.14,NA,twitter
+standard_dev,0,0.001,0,NA,twitter

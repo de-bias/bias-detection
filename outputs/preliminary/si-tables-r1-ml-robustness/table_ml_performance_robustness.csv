@@ -1,0 +1,17 @@
+Dataset,Validation,Lagged Covariates,RMSE,Pearson,Spearman,SD Error,Residual Moran's I,Residual Moran p-value
+Meta,Holdout,No,0.036,0.561,0.649,0.021,0.039,0.14
+Meta,Holdout,Yes,0.027,0.570,0.626,0.021,0.160,0.00***
+Meta,Spatial block CV,No,0.019,0.635,0.661,0.019,0.012,0.41
+Meta,Spatial block CV,Yes,0.018,0.650,0.686,0.018,0.008,0.43
+Multi-app1,Holdout,No,0.012,0.151,0.200,0.007,-0.034,0.75
+Multi-app1,Holdout,Yes,0.008,0.241,0.235,0.006,-0.050,0.84
+Multi-app1,Spatial block CV,No,0.005,0.314,0.295,0.005,0.023,0.28
+Multi-app1,Spatial block CV,Yes,0.006,0.299,0.289,0.006,0.005,0.42
+Multi-app2,Holdout,No,0.004,0.776,0.802,0.002,0.160,0.00***
+Multi-app2,Holdout,Yes,0.003,0.726,0.697,0.002,0.070,0.05*
+Multi-app2,Spatial block CV,No,0.002,0.602,0.594,0.002,0.249,0.00***
+Multi-app2,Spatial block CV,Yes,0.002,0.618,0.610,0.002,0.179,0.00***
+Twitter/X,Holdout,No,0.001,0.660,0.488,0.001,-0.024,0.68
+Twitter/X,Holdout,Yes,0.001,0.622,0.452,0.001,-0.012,0.57
+Twitter/X,Spatial block CV,No,0.001,0.703,0.539,0.001,-0.031,0.71
+Twitter/X,Spatial block CV,Yes,0.001,0.681,0.496,0.001,-0.029,0.68

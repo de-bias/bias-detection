@@ -135,3 +135,33 @@ ggplot(df, aes(x = reorder(Data_source_labels, 1 - Size_bias_include), y = Size_
 
 ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys-two-axis.png"), bg="white")
 ```
+```{r}
+ggplot(df, aes(x = reorder(Data_source_labels, 100 - 100*Size_bias_include), y = 100*Size_bias_include)) +
+  geom_col(aes(fill = DFD == "Y"), width = 0.8) +  
+  scale_fill_manual(
+    name = "Population coverage bias",  
+    values = c("FALSE" = "#69b3a2", "TRUE" = "#FF5733"),  
+    labels = c("FALSE" = "Mobile phone app", "TRUE" = "Survey")  
+  ) +
+  scale_color_manual(
+    name = "Response rate",  
+    values = c("Response rate" = "black")  
+  ) +
+  coord_flip(ylim = c(92, 100)) +
+  labs(x = "Data source", y = "Size of coverage bias") +
+  theme_plot_tufte() +
+  theme(
+    axis.title.x = element_text(size = 24, face = "bold", color = "black"),
+    axis.title.y = element_text(size = 24, face = "bold", color = "black", margin = margin(r = 10)),  
+    axis.text.x = element_text(size = 20, color = "black"),  
+    axis.text.y = element_text(size = 20, color = "black"),  
+    legend.text = element_text(size = 24),  
+    plot.margin = margin(10,10,10,10)  
+  ) +
+  guides(
+    fill = guide_legend(title = "Type of source", title.theme = element_text(size = 24, face = "bold")),  
+    color = guide_legend(title = "Response rate", title.theme = element_text(size = 24, face = "bold"))  
+  )
+
+ggsave(paste0(wd, "/outputs/manuscript-figures/compare-surveys-simplified.png"), bg="white")
+```
