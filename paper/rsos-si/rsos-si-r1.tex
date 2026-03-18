@@ -213,6 +213,12 @@ information criteria (AIC/BIC) for linear and GAM specifications.
 \caption{Selected XGBoost hyperparameters across datasets and model specifications. For each dataset, the table reports the tuned hyperparameters for random holdout and spatial block cross-validation models, estimated with and without spatially lagged covariates. Parameters include learning rate (\textit{eta}), maximum tree depth, minimum child weight, row and column subsampling ratios, L1 and L2 regularisation penalties, the selected number of trees and the minimum out-of-sample RMSE.}
 \end{table}
 
+\begin{figure}[h]\label{fig:xgb-residual-maps}
+\centering
+\includegraphics[width=0.9\textwidth]{figures/xgb-residual-maps.png}
+\caption{Model residuals across local authority district areas based on our main XGBoost model reported in the manuscript}
+\end{figure}
+
 \ethics{This research was conducted in accordance with the ethical standards of the University of Liverpool. All data used were anonymised and analysed at an aggregate level. No identifiable personal data were accessed or processed by the authors.}
 
 \dataccess{Please see data accessibility in the Data section. Code is openly available at \url{https://github.com/de-bias/bias-detection}.}
