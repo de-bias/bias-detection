@@ -1,0 +1,314 @@
+---
+title: "11_xgboost-residual-maps"
+format: html
+editor: visual
+---
+
+# Setup
+
+```{r}
+rm(list = ls())
+```
+
+```{r}
+#| warning: false
+#| message: false
+library(dplyr)
+library(sf)
+library(ggplot2)
+library(readr)
+library(rsample)
+library(vtreat)
+library(xgboost)
+library(spdep)
+library(scales)
+library(tibble)
+```
+
+```{r}
+#| include: false
+source("./style/data-visualisation_theme.R")
+```
+
+```{r}
+wd <- "/Volumes/DEBIAS"
+repo_root <- "/Users/carmen/Documents/github/de-bias/bias-detection"
+output_dir <- file.path(repo_root, "outputs/preliminary/summary-figs/xgboost-residual-maps")
+dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+
+dataset_keys <- c("twitter", "fb_tts", "mapp1", "mapp2")
+
+dataset_labels <- c(
+  twitter = "Twitter/X",
+  fb_tts = "Meta",
+  mapp1 = "Multi-app1",
+  mapp2 = "Multi-app2"
+)
+
+output_tag <- "_lad_holdout_nolagcov"
+train_sample_prop <- 0.7
+```
+
+# Data helpers
+
+```{r}
+load_bias_data <- function(dfd, wd) {
+  if (dfd == "twitter") {
+    read.csv(file.path(wd, "data/outputs/twitter/monthly/populations/active-population-bias/active_population_bias_lad.csv")) %>%
+      rename(geography.code = code) %>%
+      dplyr::filter(name != "City of London")
+  } else if (dfd == "fb_tts") {
+    read.csv(file.path(wd, "data/outputs/fb/census-month/populations/tts/active-population-bias/active_population_bias_lad.csv")) %>%
+      rename(geography.code = code)
+  } else if (dfd == "mapp1") {
+    read.csv(file.path(wd, "data/outputs/mapp1/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>%
+      rename(geography.code = code) %>%
+      dplyr::filter(name != "City of London")
+  } else if (dfd == "mapp2") {
+    read.csv(file.path(wd, "data/outputs/mapp2/census-month/populations/active-population-bias/active_population_bias_lad.csv")) %>%
+      rename(geography.code = code)
+  } else {
+    stop("Unsupported dataset: ", dfd)
+  }
+}
+
+load_model_rds <- function(dfd, wd, output_tag) {
+  if (dfd == "twitter") {
+    readRDS(file.path(wd, paste0("data/outputs/twitter/monthly/populations/explain-bias/xgb-fit-final", output_tag, ".rds")))
+  } else if (dfd == "fb_tts") {
+    readRDS(file.path(wd, paste0("data/outputs/fb/census-month/populations/tts/explain-bias/xgb-fit-final", output_tag, ".rds")))
+  } else if (dfd == "mapp1") {
+    readRDS(file.path(wd, paste0("data/outputs/mapp1/census-month/populations/explain-bias/xgb-fit-final", output_tag, ".rds")))
+  } else if (dfd == "mapp2") {
+    readRDS(file.path(wd, paste0("data/outputs/mapp2/census-month/populations/explain-bias/xgb-fit-final", output_tag, ".rds")))
+  } else {
+    stop("Unsupported dataset: ", dfd)
+  }
+}
+
+build_input_df <- function(dfd, wd) {
+  df <- read.csv(file.path(wd, "data/inputs/census/census2021-ts/combined-data-ltla.csv"))
+  
+  df_var_lbl <- read_csv(file.path(wd, "data/inputs/census/census2021-ts/dictionary.csv"), show_col_types = FALSE) %>%
+    filter(!grepl("excluded", .$group, ignore.case = TRUE)) %>%
+    filter(!grepl("_lagq$", var_label5)) %>%
+    filter(var_label5 != "bias_w")
+  
+  lda_sdf <- st_read(
+    file.path(wd, "data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg"),
+    quiet = TRUE
+  ) %>%
+    filter(!grepl("^[SN]", code))
+  
+  df_bias <- load_bias_data(dfd, wd)
+  
+  df <- df %>%
+    select(all_of(df_var_lbl$var_label5))
+  
+  centroids_df <- suppressWarnings(st_centroid(lda_sdf)) %>%
+    st_coordinates() %>%
+    as.data.frame() %>%
+    rowid_to_column("row_id")
+  
+  centroids_with_ids <- lda_sdf %>%
+    st_set_geometry(NULL) %>%
+    rowid_to_column("row_id") %>%
+    cbind(centroids_df) %>%
+    select(-row_id) %>%
+    rename(longitude = X, latitude = Y)
+  
+  df_extended <- full_join(df, centroids_with_ids, by = join_by(geography.code == code))
+  
+  df_standardised <- df_extended %>%
+    select(-date) %>%
+    mutate(across(where(is.numeric), ~ (. - mean(.)) / sd(.)))
+  
+  input_df <- merge(df_standardised, df_bias[, c("geography.code", "bias")], by = "geography.code") %>%
+    select(-longitude, -latitude) %>%
+    tidyr::drop_na()
+  
+  list(input_df = input_df, lda_sdf = lda_sdf)
+}
+
+make_residual_map <- function(dfd, input_df, lda_sdf, xgb.fit.final) {
+  xvars <- colnames(input_df[, 4:(ncol(input_df) - 1)])
+  
+  set.seed(123)
+  split_df <- initial_split(input_df, prop = train_sample_prop)
+  train_sample <- training(split_df)
+  
+  treatplan <- vtreat::designTreatmentsZ(
+    train_sample,
+    xvars,
+    verbose = FALSE
+  )
+  
+  new_vars <- treatplan %>%
+    magrittr::use_series(scoreFrame) %>%
+    dplyr::filter(code %in% c("clean", "lev")) %>%
+    magrittr::use_series(varName)
+  
+  aux_full_sample <- vtreat::prepare(
+    treatplan,
+    input_df,
+    varRestriction = new_vars
+  )
+  
+  missing_features <- setdiff(xgb.fit.final$feature_names, colnames(aux_full_sample))
+  if (length(missing_features) > 0) {
+    for (nm in missing_features) {
+      aux_full_sample[[nm]] <- 0
+    }
+  }
+  
+  aux_full_sample <- aux_full_sample[, xgb.fit.final$feature_names, drop = FALSE]
+  aux_full_sample <- as.matrix(aux_full_sample)
+  
+  input_df$bias_prediction <- predict(xgb.fit.final, aux_full_sample)
+  input_df$model_residual <- input_df$bias - input_df$bias_prediction
+  
+  resid_area <- input_df %>%
+    group_by(geography.code) %>%
+    summarise(model_residual = mean(model_residual, na.rm = TRUE), .groups = "drop")
+  
+  df_boundaries_hex <- st_read(
+    file.path(wd, "data/inputs/geographies/hexboundaries/uk-local-authority-districts-2021.geojson"),
+    quiet = TRUE
+  ) %>%
+    st_transform(st_crs(lda_sdf)) %>%
+    rename(code = id)
+  
+  st_model_resid_map <- df_boundaries_hex %>%
+    filter(!grepl("^S", code)) %>%
+    filter(!grepl("^N", code)) %>%
+    filter(!grepl("^u", code)) %>%
+    left_join(resid_area, by = c("code" = "geography.code")) %>%
+    st_as_sf()
+  
+  resid_pos_max <- max(st_model_resid_map$model_residual[st_model_resid_map$model_residual > 0], na.rm = TRUE)
+  resid_neg_min <- min(st_model_resid_map$model_residual[st_model_resid_map$model_residual < 0], na.rm = TRUE)
+  
+  st_model_resid_map <- st_model_resid_map %>%
+    mutate(
+      model_resid_plot = dplyr::case_when(
+        is.na(model_residual) ~ NA_real_,
+        model_residual >= 0 & is.finite(resid_pos_max) & resid_pos_max > 0 ~ pmin(model_residual / resid_pos_max, 1),
+        model_residual < 0 & is.finite(resid_neg_min) & resid_neg_min < 0 ~ pmax(model_residual / abs(resid_neg_min), -1),
+        TRUE ~ 0
+      )
+    )
+  
+  resid_aligned <- lda_sdf %>%
+    st_set_geometry(NULL) %>%
+    transmute(geography.code = code) %>%
+    left_join(resid_area, by = "geography.code")
+  
+  nb_q <- spdep::poly2nb(lda_sdf, queen = TRUE)
+  keep <- is.finite(resid_aligned$model_residual)
+  nb_sub <- spdep::subset.nb(nb_q, subset = keep)
+  lw_sub <- spdep::nb2listw(nb_sub, style = "W", zero.policy = TRUE)
+  x_sub <- resid_aligned$model_residual[keep]
+  
+  resid_moran <- spdep::moran.mc(
+    x_sub,
+    lw_sub,
+    nsim = 999,
+    zero.policy = TRUE
+  )
+  
+  resid_mI <- as.numeric(resid_moran$statistic)
+  resid_p_value_mI <- as.numeric(resid_moran$p.value)
+  
+  p_annotation_resid <- ifelse(
+    resid_p_value_mI < 0.05,
+    "p < 0.05",
+    paste("p =", round(resid_p_value_mI, 2))
+  )
+  
+  bbox <- st_bbox(st_model_resid_map)
+  xmin <- bbox["xmin"]
+  xmax <- bbox["xmax"]
+  ymin <- bbox["ymin"]
+  ymax <- bbox["ymax"]
+  
+  annotation_resid <- data.frame(
+    x = c(xmin + 0.1 * (xmax - xmin), xmin + 0.1 * (xmax - xmin)),
+    y = c(ymin + 0.85 * (ymax - ymin), ymin + 0.78 * (ymax - ymin)),
+    label = c(paste0("I = ", round(resid_mI, 2)), p_annotation_resid)
+  )
+  
+  residual_map <- ggplot(st_model_resid_map) +
+    geom_sf(aes(fill = model_resid_plot)) +
+    scale_fill_gradientn(
+      colours = c("#2166AC", "white", "#B2182B"),
+      values = scales::rescale(c(-1, 0, 1), from = c(-1, 1)),
+      limits = c(-1, 1),
+      na.value = "#2166AC",
+      name = "Bias residual (%)\n[standardised -1 to 1]"
+    ) +
+    labs(title = " ") +
+    geom_text(
+      data = annotation_resid,
+      aes(x = x, y = y, label = label),
+      color = "black",
+      size = 30,
+      angle = 0,
+      fontface = "bold",
+      family = "robotocondensed"
+    ) +
+    theme_map_tufte() +
+    theme(
+      legend.text = element_text(size = 60),
+      legend.title = element_text(size = 60, face = "bold", lineheight = 0.3, margin = margin(b = 12)),
+      legend.position = "right",
+      axis.title = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank()
+    )
+  
+  out_file <- file.path(output_dir, paste0(dfd, "_lad_xgboost_holdout_nolagcov_residual_map_hex.png"))
+  ggsave(
+    filename = out_file,
+    plot = residual_map,
+    bg = "white",
+    width = 10,
+    height = 8,
+    units = "in"
+  )
+  
+  list(
+    dataset = dfd,
+    moran_i_residuals = resid_mI,
+    p_value_residuals = resid_p_value_mI,
+    file = out_file,
+    plot = residual_map
+  )
+}
+```
+
+# Generate residual maps
+
+```{r}
+residual_map_results <- lapply(dataset_keys, function(dfd) {
+  data_objs <- build_input_df(dfd, wd)
+  xgb.fit.final <- load_model_rds(dfd, wd, output_tag)
+  make_residual_map(dfd, data_objs$input_df, data_objs$lda_sdf, xgb.fit.final)
+})
+
+residual_map_summary <- bind_rows(lapply(residual_map_results, function(x) {
+  tibble(
+    dataset = x$dataset,
+    moran_i_residuals = x$moran_i_residuals,
+    p_value_residuals = x$p_value_residuals,
+    file = x$file
+  )
+}))
+
+residual_map_summary
+```
+
+# Preview
+
+```{r}
+residual_map_results[[1]]$plot
+```
