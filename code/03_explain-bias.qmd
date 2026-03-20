@@ -37,6 +37,7 @@ library(patchwork)
 library(viridis)
 library(scales)
 library(tidyplots)
+library(spdep)
 ```
 
 # Set theme
@@ -65,6 +66,9 @@ This first line defines the data source to be analysed. We have three options:
 
 ```{r}
 dfd <- "mapp2"
+include_spatial_lag_covariates <- TRUE
+lag_tag <- ifelse(include_spatial_lag_covariates, "lagcov", "nolagcov")
+output_tag <- paste0("_lad_holdout_", lag_tag)
 ```
 
 The next code chunk can be run using spatial weights and nonspatial weights options:
@@ -79,10 +83,6 @@ The next code chunk can be run using spatial weights and nonspatial weights opti
 
 -   nonspatial: `active_population_bias_lad.csv`
 
-df_var_lbl \<- read_csv(paste0(wd,"/data/inputs/census/census2021-ts/dictionary.csv")) %\>%
-
-filter(!grepl("excluded", .\$group, ignore.case = TRUE))
-
 ```{r}
 # Read in data
 
@@ -92,6 +92,13 @@ df <- read.csv(paste0(wd, "/data/inputs/census/census2021-ts/combined-data-ltla.
 # census labels
 df_var_lbl <- read_csv(paste0(wd,"/data/inputs/census/census2021-ts/dictionary.csv")) %>% 
   filter(!grepl("excluded", .$group, ignore.case = TRUE))
+
+# If lag covariates are switched off, drop lag-related dictionary entries
+if (!isTRUE(include_spatial_lag_covariates)) {
+  df_var_lbl <- df_var_lbl %>%
+    filter(!grepl("_lagq$", var_label5)) %>%
+    filter(var_label5 != "bias_w")
+}
 
 # administrative boundaries
 lda_sdf <- st_read("/Volumes/DEBIAS/data/inputs/geographies/boundaries/LAD_Dec_2021_GB_BFC_2022_simplified.gpkg")
@@ -110,7 +117,7 @@ if (dfd == "twitter") {
   }
 
 # add spatial weights to the label data frame if they are included 
-if ("bias_w" %in% names(df_bias)) {
+if (isTRUE(include_spatial_lag_covariates) && "bias_w" %in% names(df_bias)) {
   df_var_lbl[46, ] <- list("bias_w", "spatial_lag_bias", "Spatial Lag", 
                       "spatial_lag_bias", "spatial_lag_bias", "bias_w")
 }
@@ -163,8 +170,39 @@ df_extended <- full_join(df, centroids_with_ids, by = join_by(geography.code == 
 If spatial weights are included as a feature:
 
 ```{r}
-if ("bias_w" %in% names(df_bias)) {
+if (isTRUE(include_spatial_lag_covariates) && "bias_w" %in% names(df_bias)) {
   df_extended <- merge(df_extended, df_bias[, c("geography.code", "bias_w")], by = "geography.code")
+}
+```
+
+```{r}
+# Queen weights used for lagged covariates and residual Moran's I
+nb_q <- spdep::poly2nb(lda_sdf, queen = TRUE)
+w_matrix_q <- spdep::nb2listw(nb_q, style = "W", zero.policy = TRUE)
+
+if (isTRUE(include_spatial_lag_covariates)) {
+  # Ensure the same spatial order as polygons when creating lagged covariates
+  df_cov_ordered <- lda_sdf %>%
+    st_set_geometry(NULL) %>%
+    dplyr::transmute(geography.code = code) %>%
+    dplyr::left_join(df, by = "geography.code")
+
+  lag_candidates <- df_cov_ordered %>%
+    dplyr::select(where(is.numeric)) %>%
+    names() %>%
+    setdiff(c("date")) %>%
+    .[!grepl("date", ., ignore.case = TRUE)]
+
+  lagged_covs <- purrr::map_dfc(lag_candidates, function(v) {
+    tibble::tibble(
+      !!paste0(v, "_lagq") := spdep::lag.listw(
+        w_matrix_q, df_cov_ordered[[v]], NAOK = TRUE, zero.policy = TRUE
+      )
+    )
+  })
+
+  lagged_covs <- dplyr::bind_cols(df_cov_ordered["geography.code"], lagged_covs)
+  df_extended <- dplyr::left_join(df_extended, lagged_covs, by = "geography.code")
 }
 ```
 
@@ -180,16 +218,12 @@ input_df <- merge(df_standardised, df_bias[, c("geography.code", "bias")], by = 
 ```
 
 ```{r}
-print(which(is.na(input_df), arr.ind = TRUE))
-
 input_df <- input_df %>% 
   select(-longitude, -latitude) %>% 
   drop_na()
 ```
 
-```{r}
-rm(lda_sdf, df_standardised, df_extended)
-```
+
 
 ## 2.2 Setting up model
 
@@ -472,15 +506,15 @@ This may take a while so leave it running overnight!
 ```{r}
 
 if (dfd == "twitter"){
-  write_csv(results, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid", output_tag, ".csv"))
   } else if (dfd == "fb_tts") {
-  write_csv(results, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid", output_tag, ".csv"))
   } else if (dfd == "fb_stt") {
-  write_csv(results, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid", output_tag, ".csv"))
   } else if (dfd == "mapp1") {
-  write_csv(results, paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/hypergrid", output_tag, ".csv"))
   } else if (dfd == "mapp2") {
-  write_csv(results, paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/hypergrid_lad.csv"))
+  write_csv(results, paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/hypergrid", output_tag, ".csv"))
   }
 
 
@@ -494,15 +528,15 @@ Selecting optimal parameters
 ```{r}
 
 if (dfd == "twitter"){
-  hyper_grid <- read_csv(paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid_lad.csv"))
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/hypergrid", output_tag, ".csv"))
   } else if (dfd == "fb_tts") {
-  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid_lad.csv"))
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/hypergrid", output_tag, ".csv"))
   } else if (dfd == "fb_stt") {
-  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid_lad.csv"))  
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/hypergrid", output_tag, ".csv"))  
   } else if (dfd == "mapp1") {
-  hyper_grid <- read_csv(paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/hypergrid_lad.csv"))  
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/hypergrid", output_tag, ".csv"))  
   } else if (dfd == "mapp2") {
-  hyper_grid <- read_csv(paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/hypergrid_lad.csv"))  
+  hyper_grid <- read_csv(paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/hypergrid", output_tag, ".csv"))  
   }
 
 optimal_pars <- hyper_grid %>% 
@@ -539,15 +573,15 @@ Save optimal model
 ```{r}
 
 if (dfd == "twitter"){
-  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/xgb-fit-final-lad.rds"))
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/xgb-fit-final", output_tag, ".rds"))
   } else if (dfd == "fb_tts") {
-  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/xgb-fit-final-lad.rds"))
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/xgb-fit-final", output_tag, ".rds"))
   } else if (dfd == "fb_stt") {
-  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/xgb-fit-final-lad.rds"))
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/xgb-fit-final", output_tag, ".rds"))
   } else if (dfd == "mapp1") {
-  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/xgb-fit-final-lad.rds"))
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/xgb-fit-final", output_tag, ".rds"))
   } else if (dfd == "mapp2") {
-  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/xgb-fit-final-lad.rds"))
+  saveRDS(xgb.fit.final, paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/xgb-fit-final", output_tag, ".rds"))
   }
 ```
 
@@ -555,12 +589,28 @@ Extract parameters used for the final model
 
 ```{r}
 
-write_csv(optimal_pars[1, ], paste0("../outputs/preliminary/",dfd,"/explain-bias/optimal_parameters.csv"))
+write_csv(optimal_pars[1, ], paste0("../outputs/preliminary/",dfd,"/explain-bias/optimal_parameters", output_tag, ".csv"))
 ```
 
 # Visualising
 
 ## Model performance
+
+```{r}
+# Read final model (same path logic as saveRDS block)
+if (dfd == "twitter"){
+  xgb.fit.final <- readRDS(paste0(wd, "/data/outputs/", dfd, "/monthly/populations/explain-bias/xgb-fit-final", output_tag, ".rds"))
+} else if (dfd == "fb_tts") {
+  xgb.fit.final <- readRDS(paste0(wd, "/data/outputs/fb/census-month/populations/tts/explain-bias/xgb-fit-final", output_tag, ".rds"))
+} else if (dfd == "fb_stt") {
+  xgb.fit.final <- readRDS(paste0(wd, "/data/outputs/fb/census-month/populations/stt/explain-bias/xgb-fit-final", output_tag, ".rds"))
+} else if (dfd == "mapp1") {
+  xgb.fit.final <- readRDS(paste0(wd, "/data/outputs/mapp1/census-month/populations/explain-bias/xgb-fit-final", output_tag, ".rds"))
+} else if (dfd == "mapp2") {
+  xgb.fit.final <- readRDS(paste0(wd, "/data/outputs/mapp2/census-month/populations/explain-bias/xgb-fit-final", output_tag, ".rds"))
+}
+```
+
 
 ```{r}
 # Training sample
@@ -605,7 +655,53 @@ summary_table <- data.frame(metric, train_sample_metrics, test_sample_metrics, d
 names(summary_table) <- c("metric", "train", "test", "data_source")
 summary_table
 
-write_csv(summary_table, paste0("../outputs/preliminary/",dfd,"/explain-bias/model-performance.csv"))
+write_csv(summary_table, paste0("../outputs/preliminary/",dfd,"/explain-bias/model-performance", output_tag, ".csv"))
+```
+
+### Residual spatial autocorrelation (Moran's I)
+
+```{r}
+# Predict on full analysis sample and compute residuals
+aux_full_sample <- vtreat::prepare(treatplan, input_df, varRestriction = new_vars) %>% as.matrix()
+input_df$bias_prediction <- predict(xgb.fit.final, aux_full_sample)
+input_df$model_residual <- input_df$bias - input_df$bias_prediction
+
+# One residual per area (safe if repeated rows ever appear)
+resid_area <- input_df %>%
+  dplyr::group_by(geography.code) %>%
+  dplyr::summarise(model_residual = mean(model_residual, na.rm = TRUE), .groups = "drop")
+
+# Use already imported LAD boundaries and create Queen contiguity neighbours
+lda_sdf_resid <- lda_sdf %>%
+  dplyr::filter(!grepl("^[SN]", code))
+
+# Align residuals to polygon order
+resid_aligned <- lda_sdf_resid %>%
+  sf::st_set_geometry(NULL) %>%
+  dplyr::transmute(geography.code = code) %>%
+  dplyr::left_join(resid_area, by = "geography.code")
+
+nb_q_resid <- spdep::poly2nb(lda_sdf_resid, queen = TRUE)
+keep <- is.finite(resid_aligned$model_residual)
+nb_sub <- spdep::subset.nb(nb_q_resid, subset = keep)
+lw_sub <- spdep::nb2listw(nb_sub, style = "W", zero.policy = TRUE)
+x_sub <- resid_aligned$model_residual[keep]
+
+resid_moran <- spdep::moran.mc(
+  x = x_sub,
+  listw = lw_sub,
+  nsim = 999,
+  zero.policy = TRUE
+)
+
+model_residual_moran <- tibble::tibble(
+  data_source = dfd,
+  moran_i_residuals = as.numeric(resid_moran$statistic),
+  p_value_residuals = resid_moran$p.value
+)
+
+write_csv(model_residual_moran, paste0("../outputs/preliminary/", dfd, "/explain-bias/model-residual-moran", output_tag, ".csv"))
+model_residual_moran
 ```
 
 ## Variable importance
@@ -646,7 +742,7 @@ left_join(importance_matrix, df_var_lbl, join_by( Feature == var_label0)) %>%
 ```
 
 ```{r}
-png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance_v2.png"), units="in", width=8, height=10, res=300)
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance_v2", output_tag, ".png"), units="in", width=8, height=10, res=300)
    last_plot()
 dev.off()
 ```
@@ -708,7 +804,7 @@ sv_importance(shp, kind = "bar",
 ```
 
 ```{r}
-png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance.png"), units="in", width=8, height=10, res=300)
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance", output_tag, ".png"), units="in", width=8, height=10, res=300)
   last_plot()
 dev.off()
 ```
@@ -722,7 +818,7 @@ fi_data <- sv_importance(shp, kind = "bar",
   .$data
 
 
-write_csv(fi_data, paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance-data.csv"))
+write_csv(fi_data, paste0("../outputs/preliminary/",dfd,"/explain-bias/feature-importance-data", output_tag, ".csv"))
 ```
 
 ```{r}
@@ -768,7 +864,7 @@ Lighter colours indicate that high values of a variable are associated with nega
 Save shap plot
 
 ```{r}
-png(paste0("../outputs/preliminary/",dfd,"/explain-bias/shap-plot-bias.png"), units="in", width=8, height=10, res=300)
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/shap-plot-bias", output_tag, ".png"), units="in", width=8, height=10, res=300)
   last_plot()
 dev.off()
 ```
@@ -832,7 +928,7 @@ combined_plot
 ```
 
 ```{r}
-png(paste0("../outputs/preliminary/",dfd,"/explain-bias/shap-dependence.png"), units="in", width=8, height=10, res=300)
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/shap-dependence", output_tag, ".png"), units="in", width=8, height=10, res=300)
   last_plot()
 dev.off()
 ```
@@ -983,7 +1079,7 @@ input_df_with_shap_values %>%
 ```
 
 ```{r}
-png(paste0("../outputs/preliminary/",dfd,"/explain-bias/heatmap_xxldas.png"), units="in", width=8, height=10, res=300, bg = "transparent")
+png(paste0("../outputs/preliminary/",dfd,"/explain-bias/heatmap_xxldas", output_tag, ".png"), units="in", width=8, height=10, res=300, bg = "transparent")
   last_plot()
 dev.off()
 ```

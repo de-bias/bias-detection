@@ -1,0 +1,2 @@
+eta,max_depth,min_child_weight,subsample,colsample_bytree,lambda,alpha,optimal_trees,min_RMSE
+0.1,5,1,0.85,1,0.5,0,101,0.00210741222798255

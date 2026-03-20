@@ -1,0 +1,31 @@
+variable,variable_label,moran_i_queen,p_value_queen,n_used
+per_age_40.49,Age 40-49 (%),0.5923536195450584,0.001,331
+per_home_work,Home work (%),0.5183645108357068,0.001,331
+per_NS_SeC_L141142_never_worked_unemployed,Unemployed (%),0.4926714905136327,0.001,331
+per_NS_SeC_L1011_lower_supervisory_technical,Lower supervisory (%),0.48831332581042663,0.001,331
+pop_density,Pop density,0.4753147980773901,0.001,331
+per_NS_SeC_L13_routine,Routine (%),0.46715464051678823,0.001,331
+per_nonukborn,Non-UK (%),0.46508990015803336,0.001,331
+per_level4,Level 4 qual. (%),0.4552034574489981,0.001,331
+per_NS_SeC_L12_semi_routine,Semiroutine (%),0.4546627413067205,0.001,331
+per_no_qualifications,No qualifications (%),0.44875542422824316,0.001,331
+per_NS_SeC_L123_higher_managerial_administrative_professional,Higher managerial (%),0.4454881261655488,0.001,331
+per_age_30.39,Age 30-39 (%),0.43193722891266556,0.001,331
+per_age_60.69,Age 60-69 (%),0.42957291127697766,0.001,331
+per_hh_notdeprived,Not deprived (%),0.4079699203494659,0.001,331
+per_age_70plus,Age 70+ (%),0.396269170701163,0.001,331
+per_age_0.9,Age 0-9 (%),0.3914269452269876,0.001,331
+per_hh_no_car,No car (%),0.3888202948634101,0.001,331
+per_NS_SeC_L89_small_employers_own_account,Small employers (%),0.3686158896942015,0.001,331
+rural_pct,Rural (%),0.35258554634591827,0.001,331
+per_large_households,Large households (%),0.31898865588624975,0.001,331
+per_NS_SeC_L456_lower_managerial_administrative_professional,Lower managerial (%),0.24719288111238924,0.001,331
+per_hh_owned,Owned (%),0.2374358728320121,0.001,331
+per_NS_SeC_L7_intermediate,Intermediate (%),0.22079724505015627,0.001,331
+per_age_10.19,Age 10-19 (%),0.19443567940034095,0.001,331
+per_age_50.59,Age 50-59 (%),0.19081835942051864,0.001,331
+per_female,Female (%),0.187095426999601,0.001,331
+per_recent_migrant,Recent migrant (%),0.17562066794108055,0.001,331
+per_hh_no_centralheat,No central heating (%),0.1325332676512308,0.002,331
+per_age_20.29,Age 20-29 (%),0.11924034123430251,0.007,331
+per_NS_SeC_L15_ft_students,Students (%),-1.44011954487716e-4,0.442,331

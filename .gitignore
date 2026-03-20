@@ -3,11 +3,13 @@
 .RData
 .Ruserdata
 superseded
-.DS_Storepaper/rsos-debias/*.aux
-paper/rsos-debias/*.out
+
 # macOS
 .DS_Store
 
 # LaTeX build artifacts
 paper/rsos-debias/*.aux
 paper/rsos-debias/*.out
+
+# Microsoft Office temporary lock files
+~$*.docx

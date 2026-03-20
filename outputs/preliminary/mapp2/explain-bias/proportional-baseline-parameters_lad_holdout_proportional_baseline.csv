@@ -1,0 +1,2 @@
+data_source,alpha_hat,alpha_ci_lower,alpha_ci_upper,predicted_bias,n_train,n_test
+mapp2,0.010373379565395994,0.010042541958649977,0.010704217172142011,0.989626620434604,231,100

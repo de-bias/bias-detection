@@ -1,0 +1,2 @@
+data_source,alpha_hat,alpha_ci_lower,alpha_ci_upper,predicted_bias,n_train,n_test
+twitter,0.0019340104070242913,0.0018066069437537653,0.0020614138702948173,0.9980659895929757,230,100

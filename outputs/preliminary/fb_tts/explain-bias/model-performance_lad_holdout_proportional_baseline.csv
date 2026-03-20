@@ -1,0 +1,5 @@
+metric,train,test,data_source
+rmse,0.026,0.023,fb_tts
+pearson,NA,NA,fb_tts
+spearman,NA,NA,fb_tts
+standard_dev,0.026,0.023,fb_tts

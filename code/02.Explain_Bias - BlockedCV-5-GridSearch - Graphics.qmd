@@ -1,0 +1,2302 @@
+---
+title: 
+"Final File of the Explain Bias Process. 
+
+This file works for the following resources: FB TTS, FB STT, the three telephone data sets, and any other that complies with the input file format. 
+
+Input files must be provided in a folder named Inputs::Population data(csv), Geographical areas (Municipalities & States (shp)), Bias data (csv),Labels (csv), Optimal parameters (optional) (cvs) 
+
+The output files are saved in the folder specified in the code as Outputs (this can be renamed by changing the value of the variable).
+
+Data                : Facebook (TTS y STT) and the three telephone data sets. 
+Validation Method   : Blocked CV (5)
+Model               : XGBOOST
+graphics            : Included
+Gamma               : No
+Grid Search         : 5184
+Last update         : 101225
+
+"
+format: html
+editor: visual
+---
+
+## 1.Define / Install / Load libraries
+
+Clear work space
+
+```{r}
+rm(list=ls())
+```
+
+```{r}
+# Define packages
+packages <- c(
+  "xgboost",
+  "parallel",
+  "recommenderlab",
+  "doParallel",
+  "rsample",
+  "tidyverse",
+  "sf",
+  "moments",
+  "SHAPforxgboost",
+  "shapviz",
+  "pdp",
+  "rsample",
+  "foreach",
+  "patchwork",
+  "viridis",
+  "scales",
+  "tidyplots",
+  "Ckmeans.1d.dp",
+  "vtreat",
+  "dplyr",
+  "ggplot2",
+  "readr",
+  "ggthemes",
+  "showtext",
+  "Metrics",
+  "caret",
+  "yardstick"
+)
+# Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+} 
+# Load packages
+invisible(lapply(packages, library, character.only = TRUE))
+```
+
+Dependences
+
+```{r}
+#| warning: false
+#| message: false
+# library necessary packages
+library(xgboost)
+library(parallel)
+library(recommenderlab)
+library(doParallel)
+library(rsample)
+library(tidyverse)
+library(sf)
+library(moments)
+library(SHAPforxgboost)
+library(shapviz)
+library(pdp)
+library(rsample)
+library(foreach)
+library(patchwork)
+library(viridis)
+library(scales)
+library(tidyplots)
+library(Ckmeans.1d.dp)
+library(vtreat)
+library(dplyr)
+library(readr)
+library(ggthemes)
+library(showtext)
+library(Metrics)
+library(caret)
+library(yardstick)
+```
+
+Set theme
+
+```{r}
+#| include = FALSE
+source("../style/data-visualisation_theme.R")
+```
+
+## 2.Parameters
+
+```{r}
+# Folder where the outputs will be saved
+Outputs <- "Final_Results_BlockedCV_GS5184_P05_Knn"
+# Value the training set from 0 to 1
+# train_proportion <- 0.7
+VFolds <- 5
+# Paths
+Path01 <- "Inputs/Census_data.csv"
+Path02 <- "Inputs/SHP/MunicipalitiesMX.shp"
+Path03 <- "Inputs/Active_population_bias_knn_p0005.csv"
+Path04 <- "Inputs/Labels.csv" # TTS
+Path05 <- "Inputs/SHP/StatesMX.shp"
+# Path06 <- "Inputs/optimal_parameters_knn.csv"
+
+print(Path01)
+print(Path02)
+print(Path03)
+print(Path04)
+print(Path05)
+# print(Path06)
+```
+
+## 3.Data
+
+### 3.1 Population data
+
+```{r}
+Population_data <- read.csv(Path01,fileEncoding = "latin1")
+colnames(Population_data)[1] <- "Area_code"
+colnames(Population_data)[2] <- "Area_name"
+colnames(Population_data)[3] <- "Total_Population"
+
+# Verify Population data
+head(Population_data,n=5)
+# Verify missing values
+print(t(t(colSums(is.na(Population_data)))))
+# Verify dimensions
+print(dim(Population_data))
+
+# Population labels  ==============================================================
+Population_data_labels <- names(Population_data)
+```
+
+### 3.2 Geographical areas (Municipalities) & Boundaries
+
+```{r}
+# Geographical areas ==============================================================
+Geographical_areas <- st_read(Path02)
+colnames(Geographical_areas)[1] <- "Area_code"
+Geographical_areas <-  Geographical_areas %>% select(Area_code, geometry)
+
+# Verify data
+head(Geographical_areas,n=5)
+# Verify missing values
+print(t(t(colSums(is.na(Geographical_areas)))))
+# Verify dimensions
+print(dim(Geographical_areas))
+
+# Boundaries ======================================================================
+Boundaries <- Geographical_areas
+# Simplifies the complexity of spatial geometries
+Boundaries <- Boundaries %>%st_simplify(preserveTopology = TRUE, dTolerance = 1000)
+# Transforms the coordinate system of spatial geometries
+Boundaries <- st_transform(Boundaries,  crs = 4326)
+
+# Verify data
+head(Boundaries,n=5)
+# Verify missing values
+print(t(t(colSums(is.na(Boundaries)))))
+# Verify dimensions
+print(dim(Boundaries))
+```
+
+### 3.3 Bias data
+
+```{r}
+Bias_data <- read.csv(Path03,fileEncoding = "latin1")
+colnames(Bias_data)[1] <- "Area_code"
+print(head(Bias_data,n=5))
+```
+
+### 3.4 Labels
+
+```{r}
+Labels <- read.csv(Path04,fileEncoding = "latin1", header = TRUE)
+colnames(Labels)[1] <- "Code_label"
+colnames(Labels)[2] <- "Plot_label"
+print(Labels)
+```
+
+### 3.5 Geographical areas (States)
+
+```{r}
+Geographical_areas_states <- st_read(Path05)
+Geographical_areas_states$Area_code <- 1:32
+colnames(Geographical_areas_states)[4] <- "Area"
+Geographical_areas_states <-  Geographical_areas_states %>% 
+  select(Area_code, geometry)
+
+# Verify data
+head(Geographical_areas_states,n=5)
+# Verify missing values
+print(t(t(colSums(is.na(Geographical_areas_states)))))
+# Verify dimensions
+print(dim(Geographical_areas_states))
+```
+
+### 3.6 Optimal parameters (if exists)
+
+```{r}
+# We check if the variable exists
+if (exists("Path06")){
+    # We check if the PATH is valid.We use file.exists() if it is a CSV file
+    if (file.exists(Path06)){ 
+        optimal_pars <- read.csv(Path06, fileEncoding = "latin1")
+        print("Parameters loaded successfully:")
+        print(optimal_pars)
+    }else{
+        # The variable exists, but the PATH is incorrect or the file does not exist
+        print(paste("WARNING: The path",Path06," does not contain a valid file.There are no previous parameters."))
+    }
+}else{
+    # The variable 'Path06' does NOT exist in the environment.
+    print("WARNING: The variable Path06 does not exist in the environment. There are no previous parameters.")
+}
+```
+
+## 4.Data wrangling
+
+### Extract centroids
+
+```{r}
+# Calculate the centroid of each geometry within the Geographical_areas object.
+centroids_df <- st_centroid(Geographical_areas) %>% 
+  st_coordinates() %>% 
+  as.data.frame() %>% 
+  rowid_to_column("row_id")
+
+# Combine Geographical_areas with centroids_df
+centroids_with_ids <- Geographical_areas %>%
+  st_set_geometry(NULL) %>% # Remove geometry to avoid issues with join
+  rowid_to_column("row_id") %>% # Create a temporary row_id for merging
+  cbind(centroids_df) 
+
+# Remove row_id and rename x,y
+centroids_with_ids <- centroids_with_ids %>% 
+  select(-c(row_id)) %>% 
+  rename(
+    longitude = "X",
+    latitude = "Y"
+  )
+
+# Casting "Area_code" as integer in order to use left_join
+centroids_with_ids <- centroids_with_ids %>%
+  mutate(Area_code = as.integer(Area_code))
+
+# Create df_extended by join Population_data and centroids_with_ids
+df_extended <- full_join(Population_data, centroids_with_ids, by = join_by(Area_code == Area_code) ) 
+
+print(names(df_extended))
+```
+
+### Add bias_w (Add spatial weights If they are included as a feature)
+
+```{r}
+# Add spatial weights to the label data frame and df_extended if they are included 
+if ("bias_w" %in% names(Bias_data)) {
+  Population_data_labels <- c(Population_data_labels, "bias_w")
+  df_extended <- merge(df_extended, Bias_data[, c("Area_code", "bias_w")], by = "Area_code")
+}
+print(Population_data_labels)
+# Verify df_extended
+head(df_extended,n=5)
+# Verify missing values
+print(t(t(colSums(is.na(df_extended)))))
+# Verify dimensions
+print(dim(df_extended))
+```
+
+### 4.1 Standarization
+
+```{r}
+# select numeric columns and standardize them
+df_standardised <- df_extended %>%
+  dplyr::select(-c(Area_code)) %>% 
+  mutate(across(where(is.numeric), ~ (. - mean(.)) / sd(.))) %>%
+  cbind(df_extended %>% dplyr::select(Area_code))
+
+# Verify df_standardised
+df_standardised
+print(t(t(colSums(is.na(df_standardised)))))
+print(dim(df_standardised))
+```
+
+### 4.2 Add bias (Add bias as dependent variable)
+
+```{r}
+input_df <- merge(df_standardised, Bias_data[, c("Area_code", "bias")], by = "Area_code")
+
+# Verify input_df
+head(input_df,n=5)
+print(t(t(colSums(is.na(input_df)))))
+print(dim(input_df))
+```
+
+### 4.3 Missing values
+
+```{r}
+# Check for missing values
+print(t(t(colSums(is.na(input_df)))))
+
+print(which(is.na(input_df), arr.ind = TRUE))
+input_df <- input_df %>% 
+  drop_na()
+
+print(dim(input_df))
+```
+
+Removing unnecessary objects (optional)
+
+```{r}
+# rm(Geographical_areas, df_standardised,df_extended)
+print("Removing unnecessary objects (optional)")
+```
+
+## 5.Setting up model
+
+### Create folders for outputs and saving
+
+```{r}
+# 1. Create the main folder if it does not exist
+if (!dir.exists(Outputs)) {
+  dir.create(Outputs)
+  cat(paste0("Main Folder Output '", Outputs, "' successfully created.\n"))
+} else {
+  cat(paste0("Main Folder Output '", Outputs, "' already exists.\n"))
+}
+
+# 2. Create the subfolders inside the main folder.
+Subfolders <- c("Inputs","01.Feature Importance","02.Shap Plot","03.Shap Dependence","05.Map","Predictions")
+for (Subfolder in Subfolders) {
+  path_subfolder <- file.path(Outputs, Subfolder)
+  if (!dir.exists(path_subfolder)) {
+    dir.create(path_subfolder)
+    cat(paste0("Subfolder '", Subfolder, "' created in '", Outputs, "' successfully.\n"))
+  } else {
+    cat(paste0("Subfolder '", Subfolder, "' already exists in '", Outputs, "'.\n"))
+  }
+}
+cat("Folder creation process completed.\n")
+
+# SAVING ==========================================================================
+# =================================================================================
+# INPUT_DF ========================================================================
+# Try to write the CSV file and save the result.
+write_output <- try(write.csv(input_df, file.path(Outputs, "Inputs/Input_df.csv"), fileEncoding = "latin1", row.names = FALSE))
+# Check if there were any errors during writing
+if (inherits(write_output, "try-error")) {
+  cat(paste0("Error saving: 'Input_df.csv' in '", Outputs, "'.\n"))
+  cat("Error message: ", as.character(write_output), "\n")
+} else {
+  cat(paste0("Input_df.csv successfully created in '", Outputs, "/Inputs\n"))
+}
+
+# POPULATION DATA =================================================================
+# Try to write the CSV file and save the result.
+write_output <- try(write.csv(Population_data, file.path(Outputs, "Inputs/Population_data.csv"), fileEncoding = "latin1", row.names = FALSE))
+# Check if there were any errors during writing
+if (inherits(write_output, "try-error")) {
+  cat(paste0("Error saving: 'Population_data.csv' in '", Outputs, "/Inputs'.\n"))
+  cat("Error message: ", as.character(write_output), "\n")
+} else {
+  cat(paste0("Population_data.csv successfully created in '", Outputs, "/Inputs\n"))
+}
+
+# GEOGRAPHICAL AREAS ==============================================================
+# Try to write the SHP file and save the result.
+write_output <- try(st_write(Geographical_areas, file.path(Outputs, "Inputs/Geographical_areas.shp"), row.names = FALSE))
+# Check if there were any errors during writing
+if (inherits(write_output, "try-error")) {
+  cat(paste0("Error saving: 'Geographical_areas.shp' in '", Outputs, "'.\n"))
+  cat("Error message: ", as.character(write_output), "\n")
+} else {
+  cat(paste0("Geographical_areas.shp successfully created in '", Outputs, "/Inputs\n"))
+}
+
+# BIAS DATA =======================================================================
+# Try to write the CSV file and save the result.
+write_output <- try(st_write(Bias_data, file.path(Outputs, "Inputs/Bias_data.csv"), fileEncoding = "latin1", row.names = FALSE))
+# Check if there were any errors during writing
+if (inherits(write_output, "try-error")) {
+  cat(paste0("Error saving: 'Bias_data.csv' in '", Outputs, "'.\n"))
+  cat("Error message: ", as.character(write_output), "\n")
+} else {
+  cat(paste0("Bias_data.csv successfully created in '", Outputs, "/Inputs\n"))
+}
+
+# LABELS ==========================================================================
+# Try to write the CSV file and save the result.
+write_output <- try(st_write(Labels, file.path(Outputs, "Inputs/Labels.csv"), fileEncoding = "latin1", row.names = FALSE))
+# Check if there were any errors during writing
+if (inherits(write_output, "try-error")) {
+  cat(paste0("Error saving: 'Labels.csv' in '", Outputs, "'.\n"))
+  cat("Error message: ", as.character(write_output), "\n")
+} else {
+  cat(paste0("Labels.csv successfully created in '", Outputs, "/Inputs\n"))
+}
+
+# GEOGRAPHICAL AREAS STATES =======================================================
+# Try to write the SHP file and save the result.
+write_output <- try(st_write(Geographical_areas_states, file.path(Outputs, "Inputs/Geographical_areas_states.shp"), row.names = FALSE))
+# Check if there were any errors during writing
+if (inherits(write_output, "try-error")) {
+  cat(paste0("Error saving: 'Geographical_areas_states.shp' in '", Outputs, "'.\n"))
+  cat("Error message: ", as.character(write_output), "\n")
+} else {
+  cat(paste0("Geographical_areas_states.shp successfully created in '", Outputs, "/Inputs\n"))
+}
+```
+
+### 5.1 Dependent and independent variables
+
+```{r}
+# cut <- "random"
+
+variables_to_eliminate <- c(
+  "Area_code",
+  "Area_name",
+  "longitude", 
+  "latitude",
+  "bias")
+
+print("=======================================================================")
+print("DISCARDED VARIABLES:")
+print("-----------------------------------------------------------------------")
+print(variables_to_eliminate)
+
+xvars <- colnames(input_df)
+
+x <- xvars[!(xvars %in% variables_to_eliminate)]
+y <- "bias"
+
+# Independent variables
+print("=======================================================================")
+print("INDEPENDENT VARIABLES:")
+print("-----------------------------------------------------------------------")
+print(x)
+
+# Dependent variable
+print("=======================================================================")
+print("DEPENDENT VARIABLES:")
+print("-----------------------------------------------------------------------")
+print(y)
+```
+
+### 5.2 Validation Method - Defining training and test data sets
+
+### **Blocked CV**
+
+```{r}
+# install.packages("spatialsample")
+library(rsample)
+library(sf)
+library(spatialsample)
+
+# Convert to spatial format
+input_sf <- st_as_sf(input_df, coords = c("longitude", "latitude"), crs = 4326)
+
+# Generating seed
+set.seed(123)
+
+# Data Division
+blocked_folds <- spatial_block_cv(
+  input_sf,
+  v = VFolds
+)
+
+# Partition structure
+print(blocked_folds)
+
+for (k in 1:VFolds)
+{
+print(paste("---------------- Fold:", k, " begins----------------"))
+  
+# Get the first fold
+fold <- blocked_folds$splits[[k]]
+
+# Get the training Set
+train_sample <- training(fold)
+
+# Get the test Set
+test_sample <- testing(fold)
+
+# Verify train_sample
+#head(train_sample,n=5)
+print(dim(train_sample))
+
+# Verify test_sample
+#head(test_sample,n=5)
+print(dim(test_sample))
+}
+```
+
+### A) Treatment plan - Prepare data
+
+```{r}
+library(sf)
+library(vtreat)
+library(rsample)
+
+# List to store the vtreat transformed datasets for all folds
+vtreat_processed_folds <- list()
+
+# Iterate over each fold
+for (k in 1:VFolds){
+# for (k in 1:5){
+  
+  print(paste("--- Processing Fold:", k, "---"))
+  
+  # Get the current split
+  current_split <- blocked_folds$splits[[k]]
+  
+  # Get Training and Test indices
+  ##train_indices <- current_split$in_id
+  ##all_indices   <- 1:nrow(input_df)
+  ##test_indices  <- all_indices[!(all_indices %in% train_indices)]
+  
+  # Separate the original dataframe (input_df) using the indices
+  ##train_sample <- input_df[train_indices, ]
+  ##test_sample  <- input_df[test_indices, ]
+  # print(head(test_sample))
+  
+  # Get Training and Test
+  train_sample <- rsample::training(current_split)
+  test_sample  <- rsample::testing(current_split)
+
+  # Create the treatment plan from the training data
+  treatplan <- vtreat::designTreatmentsZ(
+    dframe       = train_sample, 
+    varlist      = x,       # Predictor (independent) variables
+    verbose = FALSE
+  )
+  
+  # Get the "clean" variable names from the scoreFrame
+  new_vars <- treatplan %>%
+  magrittr::use_series(scoreFrame) %>%        
+  dplyr::filter(code %in% c("clean", "lev")) %>% 
+  magrittr::use_series(varName)  
+
+  # Prepare the training data
+  features_train <- vtreat::prepare(
+    treatplan,           
+    train_sample,        
+    varRestriction = new_vars
+  ) %>% as.matrix()
+  
+  response_train <- train_sample[,y]
+
+  # Prepare the test data
+  features_test <- vtreat::prepare(
+    treatplan,           
+    test_sample,        
+    varRestriction = new_vars
+  ) %>% as.matrix()
+
+  response_test <- test_sample[,y]
+  
+  # Store the processed results for this fold
+  vtreat_processed_folds[[k]] <- list(
+    features_train = features_train,
+    response_train = response_train,
+    features_test  = features_test,
+    response_test  = response_test
+  )
+
+  print(paste("Treatment plan applied to Fold", k, 
+              "- Dimension of features_train:", dim(features_train)[1], "x", dim(features_train)[2]))
+}
+
+# --- VERIFICATION OF RESULTS ---
+# vtreat_processed_folds now contains 5 elements ready for modeling
+primer_fold <- vtreat_processed_folds[[1]]
+print("Processed variables from the first fold ready for modeling:")
+
+# Independent Variables
+print("INDEPENDENT VARIABLES:")
+print("=======================================================================")
+print(colnames(primer_fold$features_train))
+print("=======================================================================")
+print(length(primer_fold$response_train))
+```
+
+### 5.3 Tuning - Hypergrid Parameters (Only if the optimal parameters are not available)
+
+#### 2) Parameters
+
+```{r}
+# Create hyperparameter grid
+
+# ORIGINAL PARAMETERS
+ hyper_grid_O <- expand.grid(
+  #nrounds         = c(50, 100, 150),     # Number of boosting rounds
+  eta              = c(.01, .05, .1, .3), # Learning rate
+  #gamma           = c(0, 1, 5),          # Minimum loss reduction
+  max_depth        = c(1, 3, 5, 7),       # Maximum depth of a tree
+  min_child_weight = c(1, 3, 5, 7),       # Minimum sum of instance weight
+  subsample        = c(.65, .8, 1),       # Fraction of rows per tree
+  colsample_bytree = c(.8, .9, 1),        # Fraction of columns per tree
+  lambda           = c(0, 0.5, 1),        # L2 regularization term (Ridge)
+  alpha            = c(0, 0.5, 1),        # L1 regularization term (LASSO)
+  optimal_trees    = 0,                   # a place to dump results
+  min_RMSE         = 0                    # a place to dump results
+)
+
+
+# TEST PARAMETERS
+ hyper_grid_T <- expand.grid(
+ #nrounds          = c(50, 100, 150),     # Number of boosting rounds
+ eta               = c(.01, .05),         # Learning rate
+ #gamma            = c(0, 1, 5),          # Minimum loss reduction
+ max_depth         = c(1, 3),             # Maximum depth of a tree
+ min_child_weight  = c(1),                # Minimum sum of instance weight
+ subsample         = c(.65, .8),          # Fraction of rows per tree
+ colsample_bytree  = c(.8),               # Fraction of columns per tree
+ lambda            = c(0, 0.5),           # L2 regularization term (Ridge)
+ alpha             = c(0),           # L1 regularization term (LASSO)
+ #alpha             = c(0, 0.5),           # L1 regularization term (LASSO)
+ optimal_trees     = 0,                   # a place to dump results
+ min_RMSE          = 0                    # a place to dump results
+)
+
+# SELECT PARAMETERS
+hyper_grid <- hyper_grid_O # ORIGINAL
+# hyper_grid <- hyper_grid_T # TEST
+
+nrow(hyper_grid)
+
+# HYPERGRID ==========================================================================
+# Try to write the CSV file and save the result.
+write_output <- try(write.csv(hyper_grid, file.path(Outputs, "/Hypergrid.csv"), fileEncoding = "latin1", row.names = FALSE))
+# Check if there were any errors during writing
+if (inherits(write_output, "try-error")) {
+  cat(paste0("Error saving: 'Hypergrid.csv' in '", Outputs, "'.\n"))
+  cat("Error message: ", as.character(write_output), "\n")
+} else {
+  cat(paste0("Hypergrid.csv successfully created in '", Outputs, "\n"))
+}
+```
+
+### 5.4 Parallelised code
+
+We apply a loop procedure to loop through and apply a XGBoost model for each hyperparameter combination and dump the results in the hyper_grid data frame. This is done in a paralellised way.
+
+#### **Blocked CV**
+
+Selecting optimal parameters
+
+```{r}
+# List for optimal parameters
+optimal_pars_fold <- list()
+
+for (k in 1:VFolds){
+  
+  # Define file name and path
+  filename <- paste0("Results_hypergrid_fold_", k, ".csv")
+  file_path <- file.path(Outputs, filename)
+  
+  # Read file
+  fold_results <- tryCatch({
+        read_csv(file_path, show_col_types = FALSE)
+    }, error = function(e) {
+        cat(paste0("Error reading file for Fold ", k, ": ", e$message, "\n"))
+        return(NULL) # Returns NULL if there is an error
+    })
+  
+  # Verify and extract the best set of parameters
+    if (!is.null(fold_results)) {
+        # Find the row with the minimum RMSE for this fold
+        optimal_pars_k <- fold_results %>% 
+            dplyr::slice_min(order_by = min_RMSE, n = 1) %>%
+            # Ensure the fold_id column is correct if needed
+            dplyr::mutate(fold_id = k)
+        
+        # Store the result in the list
+        optimal_pars_fold[[k]] <- optimal_pars_k
+        
+        cat(paste0("Fold ", k, " processed. Min RMSE: ", round(optimal_pars_k$min_RMSE, 5), "\n"))
+    }
+  
+}
+
+# Convert the list of 5 dataframes (1 row each) into a single dataframe of 5 rows
+optimal_pars_folds <- dplyr::bind_rows(optimal_pars_fold)
+
+# The dataframe 'final_optimal_params_df' now contains the 5 sets of optimal parameters (one per fold).
+print(paste0("Parámetros Óptimos consolidados para los ",k," Folds:"))
+
+# RESULTS =========================================================================
+# Try to write the CSV file and save the result.
+write_output <- try(write.csv(optimal_pars_folds, file.path(Outputs, "/Optimal_parameters.csv"), fileEncoding = "latin1", row.names = FALSE))
+# Check if there were any errors during writing
+if (inherits(write_output, "try-error")) {
+  cat(paste0("Error saving: 'Optimal_parameters.csv' in '", Outputs, "'.\n"))
+  cat("Error message: ", as.character(write_output), "\n")
+} else {
+  cat(paste0("Optimal_parameters.csv successfully created in '", Outputs, "\n"))
+}
+
+print(optimal_pars_folds)
+```
+
+## 6.Final model
+
+Once you've found the optimal model, we can fit our final model
+
+### 6.1 Fit final model, Predictions XGBoost & Metric tables
+
+```{r}
+# Initialize lists to store final models and metrics
+final_models <- list()
+all_fold_metrics <- list()
+
+# -----------------------------------------------------------
+## FINAL LOOP: Train and Evaluate the K Models
+# -----------------------------------------------------------
+for (k in 1:VFolds) {
+    
+    # -----------------------------------------------------------
+    ## 6.1 FIT FINAL MODEL
+    # -----------------------------------------------------------
+    print(paste("--- Training Final Model for Fold:", k, " ---"))
+  
+    # 1. Get the data and parameters for the current Fold
+    current_data   <- vtreat_processed_folds[[k]]
+    optimal_pars_k <- optimal_pars_folds[k, ] 
+    
+    # 2. Define Data and Parameters
+    X_train_mat <- current_data$features_train
+    y_train_vec <- as.numeric(current_data$response_train[[1]]) 
+    dtrain <- xgboost::xgb.DMatrix(data = X_train_mat, label = y_train_vec)
+    
+    # Parameters (Extracted from the optimal dataframe)
+    params <- list(
+        eta              = optimal_pars_k$eta,
+        max_depth        = optimal_pars_k$max_depth,
+        min_child_weight = optimal_pars_k$min_child_weight,
+        subsample        = optimal_pars_k$subsample,
+        colsample_bytree = optimal_pars_k$colsample_bytree,
+        lambda           = optimal_pars_k$lambda,
+        alpha            = optimal_pars_k$alpha,
+        objective        = "reg:squarederror"
+    ) 
+    optimal_nrounds <- optimal_pars_k$optimal_trees
+    
+    # 3. Train final model
+    xgb.fit.final <- xgboost::xgb.train(
+        params  = params,
+        data    = dtrain,
+        nrounds = optimal_nrounds,
+        verbose = 0
+        #seed    = 123
+    )
+    
+    print(paste("Fold", k, "Model trained with", optimal_nrounds, "trees."))
+    
+    # 4. Store and Save the Model
+    # Store the model in the model list
+    final_models[[k]] <- xgb.fit.final
+    # Save model
+    model_filename <- paste0("xgb-fit-final-model-fold-",k,".rds")
+    saveRDS(xgb.fit.final, file.path(Outputs, model_filename))
+    
+    # -----------------------------------------------------------
+    ## 6.2 TRAINING AND TEST PREDICTIONS
+    # -----------------------------------------------------------
+    print(paste("--- Training and Test Predictions for Fold:", k, " ---"))
+    
+    # 1. Define Test Data 
+    X_test_mat <- current_data$features_test
+    y_test_vec <- as.numeric(current_data$response_test[[1]]) 
+    dtest <- xgboost::xgb.DMatrix(data = X_test_mat)
+    
+    # 2. Predictions
+    # Train Predictions
+    predictions_train_k <- predict(xgb.fit.final, dtrain)
+    # Test Predictions
+    predictions_test_k <- predict(xgb.fit.final, dtest)
+    
+    # -----------------------------------------------------------
+    ## 6.2.1 SAVING TRAINING AND TEST PREDICTIONS
+    # -----------------------------------------------------------
+    # 1. Preparation of TRAINING data with all attributes
+    train_features_df <- as.data.frame(X_train_mat) 
+    # Create the final TRAINING results table
+    final_train_df <- train_features_df %>%
+        dplyr::mutate(
+            Fold_ID = k,
+            Observed_Value = y_train_vec,
+            Predicted_Value = predictions_train_k
+        )%>%
+        # Reorder columns to have Fold_ID, Observed, and Predicted at the top
+        dplyr::select(Fold_ID,Observed_Value,Predicted_Value, dplyr::everything())
+
+    # 2. Preparation of TEST data with all attributes
+    test_features_df <- as.data.frame(X_test_mat)
+    # Create the final TEST results table
+    final_test_df <- test_features_df %>%
+        dplyr::mutate(
+            Fold_ID = k,
+            Observed_Value = y_test_vec,
+            Predicted_Value = predictions_test_k
+        )%>%
+        # Reorder columns
+        dplyr::select(Fold_ID,Observed_Value,Predicted_Value, dplyr::everything())
+
+    # 3. Save as CSV with validation
+    # --- 3a. Save TRAINING ---
+    filename_train <- paste0("Predictions/Fold_",k,"_full_predictions_train.csv")
+    file_path_train <- file.path(Outputs,filename_train)
+    write_output_train<-try(readr::write_csv(final_train_df,file=file_path_train))
+    if (inherits(write_output_train, "try-error")){
+        cat(paste0("Error saving full_predictions_train for Fold ", k, ".\n"))
+    }else{
+        cat(paste0(filename_train, " successfully created with attributes.\n"))
+    }
+  
+    # --- 3b. Save TEST ---
+    filename_test <- paste0("Predictions/Fold_", k, "_full_predictions_test.csv")
+    file_path_test <- file.path(Outputs, filename_test)
+    write_output_test<-try(readr::write_csv(final_test_df, file = file_path_test))
+    if (inherits(write_output_test, "try-error")) {
+        cat(paste0("Error saving full_predictions_test para Fold ", k, ".\n"))
+    }else{
+        cat(paste0(filename_test, " successfully created with attributes.\n"))
+    }
+    
+    # -----------------------------------------------------------
+    ## 6.3 METRICS
+    # -----------------------------------------------------------    
+    # 3. Metrics
+    # Auxiliary function to calculate R2
+    r2_calc <- function(actual, predicted) {
+        SS_res <- sum((predicted - actual)^2)
+        SS_tot <- sum((actual - mean(actual))^2)
+        return(1 - (SS_res / SS_tot))}
+    
+    # Calculate the error vector (Residues)
+    errors_train_k <- predictions_train_k - y_train_vec
+    errors_test_k  <- predictions_test_k - y_test_vec
+
+    # -----------------------------------------------------------
+    # 3A. Training Metrics
+    # -----------------------------------------------------------
+    metrics_train_k <- list(
+    RMSE_Train = sqrt(mean((predictions_train_k - y_train_vec)^2)),
+    Pearson_Train = cor(predictions_train_k, y_train_vec,method="pearson"),
+    Spearman_Train=cor(predictions_train_k,y_train_vec,method= "spearman"),
+    SD_Error_Train = sd(errors_train_k),
+    R2_Train = r2_calc(y_train_vec, predictions_train_k))
+    # -----------------------------------------------------------
+    # 3B. Test Metrics
+    # -----------------------------------------------------------
+    metrics_test_k <- list(
+    RMSE_Test = sqrt(mean((predictions_test_k - y_test_vec)^2)),
+    Pearson_Test = cor(predictions_test_k, y_test_vec, method = "pearson"),
+    Spearman_Test=cor(predictions_test_k, y_test_vec, method = "spearman"),
+    SD_Error_Test = sd(errors_test_k),
+    R2_Test = r2_calc(y_test_vec, predictions_test_k))
+
+    # 4. Storage
+    #Combine the Train and Test metrics into a single list for the fold
+    metrics_k <- c(
+      list(fold_id = k),
+      metrics_train_k,
+      metrics_test_k)
+
+    # Store the metrics for this Fold in the global list
+    all_fold_metrics <- append(all_fold_metrics, list(metrics_k))
+
+    # Report
+    # print(paste("Fold", k, "Evaluation: 
+    #            | RMSE Train:", 
+    #            round(metrics_k$RMSE_Train, 4), 
+    #            "| RMSE Test:", 
+    #            round(metrics_k$RMSE_Test, 4)))
+    
+
+    # -----------------------------------------------------------
+    ## 6.3.1 METRICS TABLE
+    # ----------------------------------------------------------- 
+    # 1. Create metrics vectors
+    metrics_list <- c("RMSE","Pearson","Spearman","SD_Error","R2")
+
+    # 2. Extract the values from Training and Test
+    train_values <- c(
+    metrics_train_k$RMSE_Train,
+    metrics_train_k$Pearson_Train,
+    metrics_train_k$Spearman_Train,
+    metrics_train_k$SD_Error_Train,
+    metrics_train_k$R2_Train)
+
+    test_values <- c(
+    metrics_test_k$RMSE_Test,
+    metrics_test_k$Pearson_Test,
+    metrics_test_k$Spearman_Test,
+    metrics_test_k$SD_Error_Test,
+    metrics_test_k$R2_Test)
+
+    # 3. Summary table
+    summary_table_k <- data.frame(
+    Metric = metrics_list,
+    Train = train_values,
+    Test = test_values)
+
+    print(paste("Fold performance table", k, ":"))
+    print(summary_table_k)
+
+    # 4. Saving summary table
+    filename <- paste0("Model-performance_fold_", k, ".csv")
+    file_path <- file.path(Outputs, filename)
+
+    # Validation
+    write_output <- try(
+    readr::write_csv(summary_table_k, file = file_path))
+
+    if (inherits(write_output, "try-error")) {
+        cat(paste0("Error saving performance table for Fold ", k, ".\n"))
+    } else {
+        cat(paste0("Model-performance_fold_", k, ".csv successfully created.\n"))
+    }
+    
+    # -----------------------------------------------------------
+    ## 6.4 GLOBAL METRICS
+    # -----------------------------------------------------------
+    if (k == VFolds)
+    {
+      # 6.4.1 Convert the list of results from the 5 folds into a dataframe
+      consolidated_metrics_df <- dplyr::bind_rows(all_fold_metrics)
+      
+      # 6.4.2 Calculate the final return (Average AVG and SD of the RMSEs of the 5 folds)
+      final_performance_summary <- consolidated_metrics_df %>%
+      dplyr::summarise(
+        # TEST METRICS
+        Avg_RMSE_Test     = mean(RMSE_Test),
+        SD_RMSE_Test      = sd(RMSE_Test), 
+        Avg_SD_Error_Test = mean(SD_Error_Test),
+        Avg_R2_Test       = mean(R2_Test),
+        Avg_Pearson_Test  = mean(Pearson_Test),
+        Avg_Spearman_Test = mean(Spearman_Test),
+        
+        # TRAINING METRICS 
+        Avg_RMSE_Train     = mean(RMSE_Train),
+        SD_RMSE_Train      = sd(RMSE_Train),
+        Avg_SD_Error_Train = mean(SD_Error_Train),
+        Avg_R2_Train       = mean(R2_Train),
+        Avg_Pearson_Train  = mean(Pearson_Train),
+        Avg_Spearman_Train = mean(Spearman_Train)
+    )
+    
+    # 6.4.3 Transpose to obtain the summary table format (Metric, Train, Test)
+    ordered_metrics <- c(
+      "RMSE", 
+      "Pearson", 
+      "Spearman",
+      "SD_Error", 
+      "R2", 
+      "SD_RMSE")  
+
+    final_summary_table <- final_performance_summary %>%
+    tidyr::pivot_longer(
+        cols = starts_with("Avg_"), 
+        names_to = c("Type", "Metric_Name", "Set"), 
+        names_pattern = "(Avg)_(.*)_(Test|Train)", 
+        values_to = "Value"
+    ) %>%
+    tidyr::pivot_wider(
+        names_from = Set,
+        values_from = Value
+    ) %>%
+    dplyr::filter(Metric_Name %in% c(
+      "RMSE", 
+      "R2", 
+      "Pearson", 
+      "Spearman", 
+      "SD_Error")) %>%
+    dplyr::select(Metric = Metric_Name, Train, Test) %>%
+    
+    dplyr::bind_rows(
+        data.frame(
+            Metric = "SD_RMSE", 
+            Train = final_performance_summary$SD_RMSE_Train, 
+            Test = final_performance_summary$SD_RMSE_Test
+        )
+    ) %>% dplyr::arrange(match(Metric, ordered_metrics))
+    
+    # 6.4.4 Save the Final Summary Table with Validation
+    final_report_filename <- "Final_Blocked_CV_Performance.csv"
+    file_path_final <- file.path(Outputs, final_report_filename)
+    write_output_final <- try(readr::write_csv(final_summary_table, file = file_path_final))
+    if (inherits(write_output_final, "try-error")) {
+        cat(paste0("Fatal error saving the final report.\n"))
+    } else {
+        cat(paste0("FINAL REPORT successfully saved: ", final_report_filename, "\n"))
+        print(final_summary_table)
+    }
+    }
+  
+}
+print("Training and predictions of the final K models completed")
+```
+
+## 7.Graphics
+
+### 7.1 Feature_Importance_PDF
+
+#### Fold by Fold
+
+```{r}
+library(shapviz)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(showtext)
+
+# Font
+font <- "sans"
+# font <- "Fira Sans"
+# font <- "Source Sans Pro"
+tamanio <- 17
+
+# ---------------------------------------------------------------------------------
+# 0. PREPARATION
+# ---------------------------------------------------------------------------------
+for (k in 1:VFolds) {
+  # 1. Load the final trained model for Fold k
+  model_filename <- paste0("xgb-fit-final-model-fold-", k, ".rds")
+  file_path <- file.path(Outputs, model_filename)
+  
+    # Handling the error if the model does not exist
+  xgb.fit.final <- tryCatch({
+      readRDS(file_path)
+  }, error = function(e) {
+      cat(paste0("Error: Could not load model for Fold ", k, ".\n"))
+      return(NULL)
+  })
+  # Skip to the next fold if the model does not exist
+  if (is.null(xgb.fit.final)) next 
+  
+  # 2. Get the training set from Fold k (features_train)
+  current_data <- vtreat_processed_folds[[k]]
+  features_train <- current_data$features_train
+# ---------------------------------------------------------------------------------
+# 1.UNIQUE SHAP CALCULATION
+# ---------------------------------------------------------------------------------
+shp <- shapviz(
+    xgb.fit.final, 
+    X_pred = features_train, 
+    X = features_train      
+)
+## print(shp)
+## print(names(shp$X))
+
+# ---------------------------------------------------------------------------------
+# 2.DATA EXTRACTION, LABELING AND PREPARATION
+# ---------------------------------------------------------------------------------
+importance_data <- shapviz::sv_importance(shp, kind = "bar", max_display = 20L) %>%
+    .$data %>% 
+    dplyr::left_join(Labels, by = c("feature" = "Code_label")) %>% 
+    dplyr::mutate(Fold_ID = k) %>% 
+    dplyr::select(feature = Plot_label, value, Fold_ID)
+
+## print(importance_data)
+
+importance_data$feature <- factor(importance_data$feature, levels = rev(importance_data$feature))
+
+## print(importance_data)
+# ---------------------------------------------------------------------------------
+# 3.GRAPH GENERATION
+# ---------------------------------------------------------------------------------
+Plot <- ggplot(importance_data, aes(x = value, y = feature))+
+        geom_segment(aes(x = 0, 
+                         xend = value),
+                     color = "#000000", 
+                     linewidth = 0.5, 
+                     linetype = "solid") +
+        geom_point(aes(color = value > 0), 
+                   size = 7, 
+                   alpha = 1) +
+        scale_color_manual(values = c("TRUE" = "#800080", "FALSE" = "#800080")) +
+        labs(
+          title = "A) Feature importance",
+          x     = "Impact SHAP Value",
+          y     = NULL)+
+        theme_classic()+
+        scale_x_continuous(
+          limits = c(0, max(importance_data$value) * 1.05), 
+          expand = c(0, 0))+
+        theme(
+          plot.title = element_text(size   = tamanio, 
+                                face   = "bold", 
+                                hjust  = 0, 
+                                color  = "#000000", 
+                                family = font),
+          plot.title.position = "plot",
+          axis.title.x = element_text(size = tamanio),
+          axis.text.x=element_text(size = tamanio,color = "#000000",family = font),
+          axis.text.y=element_text(size = tamanio,color = "#000000",family = font),
+          legend.position = "none",
+          plot.margin = margin(5, 20, 5, 5)
+    )
+print(Plot)
+
+# ---------------------------------------------------------------------------------
+# 4. SAVING
+# ---------------------------------------------------------------------------------
+# CSV
+importance_data_for_csv <- importance_data %>%
+      dplyr::select(
+        Fold_ID,
+        Feature_Label = feature,
+        Impact_SHAP_Value = value)
+
+csv_file_name<- paste0("01.Feature Importance/Feature_Importance_Fold_", k, ".csv")
+csv_full_path <- file.path(Outputs, csv_file_name)
+write.csv(importance_data_for_csv, csv_full_path, row.names = FALSE)
+message(paste("Saved data to CSV:", csv_full_path))
+
+# PDF
+file_name <- paste0("01.Feature Importance/Feature_Importance_Fold_", k, ".pdf")
+full_path <- file.path(Outputs, file_name)
+ggsave(
+    full_path,  
+    plot     = Plot,
+    device = cairo_pdf,
+    width    = 7, 
+    height   = 7, 
+    units    = "in")
+message(paste("Saved graphic:", full_path))
+}
+```
+
+#### Average of the folds
+
+```{r}
+library(shapviz)
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+# Font
+font <- "sans"
+# font <- "Fira Sans"
+# font <- "Source Sans Pro"
+tamanio <- 17
+all_importance_data <- list()
+
+# ---------------------------------------------------------------------------------
+# 1. LOOP TO ACCUMULATE IMPORTANCE SHAP OF THE V FOLDS
+# ---------------------------------------------------------------------------------
+for (k in 1:VFolds) {
+  # 1. Load the final trained model for Fold k
+  model_filename <- paste0("xgb-fit-final-model-fold-", k, ".rds")
+  file_path <- file.path(Outputs, model_filename)
+    
+  # Handling the error if the model does not exist
+  xgb.fit.final <- tryCatch({
+      readRDS(file_path)
+  }, error = function(e) {
+      cat(paste0("Error: Could not load model for Fold ", k, ".\n"))
+      return(NULL)
+  })
+  # Skip to the next fold if the model does not exist
+  if (is.null(xgb.fit.final)) next 
+  
+  # 2. Get the training set from Fold k (features_train)
+  current_data <- vtreat_processed_folds[[k]]
+  features_train <- current_data$features_train
+    
+  # 3. Calculate the SHAP matrix for this Fold
+  shp <- shapviz::shapviz(
+        xgb.fit.final, 
+        X_pred = features_train, 
+        X = features_train)
+  # 4. Extract the SHAP (Absolute Mean) Importance for this Fold
+    importance_fold_k <- shapviz::sv_importance(
+      shp, 
+      kind = "bar", 
+      max_display = 20L) %>%
+        .$data %>%
+        dplyr::mutate(Fold_ID = k)
+    
+  # Store in list
+  all_importance_data[[k]] <- importance_fold_k
+    
+  print(paste("SHAP importance calculated for Fold", k))
+}
+
+# ---------------------------------------------------------------------------------
+# # 2. CONSOLIDATION OF RESULTS AND FINAL GRAPH
+# ---------------------------------------------------------------------------------
+# 5. Consolidate all fold results
+consolidated_importance <- dplyr::bind_rows(all_importance_data)
+
+# 6. Calculate the Average SHAP Importance
+importance_data_avg <- consolidated_importance %>%
+    dplyr::group_by(feature) %>%
+    dplyr::summarise(
+        value = mean(value), # The average SHAP importance value
+        .groups = 'drop'
+    ) %>%
+    dplyr::arrange(desc(value)) %>%
+    dplyr::slice_head(n = 20) %>%
+    # Join with the Labels dataframe to obtain the plot names
+    dplyr::left_join(Labels, by = c("feature" = "Code_label")) %>%
+    dplyr::select(Plot_label, value) %>%
+    dplyr::rename(feature = Plot_label) %>%
+    # Reorder the most important feature at the beginning
+    dplyr::arrange(value)
+
+# Factor the feature column (for ggplot order)
+importance_data_avg$feature <- factor(importance_data_avg$feature, 
+                                     levels = importance_data_avg$feature)
+
+# ---------------------------------------------------------------------------------
+# # 3. FINAL GRAPH
+# ---------------------------------------------------------------------------------
+Plot <- ggplot(importance_data_avg, aes(x = value, y = feature))+
+        geom_segment(aes(x = 0, 
+                         xend = value),
+                     color = "#000000", 
+                     linewidth = 0.5, 
+                     linetype = "solid") +
+        geom_point(aes(color = value > 0), 
+                   size = 7, 
+                   alpha = 1) +
+        scale_color_manual(values = c("TRUE" = "#800080", "FALSE" = "#800080")) +
+        labs(
+          title = "A) Feature importance",
+          x     = "Impact SHAP Value",
+          y     = NULL)+
+        theme_classic()+
+        scale_x_continuous(
+          limits = c(0, max(importance_data_avg$value) * 1.05), 
+          expand = c(0, 0))+
+        theme(
+          plot.title = element_text(size   = tamanio, 
+                                face   = "bold", 
+                                hjust  = 0, 
+                                color  = "#000000", 
+                                family = font),
+          plot.title.position = "plot",
+          axis.title.x = element_text(size = tamanio),
+          axis.text.x=element_text(size = tamanio,color = "#000000",family = font),
+          axis.text.y=element_text(size = tamanio,color = "#000000",family = font),
+          legend.position = "none",
+          plot.margin = margin(5, 20, 5, 5)
+    )
+print(Plot)
+# ---------------------------------------------------------------------------------
+# 4. SAVING
+# ---------------------------------------------------------------------------------
+# CSV
+importance_data_avg_for_csv <- importance_data_avg %>%
+      dplyr::select(
+        Feature_Label = feature,
+        Impact_SHAP_Value = value)
+
+importance_data_avg_for_csv <- importance_data_avg_for_csv %>%
+    dplyr::arrange(dplyr::desc(Impact_SHAP_Value))
+  
+csv_file_name<- "01.Feature Importance/Feature_Importance_CV_Avg.csv"
+csv_full_path <- file.path(Outputs, csv_file_name)
+write.csv(importance_data_avg_for_csv, csv_full_path, row.names = FALSE)
+message(paste("Saved data to CSV:", csv_full_path))
+
+# PDF
+full_path <- file.path(Outputs,"01.Feature Importance/Feature_Importance_CV_Avg.pdf")
+ggsave(
+    full_path,
+    plot     = Plot, 
+    device = cairo_pdf,
+    width    = 7, 
+    height   = 7, 
+    units    = "in")
+message(paste("Saved graphic:", full_path))
+```
+
+### 7.2.Shap plot
+
+#### Fold by Fold
+
+```{r}
+library(shapviz)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(showtext)
+
+# Font
+font <- "sans"
+# font <- "Fira Sans"
+# font <- "Source Sans Pro"
+tamanio <- 17
+
+# ---------------------------------------------------------------------------------
+# 0. PREPARATION
+# ---------------------------------------------------------------------------------
+for (k in 1:VFolds) {
+  # 1. Load the final trained model for Fold k
+  model_filename <- paste0("xgb-fit-final-model-fold-", k, ".rds")
+  file_path <- file.path(Outputs, model_filename)
+  
+    # Handling the error if the model does not exist
+  xgb.fit.final <- tryCatch({
+      readRDS(file_path)
+  }, error = function(e) {
+      cat(paste0("Error: Could not load model for Fold ", k, ".\n"))
+      return(NULL)
+  })
+  # Skip to the next fold if the model does not exist
+  if (is.null(xgb.fit.final)) next 
+  
+  # 2. Get the training set from Fold k (features_train)
+  current_data <- vtreat_processed_folds[[k]]
+  features_train <- current_data$features_train
+# ---------------------------------------------------------------------------------
+# 1.UNIQUE SHAP CALCULATION
+# ---------------------------------------------------------------------------------
+shp <- shapviz(
+    xgb.fit.final, 
+    X_pred = features_train, 
+    X = features_train      
+)
+## print(shp)
+## print(names(shp$X))
+
+# ---------------------------------------------------------------------------------
+# 2.DATA EXTRACTION, LABELING AND ORDERING
+# ---------------------------------------------------------------------------------
+# Extract the 20 most important features, mapear las etiquetas
+# y preparar el orden para el eje Y.
+importance_data <- shapviz::sv_importance(shp, kind = "bee", max_display = 20L) %>%
+    .$data %>%
+    dplyr::distinct(feature) %>% # Get unique feature names 
+    dplyr::rename(labels = feature) %>%
+    # map the labels
+    dplyr::left_join(Labels, by = c("labels" = "Code_label")) %>%
+    dplyr::rename(feature = Plot_label) %>%
+    dplyr::select(feature)
+  
+# Factor the features column to ensure order
+importance_data$feature <- factor(importance_data$feature, 
+                                 levels = rev(importance_data$feature))
+
+## print(importance_data)
+
+# ---------------------------------------------------------------------------------
+# 3.GRAPH GENERATION
+# ---------------------------------------------------------------------------------
+Plot <- shapviz::sv_importance(
+  shp,
+  kind = "bee",
+  max_display = 20L,
+  viridis_args = list(option = "A"), # "inferno"
+  bee_width = 0.2)+ # Adjust the spread of the points
+  
+  # Y-axis Label Adjustment
+  scale_y_discrete(labels = rev(importance_data$feature)) +
+    
+  # X-Axis Adjustment
+  scale_x_continuous(
+        breaks = scales::pretty_breaks(n = 5))+
+  # Title
+  ggtitle("B) SHAP Values") +
+
+  # Custom Styles
+  theme(
+      axis.title.x = element_text(size = tamanio, family = font, face = "plain"),
+      axis.text.y = element_text(size = tamanio, color = "#000000", family = font),
+      axis.text.x = element_text(size = (tamanio - 2), color = "#000000", family = font),
+      legend.title = element_text(size = tamanio, family = font, face = "plain"),
+      legend.text = element_text(size = tamanio, family = font, face = "plain"),
+  # Grid lines
+      panel.grid.major.x = element_line(color = "#e0e0e0", linetype = "dotted"),
+  # Axes and Margins
+      axis.line = element_line(color = "black", linewidth = 0.8),
+      plot.title=element_text(size=tamanio,family=font, hjust = 0, face = "bold"),
+      plot.title.position = "plot",
+      panel.background = element_rect(fill = "transparent")
+    )
+
+print(Plot)
+# ---------------------------------------------------------------------------------
+# 4. SAVING
+# ---------------------------------------------------------------------------------
+file_name <- paste0("02.Shap Plot/Shap_Plot_Fold_", k, ".pdf")
+full_path <- file.path(Outputs, file_name)
+ggsave(
+    full_path, 
+    plot     = Plot, 
+    device = cairo_pdf,
+    width    = 7, 
+    height   = 7, 
+    units = "in", 
+    bg = "white") 
+message(paste("Saved graphic:", full_path))
+}
+```
+
+#### Average of the folds
+
+```{r}
+library(shapviz)
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+# Font
+font <- "sans"
+# font <- "Fira Sans"
+# font <- "Source Sans Pro"
+tamanio <- 17
+all_shap_objects <- list()
+
+# ---------------------------------------------------------------------------------
+# 1. LOOP TO ACCUMULATE IMPORTANCE SHAP OF THE V FOLDS
+# ---------------------------------------------------------------------------------
+for (k in 1:VFolds) {
+  # 1. Load the final trained model for Fold k
+  model_filename <- paste0("xgb-fit-final-model-fold-", k, ".rds")
+  file_path <- file.path(Outputs, model_filename)
+    
+  # Handling the error if the model does not exist
+  xgb.fit.final <- tryCatch({
+      readRDS(file_path)
+  }, error = function(e) {
+      cat(paste0("Error: Could not load model for Fold ", k, ".\n"))
+      return(NULL)
+  })
+  # Skip to the next fold if the model does not exist
+  if (is.null(xgb.fit.final)) next 
+  
+  # 2. Get the training set from Fold k (features_train)
+  current_data <- vtreat_processed_folds[[k]]
+  features_train <- current_data$features_train
+    
+  # 3. Calculate the SHAP matrix for this Fold
+  shp <- shapviz::shapviz(
+        xgb.fit.final, 
+        X_pred = features_train, 
+        X = features_train)
+  
+  # Store in list
+  all_shap_objects[[k]] <- shp$feature_list
+    
+  message(paste("SHAP matrix calculated for Fold", k))
+}
+# ---------------------------------------------------------------------------------
+# # 2. CONSOLIDATION OF RESULTS
+# ---------------------------------------------------------------------------------
+# 5. The SHAP matrices are added together and divided by V
+avg_shap_matrix <- Reduce(`+`, all_shap_objects) / VFolds
+shp_avg <- shp
+shp_avg$feature_list <- avg_shap_matrix
+
+# 6. Create the final SHAP object AVERAGE
+importance_data <- shapviz::sv_importance(shp_avg, kind = "bee", max_display = 20L) %>%
+    .$data %>%
+    dplyr::distinct(feature) %>%
+    dplyr::rename(labels = feature) %>%
+    dplyr::left_join(Labels, by = c("labels" = "Code_label")) %>%
+    dplyr::rename(feature = Plot_label) %>%
+    dplyr::select(feature)
+
+# Factor the feature column (for ggplot order)
+importance_data_avg$feature <- factor(importance_data_avg$feature, 
+                                     levels = importance_data_avg$feature)
+
+# ---------------------------------------------------------------------------------
+# # 3. FINAL GRAPH
+# ---------------------------------------------------------------------------------
+Plot <- shapviz::sv_importance(
+  shp_avg,
+  kind = "bee",
+  max_display = 20L,
+  viridis_args = list(option = "A"), # "inferno"
+  bee_width = 0.2)+ # Adjust the spread of the points
+  
+  # Y-axis Label Adjustment
+  scale_y_discrete(labels = rev(importance_data$feature)) +
+    
+  # X-Axis Adjustment
+  scale_x_continuous(
+        breaks = scales::pretty_breaks(n = 5))+
+  # Title
+  ggtitle("B) SHAP Values") +
+
+  # Custom Styles
+  theme(
+      axis.title.x = element_text(size = tamanio, family = font, face = "plain"),
+      axis.text.y = element_text(size = tamanio, color = "#000000", family = font),
+      axis.text.x = element_text(size = (tamanio - 2), color = "#000000", family = font),
+      legend.title = element_text(size = tamanio, family = font, face = "plain"),
+      legend.text = element_text(size = tamanio, family = font, face = "plain"),
+  # Grid lines
+      panel.grid.major.x = element_line(color = "#e0e0e0", linetype = "dotted"),
+  # Axes and Margins
+      axis.line = element_line(color = "black", linewidth = 0.8),
+      plot.title=element_text(size=tamanio,family=font, hjust = 0, face = "bold"),
+      plot.title.position = "plot",
+      panel.background = element_rect(fill = "transparent")
+    )
+
+print(Plot)
+# ---------------------------------------------------------------------------------
+# 4. SAVING
+# ---------------------------------------------------------------------------------
+full_path <- file.path(Outputs,"02.Shap Plot/Shap_Plot_CV_Avg.pdf")
+ggsave(
+    full_path,
+    plot     = Plot, 
+    device   = cairo_pdf,
+    width    = 7, 
+    height   = 7, 
+    units    = "in",
+    bg = "white")
+message(paste("Saved graphic:", full_path))
+```
+
+### 7.3.Shap Dependence
+
+#### Fold by Fold
+
+```{r}
+library(shapviz)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(stringr)
+
+# Font
+font <- "sans"
+# font <- "Fira Sans"
+# font <- "Source Sans Pro"
+tamanio <- 17
+top_n <- 7
+
+# ---------------------------------------------------------------------------------
+# 0. PREPARATION
+# ---------------------------------------------------------------------------------
+for (k in 1:VFolds){
+  # 1. Load the final trained model for Fold k
+  model_filename <- paste0("xgb-fit-final-model-fold-", k, ".rds")
+  file_path <- file.path(Outputs, model_filename)
+  
+    # Handling the error if the model does not exist
+  xgb.fit.final <- tryCatch({
+      readRDS(file_path)
+  }, error = function(e) {
+      cat(paste0("Error: Could not load model for Fold ", k, ".\n"))
+      return(NULL)
+  })
+  # Skip to the next fold if the model does not exist
+  if (is.null(xgb.fit.final)) next 
+  
+  # 2. Get the training set from Fold k (features_train)
+  current_data <- vtreat_processed_folds[[k]]
+  features_train <- current_data$features_train
+  current_split <- blocked_folds$splits[[k]]
+  train_sample <- rsample::training(current_split)
+# ---------------------------------------------------------------------------------
+# 1.UNIQUE SHAP CALCULATION
+# ---------------------------------------------------------------------------------
+shp <- shapviz(
+    xgb.fit.final, 
+    X_pred = features_train, 
+    X = features_train      
+)
+## print(shp)
+## print(names(shp$X))
+
+# ---------------------------------------------------------------------------------
+# 2.IDENTIFICATION OF TOP N FEATURES
+# ---------------------------------------------------------------------------------
+# 3. Extract the n most important features (by absolute mean SHAP value)
+top_n_features <- shapviz::sv_importance(shp, kind = "bee", max_display = top_n) %>%
+    .$data %>%
+    dplyr::distinct(feature) %>% 
+    dplyr::pull(feature) # Extract the code vector
+  
+# ---------------------------------------------------------------------------------
+# 2.CREATE LONG SHAPS
+# ---------------------------------------------------------------------------------
+# 4. Generate the SHAP Long dataset
+shap_long <- shap.prep(xgb_model = xgb.fit.final, X_train = features_train)
+
+  #1.1 Area Code
+  area_codes_key <- train_sample %>%
+  dplyr::mutate(Area_code = as.integer(Area_code)) %>% 
+  sf::st_drop_geometry() %>% 
+  dplyr::select(Area_code) %>%
+  dplyr::mutate(ID = row_number()) 
+  
+  selected_data <- shap_long %>%
+  dplyr::filter(variable %in% top_n_features) %>% 
+  dplyr::left_join(area_codes_key, by = "ID") %>% 
+  dplyr::left_join(Labels, by = c("variable" = "Code_label")) %>%
+  dplyr::select(-ID)%>% 
+  dplyr::mutate(Fold_ID = k)
+
+
+# The list of variables for the loop:
+selected_variables <- unique(selected_data$variable)
+# ---------------------------------------------------------------------------------
+# 3. SAVING CSV
+# ---------------------------------------------------------------------------------
+ shap_data_for_csv <- selected_data %>%
+      dplyr::select(
+        Fold_ID,
+        Area_code, 
+        Feature = variable, 
+        Feature_Label = Plot_label,
+        Feature_Value = rfvalue, 
+        SHAP_Value = value)
+  
+csv_file_name <- paste0("03.Shap Dependence/SHAP_Dependence_Fold_", k, ".csv")
+csv_full_path <- file.path(Outputs, csv_file_name)
+write.csv(shap_data_for_csv, csv_full_path, row.names = FALSE)
+message(paste("Saved SHAP Dependence Data for Fold", k, "to CSV:", csv_full_path))
+# ---------------------------------------------------------------------------------
+# 3.GRAPH GENERATION
+# ---------------------------------------------------------------------------------
+for (var_code in selected_variables) {
+  # 5. Filter data for the current variable
+  data_subset <- selected_data %>% dplyr::filter(variable == var_code)
+    
+  # 6. Obtain legible title (Labeling)
+  plot_title_label <- Labels %>%
+      dplyr::filter(Code_label == var_code) %>%
+      dplyr::pull(Plot_label)
+    
+  # If the label is not found, use the code
+  if (length(plot_title_label) == 0) {
+      plot_title_label <- var_code}
+    
+  # 7. Generation of the Dependency Graph
+  Plot <- ggplot(data_subset, aes(x = rfvalue, y = value))+
+    
+    # Points (SHAP value vs. Feature value)
+    geom_point(aes(color = rfvalue), alpha = 0.5, size = 3)+
+    
+    # Trend Line
+    geom_smooth(method = "gam", formula = y ~ s(x, bs = "cs"), 
+                    se = TRUE, fill = "grey90", color = "black", linewidth = 1.2)+
+    
+    # Styles and Scales
+    scale_color_viridis_c(option = "inferno") +
+    scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale(), accuracy = 0.001)) +
+        
+    # Titles
+    labs(
+        #title = plot_title_label, 
+        x = "Feature Value", 
+        y = "SHAP Value") +
+    theme_classic()+
+        
+    # Custom Styles
+    theme(
+#plot.title = element_text(size = 20, family = font, face = "bold", hjust = 0)
+axis.title.x = element_text(family = font, size = 25, color = "black", margin = margin(t = 10)),
+axis.title.y = element_text(family = font, size = 25, color = "black", margin = margin(r = 10)),
+axis.text.x  = element_text(family = font, size = 17, color = "black"),
+axis.text.y  = element_text(family = font, size = 17, color = "black"),
+
+legend.position = "none",
+axis.line = element_line(color = "black", linewidth = 0.8),
+plot.margin = margin(10, 20, 10, 10)
+)
+  
+print(Plot)
+# ---------------------------------------------------------------------------------
+# 4. SAVING
+# ---------------------------------------------------------------------------------
+# PDF
+sanitized_title <- str_replace_all(plot_title_label, "[^a-zA-Z0-9_.]", "_")
+file_name <- paste0("03.Shap Dependence/Shap_Dependence_Fold_",k,"_", sanitized_title, ".pdf")
+full_path <- file.path(Outputs, file_name)  
+ggsave(full_path, 
+       plot   = Plot, 
+       device = cairo_pdf,
+       width  = 10, 
+       height = 7, 
+       units = "in", 
+       bg = "white") 
+message(paste("Saved graphic:", full_path))
+}
+}
+```
+
+#### Average of the folds
+
+```{r}
+library(shapviz)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(stringr)
+
+# Font
+font <- "sans"
+# font <- "Fira Sans"
+# font <- "Source Sans Pro"
+tamanio <- 17
+top_n <- 7
+
+all_shap_long_data <- list()
+# ---------------------------------------------------------------------------------
+# 1. LOOP TO ACCUMULATE IMPORTANCE SHAP OF THE V FOLDS
+# ---------------------------------------------------------------------------------
+for (k in 1:VFolds) {
+  # 1. Load the final trained model for Fold k
+  model_filename <- paste0("xgb-fit-final-model-fold-", k, ".rds")
+  file_path <- file.path(Outputs, model_filename)
+    
+  # Handling the error if the model does not exist
+  xgb.fit.final <- tryCatch({
+      readRDS(file_path)
+  }, error = function(e) {
+      cat(paste0("Error: Could not load model for Fold ", k, ".\n"))
+      return(NULL)
+  })
+  # Skip to the next fold if the model does not exist
+  if (is.null(xgb.fit.final)) next 
+  
+  # 2. Get the training set from Fold k (features_train)
+  current_data <- vtreat_processed_folds[[k]]
+  features_train <- current_data$features_train
+  current_split <- blocked_folds$splits[[k]]
+  train_sample <- rsample::training(current_split)
+    
+  # 3. Calculate the SHAP matrix for this Fold
+  shp <- shapviz::shapviz(
+        xgb.fit.final, 
+        X_pred = features_train, 
+        X = features_train)
+  
+  # 4. Generate the SHAP Long dataset
+    shap_long <- shap.prep(xgb_model = xgb.fit.final, X_train = features_train)
+    
+  # 4.1 Area Codes
+    area_codes_df <- train_sample %>%
+      sf::st_drop_geometry() %>% 
+      dplyr::mutate(ID = row_number()) %>% 
+      dplyr::select(ID, Area_code)
+    
+    shap_long <- shap_long %>%
+        dplyr::left_join(area_codes_df, by = "ID") %>%
+        dplyr::select(-ID)
+    
+  # 5. Accumulate the long SHAP data
+    shap_long$Fold_ID <- k # Add fold identifier for traceability
+    all_shap_long_data[[k]] <- shap_long
+  
+  # 6. Accumulate the individual SHAP values (for average importance)
+  # We also need the raw SHAP matrix to identify the overall order
+    importance <- shapviz::sv_importance(shp, kind = "bar", max_display = length(colnames(features_train))) %>%
+        .$data %>% 
+        dplyr::mutate(Fold_ID = k)
+    
+  # 7. Save the importance for the calculation of global Top N
+  if (k == 1) {
+      all_importance <- importance
+  } else {
+      all_importance <- dplyr::bind_rows(all_importance, importance)
+  }
+}
+# ---------------------------------------------------------------------------------
+# # 2. CONSOLIDATION OF RESULTS
+# ---------------------------------------------------------------------------------
+# 8. Consolidate the entire SHAP Long dataset (all points from all folds)
+consolidated_shap_long <- dplyr::bind_rows(all_shap_long_data)
+
+# 9. Identify the ORDER OF GLOBAL IMPORTANCE (Consistent Top N)
+top_n_features_global <- all_importance %>%
+    dplyr::group_by(feature) %>%
+    dplyr::summarise(avg_value = mean(value), .groups = 'drop') %>%
+    dplyr::arrange(desc(avg_value)) %>%
+    dplyr::slice_head(n = top_n) %>%
+    dplyr::pull(feature)
+
+# 10. Filter the Consolidated Long SHAP Dataset
+selected_data_global <- consolidated_shap_long %>%
+    dplyr::filter(variable %in% top_n_features_global)%>%
+    dplyr::left_join(Labels, by = c("variable" = "Code_label"))
+
+# La lista de variables para el loop:
+selected_variables_global <- unique(selected_data_global$variable)
+
+# ---------------------------------------------------------------------------------
+# 3. SAVING CSV
+# ---------------------------------------------------------------------------------
+shap_data_for_csv <- selected_data_global%>%
+  dplyr::select(
+        Fold_ID, 
+        Area_code, 
+        Feature = variable,
+        Feature_Label = Plot_label,
+        Feature_Value = rfvalue, 
+        SHAP_Value = value, 
+        Standardized_Shape_Value = stdfvalue,
+        Base_Shap = mean_value)
+csv_file_name<- "03.Shap Dependence/Shap_Dependence_CV_Avg.csv"
+csv_full_path <- file.path(Outputs, csv_file_name)
+write.csv(shap_data_for_csv, csv_full_path, row.names = FALSE)
+message(paste("Saved data to CSV:", csv_full_path))
+# ---------------------------------------------------------------------------------
+# # 4. FINAL GRAPH
+# ---------------------------------------------------------------------------------
+for (var_code in selected_variables_global){
+    # 11. Filter data for the current variable (del dataset global)
+    data_subset <- selected_data_global %>% dplyr::filter(variable == var_code)
+    
+    # 12. Obtain legible title (Labeling)
+    plot_title_label <- Labels %>%
+        dplyr::filter(Code_label == var_code) %>%
+        dplyr::pull(Plot_label)
+    
+    # If the label is not found, use the code
+    if (length(plot_title_label) == 0) {plot_title_label <- var_code}
+
+    # 13. Generation of the Dependency Graph
+    Plot <- ggplot(data_subset, aes(x = rfvalue, y = value))+
+        
+    # Points (SHAP value vs. Feature value)
+    geom_point(aes(color = rfvalue), alpha = 0.5, size = 3)+ 
+        
+    # Trend Line (The trend line is the average of the 5 folds)
+    geom_smooth(method = "gam", formula = y ~ s(x, bs = "cs"), 
+                    se = TRUE, fill = "grey90", color = "black", linewidth = 1.2)+
+        
+    # Styles and Scales
+    scale_color_viridis_c(option = "inferno") +
+    scale_y_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale(), accuracy = 0.001)) +
+        
+    # Titles
+    labs(
+        #title = plot_title_label, 
+        x = "Feature Value", 
+        y = "SHAP Value") +
+    theme_classic()+
+        
+    # Custom Styles
+    theme(
+#plot.title = element_text(size = 20, family = font, face = "bold", hjust = 0)
+axis.title.x = element_text(family = font, size = 25, color = "black", margin = margin(t = 10)),
+axis.title.y = element_text(family = font, size = 25, color = "black", margin = margin(r = 10)),
+axis.text.x  = element_text(family = font, size = 17, color = "black"),
+axis.text.y  = element_text(family = font, size = 17, color = "black"),
+
+legend.position = "none",
+axis.line = element_line(color = "black", linewidth = 0.8),
+plot.margin = margin(10, 20, 10, 10)
+)
+  
+print(Plot)
+# ---------------------------------------------------------------------------------
+# 5. SAVING
+# ---------------------------------------------------------------------------------
+# PDF
+sanitized_title <- str_replace_all(plot_title_label, "[^a-zA-Z0-9_.]", "_")
+file_name <- paste0("03.Shap Dependence/Shap_Dependence_CV_Avg_", sanitized_title, ".pdf")
+full_path <- file.path(Outputs,file_name)
+ggsave(
+    full_path,
+    plot     = Plot, 
+    device   = cairo_pdf,
+    width    = 10, 
+    height   = 7, 
+    units    = "in",
+    bg = "white")
+message(paste("Saved graphic:", full_path))
+}
+```
+
+### 7.4.Heatmap
+
+### 7.5.Map
+
+#### Fold by Fold
+
+```{r}
+library(shapviz)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(sf)
+library(stringr)
+library(units)
+
+# Font
+font <- "sans"
+tamanio <- 15
+# font <- "Fira Sans"
+# font <- "Source Sans Pro"
+top_n <- 7
+Tema <- "mako"
+
+# ---------------------------------------------------------------------------------
+# 0. SPATIAL PREPARATION
+# ---------------------------------------------------------------------------------
+# Municipalities
+Boundaries <- Geographical_areas %>%
+  st_transform(crs = 6372) %>%
+  st_simplify(preserveTopology = TRUE, dTolerance = 1000) %>%
+  st_make_valid() %>% 
+  mutate(Area_code = as.integer(Area_code))
+  
+# States
+state_boundaries <- Geographical_areas_states %>%
+  st_transform(crs = 6372) %>%
+  st_simplify(preserveTopology = TRUE, dTolerance = 1000) %>%
+  st_make_valid() %>% 
+  mutate(Area_code = as.integer(Area_code))
+
+# ---------------------------------------------------------------------------------
+# 1. PREPARATION
+# ---------------------------------------------------------------------------------
+for (k in 1:VFolds) {
+  
+  print(paste("--- Generating SHAP Maps for Fold:", k, "---"))
+    
+  # 1. Load the final trained model for Fold k
+  model_filename <- paste0("xgb-fit-final-model-fold-", k, ".rds")
+  file_path <- file.path(Outputs, model_filename)
+  
+  # Handling the error if the model does not exist
+  xgb.fit.final <- tryCatch({
+      readRDS(file_path)
+  }, error = function(e) {
+      cat(paste0("Error: Could not load model for Fold ", k, ".\n"))
+      return(NULL)
+  })
+  # Skip to the next fold if the model does not exist
+  if (is.null(xgb.fit.final)) next 
+  
+  # 2. Get the training set from Fold k (features_train)
+  current_data <- vtreat_processed_folds[[k]]
+  features_train <- current_data$features_train
+  current_split <- blocked_folds$splits[[k]]
+  train_sample <- rsample::training(current_split)
+  
+# ---------------------------------------------------------------------------------
+## 2. RAW SHAP CALCULATION AND DATA EXTRACTION
+# ---------------------------------------------------------------------------------
+  # Calculate the raw SHAP values (Matrix) and the SHAP object
+  shp <- shapviz::shapviz(
+    xgb.fit.final, 
+    X_pred = features_train, 
+    X = features_train)
+  
+  shap_values_raw <- shap.values(
+    xgb_model = xgb.fit.final, 
+    X_train = features_train)
+  
+  aux_shap_scores <- as.data.frame(shap_values_raw$shap_score)
+    
+  # Extract Area_code and join (using the unprocessed train_sample)
+  area_codes_df <- train_sample %>%
+    sf::st_drop_geometry() %>% 
+    dplyr::select(Area_code)
+  aux_wide <- cbind(area_codes_df, aux_shap_scores) 
+  
+# ---------------------------------------------------------------------------------
+# 3. GENERATION OF THE LONG DATAFRAME FOR MAPPING
+# ---------------------------------------------------------------------------------   # Generate the input_df_with_shap_values ​​for the Fold k
+  input_df_with_shap_values <- aux_wide %>%
+    tidyr::pivot_longer(
+        cols = -Area_code,
+        names_to = "feature",
+        values_to = "shap_value"
+    ) %>%
+    dplyr::mutate(Fold_ID = k) %>%
+    dplyr::left_join(Labels, by = c("feature" = "Code_label")) %>%
+    dplyr::select(Fold_ID, Area_code, feature, Plot_label,shap_value)
+# ---------------------------------------------------------------------------------
+# 4. IDENTIFICATION OF TOP N FEATURES
+# ---------------------------------------------------------------------------------
+# Extract the codes of the Top N most important features (by their absolute mean SHAP value)
+top_n_features_codes <- shapviz::sv_importance(shp, kind = "bee", max_display = top_n) %>%
+  .$data %>%
+  dplyr::distinct(feature) %>%
+  dplyr::pull(feature)
+
+# Label Preparation and Mapping
+top_n_labels_map <- Labels %>%
+  dplyr::filter(Code_label %in% top_n_features_codes) %>%
+  dplyr::select(Code_label, Plot_label)
+
+# ---------------------------------------------------------------------------------
+# 5. SAVING CSV
+# ---------------------------------------------------------------------------------
+  shap_data_for_csv <- input_df_with_shap_values %>%
+      dplyr::filter(feature %in% top_n_features_codes)%>%
+      dplyr::select(
+        Fold_ID,
+        Area_code, 
+        Feature = feature, 
+        Plot_label,
+        SHAP_Value = shap_value)
+  
+  csv_file_name <- paste0("05.Map/Map_Fold_",k,".csv")
+  csv_full_path <- file.path(Outputs, csv_file_name)
+  write.csv(shap_data_for_csv,csv_full_path, row.names = FALSE)
+  message(paste("Saved SHAP Map Data for Fold", k, "to CSV:", csv_full_path))
+# ---------------------------------------------------------------------------------
+# 6.GRAPH GENERATION
+# ---------------------------------------------------------------------------------
+for (feature_code in top_n_features_codes){
+    
+    # Get the map title
+    plot_title_label <- top_n_labels_map %>%
+      dplyr::filter(Code_label == feature_code) %>%
+      dplyr::pull(Plot_label)
+      
+    # Prepare SHAP data: Filter the SHAP values dataframe
+    shap_data_for_map <- input_df_with_shap_values %>%
+      dplyr::filter(feature == feature_code) %>%
+      dplyr::select(Area_code, shap_value)
+    
+    # Join the geometries with the SHAP values of the current feature
+    map_data <- Boundaries %>%
+      dplyr::left_join(shap_data_for_map, by = "Area_code")
+      
+    # Creation of the Choropleth Map
+    Plot <- ggplot(data = map_data)+
+    
+    # Municipalities layer: Filled with SHAP values
+    geom_sf(aes(fill = shap_value), color = NA, linewidth = 0.1) +
+      
+    # State layer: contours
+    geom_sf(data = state_boundaries, fill = NA, color = "black", linewidth = 0.1) +
+      
+    # Stylized
+    scale_fill_viridis_c(option = Tema, name = "SHAP Value", na.value = "grey80") +
+      theme_void()+
+      
+    # Custom Styles
+    theme(
+        legend.position = c(0.0, 0.2),
+        legend.justification = "left",
+        legend.direction = "horizontal",
+        legend.title = element_text(family = font, size = tamanio, face = "plain", hjust = 0.5),
+        legend.text = element_text(family = font, size = 12),
+        legend.key.width = unit(1.4, "cm"),
+        legend.key.height = unit(0.5, "cm"),
+        plot.margin = margin(10, 10, 10, 10)
+      )
+    
+print(Plot)
+
+# ---------------------------------------------------------------------------------
+# 7. SAVING
+# ---------------------------------------------------------------------------------
+# PDF
+sanitized_title <- str_replace_all(plot_title_label, "[^a-zA-Z0-9_.]", "_")
+file_name <- paste0("05.Map/Map_Fold_",k,"_", sanitized_title, ".pdf")
+full_path <- file.path(Outputs, file_name)  
+ggsave(full_path, 
+       plot   = Plot, 
+       device = cairo_pdf,
+       width  = 10, 
+       height = 7, 
+       units = "in", 
+       bg = "white") 
+message(paste("Saved graphic:", full_path))
+}
+} # END
+```
+
+#### Average of the folds
+
+```{r}
+library(shapviz)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(sf)
+library(stringr)
+library(units)
+
+# Font
+font <- "sans"
+tamanio <- 15
+# font <- "Fira Sans"
+# font <- "Source Sans Pro"
+top_n <- 7
+Tema <- "mako"
+
+# ---------------------------------------------------------------------------------
+# 0. SPATIAL PREPARATION
+# ---------------------------------------------------------------------------------
+# Municipalities
+Boundaries <- Geographical_areas %>%
+  st_transform(crs = 6372) %>%
+  st_simplify(preserveTopology = TRUE, dTolerance = 1000) %>%
+  st_make_valid() %>% 
+  mutate(Area_code = as.integer(Area_code))
+  
+# States
+state_boundaries <- Geographical_areas_states %>%
+  st_transform(crs = 6372) %>%
+  st_simplify(preserveTopology = TRUE, dTolerance = 1000) %>%
+  st_make_valid() %>% 
+  mutate(Area_code = as.integer(Area_code))
+
+all_shap_long_data <- list()
+all_importance_cruda <- list()
+
+# ---------------------------------------------------------------------------------
+# 1. LOOP TO ACCUMULATE IMPORTANCE SHAP OF THE V FOLDS
+# ---------------------------------------------------------------------------------
+for (k in 1:VFolds) {
+  # Load the final trained model for Fold k
+  model_filename <- paste0("xgb-fit-final-model-fold-", k, ".rds")
+  file_path <- file.path(Outputs, model_filename)
+  
+  # Handling the error if the model does not exist
+  xgb.fit.final <- tryCatch({
+      readRDS(file_path)
+  }, error = function(e) {
+      cat(paste0("Error: Could not load model for Fold ", k, ".\n"))
+      return(NULL)
+  })
+  # Skip to the next fold if the model does not exist
+  if (is.null(xgb.fit.final)) next 
+  
+  # Get the training set from Fold k (features_train)
+  current_data <- vtreat_processed_folds[[k]]
+  features_train <- current_data$features_train
+  current_split <- blocked_folds$splits[[k]]
+  train_sample <- rsample::training(current_split)
+  
+  # Calculate the raw SHAP values
+  shap_values_raw <- shap.values(
+    xgb_model = xgb.fit.final, 
+    X_train = features_train)
+  aux_shap_scores <- as.data.frame(shap_values_raw$shap_score)
+    
+  # Extract Area_code and join (using the unprocessed train_sample)
+  area_codes_df <- train_sample %>%
+    sf::st_drop_geometry() %>% 
+    dplyr::select(Area_code)
+  aux_wide <- cbind(area_codes_df, aux_shap_scores) 
+  
+  # Generate the input_df_with_shap_values ​​for the Fold k
+  input_df_with_shap_values <- aux_wide %>%
+    tidyr::pivot_longer(
+        cols = -Area_code,
+        names_to = "feature",
+        values_to = "shap_value"
+    ) %>%
+    dplyr::mutate(Fold_ID = k)
+    #dplyr::left_join(Labels, by = c("feature" = "Code_label")) %>%
+    #dplyr::select(Area_code, feature, shap_value, Plot_label)
+  
+  all_shap_long_data[[k]] <- input_df_with_shap_values
+  
+  importance <- shapviz::sv_importance(shapviz::shapviz(
+    xgb.fit.final, 
+    X_pred = features_train, 
+    X = features_train), 
+    kind = "bar") %>%
+        .$data %>% 
+        dplyr::mutate(Fold_ID = k)
+        
+    all_importance_cruda[[k]] <- importance
+    
+    print(paste("SHAP data extracted for Fold", k))
+}    
+# ---------------------------------------------------------------------------------
+# # 2. CONSOLIDATION OF RESULTS
+# ---------------------------------------------------------------------------------
+# Consolidate all SHAP Long (points) dataframes
+consolidated_shap_long <- dplyr::bind_rows(all_shap_long_data)  
+    
+# Consolidate the order of importance and calculate the global TOP N
+all_importance_df <- dplyr::bind_rows(all_importance_cruda)   
+
+# Identify the ORDER OF GLOBAL IMPORTANCE (Consistent Top N)
+top_n_features_global <- all_importance %>%
+    dplyr::group_by(feature) %>%
+    dplyr::summarise(avg_value = mean(value), .groups = 'drop') %>%
+    dplyr::arrange(desc(avg_value)) %>%
+    dplyr::slice_head(n = top_n) %>%
+    dplyr::pull(feature)
+
+# Calculate the average SHAP Value per Feature and per Area_code
+# This is the input_df_with_shap_values_AVG for the final mapping
+input_df_with_shap_values_avg <- consolidated_shap_long %>%
+    dplyr::group_by(Area_code, feature) %>%
+    dplyr::summarise(
+        shap_value_avg = mean(shap_value), # Calculate the average SHAP value
+        .groups = 'drop'
+    ) %>%
+    # Filter only the Top N global features
+    dplyr::filter(feature %in% top_n_features_codes) %>%
+    # Join with the final LABELS
+    dplyr::left_join(Labels, by = c("feature" = "Code_label")) %>%
+    dplyr::select(Area_code, feature, shap_value = shap_value_avg, Plot_label)
+
+top_n_labels_map_final <- input_df_with_shap_values_avg %>%
+    dplyr::distinct(feature, Plot_label)
+
+# ---------------------------------------------------------------------------------
+# 3. SAVING CSV
+# ---------------------------------------------------------------------------------
+shap_data_for_csv <- input_df_with_shap_values_avg %>%
+    dplyr::select(
+        Area_code, 
+        Feature = feature, 
+        Plot_label,
+        SHAP_Value_Avg = shap_value)
+csv_file_name <- paste0("05.Map/Map_CV_Avg.csv")
+csv_full_path <- file.path(Outputs, csv_file_name)
+write.csv(shap_data_for_csv, csv_full_path, row.names = FALSE)
+message(paste("Saved consolidated (averaged) SHAP Map Data to CSV:",csv_full_path))
+# ---------------------------------------------------------------------------------
+# # 4. FINAL GRAPH
+# ---------------------------------------------------------------------------------
+for (feature_code in top_n_features_codes){
+    
+    # Get the map title
+    plot_title_label <- top_n_labels_map_final %>%
+      dplyr::filter(feature == feature_code) %>%
+      dplyr::pull(Plot_label)
+      
+    # Prepare SHAP data: Filter the SHAP values dataframe
+    shap_data_for_map <- input_df_with_shap_values_avg %>%
+      dplyr::filter(feature == feature_code) %>%
+      dplyr::select(Area_code, shap_value)
+    
+    # Join the geometries with the SHAP values of the current feature
+    map_data <- Boundaries %>%
+      dplyr::left_join(shap_data_for_map, by = "Area_code")
+      
+    # Creation of the Choropleth Map
+    Plot <- ggplot(data = map_data)+
+    
+    # Municipalities layer: Filled with SHAP values
+    geom_sf(aes(fill = shap_value), color = NA, linewidth = 0.1) +
+      
+    # State layer: contours
+    geom_sf(data = state_boundaries, fill = NA, color = "black", linewidth = 0.1) +
+      
+    # Stylized
+    scale_fill_viridis_c(option = Tema, name = "SHAP Value", na.value = "grey80") +
+      theme_void()+
+      
+    # Custom Styles
+    theme(
+        legend.position = c(0.0, 0.2),
+        legend.justification = "left",
+        legend.direction = "horizontal",
+        legend.title = element_text(family = font, size = tamanio, face = "plain", hjust = 0.5),
+        legend.text = element_text(family = font, size = 12),
+        legend.key.width = unit(1.4, "cm"),
+        legend.key.height = unit(0.5, "cm"),
+        plot.margin = margin(10, 10, 10, 10)
+      )
+    
+print(Plot)
+# ---------------------------------------------------------------------------------
+# 5. SAVING PDF
+# ---------------------------------------------------------------------------------
+sanitized_title <- str_replace_all(plot_title_label, "[^a-zA-Z0-9_.]", "_")
+file_name <- paste0("05.Map/Map_CV_Avg_", sanitized_title, ".pdf")
+full_path <- file.path(Outputs,file_name)
+ggsave(
+    full_path,
+    plot     = Plot, 
+    device   = cairo_pdf,
+    width    = 10, 
+    height   = 7, 
+    units    = "in",
+    bg = "white")
+message(paste("Saved graphic:", full_path))
+}
+```

@@ -1,0 +1,5 @@
+Data Source,Alpha Hat,Predicted Bias,R Squared,RMSE,Moran's I (Residuals),P Value (Residuals)
+Twitter/X,0,1,0.81,0.01,-0,0.79
+Meta,0.08,0.92,0.95,0.03,-0.01,0.86
+Multi-app1,0.02,0.98,0.97,0.01,0.02,0.44
+Multi-app2,0.01,0.99,0.94,0,0.04,0.2

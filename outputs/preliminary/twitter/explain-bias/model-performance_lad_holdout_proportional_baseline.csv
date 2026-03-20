@@ -1,0 +1,5 @@
+metric,train,test,data_source
+rmse,0.001,0.001,twitter
+pearson,NA,NA,twitter
+spearman,NA,NA,twitter
+standard_dev,0.001,0.001,twitter

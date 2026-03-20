@@ -1,0 +1,255 @@
+---
+title: "ml-robustness-heatmaps"
+format: html
+editor: visual
+---
+
+# Setup
+
+```{r}
+rm(list = ls())
+```
+
+```{r}
+#| warning: false
+#| message: false
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(tidyr)
+library(forcats)
+library(scales)
+library(ragg)
+library(sysfonts)
+library(showtext)
+```
+
+```{r}
+repo_root <- "/Users/carmen/Documents/github/de-bias/bias-detection"
+out_dir <- file.path(repo_root, "outputs/preliminary/si-figures-r1-ml-robustness")
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+
+top_n_per_model <- 20
+include_lagged_features_in_heatmap <- FALSE
+
+roboto_regular <- "/Users/carmen/Library/Fonts/RobotoCondensed-VariableFont_wght.ttf"
+roboto_italic <- "/Users/carmen/Library/Fonts/RobotoCondensed-Italic-VariableFont_wght.ttf"
+
+plot_family <- if (file.exists(roboto_regular)) {
+  sysfonts::font_add("Roboto Condensed", regular = roboto_regular, italic = roboto_italic)
+  showtext::showtext_auto()
+  "Roboto Condensed"
+} else {
+  "sans"
+}
+```
+
+```{r}
+source("../code/style/data-visualisation_theme.R")
+```
+
+# Inputs
+
+```{r}
+dataset_paths <- tibble::tribble(
+  ~dataset_label, ~dataset_key, ~explain_bias_dir,
+  "Twitter/X", "twitter", file.path(repo_root, "outputs/preliminary/twitter/explain-bias"),
+  "Meta", "fb_tts", file.path(repo_root, "outputs/preliminary/fb_tts/explain-bias"),
+  "Multi-app1", "mapp1", file.path(repo_root, "outputs/preliminary/mapp1/explain-bias"),
+  "Multi-app2", "mapp2", file.path(repo_root, "outputs/preliminary/mapp2/explain-bias")
+)
+
+model_specs <- tibble::tribble(
+  ~spec_key, ~spec_label, ~file_name,
+  "holdout_nolag", "Holdout", "feature-importance-data_lad_holdout_nolagcov.csv",
+  "holdout_lag", "Holdout\n(lagged cov.)", "feature-importance-data_lad_holdout_lagcov.csv",
+  "spatialcv_nolag", "Spatial CV", "feature-importance-data_lad_spatialcv_nolagcov.csv",
+  "spatialcv_lag", "Spatial CV\n(lagged cov.)", "feature-importance-data_lad_spatialcv_lagcov.csv"
+)
+```
+
+```{r}
+load_dictionary <- function() {
+  dict_path <- "/Volumes/DEBIAS/data/inputs/census/census2021-ts/dictionary_with_lags.csv"
+  
+  if (!file.exists(dict_path)) {
+    stop("Dictionary file not found: ", dict_path)
+  }
+  
+  dict_df <- readr::read_csv(dict_path, show_col_types = FALSE)
+  
+  if ("var_label2" %in% names(dict_df)) {
+    bind_rows(
+      if ("var_label5" %in% names(dict_df)) {
+        dict_df %>%
+          transmute(feature = var_label5, feature_label = var_label2, priority = 1L)
+      } else {
+        tibble::tibble(feature = character(), feature_label = character(), priority = integer())
+      },
+      if ("var_label0" %in% names(dict_df)) {
+        dict_df %>%
+          transmute(feature = var_label0, feature_label = var_label2, priority = 2L)
+      } else {
+        tibble::tibble(feature = character(), feature_label = character(), priority = integer())
+      }
+    ) %>%
+      filter(!is.na(feature), feature != "", !is.na(feature_label), feature_label != "") %>%
+      arrange(priority) %>%
+      distinct(feature, .keep_all = TRUE) %>%
+      select(feature, feature_label)
+  } else {
+    tibble::tibble(feature = character(), feature_label = character())
+  }
+}
+
+dict_df <- load_dictionary()
+```
+
+# Helpers
+
+```{r}
+read_importance_file <- function(base_dir, file_name, spec_label) {
+  path_file <- file.path(base_dir, file_name)
+  if (!file.exists(path_file)) {
+    return(tibble())
+  }
+  
+  readr::read_csv(path_file, show_col_types = FALSE) %>%
+    rename(feature = 1, value = 2) %>%
+    mutate(
+      specification = spec_label,
+      value_std = value / sum(value, na.rm = TRUE)
+    )
+}
+
+prepare_heatmap_data <- function(base_dir, dict_df, include_lagged_features_in_heatmap, top_n_per_model) {
+  importance_long <- bind_rows(lapply(seq_len(nrow(model_specs)), function(i) {
+    read_importance_file(base_dir, model_specs$file_name[i], model_specs$spec_label[i])
+  }))
+  
+  if (nrow(importance_long) == 0) {
+    return(tibble())
+  }
+  
+  if (!isTRUE(include_lagged_features_in_heatmap)) {
+    importance_long <- importance_long %>%
+      filter(!grepl("_lagq$", feature), feature != "bias_w")
+  }
+  
+  top_features <- importance_long %>%
+    group_by(specification) %>%
+    arrange(desc(value_std), .by_group = TRUE) %>%
+    slice_head(n = top_n_per_model) %>%
+    ungroup() %>%
+    distinct(feature) %>%
+    pull(feature)
+  
+  heatmap_df <- importance_long %>%
+    filter(feature %in% top_features) %>%
+    left_join(dict_df, by = "feature") %>%
+    mutate(
+      feature_label = dplyr::coalesce(feature_label, feature)
+    )
+  
+  feature_order <- heatmap_df %>%
+    group_by(feature_label) %>%
+    summarise(mean_importance = mean(value_std, na.rm = TRUE), .groups = "drop") %>%
+    arrange(desc(mean_importance)) %>%
+    pull(feature_label)
+  
+  heatmap_df %>%
+    mutate(
+      specification = factor(specification, levels = model_specs$spec_label),
+      feature_label = factor(feature_label, levels = feature_order)
+    )
+}
+
+plot_heatmap <- function(heatmap_df, dataset_label) {
+  ggplot(heatmap_df, aes(x = feature_label, y = specification, fill = value_std)) +
+    geom_tile(color = "white", linewidth = 0.3) +
+    scale_fill_viridis_c(
+      option = "D",
+      begin = 0.05,
+      end = 0.95,
+      labels = label_number(accuracy = 0.01),
+      name = "Standardised\nimportance"
+    ) +
+    labs(
+      title = dataset_label,
+      x = NULL,
+      y = NULL
+    ) +
+    theme_plot_tufte() +
+    theme(
+      text = element_text(family = plot_family, colour = "black"),
+      axis.text.x = element_text(size = 93, face = "bold", angle = 90, vjust = 0.5, hjust = 0, lineheight = 0.3, colour = "black"),
+      axis.text.y = element_text(size = 90, face = "bold", hjust = 1, vjust = 0.5, lineheight = 0.24, margin = margin(r = 8), colour = "black"),
+      axis.ticks.x = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.text.x.top = element_text(size = 93, face = "bold", angle = 90, vjust = 0.5, hjust = 0, lineheight = 0.3, colour = "black"),
+      axis.text.x.bottom = element_blank(),
+      plot.title = element_text(size = 94, face = "bold", colour = "black"),
+      legend.title = element_text(size = 88, face = "bold", lineheight = 0.35, colour = "black"),
+      legend.text = element_text(size = 86, face = "bold", colour = "black"),
+      legend.position = "right",
+      legend.direction = "vertical",
+      legend.key.width = unit(0.8, "cm"),
+      legend.key.height = unit(2.6, "cm"),
+      legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0),
+      plot.background = element_rect(fill = "white", color = NA),
+      panel.background = element_rect(fill = "white", color = NA)
+    ) +
+    scale_x_discrete(position = "top") +
+    scale_y_discrete(expand = expansion(mult = c(0, 0))) +
+    guides(fill = guide_colorbar(title.position = "top", direction = "vertical", barheight = unit(8, "cm")))
+}
+```
+
+# Build and save heatmaps
+
+```{r}
+heatmap_paths <- vector("list", nrow(dataset_paths))
+names(heatmap_paths) <- dataset_paths$dataset_label
+
+for (i in seq_len(nrow(dataset_paths))) {
+  dataset_label <- dataset_paths$dataset_label[i]
+  dataset_key <- dataset_paths$dataset_key[i]
+  base_dir <- dataset_paths$explain_bias_dir[i]
+  
+  heatmap_df <- prepare_heatmap_data(
+    base_dir = base_dir,
+    dict_df = dict_df,
+    include_lagged_features_in_heatmap = include_lagged_features_in_heatmap,
+    top_n_per_model = top_n_per_model
+  )
+  
+  if (nrow(heatmap_df) == 0) {
+    next
+  }
+
+  p <- plot_heatmap(heatmap_df, dataset_label)
+  print(p)
+
+  out_file <- file.path(out_dir, paste0("heatmap_ml_robustness_", dataset_key, ".png"))
+  ggsave(
+    out_file,
+    p,
+    width = 18,
+    height = 10,
+    units = "in",
+    dpi = 300,
+    bg = "white",
+    device = ragg::agg_png
+  )
+  heatmap_paths[[dataset_label]] <- out_file
+}
+
+heatmap_paths
+```
+
+# Output directory
+
+```{r}
+out_dir
+list.files(out_dir)
+```

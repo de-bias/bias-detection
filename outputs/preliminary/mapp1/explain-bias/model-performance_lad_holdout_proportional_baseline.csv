@@ -1,0 +1,5 @@
+metric,train,test,data_source
+rmse,0.006,0.006,mapp1
+pearson,NA,NA,mapp1
+spearman,NA,NA,mapp1
+standard_dev,0.006,0.006,mapp1
