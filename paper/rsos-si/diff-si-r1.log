@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.27)  16 MAR 2026 22:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.27)  20 MAR 2026 14:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -821,7 +821,7 @@ Underfull \hbox (badness 2495) in paragraph at lines 155--161
 k bias in-di-ca-tors across all
  []
 
-<figures/Fig-compare-bias-size.png, id=49, 5525.64375pt x 2902.845pt>
+<figures/Fig-compare-bias-size.png, id=50, 5525.64375pt x 2902.845pt>
 File: figures/Fig-compare-bias-size.png Graphic file (type png)
 <use figures/Fig-compare-bias-size.png>
 Package pdftex.def Info: figures/Fig-compare-bias-size.png  used on input line 
@@ -1024,6 +1024,15 @@ LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<figures/xgb-residual-maps.png, id=89, 602.25pt x 143.78719pt>
+File: figures/xgb-residual-maps.png Graphic file (type png)
+<use figures/xgb-residual-maps.png>
+Package pdftex.def Info: figures/xgb-residual-maps.png  used on input line 269.
+
+(pdftex.def)             Requested size: 384.1122pt x 91.70973pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 No file diff-si-r1.bbl.
 Setting LastPage
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
@@ -1038,7 +1047,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.286 \end{document}
+l.292 \end{document}
                      <./figures/table-covariate-assessment-twitter.png>]
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
@@ -1048,7 +1057,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.286 \end{document}
+l.292 \end{document}
                      <./figures/table-covariate-assessment-meta.png>]
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
@@ -1058,7 +1067,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.286 \end{document}
+l.292 \end{document}
                      <./figures/table-covariate-assessment-mapp1.png>]
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
@@ -1068,7 +1077,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.286 \end{document}
+l.292 \end{document}
                      <./figures/table-covariate-assessment-mapp2.png>]
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
@@ -1078,13 +1087,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.286 \end{document}
+l.292 \end{document}
                     
 pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.286 \end{document}
+l.292 \end{document}
                      <./figures/table-model-performance.png> <./figures/table-h
 yperparameters.png>]
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
@@ -1095,8 +1104,18 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.286 \end{document}
-                     <./figures/variable-importance.png>] (./diff-si-r1.aux)
+l.292 \end{document}
+                     <./figures/variable-importance.png>]
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+
+[12
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.292 \end{document}
+                     <./figures/xgb-residual-maps.png>] (./diff-si-r1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -1113,10 +1132,10 @@ Package rerunfilecheck Info: File `diff-si-r1.out' has not changed.
 (rerunfilecheck)             Checksum: 50695D90B15517EF21AE0CF795A4A32E;1334.
  ) 
 Here is how much of TeX's memory you used:
- 13959 strings out of 474116
- 212161 string characters out of 5743682
+ 13969 strings out of 474116
+ 212450 string characters out of 5743682
  1987187 words of memory out of 5000000
- 36010 multiletter control sequences out of 15000+600000
+ 36018 multiletter control sequences out of 15000+600000
  628024 words of font info for 171 fonts, out of 8000000 for 9000
  1151 hyphenation exceptions out of 8191
  90i,13n,93p,1533b,504s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1130,10 +1149,10 @@ texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive
 /2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/t
 exmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2024/texmf-d
 ist/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on diff-si-r1.pdf (11 pages, 4684511 bytes).
+Output written on diff-si-r1.pdf (12 pages, 4712288 bytes).
 PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
- 126 compressed objects within 2 object streams
- 27 named destinations out of 1000 (max. 500000)
- 108 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 193 PDF objects out of 1000 (max. 8388607)
+ 130 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

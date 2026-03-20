@@ -66,6 +66,17 @@ Cabrera-Arnau C, Zhong C, Batty M, Silva R, Kang SM. 2023  Inferring urban
   polycentricity from the variability in human mobility patterns. {\em
   Scientific Reports} \textbf{13}.
 
+\bibitem{mavrogeni25}
+Mavrogeni M, van Dijk J, Longley P. 2025  Understanding place-to-place
+  interactions using flow patterns derived from in-app mobile phone location
+  data. {\em The Geographical Journal} \textbf{191}, e70033.
+e70033 GJ-AR-Oct-2024-0108.R1.
+
+\bibitem{kakimoto25}
+Kakimoto Y, Omae Y, Takahashi H. 2025  Analysis of Sparse Trajectory Features
+  Based on Mobile Device Location for User Group Classification Using Gaussian
+  Mixture Model. {\em Applied Sciences} \textbf{15}.
+
 \bibitem{graells-garrido2021}
 Graells-Garrido E, Serra-Burriel F, Rowe F, Cucchietti FM, Reyes P. 2021  A
   city of cities: Measuring how 15-minutes urban accessibility shapes human
@@ -84,6 +95,11 @@ Blumenstock J, Cadamuro G, On R. 2015  Predicting poverty and wealth from
 Moro E, Calacci D, Dong X, Pentland A. 2021  Mobility patterns are associated
   with experienced income segregation in large US cities. {\em Nature
   Communications} \textbf{12}.
+
+\bibitem{Xu2024}
+Xu W, Wang Z, Attia N, Attia Y, Zhang Y, Zong H. 2024  An experienced
+  racial-ethnic diversity dataset in the United States using human mobility
+  data. {\em Scientific Data} \textbf{11}, 638.
 
 \bibitem{raun2016}
 Raun J, Ahas R, Tiru M. 2016  Measuring tourism destinations using mobile
@@ -161,11 +177,6 @@ Gil-Clavel S, Zagheni E. 2019  Demographic Differentials in Facebook Usage
   around the World. {\em Proceedings of the International AAAI Conference on
   Web and Social Media} \textbf{13}, 647--650.
 
-\bibitem{renninger2025}
-Renninger A, O'Clery N, Arcaute E. 2025  US cities are defined by rings and
-  pockets with limited socioeconomic mixing. {\em Nature Cities} \textbf{2},
-  1172--1182.
-
 \bibitem{renninger2026}
 Renninger A, Cabrera C. 2025  Extreme heat reduces and reshapes urban mobility.
   .
@@ -174,6 +185,21 @@ Renninger A, Cabrera C. 2025  Extreme heat reduces and reshapes urban mobility.
 Wang Y, Zhong C, Gao Q, Cabrera-Arnau C. 2022  Understanding internal migration
   in the UK before and during the COVID-19 pandemic using twitter data. {\em
   Urban Informatics} \textbf{1}.
+
+\bibitem{rowe2021using}
+Rowe F, Mahony M, Graells-Garrido E, Rango M, Sievers N. 2021  Using Twitter to
+  track immigration sentiment during early stages of the COVID-19 pandemic.
+  {\em Data \& Policy} \textbf{3}, e36.
+
+\bibitem{iradukunda2025estimating}
+Iradukunda R, Rowe F, Pietrostefani E. 2025  Estimating internal displacement
+  in Ukraine from high-frequency GPS mobile phone data. {\em Humanities and
+  Social Sciences Communications} \textbf{12}, 1863.
+
+\bibitem{sinclair23}
+Sinclair M, Maadi S, Zhao Q, Hong J, Ghermandi A, Bailey N. 2023  Assessing the
+  socio-demographic representativeness of mobile phone application data. {\em
+  Applied Geography} \textbf{158}, 102997.
 
 \bibitem{unstatsMPDMS2025}
 Rowe F, Magpantay E, Jalagonia M, Esko S, De~Jesus E, Jansen R, Grum F,
@@ -204,8 +230,23 @@ Maas P. 2019  Facebook Disaster Maps. {\em Proceedings of the 25th ACM SIGKDD
 \bibitem{bingmaps_tile_system}
 Microsoft. 2023  Bing Maps Tile System. Accessed on 7 August 2025.
 
+\bibitem{Verma2024}
+Verma R, Mittal S, Lei Z, Chen X, Ukkusuri SV. 2024  Comparison of home
+  detection algorithms using smartphone GPS data. {\em EPJ Data Science}
+  \textbf{13}, 6.
+
+\bibitem{renninger2025}
+Renninger A, O'Clery N, Arcaute E. 2025  US cities are defined by rings and
+  pockets with limited socioeconomic mixing. {\em Nature Cities} \textbf{2},
+  1172--1182.
+
 \bibitem{rey2023}
 Rey S, Arribas-Bel D, Wolf LJ. 2023  Geographic Data Science with Python. .
+
+\bibitem{Li2024}
+Li Z, Ning H, Jing F, Lessani MN. 2024  Understanding the bias of mobile
+  location data across spatial scales and over time: A comprehensive analysis
+  of SafeGraph data in the United States. {\em PLOS ONE} \textbf{19}, 1--23.
 
 \bibitem{friedman2001a}
 Friedman JH. 2001  Greedy function approximation: A gradient boosting machine..
@@ -247,6 +288,12 @@ Wiley Series in Probability and Statistics. Wiley.
 \bibitem{nijs2025}
 den Nijs K, Omodei E, Sekara V. 2025  Data Bias in Human Mobility is a
   Universal Phenomenon but is Highly Location-specific. .
+
+\bibitem{Mu24}
+Mu X, Zhang X, Yeh AGO, Wang J. 2024  Evaluating the representativeness of
+  mobile big data: A comparative analysis between China's mobile big data and
+  census data at the county level. {\em Applied Geography} \textbf{166},
+  103260.
 
 \bibitem{rampazzo2021a}
 Rampazzo F, Bijak J, Vitali A, Weber I, Zagheni E. 2021  A Framework for

@@ -1,7 +1,7 @@
 %% Author_tex.tex
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL paper/rsos-si/rsos-si.tex      Fri Sep  5 21:53:27 2025
-%DIF ADD paper/rsos-si/rsos-si-r1.tex   Sun Mar 15 14:22:55 2026
+%DIF DEL /Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-si/rsos-si.tex      Fri Mar 20 11:48:00 2026
+%DIF ADD /Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-si/rsos-si-r1.tex   Fri Mar 20 14:31:56 2026
 %% V1.0
 %% 2012/13/12
 %% developed by Techset
@@ -83,7 +83,7 @@
 
 
 %%%% Article title to be placed here
-\title{Supplementary Material - A systematic machine learning approach to assess biases in population data from mobile phone applications}
+\title{Supplementary \DIFdelbegin \DIFdel{Material }\DIFdelend \DIFaddbegin \DIFadd{Information }\DIFaddend - A systematic machine learning approach to assess biases in population data from mobile phone applications}
 
 \author{
 Carmen Cabrera$^{1}$,
@@ -169,7 +169,7 @@ data source.
 \section{Testing for spatial autocorrelation in population coverage bias \DIFaddbegin \DIFadd{and covariates}\DIFaddend }\DIFdelbegin %DIFDELCMD < \label{testing-for-spatial-autocorrelation-in-population-coverage-bias}
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \label{testing-for-spatial-autocorrelation-in-population-coverage-bias-and-covariates}
-\DIFaddend
+\DIFaddend 
 
 We analysed the spatial distribution of the population coverage bias
 indicator across LADs. Figure 3 in the main text reports Moran's I
@@ -189,7 +189,7 @@ user-defined distance band.}
 \DIFdelbeginFL %DIFDELCMD < \end{figure}
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \end{table}
-\DIFaddend
+\DIFaddend 
 
 \DIFaddbegin \DIFadd{To complement the Moran's I assessment for the outcome variable, we also
 computed Moran's I (queen contiguity) for each model covariate. This
@@ -206,7 +206,7 @@ cross-validation is warranted.
 \end{centering}
 
 \DIFaddend \newpage
-\DIFaddbegin
+\DIFaddbegin 
 
 \section{\DIFadd{Residual assessments for proportional baseline}}\label{residual-assessments-for-proportional-baseline}
 
@@ -263,7 +263,13 @@ information criteria (AIC/BIC) for linear and GAM specifications.
 \includegraphics[width=\textwidth]{figures/table-hyperparameters.png}
 \caption{\DIFaddFL{Selected XGBoost hyperparameters across datasets and model specifications. For each dataset, the table reports the tuned hyperparameters for random holdout and spatial block cross-validation models, estimated with and without spatially lagged covariates. Parameters include learning rate (}\textit{\DIFaddFL{eta}}\DIFaddFL{), maximum tree depth, minimum child weight, row and column subsampling ratios, L1 and L2 regularisation penalties, the selected number of trees and the minimum out-of-sample RMSE.}}
 \end{table}
-\DIFaddend
+
+\begin{figure}[h]\label{fig:xgb-residual-maps}
+\centering
+\includegraphics[width=\textwidth]{figures/xgb-residual-maps.png}
+\caption{\DIFaddFL{Model residuals across local authority district areas based on our main XGBoost model reported in the manuscript}}
+\end{figure}
+\DIFaddend 
 
 \ethics{This research was conducted in accordance with the ethical standards of the University of Liverpool. All data used were anonymised and analysed at an aggregate level. No identifiable personal data were accessed or processed by the authors.}
 

@@ -1,7 +1,7 @@
 %% Author_tex.tex
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL paper/rsos-debias/rsos-debias.tex         Fri Sep  5 21:53:40 2025
-%DIF ADD paper/rsos-debias-r1/rsos-debias-r1.tex   Sun Mar 15 23:02:10 2026
+%DIF DEL /Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-debias/rsos-debias.tex         Fri Mar 20 11:47:59 2026
+%DIF ADD /Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-debias-r1/rsos-debias-r1.tex   Fri Mar 20 13:19:55 2026
 %% V1.0
 %% 2012/13/12
 %% developed by Techset
@@ -119,7 +119,7 @@ Spatial bias}
 
 %%%% Abstract text to be placed here %%%%%%%%%%%%
 \begin{abstract}
-Traditional sources of population data, such as censuses and surveys, are costly, infrequent, and often unavailable in crisis-affected regions. Mobile phone application data (MPD) offer near--real-time, high-resolution insights into population distribution, but their utility is undermined by unequal access to digital technologies, creating biases that threaten representativeness. Despite recognition of these issues, no standard framework exists to address such biases, limiting the reliability of MPD for research and policy. We develop and implement a systematic, replicable framework to quantify and explain population coverage bias in aggregated mobile phone application data without requiring individual-level attributes. The approach combines an indicator of population coverage bias with explainable machine learning to identify contextual drivers of spatial variation in bias. Using four datasets for the United Kingdom benchmarked against the 2021 census, we show that MPD achieve higher population coverage than national surveys, but biases persist across sources and subnational areas. Population coverage bias is strongly associated with demographic, socioeconomic, and geographic features, often in complex nonlinear ways. Contrary to common assumptions, multi-application datasets do not necessarily reduce bias compared to single-app sources. Our findings establish a foundation for bias assessment standards in MPD, offering practical tools for researchers, statistical agencies, and policymakers.
+Traditional sources of population data, such as censuses and surveys, are costly, infrequent \DIFdelbegin \DIFdel{, }\DIFdelend and often unavailable in crisis-affected regions. Mobile phone application data (MPD) offer near--real-time, high-resolution insights into population distribution, but their utility is undermined by unequal access to digital technologies, creating biases that threaten representativeness. Despite recognition of these issues, no standard framework exists to address such biases, limiting the reliability of MPD for research and policy. We develop and implement a systematic, replicable framework to quantify and explain population coverage bias in aggregated mobile phone application data without requiring individual-level attributes. The approach combines an indicator of population coverage bias with explainable machine learning to identify contextual drivers of spatial variation in bias. Using four datasets for the United Kingdom benchmarked against the 2021 census, we show that MPD achieve higher population coverage than national surveys, but biases persist across sources and subnational areas. Population coverage bias is strongly associated with demographic, socioeconomic \DIFdelbegin \DIFdel{, }\DIFdelend and geographic features, often in complex nonlinear ways. Contrary to common assumptions, multi-application datasets do not necessarily reduce bias compared to single-app sources. Our findings establish a foundation for bias assessment standards in MPD, offering practical tools for researchers, statistical agencies \DIFdelbegin \DIFdel{, }\DIFdelend and policymakers.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -177,15 +177,25 @@ Safegraph and Locomizer. They have been used to create critical evidence
 to support policy making, prominently during the COVID-19 pandemic. In
 research, MPD have been used to develop innovative approaches to infer
 mode of transport \citep{graells-garrido2023}, monitor footfall changes
-\citep{ballantyne2022, hunter2021}, profile daily mobility signatures
-\citep{cabrera-arnau2023}, sense mobility accessibility
-\citep{graells-garrido2021}, predict socioeconomic levels \citep{soto2011, blumenstock2015}, estimate income segregation \citep{moro2021}, quantify
-tourism activity \citep{raun2016} and estimate migration \citep{cepal24, gonzález-leonardo2025} and population displacement \citep{rowe2022, iradukunda2025, cabrera25}.
+\citep{ballantyne2022, hunter2021}, profile \DIFdelbegin \DIFdel{daily mobility signatures
+\mbox{%DIFAUXCMD
+\citep{cabrera-arnau2023}}\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{urban daily mobility patterns
+\mbox{%DIFAUXCMD
+\citep{cabrera-arnau2023, mavrogeni25, kakimoto25}}\hskip0pt%DIFAUXCMD
+}\DIFaddend , sense mobility accessibility
+\citep{graells-garrido2021}, predict socioeconomic levels \citep{soto2011, blumenstock2015}, estimate income \DIFdelbegin \DIFdel{segregation \mbox{%DIFAUXCMD
+\citep{moro2021} }\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citep{moro2021} }\hskip0pt%DIFAUXCMD
+and racial-ethnic segregation \mbox{%DIFAUXCMD
+\citep{Xu2024}}\hskip0pt%DIFAUXCMD
+}\DIFaddend , quantify tourism activity \citep{raun2016}\DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend estimate migration \citep{cepal24, gonzález-leonardo2025} and population displacement \citep{rowe2022, iradukunda2025, cabrera25}.
 
 However, the use of MPD present major epistemological, methodological
 and ethical challenges \citep{rowe23-bigdata}. A key unresolved challenge is
 potential biases in MPD compromising their statistical
-representativeness and perpetuate social injustice
+representativeness and \DIFdelbegin \DIFdel{perpetuate }\DIFdelend \DIFaddbegin \DIFadd{reproducing }\DIFaddend social injustice
 \citep{wesolowski13-biases}. Biases reflect societal digital and
 socioeconomic inequalities. Biases emerge from differences in the access
 and use of the MP applications used to collect MPD \citep{porter2012, wesolowski13-biases}. Only a fraction of the population in a
@@ -193,77 +203,80 @@ geographical area owns a smartphone, and even an smaller share actively
 uses a specific MP app. In the UK, for example, 98\% of the adult
 population have a MP and 92\% of this population use a smartphone
 \citep{ofcom23}, \DIFdelbegin \DIFdel{but a smaller percentage actively use
-}\DIFdelend \DIFaddbegin \DIFadd{while reported platform adoption rates are lower for
-specific applications such as }\DIFaddend Facebook (70\%) or Twitter (23\%)
-\citep{statista24}. Additionally, biases emerge from differences in the
-access and use of digital technology across population subgroups
-reflecting socioeconomic and demographic disparities. For instance,
-wealthy, young and urban populations generally have greater access and
-more intensively use of MP applications, and therefore tend to be
-over-represented in MPD \citep{blumenstock2010, wesolowski13-biases, schlosser21-biases}.
+}\DIFdelend \DIFaddbegin \DIFadd{while platform adoption rates are lower for specific
+applications, such as }\DIFaddend Facebook (70\%) or Twitter (23\%) \citep{statista24}.
+Additionally, biases emerge from differences in the access and use of
+digital technology across population subgroups reflecting socioeconomic
+and demographic disparities. For instance, wealthy, young and urban
+populations generally have greater access and more intensively use of MP
+applications, and therefore tend to be over-represented in MPD
+\citep{blumenstock2010, wesolowski13-biases, schlosser21-biases}.
 
-The use of biased MPD can thus have major practical and societal
+The use of biased MPD can \DIFdelbegin \DIFdel{thus }\DIFdelend have major practical and societal
 implications. If used uncorrected, MPD reproduce selective patterns of
 smartphone ownership and application usage, rendering inaccurate or
 distorted representations of human population activity. Such
 representations disproportionately reflect behaviours of younger, urban
 and higher-income users while underrepresenting marginalised or
 less-connected groups \citep{porter2012, wesolowski13-biases}. Distorted
-representations based on biased MPD can thus misguide decision making,
-policy and planning interventions, and thus amplify existing
-socio-economic disparities. In practice, existing applications of MPD
-often use uncorrected population statistics derived from MPD and have
-thus been constrained to offer a partial picture for a limited segment
-of the overall population. Such data can only provide rough signals
-about the spatial distribution of (e.g.~spatial concentration), trends
-(e.g.~increasing) and changes (e.g.~low to high) in populations
+representations based on biased MPD can \DIFdelbegin \DIFdel{thus }\DIFdelend misguide decision making, policy
+and planning interventions, and thus amplify existing socio-economic
+disparities. In practice, existing applications of MPD often use
+uncorrected population statistics derived from MPD and have \DIFdelbegin \DIFdel{thus }\DIFdelend been
+constrained to offer a partial picture for a limited segment of the
+overall population. Such data can only provide rough signals about the
+spatial distribution \DIFdelbegin \DIFdel{of }\DIFdelend (e.g.~spatial concentration), trends (e.g.
+\DIFdelbegin \DIFdel{~}\DIFdelend increasing) and changes (e.g.~low to high) in populations
 \citep{rowe22-sensing-ukraine}. Unadjusted, they cannot provide a full
 representation of the overall population.
 
-Efforts have been made to measure and assess biases in aggregate
-population counts from digital data sources. Existing analyses typically
+Efforts have been made to \DIFdelbegin \DIFdel{measure and assess biases }\DIFdelend \DIFaddbegin \DIFadd{assess bias }\DIFaddend in aggregate population counts
+from digital data sources. \DIFdelbegin \DIFdel{Existing analyses typically
 measure the extent of bias measuring the system-wide difference in the
-representation of population counts from digital platforms, compared to
-those from censuses \citep{ribeiro20-facebook, zagheni2015, gil-clavel2019}. To estimate the representation of digital data
-sources, the penetration rate is computed as the active user base of a
-digital platform over the census resident population
-\citep{ribeiro20-facebook, gil-clavel2019}. Existing analyses have thus been
-able to established systematic gender, age and socio-economic biases in
-population data obtained via API (or Application Programming Interface)
-from social media platforms, such as Facebook and Twitter/X. However,
-this approach requires information on the demographic and socio-economic
-attributes of the collected sample and has focused on estimating biases
-at the country level. Yet, these attributes are generally unavailable
-for MPD, and biases may vary widely across subnational areas. What is
-missing is an systematic approach to measure biases in population counts
-from digital platforms, when population attributes are unknown, and
-quantify the geographic variability in the extent of biases in these
-data.
-
-\DIFaddbegin \DIFadd{Efforts have been made to assess bias in aggregate population counts
-from digital data sources. When the demographic composition of digital
-data samples is available, post-stratification tehcniques can be applied
+representation of population counts from digital
+platforms, compared to those from censuses
+\mbox{%DIFAUXCMD
+\citep{ribeiro20-facebook, zagheni2015, gil-clavel2019}}\hskip0pt%DIFAUXCMD
+. To estimate the
+representation of digital data sources, the penetration rate is computed
+as the active user base of a digital platform over the census resident
+population \mbox{%DIFAUXCMD
+\citep{ribeiro20-facebook, gil-clavel2019}}\hskip0pt%DIFAUXCMD
+. Existing analyses
+have thus }\DIFdelend \DIFaddbegin \DIFadd{When the demographic composition of digital
+data samples is available, post-stratification techniques can be applied
 to identify and adjust group-level imbalances \mbox{%DIFAUXCMD
 \citep{ribeiro20-facebook, gil-clavel2019}}\hskip0pt%DIFAUXCMD
-. Using this type of information, previous studies have
-thus been able to establish systematic gender, age and socioeconomic
-biases in data obtained via API (or Application Programming Interface)
-from social media platforms, such as Facebook and Twitter/X, often at
-the national scale. However, for MPD, records are generally anonymised
-and do not include the sample composition attributes required for
-post-stratification. In such cases, data validation is typically limited
-to aggregate proportionality between digital and census counts
-\mbox{%DIFAUXCMD
-\citep{renninger2025, renninger2026, wang2022, moro2021, cabrera25}}\hskip0pt%DIFAUXCMD
-.
-While this approach is useful as a first diagnostic tool, strong global
-proportionality does not ensure that the sample is representative across
-population groups or places. What is therefore needed is a systematic
-approach that can evaluate representativeness when sample composition is
-unknown and explicitly quantify subnational heterogeneity in bias.
-}
+. Based on user's demographic information, previous
+studies have }\DIFaddend been able to \DIFdelbegin \DIFdel{established }\DIFdelend \DIFaddbegin \DIFadd{establish }\DIFaddend systematic gender, age and
+\DIFdelbegin \DIFdel{socio-economic biases in population }\DIFdelend \DIFaddbegin \DIFadd{socioeconomic biases in }\DIFaddend data obtained via API (or Application
+Programming Interface) from social media platforms, such as Facebook and
+Twitter/X\DIFdelbegin \DIFdel{. However, this approach requires information on
+the demographic and socio-economic attributes of the collected sample
+and has focused on estimating biases at the country level. Yet, these
+attributes are
+generally unavailable for MPD, }\DIFdelend \DIFaddbegin \DIFadd{, often at the national scale. However, MPD-based records are
+generally anonymised and do not include the required sample composition
+attributes for post-stratification. In such cases, data validation is
+typically limited to aggregate proportionality assessment between
+digital and census counts across geographical areas \mbox{%DIFAUXCMD
+\citep{renninger2026, wang2022, moro2021, cabrera25}}\hskip0pt%DIFAUXCMD
+. While this approach is useful as a
+first diagnostic tool, strong global geographic proportionality does not
+ensure that the sample is representative across population groups or
+places \mbox{%DIFAUXCMD
+\citep{rowe2021using, iradukunda2025estimating, sinclair23}}\hskip0pt%DIFAUXCMD
+. What is therefore
+needed is a systematic approach that can evaluate representativeness
+when sample composition is unknown }\DIFaddend and \DIFdelbegin \DIFdel{biases may vary widely
+across subnational areas }\DIFdelend \DIFaddbegin \DIFadd{explicitly quantify subnational
+heterogeneity in bias}\DIFaddend .
+\DIFdelbegin \DIFdel{What is missing is an systematic approach to
+measure biases in population counts from digital platforms, when population attributes are unknown , and quantify the geographic
+variability in the extent of biases in these data.
+}\DIFdelend 
 
-\DIFaddend To address this gap, this paper aims to establish a standardised
+To address this gap, this paper aims to establish a standardised
 approach to empirically measure the extent of biases in population data
 derived from digital platforms, and identify their key underlying
 contextual factors across subnational areas. We seek to address the
@@ -315,12 +328,12 @@ identifies the degree of spatial variation and clustering, and uses
 explainable machine learning to identify the contextual drivers of these
 biases. \DIFdelbegin \DIFdel{By establishing a simple yet robust and transparent }\DIFdelend \DIFaddbegin \DIFadd{We establish a simple }\DIFaddend indicator of coverage bias \DIFdelbegin \DIFdel{, our approach provides a
 practical tool to evaluate }\DIFdelend \DIFaddbegin \DIFadd{and provide a
-framework to evaluate biases in }\DIFaddend digital trace data prior to substantive
-analysis. In doing so, we respond \DIFdelbegin \DIFdel{directly }\DIFdelend to recent calls in the human mobility
-literature for greater transparency and standardisation in the
-processing and validation of digital trace data \citep{barreras2024exciting, unstatsMPDMS2025, UKGovPopulationMovement2025}. While prior work has
-emphasised the fragility of analytical choices and the absence of good
-practices in this field, our approach establishes a clear set of
+framework to evaluate biases in }\DIFaddend digital trace data\DIFdelbegin \DIFdel{prior to substantive analysis}\DIFdelend . In doing so, we
+respond \DIFdelbegin \DIFdel{directly }\DIFdelend to recent calls in the human mobility literature for greater
+transparency and standardisation in the processing and validation of
+digital trace data \citep{barreras2024exciting, unstatsMPDMS2025, UKGovPopulationMovement2025}. While prior work has emphasised the
+fragility of analytical choices and the absence of good practices in \DIFdelbegin \DIFdel{this field }\DIFdelend \DIFaddbegin \DIFadd{the
+field of urban mobility science}\DIFaddend , our approach establishes a clear set of
 indicators and procedures that can be applied consistently across
 sources and geographies. \DIFdelbegin \DIFdel{By providing a privacy-preserving and
 transparent benchmark, our }\DIFdelend \DIFaddbegin \DIFadd{Our }\DIFaddend approach offers a foundation for emerging
@@ -331,47 +344,52 @@ that underpin official population statistics.
 Our second contribution is substantive. \DIFdelbegin \DIFdel{Using our proposed approach}\DIFdelend \DIFaddbegin \DIFadd{We use a UK-wide application to
 illustrate how the proposed methodological framework can be implemented
 in practice under realistic data-access constraints and across multiple
-providers. At this point, we note that the methodological framework is
-not specific to the UK case study, but is designed to be applicable
-across different national contexts and spatial scales wherever a
-suitable benchmark population and linked area-level covariates are
-available. Therefore, using our proposed framework}\DIFaddend , we present the first
+providers. Our methodological framework is not specific to the UK case
+study, but is designed to be applicable across different national
+contexts and spatial scales, when a suitable benchmark population and
+linked area-level covariates are available. We applied our approach to
+UK data, to illustrate how our proposed approach can be applied to
+empirical data. Using our proposed framework}\DIFaddend , we present the first
 systematic cross-platform assessment of biases in MP app datasets for
 the UK. We show that coverage bias varies substantially across sources
 and geographies, and that demographic, socioeconomic and geographic
 features consistently explain much of this variation. This evidence
 provides \DIFdelbegin \DIFdel{robust }\DIFdelend insights into the structural roots of bias, such as the role of
 age composition, education, occupation and rurality in shaping
-representation. Importantly, we also demonstrate that MP multi-app
-datasets\DIFdelbegin \DIFdel{-often }\DIFdelend \DIFaddbegin \DIFadd{, often }\DIFaddend assumed to be more \DIFdelbegin \DIFdel{representative- do not inherently }\DIFdelend \DIFaddbegin \DIFadd{representative, do not }\DIFaddend guarantee
-lower bias. Instead, they capture a broader population base at the
-expense of introducing more complex and multidimensional patterns of
-bias compared with single-app sources. These findings extend current
-debates on the quality of human mobility data by moving beyond
-descriptive comparisons to provide systematic, evidence-based
-assessment. They also \DIFdelbegin \DIFdel{directly }\DIFdelend address concerns raised by \citep{barreras2024exciting}
-that the lack of validation across datasets hinders the reliability of
-policy-relevant metrics. Our results highlight that improving
-representativeness requires source-specific adjustment strategies and
-cannot rely solely on aggregation across apps, thereby setting a new
-standard for empirical evaluation of MP--based population estimates.
+representation. \DIFdelbegin \DIFdel{Importantly, we }\DIFdelend \DIFaddbegin \DIFadd{We }\DIFaddend also demonstrate that MP multi-app datasets\DIFdelbegin \DIFdel{-often }\DIFdelend \DIFaddbegin \DIFadd{, often
+}\DIFaddend assumed to be more \DIFdelbegin \DIFdel{representative- do not inherently }\DIFdelend \DIFaddbegin \DIFadd{representative, do not }\DIFaddend guarantee lower bias. Instead,
+they capture a broader population base at the expense of introducing
+more complex and multidimensional patterns of bias compared with
+single-app sources. These findings extend current debates on the quality
+of human mobility data by moving beyond descriptive comparisons to
+provide systematic, evidence-based assessment. They also \DIFdelbegin \DIFdel{directly }\DIFdelend address
+concerns raised by \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\citep{barreras2024exciting} }\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citet{barreras2024exciting} }\hskip0pt%DIFAUXCMD
+}\DIFaddend that the lack of validation
+across datasets hinders the reliability of policy-relevant metrics. Our
+results highlight that improving representativeness requires
+source-specific adjustment strategies and cannot rely solely on
+aggregation across apps, thereby setting a new standard for empirical
+evaluation of MP--based population estimates.
 
 \section{Data}\label{sec-data}
 
 We propose a systematic framework to measure and explain biases in
 population count data derived from MPs. Figure
-\ref{fig:debias-approach} provides a digramatic representation of our
+\ref{fig:debias-approach} provides a \DIFdelbegin \DIFdel{digramatic }\DIFdelend \DIFaddbegin \DIFadd{diagrammatic }\DIFaddend representation of our
 proposed approach consisting of four stages: (1) measuring coverage
 biases; (2) assessing the comparative extent of bias against widely used
 survey data; (3) determining the level of spatial variability in bias;
 and, (4) identifying key contextual sources of biases across subnational
 areas. To illustrate our proposed framework, we draw on four MP datasets
 collected in March 2021 to align as closely as possible with the dates
-of the most recent census, and thus ensure temporal consistency. As
+of the most recent \DIFaddbegin \DIFadd{UK }\DIFaddend census, and thus ensure temporal consistency. As
 explained below, the key principle here is that we use census data as
 our benchmark, so we assume that full representation is achieved when a
 source provides the same level of coverage as the census.
-\DIFdelbegin \DIFdel{We }\DIFdelend \DIFaddbegin
+\DIFdelbegin \DIFdel{We }\DIFdelend \DIFaddbegin 
 
 \DIFadd{The research was conducted in compliance with University of Liverpool
 ethical standards. No personal identifiers were accessible to the
@@ -380,10 +398,7 @@ analysis were stored and accessed within a secure data environment
 protected by three-factor authentication. All data were anonymised and
 when individual-record levels were available, data-sharing agreements
 did not permit any attempt at re-identification. All reported outputs
-are presented only at aggregate spatial and temporal scales. Although
-the analysis did not involve directly identifiable personal data, these
-privacy-preserving measures were implemented to minimise disclosure risk
-when working with mobility and social media data.
+are presented only at aggregate spatial and temporal scales.
 }
 
 \DIFadd{We therefore }\DIFaddend focus on aggregated population counts, which are commonly
@@ -401,34 +416,42 @@ provider name cannot be disclosed due to a non-disclosure agreement\DIFdelbegin 
 Multi-app2 \DIFdelbegin \DIFdel{, provided in
 its raw
 format by the company Locomizer . We conducted analysis at the
-common spatial framework, which }\DIFdelend \DIFaddbegin \DIFadd{(an openly available preprocessed dataset derived from raw
+common spatial framework, which is the Local Authority District (LAD) level given that data from Facebook and Twitter}\DIFdelend \DIFaddbegin \DIFadd{(an openly available preprocessed dataset derived from raw
 records collected by Locomizer \mbox{%DIFAUXCMD
 \citep{zhong25}}\hskip0pt%DIFAUXCMD
 ).
 }
 
 \DIFadd{Data access differs across sources: Multi-app1 is available in raw
-format, whereas Meta, Twitter/X and Multi-app2 are available as
+format, whereas Meta, Twitter}\DIFaddend /\DIFdelbegin \DIFdel{X are availableat aggregate geographical scales}\DIFdelend \DIFaddbegin \DIFadd{X and Multi-app2 are available as
 spatially and temporally aggregated inputs. This means direct
 record-level checks are not feasible consistently across all datasets.
 To enable cross-source comparison, we harmonise all datasets to the
 finest common geography that is consistently available across the four
-sources. In this application, that geography }\DIFaddend is the Local Authority
-District (LAD) \DIFdelbegin \DIFdel{level given that data
-from Facebook and Twitter/X are availableat aggregate geographical scales}\DIFdelend \DIFaddbegin \DIFadd{in the UK. The use of LADs therefore reflects data
-availability and cross-source comparability constraints and not a
-requirement of the proposed framework. The analytical sample includes
-331 LADs. The same workflow can be applied in other national contexts
-and at finer spatial resolutions, such as smaller administrative units
-or regular grids, provided that a comparable benchmark population and
-linked area-level covariates are available}\DIFaddend . Table \ref{tab:data-source}
+sources used in our study; that is, local authority areas. Our use of
+local authority areas reflects data availability and cross-source
+comparability constraints and not a requirement of the proposed
+framework. The analytical sample includes 331 local authority areas. The
+same workflow can be applied in other national contexts and at finer
+spatial resolutions, such as smaller administrative units or regular
+grids, provided that a comparable benchmark population and linked
+area-level covariates are available}\DIFaddend . Table \ref{tab:data-source}
 summarises the main characteristics of each dataset \DIFaddbegin \DIFadd{used in the current
 application}\DIFaddend , including the source type, form of data collections,
 temporal granularity, temporal coverage, spatial resolution, access
 method and data acquisition cost. Further details of access and
 processing for each data source are provided next.
 
-\begin{figure}
+\DIFaddbegin \DIFadd{A dataset aggregated at local authority area level is publicly available
+on }\href{https://github.com/de-bias/bias-detection/blob/main/outputs/manuscript-data/lad-derived-population-counts.csv}{\DIFadd{DEBIAS
+repository}}\DIFadd{.
+The dataset contains the core inputs required by our framework,
+including census population counts, digital-trace population counts for
+each source and the corresponding population coverage bias used in the
+analysis.
+}
+
+\DIFaddend \begin{figure}
 \centering
 \includegraphics[width=13cm,height=6.7cm]{figures/debias-approach.png}
 \caption{Systematic approach to measure and explain biases from MP-based
@@ -445,7 +468,7 @@ population estimates.}\label{fig:debias-approach}
 \subsection{Meta}\label{meta}
 
 We used the Facebook Population dataset created by Meta and accessed
-through their Data for Good Initiative\footnote{\url{https://dataforgood.facebook.com}}. This dataset provides
+through their \DIFdelbegin \DIFdel{Data }\DIFdelend \DIFaddbegin \DIFadd{AI }\DIFaddend for Good Initiative\footnote{\url{https://dataforgood.facebook.com}}. This dataset provides
 anonymised aggregate location data from Facebook app accounts, who have
 the location services setting activated. We used data for the UK
 covering March 2021 when the most recent UK Census was carried out.
@@ -484,38 +507,40 @@ data consists of monthly records for the location of unique Twitter/X
 accounts, spatially aggregated across the UK, and is openly
 available\footnote{\url{https://github.com/c-zhong-ucl-ac-uk/Twitter-Internal-Migration}}. \DIFdelbegin \DIFdel{Geolocation is obtained either directly from geotagged tweets or through
 manual geocoding using }\DIFdelend \DIFaddbegin \DIFadd{We rely on the processed dataset released by \mbox{%DIFAUXCMD
-\citep{wang2022}
-}\hskip0pt%DIFAUXCMD
-and do not re-estimate tweet-level locations in this study. In that
-workflow, location information is derived from GPS geotags when
-available and otherwise from place information represented by geographic
-}\DIFaddend bounding boxes provided by the API\DIFdelbegin \DIFdel{, based on the
+\citep{wang2022}}\hskip0pt%DIFAUXCMD
+.
+We do not re-estimate tweet-level locations in this study. Wang et
+al.(2022) derived location information from GPS geotags when available
+and from place name information referring to geographic }\DIFaddend bounding boxes
+provided by the \DIFdelbegin \DIFdel{API, based on the
 IP address of the posting device (for methodological details, see
 \mbox{%DIFAUXCMD
 \citep{wang2022}}\hskip0pt%DIFAUXCMD
-)}\DIFdelend . The full dataset includes
-approximately 161 million tweets from February 2019 to December 2021.
-For this study, we restricted the analysis to March 2021 to align with
-the timing of the 2021 UK Census, during which over 125 thousand user
-home locations were identified. Home locations were assigned to LADs
-using a frequency-based detection algorithm, further described in
-\citep{wang2022}.
+)}\DIFdelend \DIFaddbegin \DIFadd{Twitter/X API}\DIFaddend . The full dataset includes approximately
+161 million tweets from February 2019 to December 2021. For this study,
+we restricted the analysis to March 2021 to align with the timing of the
+2021 UK Census, during which over 125 thousand user home locations were
+identified. Home locations were assigned to LADs using a frequency-based
+detection algorithm, further described in \citep{wang2022}.
 
 \subsection{Multi-app1}\label{multi-app1}
 
 We sourced data from a location analytics company that collects
 \DIFaddbegin \DIFadd{anonymised }\DIFaddend GPS data from \DIFaddbegin \DIFadd{smartphone applications. The raw dataset
 includes unique observed devices equivalent to }\DIFaddend approximately 26\% of \DIFdelbegin \DIFdel{smartphones in the
-UK . }\DIFdelend \DIFaddbegin \DIFadd{the
-UK population during the study period. This figure should be interpreted
-as an indicator based on unique devices, rather than as our estimate of
-population coverage. We use the number of devices as a proxy for the
-number of unique users, and acknowledge that some individuals may use
-more than one device. }\DIFaddend The raw data consist of anonymised device-level
+UK . The raw data consist of anonymised device-level GPS traces collected via a range of smartphone
+applications, where users have explicitly granted location-sharing
+permissions. We considered }\DIFdelend the
+\DIFaddbegin \DIFadd{UK population in March 2021. This figure is not the same as the
+population coverage metric we use for our analysis. The number of unique
+devices we used in our analysis is smaller. The original sample reduces
+to a smaller subset for which repeated observations exist to identify
+their home location. We used the }\DIFaddend number of devices as a proxy for the
+number of unique users, \DIFdelbegin \DIFdel{although it could be the case that some users
+have }\DIFdelend \DIFaddbegin \DIFadd{and acknowledge that some individuals may use
+}\DIFaddend more than one device. The \DIFaddbegin \DIFadd{raw data consist of anonymised device-level
 GPS traces collected via a range of smartphone applications, where users
-have explicitly granted location-sharing permissions. \DIFdelbegin \DIFdel{We considered the number of devices as a proxy for the
-number of unique users, although it could be the case that some users
-have more than one device. }\DIFdelend The dataset spans
+have explicitly granted location-sharing permissions. The }\DIFaddend dataset spans
 a 7-day period corresponding to the first week of April 2021 and
 includes over 443.5 million GPS records. Although the dataset does not
 perfectly align with the official 2021 UK Census date, the temporal
@@ -526,7 +551,7 @@ rule-based classification method, following approaches outlined in
 \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
 \citep{zhong24working, unstatsMPDMS2025}}\hskip0pt%DIFAUXCMD
 }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
-\citep{zhong25, unstatsMPDMS2025}}\hskip0pt%DIFAUXCMD
+\citep{zhong25, unstatsMPDMS2025, Verma2024}}\hskip0pt%DIFAUXCMD
 }\DIFaddend . Specifically, the place of residence
 associated with a device \DIFdelbegin \DIFdel{is defined }\DIFdelend \DIFaddbegin \DIFadd{was first identified at H3 resolution 10
 hexagon level }\DIFaddend as the location with the highest number of GPS records
@@ -571,7 +596,7 @@ year was considered sufficiently close for our analysis.
 \DIFdelbegin \DIFdel{To ensure consistency across datasets, we further process the data by
 aggregating it spatially from the Middle Layer Super Output Area (MSOA)
 level to the LAD.
-}\DIFdelend
+}\DIFdelend 
 
 \subsection{Census data}\label{census-data}
 
@@ -636,7 +661,7 @@ ages) reported in the 2021 Census. }\DIFaddend Formally, the coverage \(c_i\) fo
 c_i = \dfrac{P_i^D}{P_i} \times 100.
 \end{equation}
 
-\DIFdelbegin \DIFdel{The }\DIFdelend \DIFaddbegin \DIFadd{We use the total resident population, rather than the adult population
+\DIFdelbegin \DIFdel{The resulting ratio }\DIFdelend \DIFaddbegin \DIFadd{We use the total resident population, rather than the adult population
 only, as a common benchmark across all datasets. Mobile application
 datasets may disproportionately represent individuals above a certain
 age (e.g.~16+). In that case, including children in the denominator may
@@ -644,23 +669,24 @@ increase estimated coverage bias in areas with lower adult population
 shares. However, given that age is not observed in the digital trace
 data, we cannot verify the age composition of the captured population
 and therefore cannot reliably restrict the denominator to the adult
-population.
+population. This however could be thought as a parameter in our
+framework and the denominator could be restricted to specific age ranges
+as analysts may find it most appropriate.
 }
 
-\DIFadd{In principle, the }\DIFaddend resulting ratio \(c_i\) is \DIFdelbegin \DIFdel{assumed to take values
-between \(0\) and \(100\), with }\DIFdelend \DIFaddbegin \DIFadd{not strictly bounded above by
-100. Values above }\DIFaddend 100 \DIFdelbegin \DIFdel{representing full populationcoverage. If users have multiple accounts, the ratio can exceed \(100\), since the
-total sample size could be greater than the local population of area
-\(i\). Though this is unusually in empirical applications. }\DIFdelend \DIFaddbegin \DIFadd{can occur when observed digital identifiers exceed
-the local population. While this is uncommon in practice, this situation
+\DIFadd{In principle, the resulting ratio }\DIFaddend \(c_i\) \DIFdelbegin \DIFdel{is assumed to take values
+between \(0\) and \(100\), with }\DIFdelend \DIFaddbegin \DIFadd{is not strictly bounded above by
+100. Values above }\DIFaddend 100 \DIFdelbegin \DIFdel{representing full population
+coverage}\DIFdelend \DIFaddbegin \DIFadd{can occur when observed digital identifiers exceed
+the local population}\DIFaddend . \DIFdelbegin \DIFdel{If users have multiple accounts, the ratio can exceed \(100\), since the total sample size could be greater than the local population of area
+\(i\). Though this is unusually in empirical applications}\DIFdelend \DIFaddbegin \DIFadd{While this is uncommon in practice, this situation
 can arise due, for example, to users owning multiple devices or accounts
-duplication or temporal mismatch.
-}\DIFaddend
+duplication or temporal mismatch}\DIFaddend .
 
 \DIFaddbegin \DIFadd{Even when \(c_i<100\), potential inflation in coverage could arise from
-multi-device ownership or duplicate identifiers. Since our framework is
+multi-device ownership or duplicate identifiers. Our framework is
 designed to be generalisable across data sources and applicable to
-aggregated, privacy-preserving MPD, we do not implement record-level
+aggregated, privacy-preserving MPD. We do not implement record-level
 deduplication. Furthermore, in this study, only Multi-app1 is available
 in raw format, whereas Meta, Twitter/X and Multi-app2 are available as
 aggregated inputs, so a consistent deduplication procedure cannot be
@@ -671,7 +697,7 @@ difference between digital-trace and benchmark population counts.
 }
 
 \DIFaddend We then define population coverage bias \(e_i\) for area \(i\) as:
-\DIFdelbegin %DIFDELCMD <
+\DIFdelbegin %DIFDELCMD < 
 
 %DIFDELCMD < %%%
 \DIFdelend \begin{equation} \label{eq:size-bias}
@@ -686,14 +712,14 @@ coverage bias across multiple sources of data and geographic areas.
 and \(e_i < 0\) would indicate overcoverage. Negative values of \(e_i\) are
 therefore valid under our framework and can be handled in all subsequent
 analyses, including mapping, residual assessment and modelling.
-}\DIFaddend
+}\DIFaddend 
 
 \DIFdelbegin \subsubsection{\DIFdel{Identifying spatial patterns of population coverage bias}}%DIFAUXCMD
 \addtocounter{subsubsection}{-1}%DIFAUXCMD
 %DIFDELCMD < \label{identifying-spatial-patterns-of-population-coverage-bias}
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \subsection{\DIFadd{Identifying patterns of variation in population coverage bias}}\label{identifying-patterns-of-variation-in-population-coverage-bias}
-\DIFaddend
+\DIFaddend 
 
 For each data source, we computed the coverage bias metric at the
 subnational level\DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend examined its geographic variation \DIFaddbegin \DIFadd{and its variation
@@ -713,7 +739,7 @@ census counts scale proportionally across areas, and high global fit is
 often interpreted as evidence of representativeness. Here, we formalise
 this approach as a baseline assessment and evaluate its adequacy by
 analysing residual bias not explained by the base case.
-}\DIFaddend
+}\DIFaddend 
 
 To evaluate the variability of bias across geographies, we first
 analysed the spatial structure and concentration of bias coverage across
@@ -766,7 +792,9 @@ dependence on contextual covariates, including linear and nonlinear
 specifications. If residual bias shows non-random spatial variation or
 systematic dependence on contextual covariates, then deviations from the
 proportional baseline are likely driven by spatial processes and/or
-area-level population composition. For example, areas with higher shares
+area-level population composition \mbox{%DIFAUXCMD
+\citep{Li2024}}\hskip0pt%DIFAUXCMD
+. For example, areas with higher shares
 of children may be systematically under-represented because these groups
 are less likely to generate MPD records. In that case, the conventional
 proportional approach is limited as it uses a single proportionality
@@ -783,7 +811,7 @@ and under-representation}\DIFaddend .
 \DIFdelbegin \DIFdel{Conversely, an approximately linear relationship through the
 origin with a stable slope would suggest that bias is largely independent of population size. To test this, we generated scatterplots comparing the
 two sources andquantify the strength of the relationship using Pearson's correlation coefficient.
-}\DIFdelend
+}\DIFdelend 
 
 \DIFdelbegin \subsubsection{\DIFdel{Identifying sources of representativeness bias via explainable machine learning}}%DIFAUXCMD
 \addtocounter{subsubsection}{-1}%DIFAUXCMD
@@ -819,7 +847,7 @@ accommodate nonlinearities and is robust to multicollinearity
 \citep{chen2016}. We fitted the following XGBoost regression model.
 
 \begin{equation} \label{eq:xgb-model}
-\widehat{e}_i
+\widehat{e}_i 
 = \sum_{m=1}^M f_m\bigl(D_i, S_i, H_i, U_i, L_i\bigr),
 \quad f_m \in \mathcal{F}
 \end{equation}
@@ -854,19 +882,22 @@ used 10-fold cross validation to train models and
 performed grid search over learning rates, tree depths, subsample
 ratios, and regularisation penalties to identify optimal
 hyperparameters. We applied regularisation penalties including L1
-(Lasso) and L2 (Ridge) terms to penalise overly complex trees, promote
+(Lasso)and L2 (Ridge) terms to penalise overly complex trees, promote
 feature sparsity, improve model generalisation and mitigate
 multicollinearity among predictors. XGBoost's tree-based structure
 additionally handles multicollinearity by hierarchically selecting the
 most informative splits \mbox{%DIFAUXCMD
 \citep{chen2016}}\hskip0pt%DIFAUXCMD
-. We then fitted a final model on the full training set using
-these tuned settings of optimal parameters and evaluated }\DIFdelend \DIFaddbegin \DIFadd{. We
-then tuned the XGBoost models on the training data using
-cross-validation and evaluated predictive performance }\DIFaddend on the held-out
-test set. We \DIFdelbegin \DIFdel{evaluated models based on the
-number of trees minimising the }\DIFdelend \DIFaddbegin \DIFadd{assessed model performance using out-of-sample }\DIFaddend root mean
-squared error (RMSE), \DIFdelbegin \DIFdel{the
+. We then fitted a final model
+on the
+full training set using these tuned settings of
+optimal parameters and
+evaluated on the held-out test set. }\DIFdelend \DIFaddbegin \DIFadd{. }\DIFaddend We
+\DIFdelbegin \DIFdel{evaluated models based on the
+number of trees minimising the root mean squared error (}\DIFdelend \DIFaddbegin \DIFadd{then tuned the XGBoost models on the training data using
+cross-validation and evaluated predictive performance on the held-out
+test set. We assessed model performance using out-of-sample root mean
+squared error (}\DIFaddend RMSE), \DIFdelbegin \DIFdel{the
 convergence of training and test error, and difference between predicted
 and observed values}\DIFdelend \DIFaddbegin \DIFadd{Pearson correlation, Spearman correlation and the
 standard deviation of residuals. We also assessed the spatial
@@ -874,26 +905,29 @@ autocorrelation of model residuals via Moran's \(I\). All these model
 performance metrics are reported in Supplementary Table 8.
 }
 
-\DIFadd{Since some of the contextual model covariates display spatial
-autocorrelation (see Supplementary Table 2), we additionally estimated
-alternative model specifications as a robustness check, including
-spatially lagged covariates and spatial block cross-validation, where
-folds were defined by geographically contiguous groups of Local
-Authority Districts. This choice is also consistent with existing work
-recommending spatial cross-validation when dependence may be present in
-the data \mbox{%DIFAUXCMD
-\citep{roberts17}}\hskip0pt%DIFAUXCMD
-, even when residual spatial autocorrelation is
-weak, although this recommendation remains debated in the literature
+\DIFadd{Additionally, we additionally estimated alternative model specifications
+as a robustness check, including spatially lagged covariates and spatial
+block cross-validation. This is because some of our contextual model
+covariates display spatial autocorrelation (see Supplementary Table 2).
+To this end, we defined folds by geographically contiguous groups of
+local authority districts, based existing work recommending spatial
+cross-validation when spatial dependence is present in the data
 \mbox{%DIFAUXCMD
+\citep{roberts17}}\hskip0pt%DIFAUXCMD
+. The use of spatial cross-validation to address spatial
+autocorrelation is however debated \mbox{%DIFAUXCMD
 \citep{Wadoux21}}\hskip0pt%DIFAUXCMD
-. We therefore compare these models against the random
-holdout specification using the same out-of-sample metrics and Moran's
-\(I\) of model residuals (Supplementary Table 8). As discussed in the
-Results and reported in the Supplementary Information, the substantive
-conclusions are stable across validation approaches, so we retain the
-simpler random holdout specification in the main text for
-interpretability}\DIFaddend .
+. We compared spatial
+cross-validation models against random holdout specifications using the
+same out-of-sample metrics and Moran's \(I\) of model residuals
+(Supplementary Table 8). As discussed in the Results and reported in the
+Supplementary Information, the substantive conclusions are stable across
+our spatial and random cross-validation validation approaches, so we
+retain the simpler random specification in the main text for
+interpretability. However, we would like to note that spatial dependence
+may manifest at fine scales of aggregation. So we recommend a careful
+assessment spatial dependence in the model residuals and potential use
+for both spatially lagged and spatial cross-validation models}\DIFaddend .
 
 \section{Results}\label{results}
 
@@ -910,12 +944,13 @@ each MPD source. To contextualise these results, we compared the MP
 sources with several widely used traditional datasets, including major
 UK surveys available through the UK Data Service
 \citep{ukdataserviceSurveysData}. Figure \ref{fig:survey} presents these
-comparisons across data sources, showing on the \DIFdelbegin \DIFdel{top }\DIFdelend \DIFaddbegin \DIFadd{corresponding measure of
-population coverage bias on the }\DIFaddend x-axis\DIFdelbegin \DIFdel{the
+comparisons across \DIFaddbegin \DIFadd{relevant }\DIFaddend data sources, showing \DIFdelbegin \DIFdel{on the top }\DIFdelend \DIFaddbegin \DIFadd{the corresponding
+measure of population coverage bias on the }\DIFaddend x-axis\DIFdelbegin \DIFdel{the
 population coverage (expressed as the number of respondents or subjects
-per 1,000 people) and on the bottom x-axis the corresponding measure of population coverage bias}\DIFdelend \DIFaddbegin \DIFadd{. Higher coverage bias values
-(closer to 100) indicate lower population coverage relative to the
-census benchmark, whereas lower bias values indicate higher coverage}\DIFaddend .
+per 1,000 people) and on the bottom x-axis the corresponding measure of population coverage bias}\DIFdelend \DIFaddbegin \DIFadd{. Higher coverage bias
+values (closer to 100) indicate lower population coverage relative to
+the census benchmark, whereas lower bias values indicate higher
+coverage}\DIFaddend .
 
 \begin{figure}
 \centering
@@ -961,12 +996,12 @@ and fine spatio-temporal resolution which is unavailable through
 traditional surveys. These attributes allow us to track how
 representation varies across regions and through time, and this is
 particularly valuable for studying dynamic social processes and render a
-richer representation of population dynamics. \DIFaddbegin \DIFadd{It should be noted,
-however, that broader coverage in MPD should not be interpreted as
-equivalent to representativeness, since a source may capture a larger
-share of the population overall while still systematically over or
-underrepresenting particular groups or areas.
-}\DIFaddend
+richer representation of population dynamics. \DIFaddbegin \DIFadd{However, we note that
+broader coverage in MPD should not be interpreted as equivalent to
+representativeness, since a source may capture a larger share of the
+population overall while still systematically over or underrepresenting
+particular groups or areas.
+}\DIFaddend 
 
 We argue that we can infer some of these characteristics by leveraging
 the spatio-temporal granularity of MPD despite the absence of specific
@@ -1021,7 +1056,9 @@ across MPD sources. First, all data sources exhibit noticeable
 geographic variability in population coverage bias, as evidenced by the
 spread of values across LADs in their respective distributions, as
 displayed in the cartograms and histograms. This result is consistent
-with recent findings for urban areas in the US \citep{nijs2025}.
+with recent findings for urban areas in the US \citep{nijs2025} \DIFaddbegin \DIFadd{or counties in China \mbox{%DIFAUXCMD
+\citep{Mu24}}\hskip0pt%DIFAUXCMD
+}\DIFaddend .
 
 Second, despite the variability in coverage bias, their \DIFdelbegin \DIFdel{geographic }\DIFdelend \DIFaddbegin \DIFadd{spatial
 }\DIFaddend distribution does not display \DIFdelbegin \DIFdel{any }\DIFdelend strong patterns of geographic clustering
@@ -1038,14 +1075,14 @@ shows moderate spatial dependence. This indicates that spatial
 autocorrelation may be negligible in some datasets but relevant in
 others, and therefore a general framework to assess biases in MPD should
 allow for this possibility.
-}\DIFaddend
+}\DIFaddend 
 
 \DIFdelbegin \DIFdel{Third, the variability in population coverage bias does not seem to a function of
 absolute population size. Instead, the association between MPD-derived and census population
 counts derived appears to be strongly linear, suggesting that population estimates from these two sources are proportionally similar and display similar geographic patterns.
 That is, LDAs with large census population counts also show large MPD-derived population counts. These findings were also quantitatively supported by Pearson correlation
 coefficients consistently close to one and statistically significant.
-}%DIFDELCMD <
+}%DIFDELCMD < 
 
 %DIFDELCMD < %%%
 \DIFdel{Despite these consistencies, we also observed differences across datasets. Focusing }\DIFdelend \DIFaddbegin \DIFadd{Third, focusing }\DIFaddend on the histograms, the \DIFdelbegin \DIFdel{range }\DIFdelend \DIFaddbegin \DIFadd{distribution }\DIFaddend of values is larger
@@ -1066,7 +1103,7 @@ very small resident population, it is a major employment and commuting
 hub\DIFdelbegin \DIFdel{. Because home locations are inferred from the most frequently
 recorded nighttime position, even a relatively }\DIFdelend \DIFaddbegin \DIFadd{, so even a }\DIFaddend modest number of residents or temporary visitors can
 yield an unusually high apparent population coverage compared to larger
-LADs. \DIFdelbegin %DIFDELCMD <
+LADs. \DIFdelbegin %DIFDELCMD < 
 
 %DIFDELCMD < %%%
 \DIFdelend Population coverage bias in data from Meta ranges from \DIFdelbegin \DIFdel{86.2 (\(\approx 14 \%\) }\DIFdelend \DIFaddbegin \DIFadd{76.8
@@ -1074,7 +1111,7 @@ LADs. \DIFdelbegin %DIFDELCMD <
 coverage). \DIFdelbegin \DIFdel{Although the minimum value is higher than that observed for Twitter/X, the }\DIFdelend \DIFaddbegin \DIFadd{The }\DIFaddend distribution is centred on lower values of bias \DIFaddbegin \DIFadd{relative
 to Twitter}\DIFaddend , indicating that Meta data generally provide greater
 population coverage. \DIFdelbegin \DIFdel{The corresponding cartogram reveals a slight gradient, with lower bias estimates across LADs in Northern England. However, the associated Moran's I is small (\(I = 0.18\)) and statistically significant (\(p < 0.05\)), suggesting that there is some level of spatial autocorrelation or clustering, but this is quite minor.
-}%DIFDELCMD <
+}%DIFDELCMD < 
 
 %DIFDELCMD < %%%
 \DIFdelend In contrast, Multi-app1 and Multi-app2 data display
@@ -1084,21 +1121,22 @@ with best coverage is \(\approx 8 \%\) population) and Multi-app }\DIFaddend 2 \
 coverage is \(\approx 2\%\) of population) is }\DIFaddend generally higher than for
 Meta, it is also more uniform across areas.
 \DIFdelbegin \DIFdel{Particularly, Multi-app1 data show levels of population coverage bias as low as 92.4 for some LADs (\(\approx 8 \%\) population
-coverage), while Multi-app2 generally displays higher bias }\DIFdelend \DIFaddbegin
+coverage ), while Multi-app2 generally displays higher biaswith the lowest being 97.8 (\(\approx 2\%\) population coverage).
+Based on the associated cartograms and }\DIFdelend \DIFaddbegin 
 
-\DIFadd{Fourth, scatter plots indicate strong global proportionality between
-MPD-derived and census population counts. For each source, the fitted
-proportional baseline \(P_i^D = \hat{\alpha}P_i\) yields high \(R^2\) }\DIFaddend with
-\DIFaddbegin \DIFadd{\(\hat{\alpha}\) values summarising average platform coverage relative to
-census population. Under conventional validation approaches
-\mbox{%DIFAUXCMD
-\citep{renninger2025, renninger2026, wang2022, moro2021, cabrera25}}\hskip0pt%DIFAUXCMD
-, high
-\(R^2\) and \(\hat{\alpha}\) are often interpreted as evidence of
-representativeness. However, as shown in the next subsection, analysis
-of residuals around this baseline reveal remaining local variation,
-indicating that global fit by itself is not sufficient to assess
-representativeness.
+\DIFadd{Fourth, scatter plots indicate strong global geographic proportionality
+between MPD-derived and census population counts. For each source, the
+fitted proportional baseline \(P_i^D = \hat{\alpha}P_i\) yields high \(R^2\)
+with \(\hat{\alpha}\) values summarising average platform coverage
+relative to census population. Under conventional validation approaches,
+high \(R^2\) and \(\hat{\alpha}\) are often interpreted as evidence of
+representativeness \mbox{%DIFAUXCMD
+\citep{iradukunda2025estimating, renninger2026}}\hskip0pt%DIFAUXCMD
+. However,
+as shown in the next subsection, analysis of residuals around this
+baseline reveal considerable local variation. This indicates that
+ensuring that assumptions of linear spatial proportionality have been
+met is not sufficient to assess representativeness.
 }
 
 \subsection{\DIFadd{Proportional assessment of bias is not sufficient}}\label{proportional-assessment-of-bias-is-not-sufficient}
@@ -1110,15 +1148,17 @@ is defined according to Equation \eqref{eq:residual}. Figure
 residual bias across LADs (residuals normalised to \([-1, 1]\) for
 visualisation), where red indicates areas that are overrepresented by
 the digital trace source relative to the baseline expectation and blue
-indicates underrepresented areas. Moran's \(I\) values for residuals are
+indicates underrepresented areas. }\DIFaddend Moran's \DIFdelbegin \DIFdel{I, Multi-app1 and Multip-app 2 also show low levels of clustering in the spatial distribution of population coverage bias across LADs}\DIFdelend \DIFaddbegin \DIFadd{\(I\) values for residuals are
 small, indicating weak spatial autocorrelation and no strong spatial
-structure in baseline residual error.
-}
+structure in baseline residual error. While we found no statitically significant evidence of spatial dependence, it is likely to occur a finer levels of spatial aggregation as the spatial interactions between places through mobility flows is more fluid}\DIFaddend .
 
-\DIFadd{However, residuals are not random. The second row of Figure
+\DIFdelbegin \DIFdel{Taken together, these findings suggest that there is spatial
+variability in population coverage bias across LADs, but this variability does not seem to be
+significantly explained by physical geographic location or population size.
+Instead, }\DIFdelend \DIFaddbegin \DIFadd{However, residuals are not random. The second row of Figure
 \ref{fig:residual-maps} shows, for each dataset, residual bias plotted
 against the contextual covariate selected from examining pairwise
-relationships as the one with }\DIFaddend the lowest \DIFdelbegin \DIFdel{being 97.8 (\(\approx 2\%\) population coverage). Based on the associated cartograms and Moran's I, Multi-app1 and Multip-app 2 also show low levels of clustering in the spatial distribution of population coverage biasacross LADs}\DIFdelend \DIFaddbegin \DIFadd{AIC under a Generalised
+relationships as the one with the lowest AIC under a Generalised
 Additive Mode (GAM, with \(k=5\) basis functions). GAM was used to allow
 flexible nonlinear relationships between covariates and residual bias.
 For each covariate, we also compared an ordinary least squares linear
@@ -1128,14 +1168,10 @@ Information (Tables 3-7), including AIC and BIC for linear and GAM
 models, and Pearson, Spearman and distance correlations for each
 covariate-residual pair. Across datasets, AIC and BIC are generally
 lower for GAM, indicating that nonlinear specifications provide better
-fit than linear alternatives for residual bias}\DIFaddend .
+fit than linear alternatives for residual bias.
+}
 
-\DIFdelbegin \DIFdel{Taken together, these findings suggest that there is spatial
-variability in population coverage bias across LADs, but this variability does not
-seem to be
-significantly explained by physical geographic location or population size. Instead, the observed patterns are more likely explained by a wider range of
-area-level characteristics, including demographic or socioeconomic
-structures. We next examine the influence of these and a wider set of factors, to identify key contextual features shaping the observed levels }\DIFdelend \DIFaddbegin \DIFadd{These results reveal that residual bias depends on contextual factors.
+\DIFadd{These results reveal that residual bias depends on contextual factors.
 Therefore, strong global fit in the proportional base case is not
 sufficient to establish representativeness. Although residuals do not
 display strong spatial clustering, they display nonlinear dependence
@@ -1143,10 +1179,12 @@ with contextual covariates. This motivates the use of a more flexible
 modelling framework than the proportional baseline for assessing the
 magnitude and determinants of coverage bias, and the representativeness
 of digital population data across population groups. We therefore
-proceed to identify the contextual drivers }\DIFaddend of coverage bias \DIFdelbegin \DIFdel{. Such analysis can thus inform potential mitigation strategies to correct biases in a subsequent stage.
+proceed to identify }\DIFaddend the \DIFdelbegin \DIFdel{observed patterns are more likely explained by a wider range of
+area-level characteristics, including demographic or socioeconomic
+structures. We next examine the influence of these and a wider set of factors, to identify key contextual features shaping the observed levels }\DIFdelend \DIFaddbegin \DIFadd{contextual drivers }\DIFaddend of coverage bias \DIFdelbegin \DIFdel{. Such analysis can thus inform potential mitigation strategies to correct biases in a subsequent stage.
 }\DIFdelend \DIFaddbegin \DIFadd{using an
 explainable machine-learning framework.
-}\DIFaddend
+}\DIFaddend 
 
 \DIFaddbegin \begin{figure}
 \centering
@@ -1356,35 +1394,35 @@ of transparency and accountability that underpin official statistics
 \citep{unstatsMPDMS2025}.
 
 Second, the evidence provided here underscores the need for
-source-specific adjustment strategies to mitigate data biases.
-\DIFdelbegin \DIFdel{Single-app }\DIFdelend \DIFaddbegin \DIFadd{Importantly, we demonstrate that broader population coverage in a given
-source is not equivalent to better representativeness. A source may
-capture a larger share of the population and still systematically over
-or underrepresenting particular demographic, socioeconomic or geographic
-groups. Here we observe that single-app }\DIFaddend datasets, such as those derived
-from social media platforms, \DIFdelbegin \DIFdel{tend to }\DIFdelend display biases that are largely
-concentrated around a narrower set of characteristics, most notably age
-profiles, patterns of digital engagement, and certain geographic
-features. These biases, while still consequential, are comparatively
-easier to model and adjust for through established weighting or
-calibration techniques. Our evidence goes some way in validating the use
-of existing simple re-weighting scheme to mitigate biases in social
-media data based on age and sex structures. By contrast, multi-app
-datasets, which aggregate signals from a diverse set of platforms,
-capture broader segments of the population but at the cost of
-introducing more complex and multidimensional biases. These include
-systematic under- or over-representation linked to age and geography,
-and also to education, occupation, income and household structure. As a
-result, correcting multi-app data requires adjustment strategies that go
-beyond conventional post-stratification, demanding more sophisticated
+source-specific adjustment strategies to mitigate data biases. \DIFdelbegin \DIFdel{Single-app }\DIFdelend \DIFaddbegin \DIFadd{We
+demonstrate that broader population coverage in a given source is not
+equivalent to better representativeness. A source may capture a larger
+share of the population and still systematically over or
+underrepresenting particular demographic, socioeconomic or geographic
+groups. We observe that single-app }\DIFaddend datasets, such as those derived from
+social media platforms, \DIFdelbegin \DIFdel{tend to }\DIFdelend display biases that are largely concentrated
+around a narrower set of characteristics, most notably age profiles,
+patterns of digital engagement, and certain geographic features. These
+biases, while still consequential, are comparatively easier to model and
+adjust for through established weighting or calibration techniques. Our
+evidence goes some way in validating the use of existing simple
+re-weighting scheme to mitigate biases in social media data based on age
+and sex structures. By contrast, multi-app datasets, which aggregate
+signals from a diverse set of platforms, capture broader segments of the
+population but at the cost of introducing more complex and
+multidimensional biases. These include systematic under- or
+over-representation linked to age and geography, and also to education,
+occupation, income and household structure. As a result, correcting
+multi-app data requires adjustment strategies that go beyond
+conventional post-stratification, demanding more sophisticated
 statistical tools that can simultaneously account for multiple
 intersecting dimensions of inequality. Such tools may include multilevel
-reweighting schemes, Bayesian hierarchical modelling \citep{rampazzo2021a} ,
+reweighting schemes, Bayesian hierarchical modelling \citep{rampazzo2021a},
 data-fusion \citep{graells-garrido2023} or difference-in-difference
 approaches \citep{zagheni2012} that integrate auxiliary information from
-surveys or administrative records. Such distinction suggests that
-efforts to improve the representativeness of MP-derived statistics
-should be tailored to the nature of the data source. That is to
+surveys or administrative records. \DIFdelbegin \DIFdel{Such distinction suggests that
+efforts }\DIFdelend \DIFaddbegin \DIFadd{Efforts }\DIFaddend to improve the representativeness of MP-derived statistics
+should \DIFaddbegin \DIFadd{therefore }\DIFaddend be tailored to the nature of the data source\DIFdelbegin \DIFdel{. That is }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend to
 recognise that multi-app datasets, while promising in their breadth,
 pose greater methodological challenges and cannot be assumed to be
 inherently less biased than single-app data.
@@ -1432,25 +1470,24 @@ provides a systematic way to interrogate and inform adjustment methods
 for bias precisely in the absence of demographic attributes. Third, the
 reliance on area-based covariates introduces the risk of ecological
 fallacy, as heterogeneity within local units may be obscured. This \DIFaddbegin \DIFadd{also
-means that the LAD-level results presented here should be interpreted as
-national-scale comparative evidence across harmonised spatial units,
-rather than as evidence that the same patterns necessarily hold at finer
-geographic scales. When the analysis is conducted at smaller spatial
-units, additional local heterogeneity may become visible and the
-magnitude or configuration of coverage bias may differ. This }\DIFaddend highlights
-the need for more spatially granular analyses where data availability
-permits. Such analysis is possible if access to more granular spatial
-MPD is available. \DIFaddbegin \DIFadd{Fourth, the appropriate use of spatial
-cross-validation remains an open methodological question. While it has
-been recommended as a safeguard against spatial dependence in the data
-(e.g. \mbox{%DIFAUXCMD
+means that the results presented here at local authority districts
+should be interpreted as overall national-scale comparative evidence
+across harmonised spatial units. Currently unobserved patterns may
+become visible at finer geographic scales unveiling within-area
+heterogeneity, and the magnitude or configuration of coverage bias may
+differ. This }\DIFaddend highlights the need for more spatially granular analyses
+where data availability permits. Such analysis is possible if access to
+more granular spatial MPD is available. \DIFaddbegin \DIFadd{Fourth, the appropriate use of
+spatial cross-validation remains an open methodological question. While
+it has been recommended as a safeguard against spatial dependence in the
+data (e.g. \mbox{%DIFAUXCMD
 \citep{roberts17}}\hskip0pt%DIFAUXCMD
-), other studies have shown that it may also produce
-pessimistic or biased assessments of predictive performance (e.g.
-\mbox{%DIFAUXCMD
+), other studies have shown that it may also
+produce pessimistic or biased assessments of predictive performance
+(e.g. \mbox{%DIFAUXCMD
 \citep{Radoux21}}\hskip0pt%DIFAUXCMD
-). }\DIFaddend Finally, we examined four datasets. Further research is
-required to assess whether the patterns we document hold across
+). }\DIFaddend Finally, we examined four datasets. Further research
+is required to assess whether the patterns we document hold across
 additional providers, different time periods and diverse national
 contexts.
 
@@ -1498,12 +1535,12 @@ equitably realised.
 \DIFdelbegin %DIFDELCMD < \ethics{This research was conducted in accordance with the ethical standards of the University of Liverpool. All data used were anonymised and analysed at an aggregate level. No identifiable personal data were accessed or processed by the authors.}
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \ethics{This research was conducted in accordance with the ethical standards of the University of Liverpool. No personal identifiers were accessible to the researchers at any stage of the study. All data used were anonymised. All sources were stored and accessed within a secure data environment protected by three-factor authentication. Data-sharing agreements did not permit any attempt at re-identification. All reported outputs are presented only at aggregate spatial and temporal scales to minimise disclosure risk.}
-\DIFaddend
+\DIFaddend 
 
 \DIFdelbegin %DIFDELCMD < \dataccess{Please see data accessibility in the Data section. Code is openly available at \url{https://github.com/de-bias/bias-detection}.}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \dataccess{Code for data processing, analysis and figure generation is openly available at \url{https://github.com/de-bias/bias-detection}. Some preprocessing workflows require separately obtained restricted-access data. Analytical workflows reported in the manuscript rely on aggregated inputs. The Twitter/X dataset used in this study is publicly available in aggregated analysis-ready form from the repository cited in the manuscript, and Multi-app2 is publicly available via Zenodo. Meta data were accessed through Meta's Data for Good programme and are subject to Meta's access conditions. Multi-app1 is subject to a non-disclosure agreement with the provider and cannot be shared in its raw format. To support transparency and reproducibility, we provide the processed dataset aggregated at Local Authority District level, containing census population counts, digital-trace population counts for each source, and the corresponding population coverage bias used in the analysis. It is available at \url{https://github.com/de-bias/bias-detection/blob/main/outputs/manuscript-data/lad-derived-population-counts.csv}.}
-\DIFaddend
+\DIFdelend \DIFaddbegin \dataccess{Code and data to reproduce the reported results in the manuscript are openly available at \href{https://github.com/de-bias/bias-detection}{DEBIAS detection repository}. Sensitive code involving the preprocessing of restricted-access data is shared. Analytical workflows reported in the manuscript rely on aggregated inputs. The Twitter/X dataset used in this study is publicly available in aggregated analysis-ready form from the repository \href{https://github.com/c-zhong-ucl-ac-uk/Twitter-Internal-Migration}{github.com/Twitter-Internal-Migration}, and Multi-app2 is publicly available via \href{https://doi.org/10.5281/zenodo.13327082}{Zenodo}. Meta data were accessed through Meta's \href{https://ai.meta.com/ai-for-good/datasets/}{AI for Good programme} and are subject to Meta's access conditions. Multi-app1 is subject to a non-disclosure agreement with the provider and cannot be shared in its raw format. To support transparency and reproducibility, we provide the processed dataset aggregated at local authority district level, containing census population counts, digital-trace population counts for each source, and the corresponding population coverage bias used in the analysis. It is available at \href{https://github.com/de-bias/bias-detection/blob/main/outputs/manuscript-data/lad-derived-population-counts.csv}{DEBIAS repository}..}
+\DIFaddend 
 
 \aucontribute{Both authors contributed equally.}
 
@@ -1513,7 +1550,10 @@ equitably realised.
 
 \disclaimer{Please provide disclaimer text here.}
 
-\ack{The authors acknowledge the support of UK ESRC and of project partners: the International Organization for Migration (IOM), Meta Platforms, Inc., and Prof.~Esteban Moro.}
+\DIFdelbegin %DIFDELCMD < \ack{The authors acknowledge the support of UK ESRC and of project partners: the International Organization for Migration (IOM), Meta Platforms, Inc., and Prof.~Esteban Moro.}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \ack{The authors acknowledge the support of UK ESRC and of project partners: the International Organization for Migration (IOM), Meta Platforms, Inc.~and Prof.~Esteban Moro.}
+\DIFaddend 
 
 \bibliographystyle{RS}
 \bibliography{sample.bib}

@@ -105,11 +105,10 @@ Safegraph and Locomizer. They have been used to create critical evidence
 to support policy making, prominently during the COVID-19 pandemic. In
 research, MPD have been used to develop innovative approaches to infer
 mode of transport [@graells-garrido2023], monitor footfall changes
-[@ballantyne2022; @hunter2021], profile daily mobility signatures
-[@cabrera-arnau2023], sense mobility accessibility
+[@ballantyne2022; @hunter2021], profile urban daily mobility patterns
+[@cabrera-arnau2023; @mavrogeni25; @kakimoto25], sense mobility accessibility
 [@graells-garrido2021], predict socioeconomic levels [@soto2011;
-@blumenstock2015], estimate income segregation [@moro2021], quantify
-tourism activity [@raun2016], estimate migration [@cepal24;
+@blumenstock2015], estimate income [@moro2021] and racial-ethnic segregation [@Xu2024], quantify tourism activity [@raun2016], estimate migration [@cepal24;
 @gonzález-leonardo2025] and population displacement [@rowe2022;
 @iradukunda2025; @cabrera25].
 
@@ -146,7 +145,7 @@ disparities. In practice, existing applications of MPD often use
 uncorrected population statistics derived from MPD and have been
 constrained to offer a partial picture for a limited segment of the
 overall population. Such data can only provide rough signals about the
-spatial distribution of (e.g. spatial concentration), trends (e.g.
+spatial distribution (e.g. spatial concentration), trends (e.g.
 increasing) and changes (e.g. low to high) in populations
 [@rowe22-sensing-ukraine]. Unadjusted, they cannot provide a full
 representation of the overall population.
@@ -167,7 +166,7 @@ digital and census counts across geographical areas [@renninger2026;
 @wang2022; @moro2021; @cabrera25]. While this approach is useful as a
 first diagnostic tool, strong global geographic proportionality does not
 ensure that the sample is representative across population groups or
-places [@rowe2021using; @iradukunda2025estimating]. What is therefore
+places [@rowe2021using; @iradukunda2025estimating; @sinclair23]. What is therefore
 needed is a systematic approach that can evaluate representativeness
 when sample composition is unknown and explicitly quantify subnational
 heterogeneity in bias.
@@ -281,10 +280,7 @@ analysis were stored and accessed within a secure data environment
 protected by three-factor authentication. All data were anonymised and
 when individual-record levels were available, data-sharing agreements
 did not permit any attempt at re-identification. All reported outputs
-are presented only at aggregate spatial and temporal scales. Although
-the analysis did not involve directly identifiable personal data, these
-privacy-preserving measures were implemented to minimise disclosure risk
-when working with mobility and social media data.
+are presented only at aggregate spatial and temporal scales.
 
 We therefore focus on aggregated population counts, which are commonly
 used in mobility research as a privacy-preserving and ethically
@@ -416,7 +412,7 @@ proximity ensures a high degree of comparability.
 
 To infer the place of residence of users, we applied a commonly used
 rule-based classification method, following approaches outlined in
-[@zhong25; @unstatsMPDMS2025]. Specifically, the place of residence
+[@zhong25; @unstatsMPDMS2025; @Verma2024]. Specifically, the place of residence
 associated with a device was first identified at H3 resolution 10
 hexagon level as the location with the highest number of GPS records
 recorded during nighttime hours (10 PM-6 AM). To be classified as a
@@ -517,7 +513,7 @@ only, as a common benchmark across all datasets. Mobile application
 datasets may disproportionately represent individuals above a certain
 age (e.g. 16+). In that case, including children in the denominator may
 increase estimated coverage bias in areas with lower adult population
-shares. However, givent that age is not observed in the digital trace
+shares. However, given that age is not observed in the digital trace
 data, we cannot verify the age composition of the captured population
 and therefore cannot reliably restrict the denominator to the adult
 population. This however could be thought as a parameter in our
@@ -620,7 +616,7 @@ dependence on contextual covariates, including linear and nonlinear
 specifications. If residual bias shows non-random spatial variation or
 systematic dependence on contextual covariates, then deviations from the
 proportional baseline are likely driven by spatial processes and/or
-area-level population composition. For example, areas with higher shares
+area-level population composition [@Li2024]. For example, areas with higher shares
 of children may be systematically under-represented because these groups
 are less likely to generate MPD records. In that case, the conventional
 proportional approach is limited as it uses a single proportionality
@@ -836,7 +832,7 @@ across MPD sources. First, all data sources exhibit noticeable
 geographic variability in population coverage bias, as evidenced by the
 spread of values across LADs in their respective distributions, as
 displayed in the cartograms and histograms. This result is consistent
-with recent findings for urban areas in the US [@nijs2025].
+with recent findings for urban areas in the US [@nijs2025] or counties in China [@Mu24].
 
 Second, despite the variability in coverage bias, their spatial
 distribution does not display strong patterns of geographic clustering
@@ -898,7 +894,7 @@ visualisation), where red indicates areas that are overrepresented by
 the digital trace source relative to the baseline expectation and blue
 indicates underrepresented areas. Moran’s $I$ values for residuals are
 small, indicating weak spatial autocorrelation and no strong spatial
-structure in baseline residual error.
+structure in baseline residual error. While we found no statitically significant evidence of spatial dependence, it is likely to occur a finer levels of spatial aggregation as the spatial interactions between places through mobility flows is more fluid.
 
 However, residuals are not random. The second row of Figure
 \@ref(fig:residual-maps) shows, for each dataset, residual bias plotted
@@ -1148,12 +1144,11 @@ multi-app data requires adjustment strategies that go beyond
 conventional post-stratification, demanding more sophisticated
 statistical tools that can simultaneously account for multiple
 intersecting dimensions of inequality. Such tools may include multilevel
-reweighting schemes, Bayesian hierarchical modelling [@rampazzo2021a] ,
+reweighting schemes, Bayesian hierarchical modelling [@rampazzo2021a],
 data-fusion [@graells-garrido2023] or difference-in-difference
 approaches [@zagheni2012] that integrate auxiliary information from
-surveys or administrative records. Such distinction suggests that
-efforts to improve the representativeness of MP-derived statistics
-should be tailored to the nature of the data source. That is to
+surveys or administrative records. Efforts to improve the representativeness of MP-derived statistics
+should therefore be tailored to the nature of the data source, to
 recognise that multi-app datasets, while promising in their breadth,
 pose greater methodological challenges and cannot be assumed to be
 inherently less biased than single-app data.

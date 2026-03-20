@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.27)  16 MAR 2026 22:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.27)  20 MAR 2026 14:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -598,11 +598,6 @@ Underfull \hbox (badness 4328) in paragraph at lines 121--123
  []
 
 
-Underfull \hbox (badness 1796) in paragraph at lines 121--123
-\T1/ppl/m/n/9 cen-suses and sur-veys, are costly, in-fre-quent, and 
- []
-
-
 Overfull \hbox (0.95624pt too wide) in paragraph at lines 121--123
 \T1/ppl/m/n/9 rep-re-sen-ta-tive-ness. De-spite recog-ni-tion of these is-sues,
  
@@ -626,11 +621,6 @@ Underfull \hbox (badness 1715) in paragraph at lines 121--123
 
 Underfull \hbox (badness 2726) in paragraph at lines 121--123
 \T1/ppl/m/n/9 bench-marked against the 2021 cen-sus, we show 
- []
-
-
-Overfull \hbox (0.93594pt too wide) in paragraph at lines 121--123
-\T1/ppl/m/n/9 strongly as-so-ci-ated with de-mo-graphic, so-cioe-co-nomic, 
  []
 
 
@@ -805,13 +795,13 @@ Underfull \hbox (badness 1688) in paragraph at lines 135--150
  []
 
 
-Underfull \hbox (badness 1783) in paragraph at lines 185--204
+Underfull \hbox (badness 1783) in paragraph at lines 195--214
 []\T1/ppl/m/n/9 However, the use of MPD present ma-jor epis-te-mo-log-i-cal, me
 thod-olog-i-cal and eth-i-cal
  []
 
 
-Underfull \hbox (badness 1142) in paragraph at lines 205--222
+Underfull \hbox (badness 1142) in paragraph at lines 215--232
 \T1/ppl/m/n/9 un-cor-rected, MPD re-pro-duce se-lec-tive pat-terns of smart-pho
 ne own-er-ship and ap-pli-ca-tion
  []
@@ -820,18 +810,18 @@ ne own-er-ship and ap-pli-ca-tion
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.65005pt on input line 222.
+(Font)              scaled to size 7.65005pt on input line 232.
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 
 [2]
 LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 2
-75.
+88.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 )
-Underfull \hbox (badness 3364) in paragraph at lines 281--285
+Underfull \hbox (badness 3364) in paragraph at lines 294--298
 []\T1/ppl/m/n/9 How sys-tem-atic is the as-so-ci-a-tion be-tween larger pop-u-l
 a-tion bi-ases and over-
  []
@@ -841,7 +831,12 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
 [3]
-Underfull \hbox (badness 1552) in paragraph at lines 331--358
+
+Package natbib Warning: Author undefined for citation`barreras2024exciting' 
+(natbib)                on page 4 on input line 370.
+
+
+Underfull \hbox (badness 4686) in paragraph at lines 344--376
 |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   [] 
   |   []   |   []
  []
@@ -851,33 +846,45 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 
 [4]
-Underfull \hbox (badness 2181) in paragraph at lines 389--409
+Underfull \hbox (badness 2181) in paragraph at lines 404--424
 \T1/ppl/m/n/9 re-search []|   []   []as a privacy-preserving and eth-i-cally re
 -spon-si-ble data for-mat. []|   []   |   []   |   []
  []
 
-<figures/debias-approach.png, id=221, 7990.85374pt x 3625.545pt>
+
+Underfull \hbox (badness 1107) in paragraph at lines 426--444
+|   [][]\T1/ppl/m/n/9 /[]|   []   |   []   |   []   |   []   |   []   |   [][][
+]|   []   |   []   |   []   |   []   |   []   |   []
+ []
+
+
+Underfull \hbox (badness 1057) in paragraph at lines 446--453
+|   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   [] 
+  |   []   |   []
+ []
+
+<figures/debias-approach.png, id=234, 7990.85374pt x 3625.545pt>
 File: figures/debias-approach.png Graphic file (type png)
 <use figures/debias-approach.png>
-Package pdftex.def Info: figures/debias-approach.png  used on input line 433.
+Package pdftex.def Info: figures/debias-approach.png  used on input line 456.
 (pdftex.def)             Requested size: 369.81506pt x 190.58185pt.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.22505pt on input line 435.
+(Font)              scaled to size 7.22505pt on input line 458.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.22505pt on input line 435.
+(Font)              scaled to size 7.22505pt on input line 458.
 
-Underfull \hbox (badness 10000) detected at line 435
+Underfull \hbox (badness 10000) detected at line 458
 []
  []
 
-<figures/table-data-source.png, id=223, 2615.7725pt x 793.96625pt>
+<figures/table-data-source.png, id=236, 2615.7725pt x 793.96625pt>
 File: figures/table-data-source.png Graphic file (type png)
 <use figures/table-data-source.png>
-Package pdftex.def Info: figures/table-data-source.png  used on input line 440.
+Package pdftex.def Info: figures/table-data-source.png  used on input line 463.
 
 (pdftex.def)             Requested size: 384.1122pt x 116.582pt.
 
-Underfull \hbox (badness 10000) detected at line 441
+Underfull \hbox (badness 10000) detected at line 464
 []
  []
 
@@ -895,11 +902,11 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 [6 <./figures/debias-approach.png> <./figures/table-data-source.png>]
 
 Package natbib Warning: Citation `zhong24working' on page 7 undefined on input 
-line 528.
+line 553.
 
 
 Package natbib Warning: Citation `zhong24working' on page 7 undefined on input 
-line 552.
+line 577.
 
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
@@ -907,27 +914,27 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 [7]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 622.
+(Font)              scaled to size 10.20007pt on input line 647.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 622.
+(hyperref)                than one, level fixed on input line 647.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 622.
+(hyperref)                removing `\@ifnextchar' on input line 647.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\sout' on input line 622.
+(hyperref)                removing `\sout' on input line 647.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 624.
+(hyperref)                removing `\@ifnextchar' on input line 649.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\uwave' on input line 624.
+(hyperref)                removing `\uwave' on input line 649.
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
@@ -936,26 +943,26 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 [8]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 691.
+(hyperref)                removing `\@ifnextchar' on input line 717.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\sout' on input line 691.
+(hyperref)                removing `\sout' on input line 717.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 695.
+(hyperref)                removing `\@ifnextchar' on input line 721.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\uwave' on input line 695.
+(hyperref)                removing `\uwave' on input line 721.
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
 [9]
-Underfull \hbox (badness 1342) in paragraph at lines 739--743
+Underfull \hbox (badness 1342) in paragraph at lines 765--769
 |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   [] 
   |   []   |   []
  []
@@ -967,35 +974,35 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 [10]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 788.
+(hyperref)                removing `\@ifnextchar' on input line 816.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\sout' on input line 788.
+(hyperref)                removing `\sout' on input line 816.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 790.
+(hyperref)                removing `\@ifnextchar' on input line 818.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\uwave' on input line 790.
+(hyperref)                removing `\uwave' on input line 818.
 
 
-Underfull \hbox (badness 2460) in paragraph at lines 792--804
+Underfull \hbox (badness 2460) in paragraph at lines 820--832
 [][]|   []   []\T1/ppl/m/n/9 of pop-u-la-tion cov-er-age bias and how the im-po
 r-tance of these []|   []
  []
 
-<figures/01_table-variable-dictionary_explain.png, id=304, 2634.84375pt x 2779.
+<figures/01_table-variable-dictionary_explain.png, id=322, 2634.84375pt x 2779.
 38374pt>
 File: figures/01_table-variable-dictionary_explain.png Graphic file (type png)
 <use figures/01_table-variable-dictionary_explain.png>
 Package pdftex.def Info: figures/01_table-variable-dictionary_explain.png  used
- on input line 844.
+ on input line 872.
 (pdftex.def)             Requested size: 384.1122pt x 405.18443pt.
 
-Underfull \hbox (badness 10000) detected at line 845
+Underfull \hbox (badness 10000) detected at line 873
 []
  []
 
@@ -1003,170 +1010,150 @@ Underfull \hbox (badness 10000) detected at line 845
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 1132) in paragraph at lines 849--876
-|   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   [] 
-  |   []   |   []   |   []   |   []   |   []   |   []
- []
-
-
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 
 [11]
-Underfull \hbox (badness 4556) in paragraph at lines 896--897
-[]|   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   [
-]   |   []   |   []
- []
-
-
-Underfull \hbox (badness 1859) in paragraph at lines 896--897
-|   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   [] 
-  |   []   |   []
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 
 [12 <./figures/01_table-variable-dictionary_explain.png>]
-<figures/compare-surveys-simplified.png, id=330, 313.8927pt x 193.9245pt>
+<figures/compare-surveys-simplified.png, id=346, 6945.95pt x 4341.21875pt>
 File: figures/compare-surveys-simplified.png Graphic file (type png)
 <use figures/compare-surveys-simplified.png>
 Package pdftex.def Info: figures/compare-surveys-simplified.png  used on input 
-line 924.
-(pdftex.def)             Requested size: 369.90163pt x 256.09651pt.
+line 959.
+(pdftex.def)             Requested size: 369.78699pt x 256.0237pt.
 
-Overfull \vbox (21.51176pt too high) has occurred while \output is active []
-
-
-[13 <./figures/compare-surveys-simplified.png>]
-Underfull \hbox (badness 2671) in paragraph at lines 941--953
+Underfull \hbox (badness 2671) in paragraph at lines 976--988
 []\T1/ppl/m/n/9 Despite dif-fer-ences in pop-u-la-tion cov-er-age, both MPD and
  tra-di-tional sur-veys of-fer
  []
 
 
-Underfull \hbox (badness 1668) in paragraph at lines 941--953
+Underfull \hbox (badness 1668) in paragraph at lines 976--988
 \T1/ppl/m/n/9 rep-re-sen-ta-tive-ness at the na-tional level. They rarely ex-pa
 nd to pro-vide ro-bust lev-els of
  []
 
 
-Underfull \hbox (badness 3579) in paragraph at lines 954--970
+Underfull \hbox (badness 3579) in paragraph at lines 989--1005
 \T1/ppl/m/n/9 iden-ti-fiers. As such, ap-ply-ing the sim-i-lar post-stratificat
 ion ad-just-ments is chal-leng-ing.
  []
 
 
-Underfull \hbox (badness 2318) in paragraph at lines 971--979
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+
+[13]
+Underfull \hbox (badness 2318) in paragraph at lines 1006--1014
 []\T1/ppl/m/n/9 We ar-gue that we can in-fer some of these char-ac-ter-is-tics 
 by lever-ag-ing the spatio-
  []
-
-<figures/Fig-size-bias-r1.png, id=342, 1334.9875pt x 1076.02pt>
-File: figures/Fig-size-bias-r1.png Graphic file (type png)
-<use figures/Fig-size-bias-r1.png>
-Package pdftex.def Info: figures/Fig-size-bias-r1.png  used on input line 1007.
-
-(pdftex.def)             Requested size: 398.3401pt x 369.88097pt.
-
-Overfull \hbox (14.2279pt too wide) in paragraph at lines 1007--1015
- [][] 
- []
-
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 1015.
-
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 1015.
-
-
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.25> not available
-(Font)              size <5> substituted on input line 1015.
-
-
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <8.5> not available
-(Font)              size <8> substituted on input line 1015.
-
-
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.25> not available
-(Font)              size <5> substituted on input line 1015.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 1015.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
-(Font)              size <5> substituted on input line 1015.
 
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 
-[14]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[14 <./figures/compare-surveys-simplified.png>]
+<figures/Fig-size-bias-r1.png, id=368, 1334.9875pt x 1076.02pt>
+File: figures/Fig-size-bias-r1.png Graphic file (type png)
+<use figures/Fig-size-bias-r1.png>
+Package pdftex.def Info: figures/Fig-size-bias-r1.png  used on input line 1042.
+
+(pdftex.def)             Requested size: 398.3401pt x 369.88097pt.
+
+Overfull \hbox (14.2279pt too wide) in paragraph at lines 1042--1050
+ [][] 
+ []
+
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 1050.
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <8.5> not available
+(Font)              size <8> substituted on input line 1050.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.25> not available
+(Font)              size <5> substituted on input line 1050.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <8.5> not available
+(Font)              size <8> substituted on input line 1050.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.25> not available
+(Font)              size <5> substituted on input line 1050.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <8.5> not available
+(Font)              size <8> substituted on input line 1050.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
+(Font)              size <5> substituted on input line 1050.
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
 [15 <./figures/Fig-size-bias-r1.png>]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 1104.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\uwave' on input line 1104.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
 [16]
-Underfull \hbox (badness 2293) in paragraph at lines 1121--1132
-|   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   [] 
-  |   []   |   []
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 1142.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\uwave' on input line 1142.
+
+
+Underfull \hbox (badness 1043) in paragraph at lines 1158--1173
+|   []   |   []   |   []   |   []   |   []   |   []   [][]|   []   |   []   |  
+ []   |   []   |   []   |   []
  []
 
 
-Underfull \hbox (badness 2213) in paragraph at lines 1138--1150
-|   []   |   []   |   []   |   []   |   []   |   []   |   []   |   []   |   [] 
-  |   []   |   []
+Underfull \hbox (badness 1320) in paragraph at lines 1182--1188
+|   []   |   []   |   []   [][]|   []   |   []   []\T1/ppl/m/n/9 of cov-er-age 
+bias []|   []   |   []   |   []   |   []   |   []   |   []
  []
 
-<figures/residual-maps.png, id=369, 1966.34625pt x 954.56625pt>
+<figures/residual-maps.png, id=388, 1966.34625pt x 954.56625pt>
 File: figures/residual-maps.png Graphic file (type png)
 <use figures/residual-maps.png>
-Package pdftex.def Info: figures/residual-maps.png  used on input line 1153.
+Package pdftex.def Info: figures/residual-maps.png  used on input line 1191.
 (pdftex.def)             Requested size: 398.33296pt x 199.1685pt.
 
-Overfull \hbox (14.22076pt too wide) in paragraph at lines 1153--1162
+Overfull \hbox (14.22076pt too wide) in paragraph at lines 1191--1200
  [][] 
  []
 
-<figures/radial-plots_feature-importance.png, id=373, 1744.5175pt x 1719.42375p
-t>
-File: figures/radial-plots_feature-importance.png Graphic file (type png)
-<use figures/radial-plots_feature-importance.png>
-Package pdftex.def Info: figures/radial-plots_feature-importance.png  used on i
-nput line 1192.
-(pdftex.def)             Requested size: 384.11447pt x 378.58923pt.
 
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 
 [17]
-<figures/explain-bias.png, id=379, 7767.0175pt x 5238.57124pt>
+<figures/radial-plots_feature-importance.png, id=398, 1744.5175pt x 1719.42375p
+t>
+File: figures/radial-plots_feature-importance.png Graphic file (type png)
+<use figures/radial-plots_feature-importance.png>
+Package pdftex.def Info: figures/radial-plots_feature-importance.png  used on i
+nput line 1230.
+(pdftex.def)             Requested size: 384.11447pt x 378.58923pt.
+<figures/explain-bias.png, id=399, 7767.0175pt x 5238.57124pt>
 File: figures/explain-bias.png Graphic file (type png)
 <use figures/explain-bias.png>
-Package pdftex.def Info: figures/explain-bias.png  used on input line 1236.
+Package pdftex.def Info: figures/explain-bias.png  used on input line 1274.
 (pdftex.def)             Requested size: 401.17325pt x 347.07368pt.
 
-Overfull \hbox (17.06105pt too wide) in paragraph at lines 1236--1248
+Overfull \hbox (17.06105pt too wide) in paragraph at lines 1274--1286
  [][] 
  []
 
@@ -1175,16 +1162,19 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
 [18 <./figures/residual-maps.png>]
-Underfull \hbox (badness 1237) in paragraph at lines 1281--1309
-[]\T1/ppl/m/n/9 Figure [][]6[][][] also re-veals sys-tem-atic com-plex non-lin-
-ear shapes in the as-so-ci-a-tion be-tween
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
 [19 <./figures/radial-plots_feature-importance.png>]
+Underfull \hbox (badness 1237) in paragraph at lines 1319--1347
+[]\T1/ppl/m/n/9 Figure [][]6[][][] also re-veals sys-tem-atic com-plex non-lin-
+ear shapes in the as-so-ci-a-tion be-tween
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1192,9 +1182,9 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
 [20 <./figures/explain-bias.png>]
-Underfull \hbox (badness 2343) in paragraph at lines 1358--1391
-\T1/ppl/m/n/9 strate-gies to mit-i-gate data bi-ases. []|   []   [][]|   []   |
-   []   |   []   |   []   |   []
+Underfull \hbox (badness 1490) in paragraph at lines 1396--1429
+\T1/ppl/m/n/9 that can si-mul-ta-ne-ously ac-count for mul-ti-ple in-ter-sect-i
+ng di-men-sions of in-equal-ity. Such
  []
 
 
@@ -1204,7 +1194,7 @@ Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 [21]
 
 Package natbib Warning: Citation `Radoux21' on page 22 undefined on input line 
-1452.
+1489.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1213,42 +1203,18 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 
-[22] (./diff-r1.bbl
+[22]
 Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
-[23]
-Underfull \hbox (badness 1264) in paragraph at lines 84--87
-[]\T1/ppl/m/n/9 Moro E, Calacci D, Dong X, Pent-land A. 2021 Mo-bil-ity pat-ter
-ns are as-so-ci-ated with
- []
-
-
+[23] (./diff-r1.bbl
 Overfull \vbox (21.4162pt too high) has occurred while \output is active []
 
 
 [24]
-Underfull \hbox (badness 4254) in paragraph at lines 190--194
-[]\T1/ppl/m/n/9 UK Gov-ern-ment. 2025 Pop-u-la-tion Move-ment Data: Un-lock-ing
- Op-por-tu-ni-ties for a
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--194
-\T1/ppl/m/n/9 Mod-ern Dig-i-tal Gov-ern-ment. [][]$\T1/pcr/m/n/9 https : / / ww
-w . gov . uk / government / publications /
- []
-
-
-Overfull \hbox (72.73634pt too wide) in paragraph at lines 190--194
-\T1/pcr/m/n/9 population-[]movement-[]data-[]unlocking-[]opportunities-[]for-[]
-a-[]modern-[]digital-[]government /
- []
-
-
-Overfull \hbox (69.58635pt too wide) in paragraph at lines 190--194
-\T1/pcr/m/n/9 population-[]movement-[]data-[]unlocking-[]opportunities-[]for-[]
-a-[]modern-[]digital-[]government$[][]\T1/ppl/m/n/9 .
+Underfull \hbox (badness 1264) in paragraph at lines 95--98
+[]\T1/ppl/m/n/9 Moro E, Calacci D, Dong X, Pent-land A. 2021 Mo-bil-ity pat-ter
+ns are as-so-ci-ated with
  []
 
 
@@ -1256,13 +1222,37 @@ Overfull \vbox (21.51176pt too high) has occurred while \output is active []
 
 
 [25]
-Underfull \hbox (badness 1137) in paragraph at lines 248--250
+Underfull \hbox (badness 4254) in paragraph at lines 216--220
+[]\T1/ppl/m/n/9 UK Gov-ern-ment. 2025 Pop-u-la-tion Move-ment Data: Un-lock-ing
+ Op-por-tu-ni-ties for a
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--220
+\T1/ppl/m/n/9 Mod-ern Dig-i-tal Gov-ern-ment. [][]$\T1/pcr/m/n/9 https : / / ww
+w . gov . uk / government / publications /
+ []
+
+
+Overfull \hbox (72.73634pt too wide) in paragraph at lines 216--220
+\T1/pcr/m/n/9 population-[]movement-[]data-[]unlocking-[]opportunities-[]for-[]
+a-[]modern-[]digital-[]government /
+ []
+
+
+Overfull \hbox (69.58635pt too wide) in paragraph at lines 216--220
+\T1/pcr/m/n/9 population-[]movement-[]data-[]unlocking-[]opportunities-[]for-[]
+a-[]modern-[]digital-[]government$[][]\T1/ppl/m/n/9 .
+ []
+
+
+Underfull \hbox (badness 1137) in paragraph at lines 289--291
 []\T1/ppl/m/n/9 den Nijs K, Omodei E, Sekara V. 2025 Data Bias in Hu-man Mo-bil
 -ity is a Uni-ver-sal
  []
 
 
-Underfull \hbox (badness 3240) in paragraph at lines 261--264
+Underfull \hbox (badness 3240) in paragraph at lines 308--311
 []\T1/ppl/m/n/9 Dindi PD, Stiegler N. 2025 Chart-ing the fu-ture of cen-suses: 
 In-sights, lessons and
  []
@@ -1289,13 +1279,13 @@ Package rerunfilecheck Info: File `diff-r1.out' has not changed.
 (rerunfilecheck)             Checksum: EB0CCB06939CF27E971992DA955DFCF7;5209.
  ) 
 Here is how much of TeX's memory you used:
- 14209 strings out of 474116
- 215859 string characters out of 5743682
- 2045187 words of memory out of 5000000
- 36155 multiletter control sequences out of 15000+600000
- 635908 words of font info for 185 fonts, out of 8000000 for 9000
+ 14234 strings out of 474116
+ 216365 string characters out of 5743682
+ 2070187 words of memory out of 5000000
+ 36172 multiletter control sequences out of 15000+600000
+ 632723 words of font info for 174 fonts, out of 8000000 for 9000
  1151 hyphenation exceptions out of 8191
- 90i,13n,93p,1530b,744s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,13n,93p,1643b,718s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9
 .pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.p
 fb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
@@ -1313,10 +1303,10 @@ xmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dis
 t/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts
 /type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/
 urw/palatino/uplri8a.pfb>
-Output written on diff-r1.pdf (26 pages, 12177644 bytes).
+Output written on diff-r1.pdf (26 pages, 15042385 bytes).
 PDF statistics:
- 560 PDF objects out of 1000 (max. 8388607)
- 477 compressed objects within 5 object streams
- 121 named destinations out of 1000 (max. 500000)
+ 583 PDF objects out of 1000 (max. 8388607)
+ 499 compressed objects within 5 object streams
+ 130 named destinations out of 1000 (max. 500000)
  229 words of extra memory for PDF output out of 10000 (max. 10000000)
 
