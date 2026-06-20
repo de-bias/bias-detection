@@ -1,0 +1,24 @@
+---
+title: "Point-by-point response to reviewers"
+author: "Carmen Cabrera and Francisco Rowe"
+format: 
+  pdf:
+    pdf-engine: xelatex
+header-includes:
+  - \usepackage{enumitem}
+  - \usepackage{ulem}
+bibliography: sample.bib
+---
+
+\vspace{-5mm}
+
+\section{Reviewer 1}
+
+\setlength{\leftskip}{0cm}\textit{\textbf{Reviewer 1, Comment 1 (R1.1).} The authors have addressed my substantive concerns. The revised manuscript now includes the proportional baseline/residual analysis, spatial residual diagnostics, spatial block cross-validation and lagged robustness checks, clearer treatment of the bias metric, and additional model reporting. I do not think another substantive revision is necessary. I would only ask the authors to correct minor remaining issues, especially the apparent $\times 1000$ typo in Equation 3.4; there are few also a few typos (“supplemenatry”, “statitically”, “mode” instead of model).}
+
+\setlength{\leftskip}{0.5cm}\textbf{A:} We thank the reviewer for the careful re-reading of the manuscript and for noting these remaining minor issues. We have corrected the apparent $\times 1000$ typo in Equation 3.4, as well as the remaining typographical errors identified in the text.
+
+
+We would like to thank the Reviewers and Editor once again for the careful handling of our manuscript and we are pleased to know that it got accepted for publication.
+
+

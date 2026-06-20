@@ -1,0 +1,1132 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.27)  20 JUN 2026 10:46
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**diff-si-r2.tex
+(./diff-si-r2.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-02-20>
+(./rsos.cls
+
+LaTeX Warning: You have requested document class `rsos',
+               but the document class provides `rsproca'.
+
+Document Class: rsproca 2005/12/01 v1.1 Standard LaTeX document class
+(/usr/local/texlive/2024/texmf-dist/tex/latex/vruler/vruler.sty 2.3 <24/10/96>
+    VRULER version 2.3 Octorber 1996 By Z Jiang
+    University of New England, Australia
+    Email: zhuhan@neumann.une.edu.au
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/crop/crop.sty
+Package: crop 2017/11/19 1.10 crop marks (mf)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\CROP@index=\count198
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\CROP@offset=\count199
+Package crop Info: Local config file crop.cfg used on input line 622.
+
+(/usr/local/texlive/2024/texmf-dist/tex/xelatex/xetexconfig/crop.cfg))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2023/05/13 v2.17o AMS math features
+\@mathmargin=\skip48
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks34
+\ex@=\dimen145
+))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen146
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count266
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count267
+\leftroot@=\count268
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count269
+\DOTSCASE@=\count270
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box57
+\strutbox@=\box58
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen147
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count271
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count272
+\dotsspace@=\muskip16
+\c@parentequation=\count273
+\dspbrk@lvl=\count274
+\tag@help=\toks35
+\row@=\count275
+\column@=\count276
+\maxfields@=\count277
+\andhelp@=\toks36
+\eqnshift@=\dimen148
+\alignsep@=\dimen149
+\tagshift@=\dimen150
+\tagwidth@=\dimen151
+\totwidth@=\dimen152
+\lineht@=\dimen153
+\@envbody=\toks37
+\multlinegap=\skip49
+\multlinetaggap=\skip50
+\mathdisplay@stack=\toks38
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amscls/upref.sty
+Package: upref 2007/03/14 v2.04
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/endnotes/endnotes.sty
+Package: endnotes 2020-01-02 endnotes package
+\c@endnote=\count278
+\endnotesep=\dimen154
+\@enotes=\write3
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks39
+\thm@bodyfont=\toks40
+\thm@headfont=\toks41
+\thm@notefont=\toks42
+\thm@headpunct=\toks43
+\thm@preskip=\skip51
+\thm@postskip=\skip52
+\thm@headsep=\skip53
+\dth@everypar=\toks44
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/marginnote/marginnote.sty
+Package: marginnote 2018/08/09 1.4b non floating margin notes for LaTeX
+\c@mn@abspage=\count279
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/soul/soul.sty
+Package: soul 2023-06-14 v3.1 Permit use of UTF-8 characters in soul (HO)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/soul/soul-ori.sty
+Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
+\SOUL@word=\toks45
+\SOUL@lasttoken=\toks46
+\SOUL@syllable=\toks47
+\SOUL@cmds=\toks48
+\SOUL@buffer=\toks49
+\SOUL@token=\toks50
+\SOUL@syllgoal=\dimen155
+\SOUL@syllwidth=\dimen156
+\SOUL@charkern=\dimen157
+\SOUL@hyphkern=\dimen158
+\SOUL@dimen=\dimen159
+\SOUL@dimeni=\dimen160
+\SOUL@minus=\count280
+\SOUL@comma=\count281
+\SOUL@apo=\count282
+\SOUL@grave=\count283
+\SOUL@spaceskip=\skip54
+\SOUL@ttwidth=\dimen161
+\SOUL@uldp=\dimen162
+\SOUL@ulht=\dimen163
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks51
+)
+\Gin@req@height=\dimen164
+\Gin@req@width=\dimen165
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count284
+\rotFPtop=\skip55
+\rotFPbot=\skip56
+\rot@float@box=\box59
+\rot@mess@toks=\toks52
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/dcolumn.sty
+Package: dcolumn 2023/07/08 v1.06 decimal alignment package (DPC)
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen166
+\ar@mcellbox=\box60
+\extrarowheight=\dimen167
+\NC@list=\toks53
+\extratabsurround=\skip57
+\backup@length=\skip58
+\ar@cellbox=\box61
+))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/palatino.sty
+Package: palatino 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/helvet.sty
+Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
+)
+\catchlinewd=\dimen168
+\dcht=\dimen169
+\frametextht=\dimen170
+\myrunhwidth=\skip59
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 47
+9.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 9.35007pt on input line 479.
+\c@part=\count285
+\c@section=\count286
+\c@subsection=\count287
+\c@subsubsection=\count288
+\c@paragraph=\count289
+\c@subparagraph=\count290
+\c@figure=\count291
+\c@scheme=\count292
+\c@table=\count293
+\abovecaptionskip=\skip60
+\belowcaptionskip=\skip61
+\leftnoteskip=\dimen171
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2024/02/20 v1.0g Color table columns (DPC)
+\everycr=\toks54
+\minrowclearance=\skip62
+\rownum=\count294
+)
+\bibindent=\dimen172
+\absbox=\box62
+\fmtextbox=\box63
+\c@mythm=\count295
+\rotdimen=\dimen173
+\symEulerExtension=\mathgroup6
+LaTeX Font Info:    Redeclaring math symbol \intop on input line 1447.
+LaTeX Font Info:    Redeclaring math symbol \ointop on input line 1448.
+\eqntext=\dimen174
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip63
+\bibsep=\skip64
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count296
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2024-01-20 v7.01h Hypertext links for LaTeX
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count297
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count298
+)
+\@linkdim=\dimen175
+\Hy@linkcounter=\count299
+\Hy@pagecounter=\count300
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2024-01-20 v7.01h Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/local/texlive/2024/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count301
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2024-01-20 v7.01h Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 4062
+.
+Package hyperref Info: Option `raiselinks' set `true' on input line 4062.
+Package hyperref Info: Option `breaklinks' set `true' on input line 4062.
+Package hyperref Info: Hyper figures OFF on input line 4179.
+Package hyperref Info: Link nesting OFF on input line 4184.
+Package hyperref Info: Hyper index ON on input line 4187.
+Package hyperref Info: Plain pages OFF on input line 4194.
+Package hyperref Info: Backreferencing OFF on input line 4199.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4446.
+\c@Hy@tempcnt=\count302
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4784.
+\XeTeXLinkMargin=\dimen176
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count303
+\Field@Width=\dimen177
+\Fld@charsize=\dimen178
+Package hyperref Info: Hyper figures OFF on input line 6063.
+Package hyperref Info: Link nesting OFF on input line 6068.
+Package hyperref Info: Hyper index ON on input line 6071.
+Package hyperref Info: backreferencing OFF on input line 6078.
+Package hyperref Info: Link coloring OFF on input line 6083.
+Package hyperref Info: Link coloring with OCG OFF on input line 6088.
+Package hyperref Info: PDF/A mode OFF on input line 6093.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count304
+\c@Item=\count305
+\c@Hfootnote=\count306
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2024-01-20 v7.01h Hyperref driver for pdfTeX
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count307
+\c@bookmark@seq@number=\count308
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip65
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 1524.
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 11
+2.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/t1ppl.fd
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
+))
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks55
+\inpenc@posthook=\toks56
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2023-11-01 v4.19 Multi-page Table package (DPC)
+\LTleft=\skip66
+\LTright=\skip67
+\LTpre=\skip68
+\LTpost=\skip69
+\LTchunksize=\count309
+\LTcapwidth=\dimen179
+\LT@head=\box64
+\LT@firsthead=\box65
+\LT@foot=\box66
+\LT@lastfoot=\box67
+\LT@gbox=\box68
+\LT@cols=\count310
+\LT@rows=\count311
+\c@LT@tables=\count312
+\c@LT@chunks=\count313
+\LT@p@ftn=\toks57
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen180
+\lightrulewidth=\dimen181
+\cmidrulewidth=\dimen182
+\belowrulesep=\dimen183
+\belowbottomsep=\dimen184
+\aboverulesep=\dimen185
+\abovetopsep=\dimen186
+\cmidrulesep=\dimen187
+\cmidrulekern=\dimen188
+\defaultaddspace=\dimen189
+\@cmidla=\count314
+\@cmidlb=\count315
+\@aboverulesep=\dimen190
+\@belowrulesep=\dimen191
+\@thisruleclass=\count316
+\@lastruleclass=\count317
+\@thisrulewidth=\dimen192
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count318
+\calc@Bcount=\count319
+\calc@Adimen=\dimen193
+\calc@Bdimen=\dimen194
+\calc@Askip=\skip70
+\calc@Bskip=\skip71
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count320
+\calc@Cskip=\skip72
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty
+Package: footnotehyper 2021/08/13 v1.1e hyperref aware footnote.sty (JFB)
+\FNH@notes=\box69
+\FNH@width=\dimen195
+\FNH@toks=\toks58
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count321
+\float@exts=\toks59
+\float@box=\box70
+\@float@everytoks=\toks60
+\@floatcapt=\box71
+)
+\c@theorem=\count322
+\c@condition=\count323
+\c@corollary=\count324
+
+(/usr/local/texlive/2024/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box72
+\UL@hyphenbox=\box73
+\UL@skip=\skip73
+\UL@hook=\toks61
+\UL@height=\dimen196
+\UL@pe=\count325
+\UL@pixel=\dimen197
+\ULC@box=\box74
+Package: ulem 2019/11/18
+\ULdepth=\dimen198
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count326
+\lst@gtempboxa=\box75
+\lst@token=\toks62
+\lst@length=\count327
+\lst@currlwidth=\dimen199
+\lst@column=\count328
+\lst@pos=\count329
+\lst@lostspace=\dimen256
+\lst@width=\dimen257
+\lst@newlines=\count330
+\lst@lineno=\count331
+\lst@maxwidth=\dimen258
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstpatch.sty
+File: lstpatch.sty 2024/02/21 1.10 (Carsten Heinz)
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2024/02/21 1.10 (Carsten Heinz)
+\c@lstnumber=\count332
+\lst@skipnumbers=\count333
+\lst@framebox=\box76
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2024/02/21 1.10 listings configuration
+))
+Package: listings 2024/02/21 1.10 (Carsten Heinz)
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count334
+\l__pdf_internal_box=\box77
+)
+(./diff-si-r2.aux
+
+LaTeX Warning: Label `fig:model-performance' multiply defined.
+
+)
+\openout1 = `diff-si-r2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+ (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count335
+\scratchdimen=\dimen259
+\scratchbox=\box78
+\nofMPsegments=\count336
+\nofMParguments=\count337
+\everyMPshowfont=\toks63
+\MPscratchCnt=\count338
+\MPscratchDim=\dimen260
+\MPnumerator=\count339
+\makeMPintoPDFobject=\count340
+\everyMPtoPDFconversion=\toks64
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package crop Info: requested driver: `' on input line 82.
+Package crop Info: detected driver: `pdftex' on input line 82.
+Package crop Info: using `pdftex' graphics driver on input line 82.
+Package hyperref Info: Link coloring ON on input line 82.
+
+(./diff-si-r2.out) (./diff-si-r2.out)
+\@outlinefile=\write4
+\openout4 = `diff-si-r2.out'.
+
+\c@lstlisting=\count341
+
+Underfull \hbox (badness 4328) in paragraph at lines 122--124
+\T1/ppl/m/n/9 Traditional sources of pop-u-la-tion data, such as 
+ []
+
+
+Overfull \hbox (0.95624pt too wide) in paragraph at lines 122--124
+\T1/ppl/m/n/9 rep-re-sen-ta-tive-ness. De-spite recog-ni-tion of these is-sues,
+ 
+ []
+
+
+Underfull \hbox (badness 7133) in paragraph at lines 122--124
+\T1/ppl/m/n/9 frame-work to quan-tify and ex-plain pop-u-la-tion 
+ []
+
+
+Underfull \hbox (badness 1960) in paragraph at lines 122--124
+\T1/ppl/m/n/9 data with-out re-quir-ing individual-level at-tributes. 
+ []
+
+
+Underfull \hbox (badness 1715) in paragraph at lines 122--124
+\T1/ppl/m/n/9 iden-tify con-tex-tual drivers of spa-tial vari-a-tion in 
+ []
+
+
+Underfull \hbox (badness 2726) in paragraph at lines 122--124
+\T1/ppl/m/n/9 bench-marked against the 2021 cen-sus, we show 
+ []
+
+
+Underfull \hbox (badness 4072) in paragraph at lines 122--124
+\T1/ppl/m/n/9 ways. Con-trary to com-mon as-sump-tions, multi- 
+ []
+
+
+Overfull \hbox (1.95563pt too wide) in paragraph at lines 122--124
+\T1/ppl/m/n/9 com-pared to single-app sources. []|   []   |   []   |   [] 
+ []
+
+
+Underfull \hbox (badness 3460) in paragraph at lines 122--124
+|   []   |   []   |   []   |   []   |   []   |   [] 
+ []
+
+
+Overfull \hbox (1.90791pt too wide) in paragraph at lines 122--124
+|   []   |   []   |   [][][]|   []   |   []   |   []   |   [] 
+ []
+
+
+Underfull \hbox (badness 2735) in paragraph at lines 122--124
+|   []   |   []   |   []   |   []   |   []   |   [] 
+ []
+
+<OPENSCIENCE.pdf, id=20, 153.57375pt x 33.12375pt>
+File: OPENSCIENCE.pdf Graphic file (type pdf)
+<use OPENSCIENCE.pdf>
+Package pdftex.def Info: OPENSCIENCE.pdf  used on input line 131.
+(pdftex.def)             Requested size: 153.57336pt x 33.12366pt.
+
+Overfull \hbox (11.30959pt too wide) in paragraph at lines 131--131
+[][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 11.47508pt on input line 131.
+
+Overfull \hbox (13.63518pt too wide) in paragraph at lines 131--131
+[][]\T1/phv/m/n/13.5 rsos.royalsocietypublishing.org[] 
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 15.30011pt on input line 131.
+<OpenAccesslogo_bw.pdf, id=22, 20.075pt x 32.12pt>
+File: OpenAccesslogo_bw.pdf Graphic file (type pdf)
+<use OpenAccesslogo_bw.pdf>
+Package pdftex.def Info: OpenAccesslogo_bw.pdf  used on input line 131.
+(pdftex.def)             Requested size: 20.07494pt x 32.1199pt.
+<RS_crossmark_logo.pdf, id=23, 25.92787pt x 32.61584pt>
+File: RS_crossmark_logo.pdf Graphic file (type pdf)
+<use RS_crossmark_logo.pdf>
+Package pdftex.def Info: RS_crossmark_logo.pdf  used on input line 131.
+(pdftex.def)             Requested size: 25.9278pt x 32.61575pt.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.50006pt on input line 131.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 8.50006pt on input line 131.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 131
+.
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 131
+.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for U+euex on input line 13
+1.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/ueuex.fd
+File: ueuex.fd 2013/01/14 v3.01 Euler extra symbols
+)
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 13
+1.
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 17.00012pt on input line 131.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 11.90009pt on input line 131.
+LaTeX Font Info:    Calculating math sizes for size <14> on input line 131.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 131.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 131.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <5.5> not available
+(Font)              size <5> substituted on input line 131.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 131.
+
+
+Overfull \hbox (170.71654pt too wide) in paragraph at lines 131--131
+[] 
+ []
+
+
+Overfull \vbox (70.49413pt too high) detected at line 131
+ []
+
+
+Overfull \hbox (11.48364pt too wide) in paragraph at lines 131--131
+$[]$|  $[]$ 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+[]
+ []
+
+<RSOS_Pubs_Logo_Line_CMYK.pdf, id=26, 153.57375pt x 20.075pt>
+File: RSOS_Pubs_Logo_Line_CMYK.pdf Graphic file (type pdf)
+<use RSOS_Pubs_Logo_Line_CMYK.pdf>
+Package pdftex.def Info: RSOS_Pubs_Logo_Line_CMYK.pdf  used on input line 132.
+(pdftex.def)             Requested size: 153.57336pt x 20.07494pt.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 6.37505pt on input line 132.
+LaTeX Font Info:    Calculating math sizes for size <7.5> on input line 132.
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <7.5> not available
+(Font)              size <7> substituted on input line 132.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.75> not available
+(Font)              size <5> substituted on input line 132.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <7.5> not available
+(Font)              size <7> substituted on input line 132.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.75> not available
+(Font)              size <5> substituted on input line 132.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <7.5> not available
+(Font)              size <7> substituted on input line 132.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.75> not available
+(Font)              size <5> substituted on input line 132.
+
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 1
+32.
+(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1phv.fd
+File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
+)
+LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
+(Font)              scaled to size 6.37505pt on input line 132.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 4.4625pt on input line 132.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 3.18752pt on input line 132.
+
+Overfull \hbox (14.27687pt too wide) has occurred while \output is active
+[]  [][][][][][] 
+ []
+
+[1
+
+
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
+al/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc} <./OPENSCIENCE.pdf> <./
+OpenAccesslogo_bw.pdf> <./RS_crossmark_logo.pdf> <./RSOS_Pubs_Logo_Line_CMYK.pd
+f>]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 13.6001pt on input line 134.
+
+Underfull \hbox (badness 1515) in paragraph at lines 136--154
+\T1/ppl/m/n/9 re-sults from this cho-sen ap-proach with al-ter-na-tive ones. To
+ this end, we ex-am-ined the
+ []
+
+
+Underfull \hbox (badness 2495) in paragraph at lines 155--161
+[]\T1/ppl/m/n/9 Strong lin-ear re-la-tion-ships are ob-served be-tween Face-boo
+k bias in-di-ca-tors across all
+ []
+
+<figures/Fig-compare-bias-size.png, id=50, 5525.64375pt x 2902.845pt>
+File: figures/Fig-compare-bias-size.png Graphic file (type png)
+<use figures/Fig-compare-bias-size.png>
+Package pdftex.def Info: figures/Fig-compare-bias-size.png  used on input line 
+163.
+(pdftex.def)             Requested size: 384.1122pt x 201.75821pt.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.22505pt on input line 164.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 7.22505pt on input line 164.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.65005pt on input line 167.
+
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+
+[2
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.167 \newpage
+               <./figures/Fig-compare-bias-size.png>]
+<figures/Table-si.png, id=59, 2423.0525pt x 801.99625pt>
+File: figures/Table-si.png Graphic file (type png)
+<use figures/Table-si.png>
+Package pdftex.def Info: figures/Table-si.png  used on input line 179.
+(pdftex.def)             Requested size: 384.1122pt x 127.13498pt.
+<figures/table-covariate-autocorrelation.png, id=60, 310.15875pt x 566.115pt>
+File: figures/table-covariate-autocorrelation.png Graphic file (type png)
+<use figures/table-covariate-autocorrelation.png>
+Package pdftex.def Info: figures/table-covariate-autocorrelation.png  used on i
+nput line 194.
+(pdftex.def)             Requested size: 192.05609pt x 350.54712pt.
+
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+
+[3
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.199 \newpage
+               <./figures/Table-si.png>]
+Underfull \hbox (badness 1062) in paragraph at lines 203--210
+\T1/ppl/m/n/9 as-sess-ments for each dataset, in-clud-ing Pear-son, Spear-man, 
+and dis-tance cor-re-la-tion, and
+ []
+
+<figures/table-proportional-baseline-summary.png, id=70, 656.4525pt x 107.40125
+pt>
+File: figures/table-proportional-baseline-summary.png Graphic file (type png)
+<use figures/table-proportional-baseline-summary.png>
+Package pdftex.def Info: figures/table-proportional-baseline-summary.png  used 
+on input line 212.
+(pdftex.def)             Requested size: 364.90541pt x 59.7018pt.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 213.
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <8.5> not available
+(Font)              size <8> substituted on input line 213.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.25> not available
+(Font)              size <5> substituted on input line 213.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <8.5> not available
+(Font)              size <8> substituted on input line 213.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.25> not available
+(Font)              size <5> substituted on input line 213.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <8.5> not available
+(Font)              size <8> substituted on input line 213.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
+(Font)              size <5> substituted on input line 213.
+
+<figures/table-covariate-assessment-twitter.png, id=71, 578.16pt x 849.1725pt>
+File: figures/table-covariate-assessment-twitter.png Graphic file (type png)
+<use figures/table-covariate-assessment-twitter.png>
+Package pdftex.def Info: figures/table-covariate-assessment-twitter.png  used o
+n input line 217.
+(pdftex.def)             Requested size: 364.90541pt x 535.95331pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/table-covariate-assessment-meta.png, id=72, 582.175pt x 848.16875pt>
+File: figures/table-covariate-assessment-meta.png Graphic file (type png)
+<use figures/table-covariate-assessment-meta.png>
+Package pdftex.def Info: figures/table-covariate-assessment-meta.png  used on i
+nput line 222.
+(pdftex.def)             Requested size: 364.90541pt x 531.64426pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/table-covariate-assessment-mapp1.png, id=73, 575.14874pt x 848.16875pt
+>
+File: figures/table-covariate-assessment-mapp1.png Graphic file (type png)
+<use figures/table-covariate-assessment-mapp1.png>
+Package pdftex.def Info: figures/table-covariate-assessment-mapp1.png  used on 
+input line 227.
+(pdftex.def)             Requested size: 364.90541pt x 538.14114pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/table-covariate-assessment-mapp2.png, id=74, 580.1675pt x 843.15pt>
+File: figures/table-covariate-assessment-mapp2.png Graphic file (type png)
+<use figures/table-covariate-assessment-mapp2.png>
+Package pdftex.def Info: figures/table-covariate-assessment-mapp2.png  used on 
+input line 232.
+(pdftex.def)             Requested size: 364.90541pt x 530.31245pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+
+[4
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.236 \section{Model performance}
+                                 \label{model-performance}
+pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.236 \section{Model performance}
+                                 \label{model-performance} <./figures/table-cov
+ariate-autocorrelation.png> <./figures/table-proportional-baseline-summary.png>
+]
+<figures/table-model-performance.png, id=86, 722.7pt x 513.92pt>
+File: figures/table-model-performance.png Graphic file (type png)
+<use figures/table-model-performance.png>
+Package pdftex.def Info: figures/table-model-performance.png  used on input lin
+e 240.
+(pdftex.def)             Requested size: 345.69862pt x 245.83188pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/variable-importance.png, id=87, 463.7325pt x 908.39375pt>
+File: figures/variable-importance.png Graphic file (type png)
+<use figures/variable-importance.png>
+Package pdftex.def Info: figures/variable-importance.png  used on input line 24
+6.
+(pdftex.def)             Requested size: 307.29092pt x 601.95354pt.
+
+LaTeX Warning: Float too large for page by 45.21107pt on input line 248.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/table-hyperparameters.png, id=88, 938.50626pt x 441.65pt>
+File: figures/table-hyperparameters.png Graphic file (type png)
+<use figures/table-hyperparameters.png>
+Package pdftex.def Info: figures/table-hyperparameters.png  used on input line 
+252.
+(pdftex.def)             Requested size: 384.1122pt x 180.7542pt.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8.5> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 253.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 7.22505pt on input line 253.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/xgb-residual-maps.png, id=89, 602.25pt x 143.78719pt>
+File: figures/xgb-residual-maps.png Graphic file (type png)
+<use figures/xgb-residual-maps.png>
+Package pdftex.def Info: figures/xgb-residual-maps.png  used on input line 258.
+
+(pdftex.def)             Requested size: 384.1122pt x 91.70973pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+No file diff-si-r2.bbl.
+Setting LastPage
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+
+[5]
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+
+[6
+pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.280 \end{document}
+                     <./figures/table-covariate-assessment-twitter.png>]
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+
+[7
+pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.280 \end{document}
+                     <./figures/table-covariate-assessment-meta.png>]
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+
+[8
+pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.280 \end{document}
+                     <./figures/table-covariate-assessment-mapp1.png>]
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+
+[9
+pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.280 \end{document}
+                     <./figures/table-covariate-assessment-mapp2.png>]
+Overfull \vbox (21.51176pt too high) has occurred while \output is active []
+
+
+[10
+pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.280 \end{document}
+                    
+pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.280 \end{document}
+                     <./figures/table-model-performance.png> <./figures/table-h
+yperparameters.png>]
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+
+[11
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.280 \end{document}
+                     <./figures/variable-importance.png>]
+Overfull \vbox (21.4162pt too high) has occurred while \output is active []
+
+
+[12
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.280 \end{document}
+                     <./figures/xgb-residual-maps.png>] (./diff-si-r2.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-02-20>
+ ***********
+
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 1.25pt have occurred.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package rerunfilecheck Info: File `diff-si-r2.out' has not changed.
+(rerunfilecheck)             Checksum: 8234EF12BA30C0ED4ACE9F0C4388EC4D;1274.
+ ) 
+Here is how much of TeX's memory you used:
+ 13968 strings out of 474116
+ 212435 string characters out of 5743682
+ 1966187 words of memory out of 5000000
+ 36017 multiletter control sequences out of 15000+600000
+ 628024 words of font info for 171 fonts, out of 8000000 for 9000
+ 1151 hyphenation exceptions out of 8191
+ 90i,13n,93p,1956b,504s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb>
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr
+/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/lo
+cal/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy6.pfb></us
+r/local/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/
+texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive
+/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/t
+exmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2024/texmf-d
+ist/fonts/type1/urw/palatino/uplr8a.pfb>
+Output written on diff-si-r2.pdf (12 pages, 4708304 bytes).
+PDF statistics:
+ 193 PDF objects out of 1000 (max. 8388607)
+ 130 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
+

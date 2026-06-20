@@ -1,0 +1,40 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Alternative data aggregation approaches for Facebook data}{2}{section.1}\protected@file@percent }
+\newlabel{alternative-data-aggregation-approaches-for-facebook-data}{{1}{2}{Alternative data aggregation approaches for Facebook data}{section.1}{}}
+\newlabel{fig:sensitivity}{{1}{2}{Alternative data aggregation approaches for Facebook data}{section.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Robustness test of population coverage bias indicators derived from Facebook data, under alternative data aggregation approaches.}}{2}{figure.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Testing for spatial autocorrelation in population coverage bias and covariates}{3}{section.2}\protected@file@percent }
+\newlabel{testing-for-spatial-autocorrelation-in-population-coverage-bias-and-covariates}{{2}{3}{Testing for spatial autocorrelation in population coverage bias and covariates}{section.2}{}}
+\newlabel{fig:table-neighbour}{{2}{3}{Testing for spatial autocorrelation in population coverage bias and covariates}{section.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Moran's I coefficients and significance, computed according to four spatial weights schemes, 1) queen neighbourhood, 2) k-nearest neighbours, 3) optimal distance band, and 4) user-defined distance band.}}{3}{table.1}\protected@file@percent }
+\newlabel{fig:covariate-autocorrelation}{{2}{4}{Testing for spatial autocorrelation in population coverage bias and covariates}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Spatial autocorrelation of model covariates measured using Moran's I under queen contiguity. The table reports Moran's I and associated p-values for each covariate, ordered by absolute Moran's I.}}{4}{table.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Residual assessments for proportional baseline}{4}{section.3}\protected@file@percent }
+\newlabel{residual-assessments-for-proportional-baseline}{{3}{4}{Residual assessments for proportional baseline}{section.3}{}}
+\newlabel{fig:baseline-summary}{{3}{4}{Residual assessments for proportional baseline}{section.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Baseline proportional model summary by data source, including estimated proportionality coefficient ($\hat  {\alpha }$), model fit ($R^2$), and Moran’s I of residual bias.}}{4}{table.3}\protected@file@percent }
+\bibstyle{RS}
+\bibdata{sample.bib}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Model performance}{5}{section.4}\protected@file@percent }
+\newlabel{model-performance}{{4}{5}{Model performance}{section.4}{}}
+\newlabel{fig:corr-twitter}{{3}{6}{Residual assessments for proportional baseline}{table.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Assessment of pairwise relationships between contextual covariates and residual for Twitter/X data. For each covariate, the table reports Pearson, Spearman and distance correlation with baseline residual bias, together with AIC and BIC for linear (OLS) and nonlinear (GAM, $k = 5$) models. Lower AIC/BIC indicates better fit.}}{6}{table.4}\protected@file@percent }
+\newlabel{fig:corr-meta}{{3}{7}{Residual assessments for proportional baseline}{table.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Assessment of pairwise relationships between contextual covariates and residual for Meta data. For each covariate, the table reports Pearson, Spearman and distance correlation with baseline residual bias, together with AIC and BIC for linear (OLS) and nonlinear (GAM, $k = 5$) models. Lower AIC/BIC indicates better fit.}}{7}{table.5}\protected@file@percent }
+\newlabel{fig:corr-mapp1}{{3}{8}{Residual assessments for proportional baseline}{table.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Assessment of pairwise relationships between contextual covariates and residual for Multi-app1 data. For each covariate, the table reports Pearson, Spearman and distance correlation with baseline residual bias, together with AIC and BIC for linear (OLS) and nonlinear (GAM, $k = 5$) models. Lower AIC/BIC indicates better fit.}}{8}{table.6}\protected@file@percent }
+\newlabel{fig:corr-mapp2}{{3}{9}{Residual assessments for proportional baseline}{table.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Assessment of pairwise relationships between contextual covariates and residual for Multi-app2 data. For each covariate, the table reports Pearson, Spearman and distance correlation with baseline residual bias, together with AIC and BIC for linear (OLS) and nonlinear (GAM, $k = 5$) models. Lower AIC/BIC indicates better fit.}}{9}{table.7}\protected@file@percent }
+\newlabel{fig:model-performance}{{4}{10}{Model performance}{section.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Comparison of machine-learning model performance across validation strategies and model specifications. For each dataset, the table reports out-of-sample performance for random holdout and spatial block cross-validation models, estimated with and without spatially lagged covariates. Performance is evaluated using the root mean squared error (RMSE), Pearson correlation, Spearman correlation, standard deviation of prediction error and Moran's $I$ of model residuals.}}{10}{table.8}\protected@file@percent }
+\newlabel{fig:model-performance}{{4}{10}{Model performance}{figure.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Selected XGBoost hyperparameters across datasets and model specifications. For each dataset, the table reports the tuned hyperparameters for random holdout and spatial block cross-validation models, estimated with and without spatially lagged covariates. Parameters include learning rate (\textit  {eta}), maximum tree depth, minimum child weight, row and column subsampling ratios, L1 and L2 regularisation penalties, the selected number of trees and the minimum out-of-sample RMSE.}}{10}{table.9}\protected@file@percent }
+\newlabel{fig:variable-importance}{{4}{11}{Model performance}{table.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Robustness test of variable importance across model validation strategies. Each panel reports standardised feature importance scores from models estimated under random holdout and spatial block cross-validation, with and without spatially lagged covariates. For readability, only the original non-lagged contextual covariates are displayed, including in specifications that also contain lagged covariates. The similarity of the importance profiles indicates that the main contextual drivers of population coverage bias are stable across validation strategies.}}{11}{figure.2}\protected@file@percent }
+\newlabel{fig:xgb-residual-maps}{{4}{12}{Model performance}{table.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Model residuals across local authority district areas based on our main XGBoost model reported in the manuscript}}{12}{figure.3}\protected@file@percent }
+\newlabel{LastPage}{{12}{12}}
+\gdef \@abspage@last{12}
