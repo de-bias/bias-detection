@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Untitled</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="codex01_table-variable-dictionary_files/libs/clipboard/clipboard.min.js"></script>
+<script src="codex01_table-variable-dictionary_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="codex01_table-variable-dictionary_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="codex01_table-variable-dictionary_files/libs/quarto-html/popper.min.js"></script>
+<script src="codex01_table-variable-dictionary_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="codex01_table-variable-dictionary_files/libs/quarto-html/anchor.min.js"></script>
+<link href="codex01_table-variable-dictionary_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="codex01_table-variable-dictionary_files/libs/quarto-html/quarto-syntax-highlighting-b6a8276bf55561bdbc268162d41bd1f7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="codex01_table-variable-dictionary_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="codex01_table-variable-dictionary_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="codex01_table-variable-dictionary_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Untitled</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(webshot2)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- original rows ----------------------------------------------------------</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>raw_tbl <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Domain,           <span class="sc">~</span>Variable,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Demographic"</span>,    <span class="st">"Household size"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Female"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Age bands"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Socioeconomic"</span>,  <span class="st">"Socioeconomic classification"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Qualifications"</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Resource accessibility"</span>,               <span class="st">"Deprivation"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Car ownership"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Home ownership"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Central heating"</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Mobility"</span>,       <span class="st">"Non-UK born"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Recent migrant"</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Commuting"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Geographic"</span>,      <span class="st">"Population density"</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Rural"</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co"># --- clean Variable + add Description ---------------------------------------</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> raw_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable_clean =</span> Variable <span class="sc">%&gt;%</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">[[^</span><span class="sc">\\</span><span class="st">]]*</span><span class="sc">\\</span><span class="st">]"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span>  <span class="co"># remove [ ... ]</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">([^</span><span class="sc">\\</span><span class="st">)]*</span><span class="sc">\\</span><span class="st">)"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span>  <span class="co"># remove ( ... )</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s*:.*$"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span>               <span class="co"># drop text after :</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s*%</span><span class="sc">\\</span><span class="st">s*$"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span>             <span class="co"># drop trailing %</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_squish</span>(),</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="fu">if_else</span>(Variable <span class="sc">==</span> <span class="st">""</span>, <span class="st">""</span>, variable_clean),</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">Description =</span> <span class="fu">case_when</span>(</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">""</span> <span class="sc">~</span> <span class="st">""</span>,</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Household size"</span> <span class="sc">~</span> <span class="st">"Percentage of households with six or more people."</span>,</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Female"</span> <span class="sc">~</span> <span class="st">"Percentage of residents who are female."</span>,</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Age bands"</span> <span class="sc">~</span> <span class="st">"Percentage of residents in 10-year age band: 0-9, 10-19, ..., 70+."</span>,</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Socioeconomic classification"</span> <span class="sc">~</span> <span class="st">"Percentage of residents by group based on the National Statistics Socio-economic Classification (NS-SEC)."</span>,</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Qualifications"</span> <span class="sc">~</span> <span class="st">"Percentage of residents by highest qualification level: no qualification or level 4 qualification."</span>,</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Deprivation"</span> <span class="sc">~</span> <span class="st">"Percentage of households not experiencing deprivation in any dimension."</span>,</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Car ownership"</span> <span class="sc">~</span> <span class="st">"Percentage of households with no car."</span>,</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Home ownership"</span> <span class="sc">~</span> <span class="st">"Percentage of households that are owner‑occupied."</span>,</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Central heating"</span> <span class="sc">~</span> <span class="st">"Percentage of households without central heating."</span>,</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Non-UK born"</span> <span class="sc">~</span> <span class="st">"Percentage of residents who are non‑UK born."</span>,</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Recent migrant"</span> <span class="sc">~</span> <span class="st">"Percentage of migrant residents with less than two years in the UK over the resident population."</span>,</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Commuting"</span> <span class="sc">~</span> <span class="st">"Percentage of residents working mainly or only from home."</span>,</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Population density"</span> <span class="sc">~</span> <span class="st">"Number of residents per square kilometre."</span>,</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Rural"</span> <span class="sc">~</span> <span class="st">"Percentage of population living in rural areas."</span>,</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">""</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Domain, Variable, Description)</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co"># --- render table -----------------------------------------------------------</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>tbl_vars <span class="ot">&lt;-</span> tbl <span class="sc">%&gt;%</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_table_font</span>(<span class="fu">list</span>(<span class="fu">google_font</span>(<span class="st">"Roboto Condensed"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="st">"left"</span>, <span class="at">columns =</span> <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_width</span>(Domain <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">130</span>), Variable <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">160</span>), Description <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">450</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tab_options needs color/style/width separately</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.top.color =</span> <span class="st">"black"</span>,</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.top.style =</span> <span class="st">"solid"</span>,</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.top.width =</span> <span class="fu">px</span>(<span class="dv">3</span>),</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.bottom.color =</span> <span class="st">"black"</span>,</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.bottom.style =</span> <span class="st">"solid"</span>,</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.bottom.width =</span> <span class="fu">px</span>(<span class="dv">3</span>),</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">column_labels.border.bottom.color =</span> <span class="st">"black"</span>,</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">column_labels.border.bottom.style =</span> <span class="st">"solid"</span>,</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">column_labels.border.bottom.width =</span> <span class="fu">px</span>(<span class="dv">3</span>),</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_row.padding =</span> <span class="fu">px</span>(<span class="dv">6</span>)</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>  <span class="co"># &lt;-- Add this anywhere after gt(); here is a good place</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>),</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_column_labels</span>()</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>  <span class="co"># keep your other styles</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tab_style(</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   style = cell_text(weight = "bold"),</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   locations = cells_body(rows = 1)</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ) %&gt;%</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_style</span>(</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">v_align =</span> <span class="st">"top"</span>),</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>()</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_borders</span>(<span class="at">sides =</span> <span class="st">"top"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">style =</span> <span class="st">"solid"</span>, <span class="at">weight =</span> <span class="fu">px</span>(<span class="dv">3</span>)),</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> Domain <span class="sc">!=</span> <span class="st">""</span>)</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tbl_vars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;div id="gqmsellvim" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;
+  &lt;style&gt;@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap");
+#gqmsellvim table {
+  font-family: 'Roboto Condensed', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#gqmsellvim thead, #gqmsellvim tbody, #gqmsellvim tfoot, #gqmsellvim tr, #gqmsellvim td, #gqmsellvim th {
+  border-style: none;
+}
+
+#gqmsellvim p {
+  margin: 0;
+  padding: 0;
+}
+
+#gqmsellvim .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #000000;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#gqmsellvim .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gqmsellvim .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gqmsellvim .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gqmsellvim .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gqmsellvim .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gqmsellvim .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gqmsellvim .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gqmsellvim .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#gqmsellvim .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#gqmsellvim .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gqmsellvim .gt_from_md &gt; :first-child {
+  margin-top: 0;
+}
+
+#gqmsellvim .gt_from_md &gt; :last-child {
+  margin-bottom: 0;
+}
+
+#gqmsellvim .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gqmsellvim .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gqmsellvim .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gqmsellvim .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gqmsellvim .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#gqmsellvim .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gqmsellvim .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gqmsellvim .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gqmsellvim .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gqmsellvim .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gqmsellvim .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gqmsellvim .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gqmsellvim .gt_left {
+  text-align: left;
+}
+
+#gqmsellvim .gt_center {
+  text-align: center;
+}
+
+#gqmsellvim .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gqmsellvim .gt_font_normal {
+  font-weight: normal;
+}
+
+#gqmsellvim .gt_font_bold {
+  font-weight: bold;
+}
+
+#gqmsellvim .gt_font_italic {
+  font-style: italic;
+}
+
+#gqmsellvim .gt_super {
+  font-size: 65%;
+}
+
+#gqmsellvim .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#gqmsellvim .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gqmsellvim .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gqmsellvim .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gqmsellvim .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gqmsellvim .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gqmsellvim .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#gqmsellvim .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#gqmsellvim div.Reactable &gt; div.rt-table &gt; div.rt-thead &gt; div.rt-tr.rt-tr-group-header &gt; div.rt-th-group:after {
+  height: 0px !important;
+}
+&lt;/style&gt;
+  &lt;table class="gt_table" style="table-layout: fixed;; width: 0px" data-quarto-disable-processing="false" data-quarto-bootstrap="false"&gt;
+  &lt;colgroup&gt;
+    &lt;col style="width:130px;"/&gt;
+    &lt;col style="width:160px;"/&gt;
+    &lt;col style="width:450px;"/&gt;
+  &lt;/colgroup&gt;
+  &lt;thead&gt;
+    &lt;tr class="gt_col_headings"&gt;
+      &lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Domain"&gt;Domain&lt;/th&gt;
+      &lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Variable"&gt;Variable&lt;/th&gt;
+      &lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Description"&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody class="gt_table_body"&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Demographic&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Household size&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Percentage of households with six or more people.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Female&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of residents who are female.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Age bands&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of residents in 10-year age band: 0-9, 10-19, ..., 70+.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Socioeconomic&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Socioeconomic classification&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Percentage of residents by group based on the National Statistics Socio-economic Classification (NS-SEC).&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Qualifications&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of residents by highest qualification level: no qualification or level 4 qualification.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Resource accessibility&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Deprivation&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Percentage of households not experiencing deprivation in any dimension.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Car ownership&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of households with no car.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Home ownership&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of households that are owner‑occupied.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Central heating&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of households without central heating.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Mobility&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Non-UK born&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Percentage of residents who are non‑UK born.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Recent migrant&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of migrant residents with less than two years in the UK over the resident population.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Commuting&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of residents working mainly or only from home.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Geographic&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Population density&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top; border-top-width: 3px; border-top-style: solid; border-top-color: black;"&gt;Number of residents per square kilometre.&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td headers="Domain" class="gt_row gt_left" style="vertical-align: top;"&gt;&lt;/td&gt;
+&lt;td headers="Variable" class="gt_row gt_left" style="vertical-align: top;"&gt;Rural&lt;/td&gt;
+&lt;td headers="Description" class="gt_row gt_left" style="vertical-align: top;"&gt;Percentage of population living in rural areas.&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  
+  
+&lt;/table&gt;
+&lt;/div&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tbl_vars <span class="ot">&lt;-</span> tbl_vars <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text_transform</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> Description),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fn =</span> <span class="cf">function</span>(x) <span class="fu">str_replace_all</span>(<span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">80</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"&lt;br&gt;"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_markdown</span>(<span class="at">columns =</span> Description)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">gtsave</span>(tbl_vars, <span class="st">"/Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary.pdf"</span>,   <span class="at">vwidth  =</span> <span class="dv">1400</span>,   <span class="co"># wider canvas</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">vheight =</span> <span class="dv">3200</span>,    <span class="co"># tall enough to fit the whole table</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">zoom    =</span> <span class="dv">1</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>file:////var/folders/79/65l52xsj7vq_4_t_l6k5bl2c0000gn/T//RtmpR8AVbe/file169d3fa2550.html screenshot completed</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(webshot2)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)   <span class="co"># used in text_transform</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'flextable' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'flextable'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    compose</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(officer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'officer' was built under R version 4.4.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- original rows ----------------------------------------------------------</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>raw_tbl <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Dimension,           <span class="sc">~</span>Variable,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Demographic"</span>,    <span class="st">"Household size"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Female"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Age bands"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Socioeconomic"</span>,  <span class="st">"Socioeconomic classification"</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Qualifications"</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Resource accessibility"</span>, <span class="st">"Deprivation"</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Car ownership"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Home ownership"</span>,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Central heating"</span>,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Mobility"</span>,       <span class="st">"Non-UK born"</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Recent migrant"</span>,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Commuting"</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Geographic"</span>,     <span class="st">"Population density"</span>,</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">""</span>,               <span class="st">"Rural"</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># --- clean Variable + add Description + Bias_explanation --------------------</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> raw_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable_clean =</span> Variable <span class="sc">%&gt;%</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">[[^</span><span class="sc">\\</span><span class="st">]]*</span><span class="sc">\\</span><span class="st">]"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">([^</span><span class="sc">\\</span><span class="st">)]*</span><span class="sc">\\</span><span class="st">)"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s*:.*$"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s*%</span><span class="sc">\\</span><span class="st">s*$"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_squish</span>(),</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="fu">if_else</span>(Variable <span class="sc">==</span> <span class="st">""</span>, <span class="st">""</span>, variable_clean),</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Short operational descriptions</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">Description =</span> <span class="fu">case_when</span>(</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">""</span> <span class="sc">~</span> <span class="st">""</span>,</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Household size"</span> <span class="sc">~</span> <span class="st">"Households with ≥6 people (share of all households)."</span>,</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Female"</span> <span class="sc">~</span> <span class="st">"Residents who are female (% of population)."</span>,</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Age bands"</span> <span class="sc">~</span> <span class="st">"Population by 10-year bands: 0–9, 10–19, …, 70+."</span>,</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Socioeconomic classification"</span> <span class="sc">~</span> <span class="st">"Population by NS-SEC categories."</span>,</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Qualifications"</span> <span class="sc">~</span> <span class="st">"Population by highest qualification (e.g., none, Level 4+)."</span>,</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Deprivation"</span> <span class="sc">~</span> <span class="st">"Households not deprived in any dimension (%)."</span>,</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Car ownership"</span> <span class="sc">~</span> <span class="st">"Households with no car (%)."</span>,</span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Home ownership"</span> <span class="sc">~</span> <span class="st">"Owner-occupied households (%)."</span>,</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Central heating"</span> <span class="sc">~</span> <span class="st">"Households without central heating (%)."</span>,</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Non-UK born"</span> <span class="sc">~</span> <span class="st">"Residents born outside the UK (%)."</span>,</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Recent migrant"</span> <span class="sc">~</span> <span class="st">"Residents in UK &lt;2 years (% of population)."</span>,</span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Commuting"</span> <span class="sc">~</span> <span class="st">"Residents working mainly or only from home (%)."</span>,</span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Population density"</span> <span class="sc">~</span> <span class="st">"Usual residents per km²."</span>,</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Rural"</span> <span class="sc">~</span> <span class="st">"Population living in rural areas (%)."</span>,</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">""</span></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Domain-aware bias mechanisms (≤2 sentences)</span></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">Bias_explanation =</span> <span class="fu">case_when</span>(</span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">""</span> <span class="sc">~</span> <span class="st">""</span>,</span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Demographic</span></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Household size"</span> <span class="sc">~</span></span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Large households may share devices, lowering per-capita ownership and digital visibility. Shared phones reduce stability of inferred home locations."</span>,</span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Female"</span> <span class="sc">~</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Gendered differences in app use and daily routines can alter detection of trips and stays. If women carry or use devices differently, inferred home location can be biased."</span>,</span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Age bands"</span> <span class="sc">~</span></span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Smartphone ownership and location-service use vary sharply by age. Older groups show lower adoption and usage intensity, leading to under-representation."</span>,</span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Socioeconomic</span></span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Socioeconomic classification"</span> <span class="sc">~</span></span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a>        <span class="st">"NS-SEC correlates with income and job conditions, shaping handset quality, data plans, and app usage. Lower classes face affordability constraints and intermittent connectivity."</span>,</span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Qualifications"</span> <span class="sc">~</span></span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Education relates to digital literacy and intensity of technology use. Lower qualifications tend to associate with lower adoption of location-enabled services."</span>,</span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Resource accessibility (digital access)</span></span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Deprivation"</span> <span class="sc">~</span></span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Higher deprivation implies barriers to devices and data plans, reducing digital visibility. Prepaid SIM churn may degrade longitudinal tracking of home locations."</span>,</span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Car ownership"</span> <span class="sc">~</span></span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>        <span class="st">"No-car households proxy lower material resources and different mobility modes. They often have lower device affordability and different app ecosystems, affecting capture."</span>,</span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Home ownership"</span> <span class="sc">~</span></span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Owners have higher income stability and better digital access, improving persistent device presence and home inference. Renters show higher SIM churn and instability in traces."</span>,</span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Central heating"</span> <span class="sc">~</span></span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Lack of central heating is a deprivation proxy linked to lower digital access. Housing quality can also affect indoor signal conditions, increasing missingness."</span>,</span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Migration &amp; mobility history</span></span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Non-UK born"</span> <span class="sc">~</span></span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Foreign operator SIMs, language settings, and app ecosystems can reduce inclusion in domestic panels. Roaming and multi-SIM use complicate home/work inference."</span>,</span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Recent migrant"</span> <span class="sc">~</span></span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Short residence duration implies unstable addresses and higher SIM turnover, lowering longitudinal representativeness. Temporary housing can degrade location inference."</span>,</span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Commuting"</span> <span class="sc">~</span></span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Work-from-home reduces observable trips and alters diurnal patterns used for home/work inference. Mode and route choices also affect signal continuity and coverage."</span>,</span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Geographic</span></span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Population density"</span> <span class="sc">~</span></span>
+<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Dense urban areas have better coverage but more multipath and building interference, distorting stay detection. Sparse areas suffer coverage gaps, undercounting movements."</span>,</span>
+<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"Rural"</span> <span class="sc">~</span></span>
+<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Rural coverage is patchier and devices may be offline longer, increasing under-representation. Longer mast distances reduce spatial precision of traces."</span>,</span>
+<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">""</span></span>
+<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dimension, Variable, Bias_explanation, Description)</span>
+<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-92"><a href="#cb18-92" aria-hidden="true" tabindex="-1"></a><span class="co"># --- render table (A4 portrait–friendly) -----------------------------------</span></span>
+<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a>tbl_vars <span class="ot">&lt;-</span> tbl <span class="sc">%&gt;%</span></span>
+<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Label only affects the header; keep using the data name 'Bias_explanation' elsewhere</span></span>
+<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">Bias_explanation =</span> <span class="st">"Bias explanation"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_table_font</span>(<span class="fu">list</span>(<span class="fu">google_font</span>(<span class="st">"Roboto Condensed"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-98"><a href="#cb18-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="st">"left"</span>, <span class="at">columns =</span> <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb18-99"><a href="#cb18-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_width</span>(</span>
+<span id="cb18-100"><a href="#cb18-100" aria-hidden="true" tabindex="-1"></a>    Dimension <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">90</span>),</span>
+<span id="cb18-101"><a href="#cb18-101" aria-hidden="true" tabindex="-1"></a>    Variable <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">90</span>),</span>
+<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a>    Bias_explanation <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">320</span>),  <span class="co"># &lt;-- use the data column name</span></span>
+<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a>    Description <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">240</span>)</span>
+<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(</span>
+<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.font.size =</span> <span class="fu">px</span>(<span class="dv">12</span>),</span>
+<span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_row.padding =</span> <span class="fu">px</span>(<span class="dv">4</span>),</span>
+<span id="cb18-108"><a href="#cb18-108" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.top.color =</span> <span class="st">"black"</span>,</span>
+<span id="cb18-109"><a href="#cb18-109" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.top.style =</span> <span class="st">"solid"</span>,</span>
+<span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.top.width =</span> <span class="fu">px</span>(<span class="dv">2</span>),</span>
+<span id="cb18-111"><a href="#cb18-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.bottom.color =</span> <span class="st">"black"</span>,</span>
+<span id="cb18-112"><a href="#cb18-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.bottom.style =</span> <span class="st">"solid"</span>,</span>
+<span id="cb18-113"><a href="#cb18-113" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.border.bottom.width =</span> <span class="fu">px</span>(<span class="dv">2</span>),</span>
+<span id="cb18-114"><a href="#cb18-114" aria-hidden="true" tabindex="-1"></a>    <span class="at">column_labels.border.bottom.color =</span> <span class="st">"black"</span>,</span>
+<span id="cb18-115"><a href="#cb18-115" aria-hidden="true" tabindex="-1"></a>    <span class="at">column_labels.border.bottom.style =</span> <span class="st">"solid"</span>,</span>
+<span id="cb18-116"><a href="#cb18-116" aria-hidden="true" tabindex="-1"></a>    <span class="at">column_labels.border.bottom.width =</span> <span class="fu">px</span>(<span class="dv">2</span>)</span>
+<span id="cb18-117"><a href="#cb18-117" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb18-119"><a href="#cb18-119" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>),</span>
+<span id="cb18-120"><a href="#cb18-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_column_labels</span>()</span>
+<span id="cb18-121"><a href="#cb18-121" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-122"><a href="#cb18-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb18-123"><a href="#cb18-123" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">v_align =</span> <span class="st">"top"</span>),</span>
+<span id="cb18-124"><a href="#cb18-124" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>()</span>
+<span id="cb18-125"><a href="#cb18-125" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-126"><a href="#cb18-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb18-127"><a href="#cb18-127" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_borders</span>(<span class="at">sides =</span> <span class="st">"top"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">style =</span> <span class="st">"solid"</span>, <span class="at">weight =</span> <span class="fu">px</span>(<span class="dv">2</span>)),</span>
+<span id="cb18-128"><a href="#cb18-128" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> Dimension <span class="sc">!=</span> <span class="st">""</span>)</span>
+<span id="cb18-129"><a href="#cb18-129" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-130"><a href="#cb18-130" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Justify + hyphenate Bias_explanation; avoid manual wraps/breaks</span></span>
+<span id="cb18-131"><a href="#cb18-131" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text_transform</span>(</span>
+<span id="cb18-132"><a href="#cb18-132" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> Bias_explanation),  <span class="co"># &lt;-- use data column name</span></span>
+<span id="cb18-133"><a href="#cb18-133" aria-hidden="true" tabindex="-1"></a>    <span class="at">fn =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb18-134"><a href="#cb18-134" aria-hidden="true" tabindex="-1"></a>      <span class="fu">map</span>(</span>
+<span id="cb18-135"><a href="#cb18-135" aria-hidden="true" tabindex="-1"></a>        x,</span>
+<span id="cb18-136"><a href="#cb18-136" aria-hidden="true" tabindex="-1"></a>        <span class="sc">~</span> gt<span class="sc">::</span><span class="fu">html</span>(</span>
+<span id="cb18-137"><a href="#cb18-137" aria-hidden="true" tabindex="-1"></a>          <span class="fu">paste0</span>(</span>
+<span id="cb18-138"><a href="#cb18-138" aria-hidden="true" tabindex="-1"></a>            <span class="st">"&lt;div lang='en' style='text-align:justify; hyphens:auto; -webkit-hyphens:auto; "</span>,</span>
+<span id="cb18-139"><a href="#cb18-139" aria-hidden="true" tabindex="-1"></a>            <span class="st">"line-height:1.15; word-break:normal; overflow-wrap:anywhere;'&gt;"</span>,</span>
+<span id="cb18-140"><a href="#cb18-140" aria-hidden="true" tabindex="-1"></a>            .x,</span>
+<span id="cb18-141"><a href="#cb18-141" aria-hidden="true" tabindex="-1"></a>            <span class="st">"&lt;/div&gt;"</span></span>
+<span id="cb18-142"><a href="#cb18-142" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb18-143"><a href="#cb18-143" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb18-144"><a href="#cb18-144" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb18-145"><a href="#cb18-145" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb18-146"><a href="#cb18-146" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-147"><a href="#cb18-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-148"><a href="#cb18-148" aria-hidden="true" tabindex="-1"></a><span class="co"># --- save to PDF (A4 portrait–suitable viewport) ---------------------------</span></span>
+<span id="cb18-149"><a href="#cb18-149" aria-hidden="true" tabindex="-1"></a><span class="fu">gtsave</span>(</span>
+<span id="cb18-150"><a href="#cb18-150" aria-hidden="true" tabindex="-1"></a>  tbl_vars,</span>
+<span id="cb18-151"><a href="#cb18-151" aria-hidden="true" tabindex="-1"></a>  <span class="st">"/Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary_explain.pdf"</span>,</span>
+<span id="cb18-152"><a href="#cb18-152" aria-hidden="true" tabindex="-1"></a>  <span class="at">vwidth  =</span> <span class="dv">900</span>,   <span class="co"># ~A4 portrait-friendly viewport</span></span>
+<span id="cb18-153"><a href="#cb18-153" aria-hidden="true" tabindex="-1"></a>  <span class="at">vheight =</span> <span class="dv">1250</span>,</span>
+<span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a>  <span class="at">zoom    =</span> <span class="dv">1</span></span>
+<span id="cb18-155"><a href="#cb18-155" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>file:////var/folders/79/65l52xsj7vq_4_t_l6k5bl2c0000gn/T//RtmpR8AVbe/file169d3c2191e8.html screenshot completed</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- save second table to editable Word document ----------------------------</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>docx_path <span class="ot">&lt;-</span> <span class="st">"/Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary_explain-editable.docx"</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> tbl <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_header_labels</span>(<span class="at">Bias_explanation =</span> <span class="st">"Bias explanation"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_booktabs</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">font</span>(<span class="at">fontname =</span> <span class="st">"Roboto Condensed"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fontsize</span>(<span class="at">size =</span> <span class="dv">8</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold</span>(<span class="at">part =</span> <span class="st">"header"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">valign</span>(<span class="at">valign =</span> <span class="st">"top"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">width</span>(<span class="at">j =</span> <span class="st">"Dimension"</span>, <span class="at">width =</span> <span class="fl">1.0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">width</span>(<span class="at">j =</span> <span class="st">"Variable"</span>, <span class="at">width =</span> <span class="fl">1.2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">width</span>(<span class="at">j =</span> <span class="st">"Bias_explanation"</span>, <span class="at">width =</span> <span class="fl">4.0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">width</span>(<span class="at">j =</span> <span class="st">"Description"</span>, <span class="at">width =</span> <span class="fl">2.6</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">read_docx</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">body_add_flextable</span>(ft)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(doc, <span class="at">target =</span> docx_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

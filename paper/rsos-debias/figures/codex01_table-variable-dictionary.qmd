@@ -107,18 +107,19 @@ tbl_vars <- tbl_vars %>%
   ) %>%
   fmt_markdown(columns = Description)
 
-gtsave(tbl_vars, "/Users/franciscorowe/Library/CloudStorage/Dropbox/Francisco/Research/grants/2023/digital-footprint-accelerator/debias/github/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary.pdf",   vwidth  = 1400,   # wider canvas
+gtsave(tbl_vars, "/Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary.pdf",   vwidth  = 1400,   # wider canvas
   vheight = 3200,    # tall enough to fit the whole table
   zoom    = 1
   )
 ```
-
 ```{r}
 library(dplyr)
 library(stringr)
 library(gt)
 library(webshot2)
 library(purrr)   # used in text_transform
+library(flextable)
+library(officer)
 
 # --- original rows ----------------------------------------------------------
 raw_tbl <- tribble(
@@ -270,10 +271,32 @@ tbl_vars <- tbl %>%
 # --- save to PDF (A4 portrait–suitable viewport) ---------------------------
 gtsave(
   tbl_vars,
-  "/Users/franciscorowe/Library/CloudStorage/Dropbox/Francisco/Research/grants/2023/digital-footprint-accelerator/debias/github/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary_explain.pdf",
+  "/Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary_explain.pdf",
   vwidth  = 900,   # ~A4 portrait-friendly viewport
   vheight = 1250,
   zoom    = 1
 )
+
+# --- save second table to editable Word document ----------------------------
+docx_path <- "/Users/carmen/Documents/github/de-bias/bias-detection/paper/rsos-debias/figures/01_table-variable-dictionary_explain-editable.docx"
+
+ft <- tbl %>%
+  flextable() %>%
+  set_header_labels(Bias_explanation = "Bias explanation") %>%
+  theme_booktabs() %>%
+  font(fontname = "Roboto Condensed", part = "all") %>%
+  fontsize(size = 8, part = "all") %>%
+  bold(part = "header") %>%
+  valign(valign = "top", part = "all") %>%
+  align(align = "left", part = "all") %>%
+  width(j = "Dimension", width = 1.0) %>%
+  width(j = "Variable", width = 1.2) %>%
+  width(j = "Bias_explanation", width = 4.0) %>%
+  width(j = "Description", width = 2.6)
+
+doc <- read_docx() %>%
+  body_add_flextable(ft)
+
+print(doc, target = docx_path)
 
 ```
