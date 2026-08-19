@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title description">
+  <title id="title">The same pair switches sides across four digital sources</title>
+  <desc id="description">Watford and North East Derbyshire sit above or below different source-specific fitted proportional rates as the source changes.</desc>
+  <rect width="1200" height="800" fill="#fbfaf6"/>
+  <style>
+    text { font-family: 'Arial Narrow', 'Roboto Condensed', Arial, sans-serif; }
+    .caps { font-weight: 900; letter-spacing: 1.2px; }
+  </style>
+  
+  <text x="55" y="55" fill="#082b55" font-size="31" font-weight="900">DEBIAS</text>
+  <text x="186" y="52" fill="#5f6872" font-size="14" font-weight="800" letter-spacing="1.1">DATA STORY · ACT II · FOUR-SOURCE FINGERPRINT</text>
+  <line x1="55" y1="76" x2="1145" y2="76" stroke="#cfd2d1"/>
+
+  <text x="55" y="142" fill="#082b55" font-family="'Arial Narrow', 'Roboto Condensed', Arial, sans-serif" font-size="50" font-weight="900" letter-spacing="0" text-anchor="start"><tspan x="55" dy="0">THE SAME PAIR</tspan><tspan x="55" dy="50">SWITCHES SIDES.</tspan></text>
+  <text x="55" y="225" fill="#304b68" font-family="'Arial Narrow', 'Roboto Condensed', Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="0" text-anchor="start"><tspan x="55" dy="0">The places have not changed. The source has.</tspan></text>
+  <text x="65" y="258" fill="#078481" font-size="14" font-weight="900" letter-spacing="1">RELATIVE TO EACH SOURCE’S FITTED PROPORTIONAL RATE</text>
+  <text x="255" y="281" fill="#5f6872" font-size="13">Fewer than fitted</text>
+  <text x="765" y="281" fill="#5f6872" font-size="13" text-anchor="end">More than fitted</text>
+  
+      <line x1="255" y1="294" x2="255" y2="620" stroke="#cfd2d1" stroke-width="1"/>
+      <text x="255" y="646" fill="#5f6872" font-size="14" text-anchor="middle">0.25×</text>
+      <line x1="382.5" y1="294" x2="382.5" y2="620" stroke="#cfd2d1" stroke-width="1"/>
+      <text x="382.5" y="646" fill="#5f6872" font-size="14" text-anchor="middle">0.5×</text>
+      <line x1="510" y1="294" x2="510" y2="620" stroke="#082b55" stroke-width="1.6"/>
+      <text x="510" y="646" fill="#5f6872" font-size="14" text-anchor="middle">1×</text>
+      <line x1="637.5" y1="294" x2="637.5" y2="620" stroke="#cfd2d1" stroke-width="1"/>
+      <text x="637.5" y="646" fill="#5f6872" font-size="14" text-anchor="middle">2×</text>
+      <line x1="765" y1="294" x2="765" y2="620" stroke="#cfd2d1" stroke-width="1"/>
+      <text x="765" y="646" fill="#5f6872" font-size="14" text-anchor="middle">4×</text>
+      <text x="65" y="323" fill="#082b55" font-size="20" font-weight="900">Twitter/X</text>
+      <text x="65" y="346" fill="#5f6872" font-size="13">r = .80</text>
+      <line x1="255" y1="320" x2="765" y2="320" stroke="#cfd2d1" stroke-width="1.5"/>
+      <circle cx="525.1938662632105" cy="303" r="8" fill="#f2553d" stroke="#082b55" stroke-width="1.5"/>
+      <text x="537.1938662632105" y="308" fill="#082b55" font-size="14" font-weight="800">Watford 1.09×</text>
+      <polygon points="377.1162710063219,328 386.1162710063219,337 377.1162710063219,346 368.1162710063219,337" fill="#078481" stroke="#082b55" stroke-width="1.5"/>
+      <text x="390.1162710063219" y="342" fill="#082b55" font-size="14" font-weight="800">N.E. Derbyshire 0.49×</text>
+      <text x="65" y="413" fill="#082b55" font-size="20" font-weight="900">Meta</text>
+      <text x="65" y="436" fill="#5f6872" font-size="13">r = .91</text>
+      <line x1="255" y1="410" x2="765" y2="410" stroke="#cfd2d1" stroke-width="1.5"/>
+      <circle cx="283.73471092804846" cy="393" r="8" fill="#078481" stroke="#082b55" stroke-width="1.5"/>
+      <text x="295.73471092804846" y="398" fill="#082b55" font-size="14" font-weight="800">Watford 0.29×</text>
+      <polygon points="634.0190849402805,418 643.0190849402805,427 634.0190849402805,436 625.0190849402805,427" fill="#f2553d" stroke="#082b55" stroke-width="1.5"/>
+      <text x="647.0190849402805" y="432" fill="#082b55" font-size="14" font-weight="800">N.E. Derbyshire 1.96×</text>
+      <text x="65" y="503" fill="#082b55" font-size="20" font-weight="900">Multi-app1</text>
+      <text x="65" y="526" fill="#5f6872" font-size="13">r = .95</text>
+      <line x1="255" y1="500" x2="765" y2="500" stroke="#cfd2d1" stroke-width="1.5"/>
+      <circle cx="576.8724097541509" cy="483" r="8" fill="#f2553d" stroke="#082b55" stroke-width="1.5"/>
+      <text x="588.8724097541509" y="488" fill="#082b55" font-size="14" font-weight="800">Watford 1.44×</text>
+      <polygon points="474.9538097847954,508 483.9538097847954,517 474.9538097847954,526 465.9538097847954,517" fill="#078481" stroke="#082b55" stroke-width="1.5"/>
+      <text x="487.9538097847954" y="522" fill="#082b55" font-size="14" font-weight="800">N.E. Derbyshire 0.83×</text>
+      <text x="65" y="593" fill="#082b55" font-size="20" font-weight="900">Multi-app2</text>
+      <text x="65" y="616" fill="#5f6872" font-size="13">r = .90</text>
+      <line x1="255" y1="590" x2="765" y2="590" stroke="#cfd2d1" stroke-width="1.5"/>
+      <circle cx="553.4880345139868" cy="573" r="8" fill="#f2553d" stroke="#082b55" stroke-width="1.5"/>
+      <text x="565.4880345139868" y="578" fill="#082b55" font-size="14" font-weight="800">Watford 1.27×</text>
+      <polygon points="545.4053164921186,598 554.4053164921186,607 545.4053164921186,616 536.4053164921186,607" fill="#f2553d" stroke="#082b55" stroke-width="1.5"/>
+      <text x="558.4053164921186" y="612" fill="#082b55" font-size="14" font-weight="800">N.E. Derbyshire 1.21×</text>
+  <rect x="835" y="250" width="310" height="370" fill="#ffffff" stroke="#cfd2d1" rx="5"/>
+  <text x="865" y="292" fill="#078481" font-size="14" font-weight="900" letter-spacing="1">THE RESULT</text>
+  <text x="865" y="340" fill="#082b55" font-family="'Arial Narrow', 'Roboto Condensed', Arial, sans-serif" font-size="33" font-weight="900" letter-spacing="0" text-anchor="start"><tspan x="865" dy="0">THE SAME AREA</tspan><tspan x="865" dy="34">CAN CHANGE</tspan><tspan x="865" dy="34">POSITION WHEN</tspan><tspan x="865" dy="34">THE SOURCE</tspan><tspan x="865" dy="34">CHANGES.</tspan></text>
+  <text x="865" y="540" fill="#304b68" font-family="'Arial Narrow', 'Roboto Condensed', Arial, sans-serif" font-size="18" font-weight="650" letter-spacing="0" text-anchor="start"><tspan x="865" dy="0">One times marks each source’s</tspan><tspan x="865" dy="25">own fitted proportional rate.</tspan></text>
+  <circle cx="875" cy="603" r="7" fill="none" stroke="#082b55" stroke-width="2"/>
+  <text x="892" y="608" fill="#5f6872" font-size="13">Watford</text>
+  <polygon points="987,596 994,603 987,610 980,603" fill="none" stroke="#082b55" stroke-width="2"/>
+  <text x="1004" y="608" fill="#5f6872" font-size="13">North East Derbyshire</text>
+  <line x1="55" y1="705" x2="1145" y2="705" stroke="#cfd2d1"/>
+  <text x="55" y="734" fill="#304b68" font-family="'Arial Narrow', 'Roboto Condensed', Arial, sans-serif" font-size="15" font-weight="650" letter-spacing="0" text-anchor="start"><tspan x="55" dy="0">Observed identifiers per resident relative to each source’s own fitted rate. Not a representativeness score or a percentage of residents included.</tspan></text>
+  <text x="55" y="770" fill="#5f6872" font-size="12">England and Wales · source numerators and dates differ · 2021 snapshots · released LAD-level dataset</text>
+  <text x="1145" y="770" fill="#5f6872" font-size="12" text-anchor="end">Cabrera &amp; Rowe / DEBIAS</text>
+</svg>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore your local authority — Who is missing from the map?</title>
+  <meta name="description" content="Compare a local authority's Meta active-account estimate with the fitted rate across England and Wales.">
+  <link rel="canonical" href="https://de-bias.github.io/debias/stories/making-hidden-biases-visible/explore.html">
+  <meta name="theme-color" content="#fbfaf6">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <script src="explore.js" defer></script>
+</head>
+<body class="explore-page">
+  <a class="skip-link" href="#main">Skip to the explorer</a>
+  <header class="site-header subpage-header">
+    <a class="brand" href="index.html" aria-label="Return to the DEBIAS data story"><strong>DEBIAS</strong><span>DEBIAS research project</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Story</a>
+      <a href="explore.html" aria-current="page">Explore</a>
+      <a href="research.html">Research</a>
+      <a href="https://doi.org/10.1098/rsos.251703">Paper</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="subpage-hero">
+      <div class="wrap">
+        <p class="eyebrow">Explore the evidence</p>
+        <h1>Find your<br>local authority.</h1>
+        <p>See its observed Meta active-account rate and its difference from the fitted benchmark.</p>
+      </div>
+    </section>
+
+    <section class="explorer wrap" aria-labelledby="explorer-title">
+      <div class="explorer-intro">
+        <div>
+          <p class="eyebrow">331 areas · March 2021</p>
+          <h2 id="explorer-title">One place, in context.</h2>
+        </div>
+        <p>This is an area-level diagnostic. A place above or below the fitted rate is not inherently better or worse represented, and the comparison cannot identify which people are absent or duplicated.</p>
+      </div>
+
+      <form id="area-form" class="area-finder">
+        <label for="area-search">Local authority</label>
+        <div class="search-row">
+          <input id="area-search" name="area" list="area-options" autocomplete="off" placeholder="Try Liverpool, Cardiff or Watford">
+          <datalist id="area-options"></datalist>
+          <button class="button button-primary" type="submit">Show area</button>
+        </div>
+        <p id="area-error" class="form-error" role="alert"></p>
+      </form>
+
+      <article id="area-result" class="area-result" aria-live="polite" hidden>
+        <div>
+          <p class="result-label">Selected local authority</p>
+          <h3 id="result-name">Liverpool</h3>
+          <p id="result-direction" class="result-direction"></p>
+        </div>
+        <dl class="result-metrics">
+          <div><dt>Census population</dt><dd id="result-population">—</dd></div>
+          <div><dt>Meta estimate</dt><dd id="result-meta">—</dd></div>
+          <div><dt>Per 100 residents</dt><dd id="result-rate">—</dd></div>
+        </dl>
+        <div class="rate-gauge" aria-hidden="true">
+          <span class="gauge-label gauge-label-left">fewer than fitted</span>
+          <span class="gauge-zero"></span>
+          <span id="gauge-marker" class="gauge-marker"></span>
+          <span class="gauge-label gauge-label-right">more than fitted</span>
+        </div>
+      </article>
+
+      <div class="explore-actions">
+        <button id="copy-area-link" class="button button-outline" type="button" hidden>Copy this area link</button>
+        <a href="media/meta-local-coverage.csv" download>Download all 331 areas as CSV ↓</a>
+        <a href="index.html#rates">Return to the story →</a>
+        <a href="research.html#limits">Read the interpretation limits →</a>
+      </div>
+
+      <noscript>
+        <div class="callout"><p>The searchable explorer needs JavaScript. The complete 331-area table is available as a CSV download above.</p></div>
+      </noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div><strong>DEBIAS</strong><p>Making digital population data safer to use.</p></div>
+      <div><p>Geographic Data Science Lab, University of Liverpool.</p></div>
+      <div><a href="index.html">Story</a><a href="research.html">Research</a><a href="media/media-brief.html">Media</a><a href="https://github.com/de-bias">GitHub</a></div>
+    </div>
+  </footer>
+</body>
+</html>

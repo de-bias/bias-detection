@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "artifact_id": "context-radials-r1-main",
+  "description": "Deterministic site-native radial profiles derived from the revised R1 main-model feature-importance outputs.",
+  "feature_metadata_source": "code/06_radial-plots.qmd",
+  "source_order": [
+    "twitter",
+    "meta",
+    "multiapp1",
+    "multiapp2"
+  ],
+  "display_group_order": [
+    "demographic",
+    "socioeconomic",
+    "resource_access",
+    "mobility_geography"
+  ],
+  "normalization": {
+    "method": "within_source_min_max",
+    "scope": "all_30_features",
+    "minimum": 0.0,
+    "midpoint": 0.5,
+    "maximum": 1.0,
+    "formula": "(raw_mean_abs_shap - source_min) / (source_max - source_min)"
+  },
+  "axis_order": {
+    "method": "descending_four_source_mean_raw_importance_within_display_group",
+    "source": "code/06_radial-plots.qmd",
+    "tie_break": "metadata_order"
+  },
+  "label_threshold": {
+    "field": "normalised_importance",
+    "operator": ">",
+    "value": 0.5
+  },
+  "inputs": [
+    {
+      "source_id": "twitter",
+      "label": "Twitter/X",
+      "dataset_key": "twitter",
+      "color": "#078481",
+      "path": "outputs/preliminary/twitter/explain-bias/feature-importance-data_lad_holdout_nolagcov.csv",
+      "sha256": "7db31f979773b05063100802fe706de075bdd87434b4e2e97a496ef5e68d27a7"
+    },
+    {
+      "source_id": "meta",
+      "label": "Meta",
+      "dataset_key": "fb_tts",
+      "color": "#078481",
+      "path": "outputs/preliminary/fb_tts/explain-bias/feature-importance-data_lad_holdout_nolagcov.csv",
+      "sha256": "30ff49b8aabcb30bf02d9f74fad2d2d8885050c758a269d91c8861ecb9227d25"
+    },
+    {
+      "source_id": "multiapp1",
+      "label": "Multi-app1",
+      "dataset_key": "mapp1",
+      "color": "#078481",
+      "path": "outputs/preliminary/mapp1/explain-bias/feature-importance-data_lad_holdout_nolagcov.csv",
+      "sha256": "0e4af9a1dd60f2c25f4bb048389fe80d53fd567c40cec88ee7a4fc0a965ca643"
+    },
+    {
+      "source_id": "multiapp2",
+      "label": "Multi-app2",
+      "dataset_key": "mapp2",
+      "color": "#078481",
+      "path": "outputs/preliminary/mapp2/explain-bias/feature-importance-data_lad_holdout_nolagcov.csv",
+      "sha256": "20bee26444776703c401f2b953e9c3be6ec67e9c8e4e0dd619f860ad16f9dae4"
+    }
+  ],
+  "outputs": {
+    "data": "paper/rsos-debias/scrollytelling/site/data/context-radials.json",
+    "svg_directory": "paper/rsos-debias/scrollytelling/site/media/radial-generated",
+    "svg_width": 600,
+    "svg_height": 560,
+    "panel_count": 16
+  },
+  "expected": {
+    "source_count": 4,
+    "display_group_count": 4,
+    "feature_count": 30,
+    "group_feature_counts": {
+      "demographic": 10,
+      "socioeconomic": 11,
+      "resource_access": 4,
+      "mobility_geography": 5
+    }
+  },
+  "expected_svg_outputs": [
+    {
+      "path": "media/radial-generated/twitter-demographic.svg",
+      "bytes": 3935,
+      "sha256": "3e2fc762a9fdadb8d62b1bf6de87d0262ada84dce6c140cbd4c25e7c7baa60cb"
+    },
+    {
+      "path": "media/radial-generated/twitter-socioeconomic.svg",
+      "bytes": 3550,
+      "sha256": "ed91285fd3f377816f1f2f83bd5d464df3f77a065099d73c0fe34c7dda381112"
+    },
+    {
+      "path": "media/radial-generated/twitter-resource_access.svg",
+      "bytes": 3060,
+      "sha256": "693c1d40d0acd9d233896be15a3822a8f52c78140335bb2bb778591137a43ca5"
+    },
+    {
+      "path": "media/radial-generated/twitter-mobility_geography.svg",
+      "bytes": 2669,
+      "sha256": "56d31f0d4f75b4a78f5fd338a2f7cc4381fe19fb8643f07fe06d325c118408d0"
+    },
+    {
+      "path": "media/radial-generated/meta-demographic.svg",
+      "bytes": 3371,
+      "sha256": "8e76fe1228e7e580fbb7d7673ac2d65d63cd8193edb1f2e21a720ddaecbbf020"
+    },
+    {
+      "path": "media/radial-generated/meta-socioeconomic.svg",
+      "bytes": 3533,
+      "sha256": "f0d3432f2e68ce006b713e4a117510b1ac2290357a95dfeb7e9706ecd8afdb30"
+    },
+    {
+      "path": "media/radial-generated/meta-resource_access.svg",
+      "bytes": 2486,
+      "sha256": "1f40b7523f517b9a59f35d4f84f6366f8e281ddf0ced947ffab67200d75ee2c6"
+    },
+    {
+      "path": "media/radial-generated/meta-mobility_geography.svg",
+      "bytes": 3198,
+      "sha256": "6a2dc12585b70ecf0f94cdb94d9d07d37fd581d1ba9dca3b5123169797737556"
+    },
+    {
+      "path": "media/radial-generated/multiapp1-demographic.svg",
+      "bytes": 5013,
+      "sha256": "81695f0a1f8ebb5a02e021383427b0bc817cdca16dbc44ef82fad69ee837e468"
+    },
+    {
+      "path": "media/radial-generated/multiapp1-socioeconomic.svg",
+      "bytes": 5758,
+      "sha256": "176532e50d1e6f21dacc26f4b1c0f82af1729429aedb0df8c036ccee0169ccf3"
+    },
+    {
+      "path": "media/radial-generated/multiapp1-resource_access.svg",
+      "bytes": 3080,
+      "sha256": "f06f2d3fd6fef2f026ed358f7941cbb742a170f409eb3bcb6e298a33c505317c"
+    },
+    {
+      "path": "media/radial-generated/multiapp1-mobility_geography.svg",
+      "bytes": 3219,
+      "sha256": "06d623e25cf4ba994c881a03228d5ab8d23064144468b956a8a3fde03213d917"
+    },
+    {
+      "path": "media/radial-generated/multiapp2-demographic.svg",
+      "bytes": 3967,
+      "sha256": "3cbd62a4aac99c79f0e12402e55111d276dee0ffc1624ea08012fc2055f72d6d"
+    },
+    {
+      "path": "media/radial-generated/multiapp2-socioeconomic.svg",
+      "bytes": 5742,
+      "sha256": "0055120626182f590f25e7e3a36f0d27a2eed4afa71251353d66b0af8f1e6c79"
+    },
+    {
+      "path": "media/radial-generated/multiapp2-resource_access.svg",
+      "bytes": 2512,
+      "sha256": "0cf8aaac7b1c5c14da506d6dd7a80ffd345c63de3856984d0cd20b182d8649b3"
+    },
+    {
+      "path": "media/radial-generated/multiapp2-mobility_geography.svg",
+      "bytes": 2678,
+      "sha256": "367c5f44524f2e0e72489d7791a584b3b1fcfa4b6d2f0379254c702ec87fed8f"
+    }
+  ]
+}

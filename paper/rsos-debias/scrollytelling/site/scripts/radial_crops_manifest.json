@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "source": {
+    "path_from_repository_root": "paper/rsos-debias-r1/figures/radial-plots_feature-importance.png",
+    "sha256": "e084534c03a1ff78f4b31abdb04dedf01e1dde44439b00878b087163734d4445",
+    "width_px": 1738,
+    "height_px": 1713
+  },
+  "coordinate_convention": "Crop rectangles are [left, top, right, bottom] in accepted-figure pixels; right and bottom are exclusive.",
+  "method": "Crop the accepted radial figure, resize proportionally once and centre on a fixed paper canvas. No data are recomputed; no polygon, label, axis or annotation is redrawn.",
+  "provenance_boundary": "The accepted radial raster and the accepted revision's archived main-model feature-importance files do not share a fully reconciled build chain. These assets are therefore image crops only, not a computed interactive reconstruction.",
+  "composition": {
+    "canvas_dimensions_px": [600, 560],
+    "plot_bounds_px": [12, 12, 588, 548],
+    "background": "#ffffff",
+    "resampling": "LANCZOS"
+  },
+  "encoding": {
+    "webp": {"quality": 92, "method": 6},
+    "png": {"palette_colours": 256, "dither": "NONE", "compress_level": 9, "optimize": true},
+    "maximum_file_bytes": 102400,
+    "maximum_total_bytes": 614400
+  },
+  "panels": [
+    {"id": "twitter-demographic", "source_label": "Twitter/X", "domain": "demographic", "source_rect": [500, 62, 765, 365], "output_stem": "twitter-demographic", "expected_outputs": {"webp": {"path": "media/radial/twitter-demographic.webp", "bytes": 6396, "sha256": "86e252a51a3c06004e1735eb6dfe5b2ad7a668e47eeb4184d35d2117d5d153fe"}, "png": {"path": "media/radial/twitter-demographic.png", "bytes": 22755, "sha256": "8632ec5427910ae638574db5fd916992763392ae12ce86ccf91a40d1116a5e8a"}}},
+    {"id": "twitter-socioeconomic", "source_label": "Twitter/X", "domain": "socioeconomic", "source_rect": [500, 478, 765, 765], "blank_rects": [[0, 228, 95, 287]], "blank_purpose": "Removes only a clipped label from the neighbouring all-source panel; the radial polygon, axes and source-specific annotations do not intersect this rectangle.", "output_stem": "twitter-socioeconomic", "expected_outputs": {"webp": {"path": "media/radial/twitter-socioeconomic.webp", "bytes": 5102, "sha256": "079c2dc865b14542cbb41285b9fa2c76d4ea05aa778a99528ef38f4f8f973737"}, "png": {"path": "media/radial/twitter-socioeconomic.png", "bytes": 20684, "sha256": "eb5010b55629e6794d2f90d57e1503810a05e1a16dd32c8c6c2efffbb95b152a"}}},
+    {"id": "meta-demographic", "source_label": "Meta", "domain": "demographic", "source_rect": [775, 62, 1070, 365], "output_stem": "meta-demographic", "expected_outputs": {"webp": {"path": "media/radial/meta-demographic.webp", "bytes": 4462, "sha256": "4c8c7b391e59117fbd128a2dcf9b46d3a818165fef17446a3337f269f3d3fb97"}, "png": {"path": "media/radial/meta-demographic.png", "bytes": 16919, "sha256": "b42f1ea111219c5aa00e6a2792b0830048905035e0fbb79ed63b3e447e912776"}}},
+    {"id": "meta-socioeconomic", "source_label": "Meta", "domain": "socioeconomic", "source_rect": [775, 478, 1070, 765], "output_stem": "meta-socioeconomic", "expected_outputs": {"webp": {"path": "media/radial/meta-socioeconomic.webp", "bytes": 7566, "sha256": "a74d8361f009276dc1bc4f1b01079bacb95f31d64f37db01a41520959a863737"}, "png": {"path": "media/radial/meta-socioeconomic.png", "bytes": 24227, "sha256": "4169901f0787129ae2034bac21d41d782de428c940691989c3925b90f4531f1d"}}},
+    {"id": "multiapp1-demographic", "source_label": "Multi-app1", "domain": "demographic", "source_rect": [1080, 62, 1403, 365], "output_stem": "multiapp1-demographic", "expected_outputs": {"webp": {"path": "media/radial/multiapp1-demographic.webp", "bytes": 8102, "sha256": "976a52af4c18dd947b0b4a32c38298bbcc3f8e3460baa6a56b0cfde22923f900"}, "png": {"path": "media/radial/multiapp1-demographic.png", "bytes": 25456, "sha256": "61683479437341428d0cb56013f51fcae1f20f78888205f51f3f10efd45d4d77"}}},
+    {"id": "multiapp1-socioeconomic", "source_label": "Multi-app1", "domain": "socioeconomic", "source_rect": [1080, 478, 1403, 765], "output_stem": "multiapp1-socioeconomic", "expected_outputs": {"webp": {"path": "media/radial/multiapp1-socioeconomic.webp", "bytes": 15198, "sha256": "eb0096a689b8059fef7ce35527471e4c993ff91bef90a03c3a82d9e9dda1a516"}, "png": {"path": "media/radial/multiapp1-socioeconomic.png", "bytes": 38996, "sha256": "fbf76057c629869d6370765368635d2472f6dc1501978375aa9578d550a9b1ba"}}},
+    {"id": "multiapp2-demographic", "source_label": "Multi-app2", "domain": "demographic", "source_rect": [1410, 62, 1738, 365], "output_stem": "multiapp2-demographic", "expected_outputs": {"webp": {"path": "media/radial/multiapp2-demographic.webp", "bytes": 9078, "sha256": "6622917d86692cfb5c64c3766d20e6218e358125b8885dd1a7c83e22fdaf1cc0"}, "png": {"path": "media/radial/multiapp2-demographic.png", "bytes": 25376, "sha256": "ac9ad32894595119ff53cb7285015efb23f9f76c4dcf6761abd4764a75a233a7"}}},
+    {"id": "multiapp2-socioeconomic", "source_label": "Multi-app2", "domain": "socioeconomic", "source_rect": [1410, 478, 1738, 765], "output_stem": "multiapp2-socioeconomic", "expected_outputs": {"webp": {"path": "media/radial/multiapp2-socioeconomic.webp", "bytes": 17832, "sha256": "aa15c15ff4f02d983fcd329f9b0695c527441faeea7091eaa02c8b25067941e7"}, "png": {"path": "media/radial/multiapp2-socioeconomic.png", "bytes": 40389, "sha256": "78005be587199fa4a3b5d1658be8e28dd4e7e61fe2375109cc6d41fe33a8c1cd"}}}
+  ]
+}

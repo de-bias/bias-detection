@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 560" width="600" height="560" role="img" aria-labelledby="title-twitter-demographic desc-twitter-demographic">
+  <title id="title-twitter-demographic">Twitter/X: Demographic area-context profile</title>
+  <desc id="desc-twitter-demographic">A radial profile of within-source relative mean absolute SHAP importance. Zero is the source&#x27;s lowest-scoring feature among 30 and one is its highest; the score gives magnitude, not direction or causality. Features above 0.5: Population aged 20–29 (1.00)</desc>
+  <rect width="600" height="560" rx="18" fill="#fbfaf6"/>
+  <text x="24" y="30" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1.2">RELATIVE IMPORTANCE</text>
+  <g aria-hidden="true">
+    <circle cx="300.0" cy="269.0" r="178.0" fill="none" stroke="#bfc5c4" stroke-width="1.4"/>
+    <circle cx="300.0" cy="269.0" r="89.0" fill="none" stroke="#d8d9d5" stroke-width="1.1"/>
+    <circle cx="300.0" cy="269.0" r="2.5" fill="none" stroke="#bfc5c4" stroke-width="1.2"/>
+    <line x1="300.0" y1="269.0" x2="300.00" y2="91.00" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="404.63" y2="124.99" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="469.29" y2="213.99" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="469.29" y2="324.01" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="404.63" y2="413.01" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="300.00" y2="447.00" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="195.37" y2="413.01" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="130.71" y2="324.01" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="130.71" y2="213.99" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="195.37" y2="124.99" stroke="#d8d9d5" stroke-width="1"/>
+    <text x="308.0" y="84.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">1</text>
+    <text x="308.0" y="173.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">0.5</text>
+    <text x="308.0" y="283.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">0</text>
+  </g>
+  <polygon points="300.00,243.93 335.57,220.05 300.00,269.00 333.71,279.95 300.00,269.00 300.00,269.00 293.25,278.29 130.71,324.01 300.00,269.00 300.00,269.00" fill="#078481" fill-opacity="0.17" stroke="#078481" stroke-width="3" stroke-linejoin="round"/>
+  <g fill="#078481" stroke="#fbfaf6" stroke-width="2">
+    <circle cx="300.00" cy="243.93" r="4.3"/>
+    <circle cx="335.57" cy="220.05" r="4.3"/>
+    <circle cx="300.00" cy="269.00" r="4.3"/>
+    <circle cx="333.71" cy="279.95" r="4.3"/>
+    <circle cx="300.00" cy="269.00" r="4.3"/>
+    <circle cx="300.00" cy="269.00" r="4.3"/>
+    <circle cx="293.25" cy="278.29" r="4.3"/>
+    <circle cx="130.71" cy="324.01" r="4.3"/>
+    <circle cx="300.00" cy="269.00" r="4.3"/>
+    <circle cx="300.00" cy="269.00" r="4.3"/>
+  </g>
+  <g font-family="Roboto Condensed, Arial, sans-serif">
+    <path d="M 130.71 324.01 L 110.00 332.35 L 132.00 332.35" fill="none" stroke="#078481" stroke-width="1.5" stroke-opacity="0.72"/>
+    <text x="127.00" y="330.35" text-anchor="end" fill="#082b55" font-size="13.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="5" stroke-linejoin="round">Age 20–29</text>
+    <text x="127.00" y="347.35" text-anchor="end" fill="#066d6b" font-size="11.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="4">1</text>
+  </g>
+  <text x="300.0" y="535" text-anchor="middle" fill="#304b68" font-family="Roboto Condensed, Arial, sans-serif" font-size="13">0 = lowest of 30 · 1 = highest of 30</text>
+</svg>

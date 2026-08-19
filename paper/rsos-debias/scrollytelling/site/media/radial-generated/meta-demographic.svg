@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 560" width="600" height="560" role="img" aria-labelledby="title-meta-demographic desc-meta-demographic">
+  <title id="title-meta-demographic">Meta: Demographic area-context profile</title>
+  <desc id="desc-meta-demographic">A radial profile of within-source relative mean absolute SHAP importance. Zero is the source&#x27;s lowest-scoring feature among 30 and one is its highest; the score gives magnitude, not direction or causality. Features above 0.5: No feature in this group scores above 0.5.</desc>
+  <rect width="600" height="560" rx="18" fill="#fbfaf6"/>
+  <text x="24" y="30" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1.2">RELATIVE IMPORTANCE</text>
+  <g aria-hidden="true">
+    <circle cx="300.0" cy="269.0" r="178.0" fill="none" stroke="#bfc5c4" stroke-width="1.4"/>
+    <circle cx="300.0" cy="269.0" r="89.0" fill="none" stroke="#d8d9d5" stroke-width="1.1"/>
+    <circle cx="300.0" cy="269.0" r="2.5" fill="none" stroke="#bfc5c4" stroke-width="1.2"/>
+    <line x1="300.0" y1="269.0" x2="300.00" y2="91.00" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="404.63" y2="124.99" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="469.29" y2="213.99" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="469.29" y2="324.01" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="404.63" y2="413.01" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="300.00" y2="447.00" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="195.37" y2="413.01" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="130.71" y2="324.01" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="130.71" y2="213.99" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="195.37" y2="124.99" stroke="#d8d9d5" stroke-width="1"/>
+    <text x="308.0" y="84.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">1</text>
+    <text x="308.0" y="173.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">0.5</text>
+    <text x="308.0" y="283.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">0</text>
+  </g>
+  <polygon points="300.00,224.49 330.73,226.71 321.53,262.00 328.00,278.10 316.52,291.73 300.00,284.17 281.09,295.03 286.79,273.29 292.48,266.56 300.00,269.00" fill="#078481" fill-opacity="0.17" stroke="#078481" stroke-width="3" stroke-linejoin="round"/>
+  <g fill="#078481" stroke="#fbfaf6" stroke-width="2">
+    <circle cx="300.00" cy="224.49" r="4.3"/>
+    <circle cx="330.73" cy="226.71" r="4.3"/>
+    <circle cx="321.53" cy="262.00" r="4.3"/>
+    <circle cx="328.00" cy="278.10" r="4.3"/>
+    <circle cx="316.52" cy="291.73" r="4.3"/>
+    <circle cx="300.00" cy="284.17" r="4.3"/>
+    <circle cx="281.09" cy="295.03" r="4.3"/>
+    <circle cx="286.79" cy="273.29" r="4.3"/>
+    <circle cx="292.48" cy="266.56" r="4.3"/>
+    <circle cx="300.00" cy="269.00" r="4.3"/>
+  </g>
+  <text x="300.0" y="535" text-anchor="middle" fill="#304b68" font-family="Roboto Condensed, Arial, sans-serif" font-size="13">0 = lowest of 30 · 1 = highest of 30</text>
+</svg>

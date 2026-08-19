@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Media brief — Making hidden biases visible in population location data from mobile phones</title>
+  <meta name="description" content="Media brief for the DEBIAS population coverage study.">
+  <link rel="canonical" href="https://de-bias.github.io/debias/stories/making-hidden-biases-visible/media/media-brief.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the media brief</a>
+  <header class="site-header subpage-header">
+    <a class="brand" href="../index.html"><strong>DEBIAS</strong><span>Media brief</span></a>
+    <nav aria-label="Primary navigation"><a href="../index.html">Story</a><a href="../explore.html">Explore</a><a href="../research.html">Research</a></nav>
+  </header>
+  <main id="main">
+    <section class="subpage-hero">
+      <div class="wrap">
+        <p class="eyebrow">Media brief</p>
+        <h1>The dots line up.<br>The coverage varies.</h1>
+        <p>A concise guide to the finding, evidence and language to use when reporting the research.</p>
+      </div>
+    </section>
+    <div class="content-page wrap">
+      <aside><a href="#finding">Key finding</a><a href="#numbers">Key numbers</a><a href="#language">Reporting language</a><a href="#contact">Contact</a></aside>
+      <div>
+        <section id="finding" class="prose-section">
+          <p class="eyebrow">Key finding</p>
+          <h2>A strong population correlation does not establish representativeness.</h2>
+          <p>Digital-trace counts from more populated local authorities tend to be larger. That relationship is important, but the published study shows that local population coverage can still vary systematically—and often nonlinearly—with demographic, socioeconomic and geographic context.</p>
+          <div class="callout"><p>Correlation is a first diagnostic, not a certificate of representativeness.</p></div>
+          <p>The larger conclusion is source-specific: the same local authority can fall on opposite sides of different sources’ fitted rates, while coverage bias is associated with different area contexts in nonlinear ways. Any adjustment should be designed and independently validated for that source; one correction should not be assumed to transfer to another.</p>
+        </section>
+        <section id="numbers" class="prose-section">
+          <p class="eyebrow">Key numbers</p>
+          <h2>The evidence in two acts.</h2>
+          <ul>
+            <li><strong>331</strong> local authorities in England and Wales.</li>
+            <li><strong>r = .91</strong> Pearson correlation between census population and Meta’s average nighttime active-account estimate.</li>
+            <li><strong>8.09 per 100 residents</strong> fitted proportional Meta rate.</li>
+            <li><strong>4.61–12.31 per 100</strong> middle 90% of local Meta rates.</li>
+            <li><strong>r = .80–.95</strong> raw-count Pearson correlations across the four released source series.</li>
+            <li><strong>300 of 331</strong> authorities sit above their source-specific fitted rate in at least one dataset and below it in another.</li>
+          </ul>
+          <p>Illustrative pair: Watford and North East Derbyshire each had about 102,000 census residents, but their Meta estimates corresponded to 2.37 and 15.89 active-account estimates per 100 residents—a 6.7-fold difference.</p>
+          <p>The published models also show three illustrative nonlinear forms: an S-shape for Twitter/X and local share aged 20–29, a curve with reversal for Meta and population density, and a threshold for Multi-app1 and local share with Level 4 qualifications. These are local-authority-level model associations, not demographic profiles of observed users.</p>
+        </section>
+        <section id="language" class="prose-section">
+          <p class="eyebrow">Reporting language</p>
+          <h2>Precise words preserve the finding.</h2>
+          <h3>Please use</h3>
+          <ul>
+            <li>“Meta active-account estimates” rather than “Meta users” or “people”;</li>
+            <li>“local population coverage” or “estimates per 100 census residents”;</li>
+            <li>“above or below that source’s fitted proportional rate” for the cross-source comparison;</li>
+            <li>“area-level model association” for the nonlinear panels;</li>
+            <li>“source-specific measures from different 2021 snapshots” when describing all four datasets together;</li>
+            <li>“associated with contextual features” rather than causal language; and</li>
+            <li>“England and Wales” for the 331-area public story.</li>
+          </ul>
+          <h3>Please avoid</h3>
+          <ul>
+            <li>claiming that the analysis identifies which people are missing;</li>
+            <li>reporting 300 of 331, or 91%, as a share of residents or people represented;</li>
+            <li>treating the four sources as same-period, same-unit samples—their numerators and observation dates differ;</li>
+            <li>describing a high-coverage area as necessarily more representative;</li>
+            <li>inferring that Twitter/X represents young adults, Meta represents urban people or Multi-app1 represents people with qualifications;</li>
+            <li>treating active-account estimates as unique resident counts; or</li>
+            <li>implying that one correction can be applied to every digital source.</li>
+          </ul>
+        </section>
+        <section id="contact" class="prose-section">
+          <p class="eyebrow">Contact and assets</p>
+          <h2>For interviews and graphics.</h2>
+          <p><strong>Authors:</strong> Carmen Cabrera and Francisco Rowe, Geographic Data Science Lab, University of Liverpool.</p>
+          <p><strong>Email:</strong> c.cabrera@liverpool.ac.uk · fcorowe@liverpool.ac.uk</p>
+          <p><strong>Published article:</strong> <a href="https://doi.org/10.1098/rsos.251703"><cite>Making hidden biases visible in population location data from mobile phones</cite></a>, <em>Royal Society Open Science</em> 13: 251703.</p>
+          <ul><li><a href="https://doi.org/10.1098/rsos.251703">Read the published article</a></li><li><a href="visuals.html">Download the lead news card and nine story visuals</a></li><li><a href="../index.html#context-fingerprints">Explore the interactive four-source area-context atlas</a></li><li><a href="meta-local-coverage.csv" download>Download the Meta story data</a></li><li><a href="../data/source-story.json" download>Download the four-source evidence payload</a></li><li><a href="../research.html">Read methods and limitations</a></li></ul>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

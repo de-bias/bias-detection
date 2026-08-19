@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "source": {
+    "path_from_repository_root": "paper/rsos-debias-r1/figures/explain-bias.png",
+    "sha256": "efed2f79f46b5f386f013f4fceffa5536795aa4c5aa5a7cccade6cbd504fcc9c",
+    "width_px": 7738,
+    "height_px": 5219
+  },
+  "coordinate_convention": "Crop rectangles are [left, top, right, bottom] in source pixels; right and bottom are exclusive.",
+  "method": "Crop the accepted plot pixels, apply a deterministic DEBIAS palette remap, and resize once without distortion. Compose a plot-forward story asset and a self-contained media asset with editorial context. No data are digitised and no observations, axes, tick labels or fitted curves are redrawn. Colour redundantly encodes the horizontal feature value in the accepted figure; the navy-to-teal remap preserves its luminance order while horizontal position remains authoritative.",
+  "composition": {
+    "font_path_from_site_root": "assets/fonts/RobotoCondensed-latin.woff2",
+    "palette": {
+      "paper": "#fbfaf6",
+      "navy": "#082b55",
+      "navy_soft": "#304b68",
+      "teal": "#078481",
+      "teal_text": "#06706e",
+      "coral": "#f2553d",
+      "coral_text": "#b53a2a",
+      "grey": "#5f6872",
+      "line": "#cfd2d1"
+    },
+    "variants": {
+      "media": {
+        "canvas_dimensions_px": [900, 720],
+        "plot_bounds_px": [24, 142, 876, 620],
+        "purpose": "Self-contained press and social download with context, metric guidance, provenance and credit."
+      },
+      "story": {
+        "canvas_dimensions_px": [900, 520],
+        "plot_bounds_px": [10, 8, 890, 512],
+        "purpose": "Plot-forward evidence for responsive HTML cards; all critical context remains live text."
+      }
+    },
+    "resampling": "LANCZOS"
+  },
+  "encoding": {
+    "webp": {
+      "quality": 90,
+      "method": 6
+    },
+    "png": {
+      "palette_colours": 256,
+      "dither": "NONE",
+      "compress_level": 9,
+      "optimize": true
+    },
+    "maximum_file_bytes": 122880,
+    "maximum_total_bytes": 524288
+  },
+  "panels": [
+    {
+      "id": "twitter-age-20-29",
+      "output_stems": {
+        "media": "twitter-age-20-29",
+        "story": "twitter-age-20-29-plot"
+      },
+      "source_label": "Twitter/X",
+      "feature_display_label": "Local authority share aged 20–29",
+      "context_label": "Demographic context",
+      "shape_label": "S-shape",
+      "source_plot_rect": [0, 2926, 940, 3410],
+      "crop_note": "The top boundary starts above the uppermost antialiased observation pixels; no empirical mark touches the crop edge.",
+      "expected_outputs": {
+        "media": {
+          "webp": {"path": "media/nonlinear/twitter-age-20-29.webp", "bytes": 43014, "sha256": "424adb1e096a3cd8a27fcea8a267c33977e8a79241bca8bdefd6b2dd501e41d7"},
+          "png": {"path": "media/nonlinear/twitter-age-20-29.png", "bytes": 38005, "sha256": "f22ad43ba293573fba0c1cc1832b8d60f768e8abef25a66a552cb6e8e79b7d87"}
+        },
+        "story": {
+          "webp": {"path": "media/nonlinear/twitter-age-20-29-plot.webp", "bytes": 17738, "sha256": "1ee9f51f55f97ff21db4bb3d788a6e0300c5866725d7fdf9f1d0532cd71c7c37"},
+          "png": {"path": "media/nonlinear/twitter-age-20-29-plot.png", "bytes": 29756, "sha256": "5adf2c3f79cd8cd544df101b4235237d39ea93c8a62706d53616a7a5d407fabb"}
+        }
+      }
+    },
+    {
+      "id": "meta-population-density",
+      "output_stems": {
+        "media": "meta-population-density",
+        "story": "meta-population-density-plot"
+      },
+      "source_label": "Meta",
+      "feature_display_label": "Population density",
+      "context_label": "Geographic context",
+      "shape_label": "Curved reversal",
+      "source_plot_rect": [1895, 2950, 2835, 3435],
+      "expected_outputs": {
+        "media": {
+          "webp": {"path": "media/nonlinear/meta-population-density.webp", "bytes": 46612, "sha256": "66a1c0f790d3d0a67e3264b7f72de49f579df7c89206f1a6ffe372f3a058a2fb"},
+          "png": {"path": "media/nonlinear/meta-population-density.png", "bytes": 48065, "sha256": "e763577c6dcc0c491c95e9021cac70aaecece8f587da4c6fd4f47f169e9213ed"}
+        },
+        "story": {
+          "webp": {"path": "media/nonlinear/meta-population-density-plot.webp", "bytes": 23390, "sha256": "78d5b3a217f03c95c9281b4c99927c14d7fe03fb3e732a2a5067f430eb0ce1cd"},
+          "png": {"path": "media/nonlinear/meta-population-density-plot.png", "bytes": 41655, "sha256": "6ae5412a5de786f043d61fcd03a8d524abfa8aefc39a2723da0b02b81600eb8a"}
+        }
+      }
+    },
+    {
+      "id": "multiapp1-level4-qualifications",
+      "output_stems": {
+        "media": "multiapp1-level4-qualifications",
+        "story": "multiapp1-level4-qualifications-plot"
+      },
+      "source_label": "Multi-app1",
+      "feature_display_label": "Local authority share with Level 4 qualifications",
+      "context_label": "Socioeconomic context",
+      "shape_label": "Threshold",
+      "source_plot_rect": [3795, 2950, 4725, 3470],
+      "blank_plot_rects": [[190, 0, 930, 45]],
+      "blank_plot_purpose": "Masks only the clipped duplicate feature title inherited from the neighbouring accepted-figure panel; no empirical mark, axis tick or fitted curve intersects this rectangle.",
+      "expected_outputs": {
+        "media": {
+          "webp": {"path": "media/nonlinear/multiapp1-level4-qualifications.webp", "bytes": 50124, "sha256": "52f7f6e6c27b0d731b54e4190ce33ffc6482f632d53abeb51c352cc357f57fa4"},
+          "png": {"path": "media/nonlinear/multiapp1-level4-qualifications.png", "bytes": 43837, "sha256": "c370ea75ec4fa8ddcc1115dc2a61808574d065494a22f2d1dbeeea6222ba4080"}
+        },
+        "story": {
+          "webp": {"path": "media/nonlinear/multiapp1-level4-qualifications-plot.webp", "bytes": 21696, "sha256": "6fe5a70928204a7ec58556e810519505474880d1323b9d357f2bac050ea18494"},
+          "png": {"path": "media/nonlinear/multiapp1-level4-qualifications-plot.png", "bytes": 35183, "sha256": "d23ddb4513b989173cbd72e185e97c3b8d9ada25b09c7e9405b937622c3552e1"}
+        }
+      }
+    }
+  ]
+}

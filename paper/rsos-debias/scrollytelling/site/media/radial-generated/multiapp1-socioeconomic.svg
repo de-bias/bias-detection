@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 560" width="600" height="560" role="img" aria-labelledby="title-multiapp1-socioeconomic desc-multiapp1-socioeconomic">
+  <title id="title-multiapp1-socioeconomic">Multi-app1: Socioeconomic area-context profile</title>
+  <desc id="desc-multiapp1-socioeconomic">A radial profile of within-source relative mean absolute SHAP importance. Zero is the source&#x27;s lowest-scoring feature among 30 and one is its highest; the score gives magnitude, not direction or causality. Features above 0.5: Routine occupations (0.76); Population with Level 4 qualifications or above (1.00); Population with no qualifications (0.80); Lower supervisory and technical occupations (0.57)</desc>
+  <rect width="600" height="560" rx="18" fill="#fbfaf6"/>
+  <text x="24" y="30" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1.2">RELATIVE IMPORTANCE</text>
+  <g aria-hidden="true">
+    <circle cx="300.0" cy="269.0" r="178.0" fill="none" stroke="#bfc5c4" stroke-width="1.4"/>
+    <circle cx="300.0" cy="269.0" r="89.0" fill="none" stroke="#d8d9d5" stroke-width="1.1"/>
+    <circle cx="300.0" cy="269.0" r="2.5" fill="none" stroke="#bfc5c4" stroke-width="1.2"/>
+    <line x1="300.0" y1="269.0" x2="300.00" y2="91.00" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="396.23" y2="119.26" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="461.91" y2="195.06" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="476.19" y2="294.33" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="434.52" y2="385.57" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="350.15" y2="439.79" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="249.85" y2="439.79" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="165.48" y2="385.57" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="123.81" y2="294.33" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="138.09" y2="195.06" stroke="#d8d9d5" stroke-width="1"/>
+    <line x1="300.0" y1="269.0" x2="203.77" y2="119.26" stroke="#d8d9d5" stroke-width="1"/>
+    <text x="308.0" y="84.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">1</text>
+    <text x="308.0" y="173.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">0.5</text>
+    <text x="308.0" y="283.0" fill="#5f6872" font-family="Roboto Condensed, Arial, sans-serif" font-size="12">0</text>
+  </g>
+  <polygon points="300.00,134.21 396.23,119.26 429.47,209.87 339.18,274.63 324.08,289.87 319.11,334.08 271.21,367.03 262.15,301.79 280.56,271.79 286.91,263.02 293.32,258.60" fill="#078481" fill-opacity="0.17" stroke="#078481" stroke-width="3" stroke-linejoin="round"/>
+  <g fill="#078481" stroke="#fbfaf6" stroke-width="2">
+    <circle cx="300.00" cy="134.21" r="4.3"/>
+    <circle cx="396.23" cy="119.26" r="4.3"/>
+    <circle cx="429.47" cy="209.87" r="4.3"/>
+    <circle cx="339.18" cy="274.63" r="4.3"/>
+    <circle cx="324.08" cy="289.87" r="4.3"/>
+    <circle cx="319.11" cy="334.08" r="4.3"/>
+    <circle cx="271.21" cy="367.03" r="4.3"/>
+    <circle cx="262.15" cy="301.79" r="4.3"/>
+    <circle cx="280.56" cy="271.79" r="4.3"/>
+    <circle cx="286.91" cy="263.02" r="4.3"/>
+    <circle cx="293.32" cy="258.60" r="4.3"/>
+  </g>
+  <g font-family="Roboto Condensed, Arial, sans-serif">
+    <path d="M 300.00 134.21 L 490.00 64.00 L 468.00 64.00" fill="none" stroke="#078481" stroke-width="1.5" stroke-opacity="0.72"/>
+    <text x="473.00" y="62.00" text-anchor="start" fill="#082b55" font-size="13.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="5" stroke-linejoin="round">Routine</text>
+    <text x="473.00" y="79.00" text-anchor="start" fill="#066d6b" font-size="11.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="4">0.76</text>
+    <path d="M 396.23 119.26 L 490.00 96.54 L 468.00 96.54" fill="none" stroke="#078481" stroke-width="1.5" stroke-opacity="0.72"/>
+    <text x="473.00" y="94.54" text-anchor="start" fill="#082b55" font-size="13.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="5" stroke-linejoin="round">Level 4+</text>
+    <text x="473.00" y="111.54" text-anchor="start" fill="#066d6b" font-size="11.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="4">1</text>
+    <path d="M 429.47 209.87 L 490.00 183.84 L 468.00 183.84" fill="none" stroke="#078481" stroke-width="1.5" stroke-opacity="0.72"/>
+    <text x="473.00" y="181.84" text-anchor="start" fill="#082b55" font-size="13.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="5" stroke-linejoin="round">No qualifications</text>
+    <text x="473.00" y="198.84" text-anchor="start" fill="#066d6b" font-size="11.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="4">0.8</text>
+    <path d="M 271.21 367.03 L 110.00 465.70 L 132.00 465.70" fill="none" stroke="#078481" stroke-width="1.5" stroke-opacity="0.72"/>
+    <text x="127.00" y="463.70" text-anchor="end" fill="#082b55" font-size="13.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="5" stroke-linejoin="round">Lower supervisory</text>
+    <text x="127.00" y="480.70" text-anchor="end" fill="#066d6b" font-size="11.5" font-weight="700" paint-order="stroke" stroke="#fbfaf6" stroke-width="4">0.57</text>
+  </g>
+  <text x="300.0" y="535" text-anchor="middle" fill="#304b68" font-family="Roboto Condensed, Arial, sans-serif" font-size="13">0 = lowest of 30 · 1 = highest of 30</text>
+</svg>
