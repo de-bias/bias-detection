@@ -72,7 +72,7 @@
   </header>
 
   <main id="main">
-    <section id="pair" class="cover" aria-labelledby="hero-title">
+    <section id="intro" class="cover" aria-labelledby="hero-title">
       <div class="cover-grid">
         <div class="cover-copy">
           <p class="eyebrow">DEBIAS data story · Published in <em>Royal Society Open Science</em></p>
@@ -84,73 +84,58 @@
           </div>
         </div>
 
-        <div class="pair-evidence" aria-label="Comparison of Watford and North East Derbyshire">
-          <p class="step-kicker">1 / 8 · Pair</p>
-          <h2>Pair</h2>
-          <p class="cover-caveat"><strong>Two places with similar underlying resident population can have very different levels of coverage in the digital data source.</strong> Then, the active-account population estimates will vary substantially. We observe this situation with the population coverage given by Meta data for some local authorities in the UK. For example, Watford and North East Derbyshire have around the same number of residents, but data coverage is 6.7 times larger for the latter.</p>
-          <div class="pair-layout">
-            <article class="place-card place-card-low" data-lad-code="E07000103" data-population="102246" data-meta="2419" data-rate="2.3658627">
-              <h2>Watford</h2>
-              <p class="place-population"><strong>102,246</strong> residents</p>
-              <p class="place-estimate place-estimate-inline">Meta active-account estimate: <strong>2,419</strong></p>
-              <p class="place-rate"><strong>2.37</strong> accounts per 100</p>
-              <svg class="record-grid" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-                <defs>
-                  <pattern id="watford-grid" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="6.8" height="6.8" rx="0.7" fill="#fff"/></pattern>
-                  <mask id="watford-mask"><rect width="100" height="100" fill="url(#watford-grid)"/></mask>
-                </defs>
-                <rect width="100" height="100" fill="#d8d8d5" mask="url(#watford-mask)"/>
-                <rect width="23.7" height="10" fill="#078481" mask="url(#watford-mask)"/>
-              </svg>
-            </article>
-
-            <div class="pair-ratio" aria-label="6.7 times different local rates">
-              <span aria-hidden="true"></span>
-              <strong>6.7×</strong>
-              <p>different local<br>population coverage rates</p>
-              <span aria-hidden="true"></span>
-            </div>
-
-            <article class="place-card place-card-high" data-lad-code="E07000038" data-population="102001" data-meta="16204" data-rate="15.8861188">
-              <h2>North East<br>Derbyshire</h2>
-              <p class="place-population"><strong>102,001</strong> residents</p>
-              <p class="place-estimate place-estimate-inline">Meta active-account estimate: <strong>16,204</strong></p>
-              <p class="place-rate"><strong>15.89</strong> accounts per 100</p>
-              <svg class="record-grid" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-                <defs>
-                  <pattern id="derbyshire-grid" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="6.8" height="6.8" rx="0.7" fill="#fff"/></pattern>
-                  <mask id="derbyshire-mask"><rect width="100" height="100" fill="url(#derbyshire-grid)"/></mask>
-                </defs>
-                <rect width="100" height="100" fill="#d8d8d5" mask="url(#derbyshire-mask)"/>
-                <rect width="100" height="10" fill="#f2553d" mask="url(#derbyshire-mask)"/>
-                <rect y="10" width="58.9" height="10" fill="#f2553d" mask="url(#derbyshire-mask)"/>
-              </svg>
-            </article>
-          </div>
-        </div>
-
-        <nav class="chapter-rail cover-rail" aria-label="Story outline">
-          <a class="is-current" href="#pair"><span></span>Pair</a>
-          <a href="#counts"><span></span>Counts</a>
-          <a href="#rates"><span></span>Rates</a>
-          <a href="#map"><span></span>Map</a>
-          <a href="#source-intro"><span></span>Sources</a>
-          <a href="#context-fingerprints"><span></span>Local</a>
-          <a href="#verdict"><span></span>Conclusions</a>
-          <a href="#learn-more"><span></span>Learn</a>
-        </nav>
-        <p class="cover-source">Meta active-account population estimates · 2021 Census · England and Wales</p>
       </div>
     </section>
 
-    <section id="story" class="evidence-story" aria-label="Evidence in three further views">
+    <section id="story" class="evidence-story" aria-label="Evidence in four views">
       <div class="visual-column">
         <div class="visual-panel">
           <div class="visual-topline">
-            <p id="story-progress" class="story-progress" aria-live="polite">2 / 8 · Counts</p>
+            <p id="story-progress" class="story-progress" aria-live="polite">1 / 8 · Pair</p>
             <a class="text-link" href="#pair">Read from the start ↑</a>
           </div>
-          <div class="chart-shell">
+          <div class="pair-shell" aria-label="Comparison of Watford and North East Derbyshire">
+            <div class="pair-layout">
+              <article class="place-card place-card-low" data-lad-code="E07000103" data-population="102246" data-meta="2419" data-rate="2.3658627">
+                <h2>Watford</h2>
+                <p class="place-population"><strong>102,246</strong> residents</p>
+                <p class="place-estimate place-estimate-inline">Meta active-account estimate: <strong>2,419</strong></p>
+                <p class="place-rate"><strong>2.37</strong> accounts per 100</p>
+                <svg class="record-grid" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                  <defs>
+                    <pattern id="watford-grid" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="6.8" height="6.8" rx="0.7" fill="#fff"/></pattern>
+                    <mask id="watford-mask"><rect width="100" height="100" fill="url(#watford-grid)"/></mask>
+                  </defs>
+                  <rect width="100" height="100" fill="#d8d8d5" mask="url(#watford-mask)"/>
+                  <rect width="23.7" height="10" fill="#078481" mask="url(#watford-mask)"/>
+                </svg>
+              </article>
+
+              <div class="pair-ratio" aria-label="6.7 times different local rates">
+                <span aria-hidden="true"></span>
+                <strong>6.7×</strong>
+                <p>different local<br>population coverage rates</p>
+                <span aria-hidden="true"></span>
+              </div>
+
+              <article class="place-card place-card-high" data-lad-code="E07000038" data-population="102001" data-meta="16204" data-rate="15.8861188">
+                <h2>North East<br>Derbyshire</h2>
+                <p class="place-population"><strong>102,001</strong> residents</p>
+                <p class="place-estimate place-estimate-inline">Meta active-account estimate: <strong>16,204</strong></p>
+                <p class="place-rate"><strong>15.89</strong> accounts per 100</p>
+                <svg class="record-grid" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                  <defs>
+                    <pattern id="derbyshire-grid" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="6.8" height="6.8" rx="0.7" fill="#fff"/></pattern>
+                    <mask id="derbyshire-mask"><rect width="100" height="100" fill="url(#derbyshire-grid)"/></mask>
+                  </defs>
+                  <rect width="100" height="100" fill="#d8d8d5" mask="url(#derbyshire-mask)"/>
+                  <rect width="100" height="10" fill="#f2553d" mask="url(#derbyshire-mask)"/>
+                  <rect y="10" width="58.9" height="10" fill="#f2553d" mask="url(#derbyshire-mask)"/>
+                </svg>
+              </article>
+            </div>
+          </div>
+          <div class="chart-shell" hidden>
             <svg id="story-svg" viewBox="0 0 900 680" role="img" aria-labelledby="chart-title chart-description">
               <title id="chart-title">Census population and Meta active-account estimates</title>
               <desc id="chart-description">A scatter plot of 331 local authorities. The relationship is strong, but local rates vary.</desc>
@@ -158,14 +143,14 @@
             </svg>
             <div id="chart-tooltip" class="chart-tooltip" role="status" hidden></div>
           </div>
-          <p id="chart-summary" class="chart-summary">Larger places generally produce larger counts. Pearson r = .91 across 331 local authorities.</p>
+          <p id="chart-summary" class="chart-summary" hidden></p>
           <nav class="chapter-rail visual-rail" aria-label="Interactive story chapters">
-            <a href="#pair"><span></span>Pair</a>
-            <button class="is-current" type="button" data-go-state="0" aria-current="step"><span></span>Counts</button>
-            <button type="button" data-go-state="1"><span></span>Rates</button>
-            <button type="button" data-go-state="2"><span></span>Map</button>
+            <button class="is-current" type="button" data-go-state="0" aria-current="step"><span></span>Pair</button>
+            <button type="button" data-go-state="1"><span></span>Counts</button>
+            <button type="button" data-go-state="2"><span></span>Rates</button>
+            <button type="button" data-go-state="3"><span></span>Map</button>
             <a href="#source-intro"><span></span>Sources</a>
-            <a href="#context-fingerprints"><span></span>Local</a>
+            <a href="#context-fingerprints"><span></span>Understand</a>
             <a href="#verdict"><span></span>Conclusions</a>
             <a href="#learn-more"><span></span>Learn</a>
           </nav>
@@ -173,7 +158,13 @@
       </div>
 
       <div class="steps-column">
-        <article id="counts" class="story-step is-active" data-state="0" tabindex="-1">
+        <article id="pair" class="story-step is-active" data-state="0" tabindex="-1">
+          <p class="step-kicker">1 / 8 · Pair</p>
+          <h2>Pair</h2>
+          <p><strong>Two places with similar underlying resident population can have very different levels of coverage in the digital data source.</strong> Then, the active-account population estimates will vary substantially. We observe this situation with the population coverage given by Meta data for some local authorities in the UK. For example, Watford and North East Derbyshire have around the same number of residents, but data coverage is 6.7 times larger for the latter.</p>
+        </article>
+
+        <article id="counts" class="story-step" data-state="1" tabindex="-1">
           <p class="step-kicker">2 / 8 · Counts</p>
           <h2>Overall, the population counts still line up</h2>
           <p>Across all 331 Local Authorities, census populations and Meta’s active-account population estimates have a Pearson correlation of <strong>r = .91</strong>. More populated places generally have more accounts. Yet, this high correlation is not necessarily a sign that the digital trace data is representative of the underlying population.</p>
@@ -186,7 +177,7 @@
           </figure>
         </article>
 
-        <article id="rates" class="story-step" data-state="1" tabindex="-1">
+        <article id="rates" class="story-step" data-state="2" tabindex="-1">
           <p class="step-kicker">3 / 8 · Population coverage rates</p>
           <h2>Putting everything on the same scale</h2>
           <p>Once we express Meta coverage as accounts per 100 census residents, local variation becomes clearer. Local population coverage rates vary widely around Meta’s fitted rate of <strong>8.09</strong> per 100 residents across the 331 Local Authorities.</p>
@@ -200,7 +191,7 @@
           </figure>
         </article>
 
-        <article id="map" class="story-step" data-state="2" tabindex="-1">
+        <article id="map" class="story-step" data-state="3" tabindex="-1">
           <p class="step-kicker">4 / 8 · Map</p>
           <h2>Mapping population coverage rates</h2>
           <p>The map shows each area’s local population coverage rate relative to the fitted Meta rate. Blue means fewer estimated accounts per resident than fitted; red means more.</p>
@@ -249,7 +240,7 @@
               <a href="#rates"><span></span>Rates</a>
               <a href="#map"><span></span>Map</a>
               <a class="is-current" href="#source-intro"><span></span>Sources</a>
-              <a href="#context-fingerprints"><span></span>Local</a>
+              <a href="#context-fingerprints"><span></span>Understand</a>
               <a href="#verdict"><span></span>Conclusions</a>
               <a href="#learn-more"><span></span>Learn</a>
             </nav>
@@ -291,7 +282,7 @@
       </div>
       <section id="context-fingerprints" class="source-shapes context-fingerprints wrap" aria-labelledby="context-fingerprints-title" data-default-source="twitter">
         <header class="source-shapes-heading context-fingerprints-heading">
-          <p class="step-kicker">6 / 8 · Local characteristics</p>
+          <p class="step-kicker">6 / 8 · Understand the influence of local characteristics</p>
           <h2 id="context-fingerprints-title" class="context-section-title">Understanding what local characteristics give rise to different levels of coverage</h2>
           <p>We find that population coverage rates vary systematically with local characteristics. By analysing this variation, we can identify which population groups may be under or overrepresented in the data. We do this analysis across all four data sources: Twitter/X, Meta, Multi-App1 and Multi-App2.</p>
           <p class="context-render-label">We use a machine-learning based model (XGBoost) to analyse which place-based characteristics are the most important factors leading to low population coverage bias in a given data source. <strong>These characteristics define the population groups that are likely to be underrepresented in that data source.</strong></p>
@@ -394,8 +385,8 @@
         </noscript>
 
         <div class="context-hinge">
-          <h3>Local characteristics do not relate to coverage in a simple linear way.</h3>
-          <p>The visualisations below show the actual shape of the relationship between selected place-based characteristics and local population coverage rates. For example, the radial plots above indicate that the percentage of people aged 20-29 is an important predictor of low coverage rates in Twitter/X data. But how does this characteristic actually influence coverage? The central visualisation below shows how this relationship unfolds: as the percentage of people aged 20-29 increases, population coverage in Twitter/X data also tends to increase. Here, the y-axis represents the inverse of population coverage rates. <strong>This suggests that Twitter/X data tends to overrepresent people aged 20-29 compared to the underlying population.</strong></p>
+          <h3>Local characteristics do not relate to coverage in a simple, linear way</h3>
+          <p>The selected visualisations below show the actual shape of the relationship between some place-based characteristics and population coverage rates, for different data sources. While the radial plots above indicate which place-based characteristics are important predictors of low coverage rates, they do not tell us how these characteristics actually influence coverage. For example, from the radial plots we learn that the percentage of people aged 20-29 is an important predictor of low coverage rates in Twitter/X data. The central visualisation below shows how this relationship unfolds: as the percentage of people aged 20-29 increases, population coverage in Twitter/X data also tends to increase. Here, the y-axis represents the inverse of population coverage rates.</p>
         </div>
         <p class="source-shapes-note">We find that the associations between local characteristics and population coverage rates can flatten, reverse direction or change shape across the observed range. <strong>This is why we use a flexible machine-learning model to identify the place-based characteristics linked to low population coverage rates.</strong></p>
 
@@ -437,7 +428,7 @@
 
           </figure>
         </div>
-        <a class="arrow-link" href="https://doi.org/10.1098/rsos.251703">See the methods, interpretation and assumptions <span aria-hidden="true">→</span></a>
+        <a class="arrow-link" href="research.html">See the methods, interpretation and assumptions <span aria-hidden="true">→</span></a>
         <div class="section-rail-wrap">
           <nav class="chapter-rail section-rail" aria-label="Story outline">
             <a href="#pair"><span></span>Pair</a>
@@ -445,7 +436,7 @@
             <a href="#rates"><span></span>Rates</a>
             <a href="#map"><span></span>Map</a>
             <a href="#source-intro"><span></span>Sources</a>
-            <a class="is-current" href="#context-fingerprints"><span></span>Local</a>
+            <a class="is-current" href="#context-fingerprints"><span></span>Understand</a>
             <a href="#verdict"><span></span>Conclusions</a>
             <a href="#learn-more"><span></span>Learn</a>
           </nav>
@@ -457,10 +448,10 @@
       <div class="verdict-mark" aria-hidden="true">≠</div>
       <div class="verdict-copy">
         <p class="eyebrow">7 / 8 · Conclusions</p>
-        <h2 id="verdict-title">Representativeness must be diagnosed source by source.</h2>
-        <p class="verdict-body">Different datasets place the same areas on different sides of their fitted rates, and their biases relate to local characteristics in different, often nonlinear ways. A correction validated for one source should not be assumed to transfer to another.</p>
-        <p class="verdict-line">Measure before you infer. Validate before you adjust.</p>
-        <a class="arrow-link" href="research.html#different-sources">See why different datasets need source-specific diagnosis and validation <span aria-hidden="true">→</span></a>
+        <h2 id="verdict-title">Digital-trace population estimates are valuable, but their representativeness needs to be checked</h2>
+        <p class="verdict-body">Across four digital-trace data sources, we find substantial local differences in population coverage. These differences vary across places and data sources, and they are associated with demographic, socioeconomic and other local characteristics. This suggests that digital-trace data may be under or overrepresenting certain population groups. Therefore, their representativeness needs to be assessed explicitly before using it for population inference.</p>
+        <p class="verdict-line">Assess before you infer.</p>
+        <a class="arrow-link" href="research.html">Read the methods, limitations and wider findings <span aria-hidden="true">→</span></a>
         <div class="section-rail-wrap">
           <nav class="chapter-rail section-rail" aria-label="Story outline">
             <a href="#pair"><span></span>Pair</a>
@@ -468,7 +459,7 @@
             <a href="#rates"><span></span>Rates</a>
             <a href="#map"><span></span>Map</a>
             <a href="#source-intro"><span></span>Sources</a>
-            <a href="#context-fingerprints"><span></span>Local</a>
+            <a href="#context-fingerprints"><span></span>Understand</a>
             <a class="is-current" href="#verdict"><span></span>Conclusions</a>
             <a href="#learn-more"><span></span>Learn</a>
           </nav>
@@ -482,39 +473,32 @@
         <h2 id="learn-more-title">Learn more</h2>
       </div>
 
-    <section class="utility-band wrap" aria-label="Explore and share the evidence">
+    <section class="utility-band wrap" aria-label="Explore the evidence">
       <div>
         <p class="eyebrow">Explore</p>
         <h2>How does your local authority compare?</h2>
         <p>See its observed Meta rate, its distance from the fitted benchmark and a precise interpretation note.</p>
         <a class="button button-primary" href="explore.html">Find a local authority <span aria-hidden="true">→</span></a>
       </div>
-      <div>
-        <p class="eyebrow">For journalists</p>
-        <h2>Use the finding without losing the caveat.</h2>
-        <p>Download the paired-area graphic, publication-ready figures and concise reporting notes.</p>
-        <a class="button button-outline" href="media/media-brief.html">Open the media kit <span aria-hidden="true">→</span></a>
-      </div>
     </section>
 
     <section class="research-summary wrap" aria-labelledby="about-title">
       <div class="about-copy">
         <p class="eyebrow">About the research</p>
-        <h2 id="about-title">A framework for diagnosing aggregate coverage bias.</h2>
-        <p>Carmen Cabrera and Francisco Rowe of the University of Liverpool’s Geographic Data Science Lab compared four mobile-app datasets with the 2021 Census across 331 local authority areas in England and Wales. Their published <em>Royal Society Open Science</em> study, <a href="https://doi.org/10.1098/rsos.251703"><cite>Making hidden biases visible in population location data from mobile phones</cite></a>, combines proportional diagnostics and explainable machine learning to examine where aggregate coverage differs and which area characteristics are associated with that variation.</p>
-        <p class="about-boundary">The analysis diagnoses area-level patterns; it cannot identify missing individuals.</p>
+        <h2 id="about-title">A framework for assessing population coverage bias</h2>
+        <p>Carmen Cabrera and Francisco Rowe of the University of Liverpool’s Geographic Data Science Lab compared four digital-trace datasets with the 2021 Census across 331 local authority areas in England and Wales. Their article published in <em>Royal Society Open Science</em>, <a href="https://doi.org/10.1098/rsos.251703"><cite>Making hidden biases visible in population location data from mobile phones</cite></a>, examines how population coverage varies and which area-level characteristics are associated with that variation.</p>
+        <p class="about-boundary">The analysis focuses on assessing area-level patterns while protecting the anonymity of individual users of digital technologies.</p>
         <a class="arrow-link" href="research.html">Read the methods, limitations and wider findings <span aria-hidden="true">→</span></a>
       </div>
       <div class="study-glance">
-        <p class="eyebrow">Research metrics</p>
-        <h2>Study at a glance</h2>
+        <p class="eyebrow">Study at a glance</p>
+        <h2>Key study figures</h2>
         <dl class="metric-list">
           <div><dt>4</dt><dd>mobile-app datasets</dd></div>
           <div><dt>331</dt><dd>local authority areas</dd></div>
           <div><dt>2021</dt><dd>Census benchmark</dd></div>
           <div><dt>r = .80–.95</dt><dd>raw-count Pearson correlations</dd></div>
         </dl>
-        <p class="metric-note">Calculated from the released local-authority data. The correlations describe how counts move with population; they are not representativeness scores.</p>
       </div>
     </section>
 
@@ -522,10 +506,10 @@
       <div>
         <p class="eyebrow">Article attention</p>
         <h2 id="attention-title">Follow the conversation around the article.</h2>
-        <p>Online attention is kept separate from the study’s research metrics. It is not a measure of research quality, readership or representativeness.</p>
       </div>
       <div class="article-attention-badge">
         <div class="altmetric-embed" data-badge-type="donut" data-badge-popover="right" data-doi="10.1098/rsos.251703" aria-label="Altmetric attention for the published article"></div>
+        <p>The Altmetric badge summarises online attention to the article, including mentions in news outlets, blogs and social media.</p>
         <a class="arrow-link" href="https://doi.org/10.1098/rsos.251703">Read the published article <span aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -537,7 +521,7 @@
           <a href="#rates"><span></span>Rates</a>
           <a href="#map"><span></span>Map</a>
           <a href="#source-intro"><span></span>Sources</a>
-          <a href="#context-fingerprints"><span></span>Local</a>
+          <a href="#context-fingerprints"><span></span>Understand</a>
           <a href="#verdict"><span></span>Conclusions</a>
           <a class="is-current" href="#learn-more"><span></span>Learn</a>
         </nav>
@@ -546,7 +530,6 @@
 
     <section class="sources wrap" aria-labelledby="sources-title">
       <h2 id="sources-title">Sources and notes</h2>
-      <p>Analysis uses released local-authority counts, Meta’s active-account population estimates for March 2021, 2021 Census resident populations and official 2021 local-authority boundaries. The public map displays local rate minus fitted rate; this has the opposite sign to the paper’s residual-bias convention.</p>
       <ul>
         <li><a href="https://doi.org/10.1098/rsos.251703">Published article: <cite>Making hidden biases visible in population location data from mobile phones</cite></a></li>
         <li><a href="https://github.com/de-bias/bias-detection/blob/main/outputs/manuscript-data/lad-derived-population-counts.csv">Released analysis data</a></li>

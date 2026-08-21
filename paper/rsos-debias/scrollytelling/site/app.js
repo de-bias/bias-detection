@@ -10,6 +10,8 @@
   const summary = document.querySelector('#chart-summary');
   const tooltip = document.querySelector('#chart-tooltip');
   const chartShell = document.querySelector('.chart-shell');
+  const pairShell = document.querySelector('.pair-shell');
+  const visualPanel = document.querySelector('.visual-panel');
   const steps = [...document.querySelectorAll('.story-step')];
   const chapterButtons = [...document.querySelectorAll('[data-go-state]')];
   const titleNode = svg.querySelector('title');
@@ -20,6 +22,12 @@
   const compactNumber = new Intl.NumberFormat('en-GB', { notation: 'compact', maximumFractionDigits: 1 });
 
   const stateContent = [
+    {
+      label: '1 / 8 · Pair',
+      title: 'Paired local authorities with similar populations but different Meta coverage',
+      description: 'Two local authorities with similar resident populations but substantially different Meta active-account estimates per 100 residents.',
+      summary: 'Meta active-account population estimates · 2021 Census · England and Wales'
+    },
     {
       label: '2 / 8 · Counts',
       title: 'Census population and Meta active-account estimates',
@@ -406,11 +414,12 @@
   };
 
   const renderState = state => {
-    if (state < 0 || state > 2 || state === currentState) return;
+    if (state < 0 || state > 3 || state === currentState) return;
     currentState = state;
     const content = stateContent[state];
     progress.textContent = content.label;
     summary.textContent = content.summary;
+    summary.hidden = !content.summary;
     svg.querySelector('title').textContent = content.title;
     svg.querySelector('desc').textContent = content.description;
     steps.forEach((step, index) => step.classList.toggle('is-active', index === state));
@@ -420,7 +429,23 @@
       if (active) button.setAttribute('aria-current', 'step');
       else button.removeAttribute('aria-current');
     });
-    [drawCounts, drawRates, drawMap][state]();
+    visualPanel?.classList.toggle('is-pair-state', state === 0);
+
+    if (state === 0) {
+      pairShell.hidden = false;
+      chartShell.hidden = true;
+      hideTooltip();
+      clearScaffolding();
+      nodes?.forEach(({ path, circle }) => {
+        setVisibility(path, 0);
+        setVisibility(circle, 0);
+      });
+      return;
+    }
+
+    pairShell.hidden = true;
+    chartShell.hidden = false;
+    [drawCounts, drawRates, drawMap][state - 1]();
   };
 
   const currentStepFromViewport = () => {
