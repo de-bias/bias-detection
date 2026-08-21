@@ -196,23 +196,26 @@ svg {
 }
 
 .cover {
-  min-height: calc(100svh - 63px);
+  min-height: auto;
   border-bottom: 1px solid var(--line);
 }
 
 .cover-grid {
   display: grid;
-  min-height: calc(100svh - 63px);
-  grid-template-columns: minmax(455px, 0.96fr) minmax(600px, 1.4fr);
-  grid-template-rows: minmax(0, 1fr) 46px 22px;
-  column-gap: clamp(2rem, 3vw, 3rem);
-  padding: clamp(1.5rem, 3vh, 2rem) 0 0.75rem;
+  min-height: auto;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto;
+  align-content: start;
+  row-gap: 0.7rem;
+  padding: clamp(1.5rem, 3vh, 2rem) 0 1rem;
 }
 
 .cover-copy {
-  align-self: center;
+  grid-column: 1 / -1;
+  align-self: start;
+  max-width: none;
   padding-bottom: 0.2rem;
-  transform: translateY(-2rem);
+  transform: none;
 }
 
 .cover-copy h1,
@@ -229,7 +232,7 @@ svg {
 }
 
 .message-box {
-  max-width: 450px;
+  max-width: none;
   margin-top: clamp(1.15rem, 2.4vh, 1.65rem);
   padding: 0.85rem 1rem 0.9rem;
   border: 1px solid color-mix(in srgb, var(--teal) 75%, white);
@@ -252,7 +255,7 @@ svg {
 }
 
 .cover-caveat {
-  max-width: 455px;
+  max-width: 720px;
   margin: 0.85rem 0 0;
   color: #344b65;
   font-size: 0.85rem;
@@ -264,9 +267,10 @@ svg {
 }
 
 .pair-evidence {
-  align-self: center;
+  grid-column: 1 / -1;
+  align-self: start;
   min-width: 0;
-  transform: translateY(-2rem);
+  transform: none;
 }
 
 .pair-context {
@@ -369,6 +373,17 @@ svg {
   letter-spacing: 0.02em;
 }
 
+.place-estimate-inline {
+  margin: 0.25rem 0 0;
+  color: var(--navy);
+  font-size: 0.89rem;
+  letter-spacing: 0;
+}
+
+.place-estimate-inline strong {
+  font-variant-numeric: tabular-nums;
+}
+
 .pair-ratio {
   display: grid;
   align-content: center;
@@ -409,15 +424,15 @@ svg {
 
 .chapter-rail {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: end;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  align-items: stretch;
 }
 
 .chapter-rail a,
 .chapter-rail button {
   position: relative;
   display: grid;
-  min-height: 44px;
+  min-height: 62px;
   padding: 1.08rem 0.25rem 0;
   border: 0;
   color: var(--grey);
@@ -427,9 +442,10 @@ svg {
   font-size: 0.86rem;
   font-stretch: condensed;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.05;
   text-align: center;
   text-decoration: none;
+  align-content: start;
 }
 
 .chapter-rail a::before,
@@ -476,15 +492,18 @@ svg {
 
 .cover-rail {
   grid-column: 1 / -1;
-  width: min(660px, 58%);
-  align-self: end;
+  grid-row: 4;
+  width: 100%;
+  align-self: start;
   justify-self: center;
+  margin-top: 0.1rem;
 }
 
 .cover-source {
   grid-column: 1 / -1;
+  grid-row: 3;
   margin: 0;
-  align-self: end;
+  align-self: start;
   color: var(--grey);
   font-size: 0.68rem;
   letter-spacing: 0.025em;
@@ -688,7 +707,7 @@ svg {
 }
 
 .visual-rail {
-  width: min(600px, 88%);
+  width: 100%;
   margin: 0.3rem auto 0;
 }
 
@@ -989,64 +1008,17 @@ svg {
 }
 
 .source-rail {
-  display: grid;
-  width: min(470px, 84%);
+  width: 100%;
   margin: 0.35rem auto 0;
-  grid-template-columns: repeat(3, 1fr);
 }
 
-.source-rail a {
-  position: relative;
-  display: grid;
-  min-height: 40px;
-  padding: 1rem 0.25rem 0;
-  color: var(--grey);
-  font-family: var(--display);
-  font-size: 0.78rem;
-  font-stretch: condensed;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  text-decoration: none;
+.section-rail-wrap {
+  width: min(calc(100% - 4rem), var(--max-width));
+  margin: 2rem auto 0;
 }
 
-.source-rail a::before {
-  position: absolute;
-  top: 5px;
-  right: 0;
-  left: 0;
-  height: 1px;
-  background: var(--line);
-  content: "";
-}
-
-.source-rail a:first-child::before {
-  left: 50%;
-}
-
-.source-rail a:last-child::before {
-  right: 50%;
-}
-
-.source-rail span {
-  position: absolute;
-  z-index: 1;
-  top: 1px;
-  left: 50%;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--grey);
-  transform: translateX(-50%);
-}
-
-.source-rail .is-current {
-  color: var(--teal-text);
-  font-weight: 900;
-}
-
-.source-rail .is-current span {
-  background: var(--teal);
+.section-rail {
+  width: 100%;
 }
 
 .source-steps-column {
@@ -1077,6 +1049,12 @@ svg {
   font-size: clamp(2.45rem, 4vw, 3.85rem);
 }
 
+.source-fingerprint-title {
+  max-width: none;
+  font-size: clamp(2.15rem, 3.35vw, 3.1rem);
+  white-space: nowrap;
+}
+
 .source-step > p:not(.step-kicker, .key-line) {
   margin: 1.25rem 0 0;
   color: var(--navy-soft);
@@ -1089,6 +1067,15 @@ svg {
 
 .source-story.is-ready .source-static {
   display: none;
+}
+
+#source-fingerprint {
+  border-bottom: 0;
+  padding-bottom: 2rem;
+}
+
+#source-switches {
+  padding-top: 2rem;
 }
 
 /* Keep the exact four-source values available to assistive technology while
@@ -1238,12 +1225,18 @@ svg {
 
 .source-shapes-heading .step-kicker {
   grid-column: 1 / -1;
-  margin-bottom: -1rem;
+  margin-bottom: 0.45rem;
 }
 
 .source-shapes h2 {
   max-width: 820px;
   font-size: clamp(3rem, 6vw, 5.8rem);
+}
+
+.context-section-title {
+  grid-column: 1 / -1;
+  max-width: none;
+  font-size: clamp(2.55rem, 4.85vw, 4.8rem);
 }
 
 .source-shapes-heading > p:last-child {
@@ -1461,9 +1454,28 @@ svg {
   font-weight: 800;
 }
 
+.learn-more-section {
+  margin-top: clamp(4rem, 8vw, 7rem);
+}
+
+.learn-more-heading {
+  margin-bottom: 2rem;
+}
+
+.learn-more-heading h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-stretch: condensed;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
 .utility-band {
   display: grid;
-  margin-top: clamp(4rem, 8vw, 7rem);
+  margin-top: 0;
   grid-template-columns: 1fr 1fr;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -2495,23 +2507,20 @@ svg {
   }
 
   .cover {
-    min-height: calc(100svh - 59px);
+    min-height: auto;
   }
 
   .cover-grid {
-    min-height: calc(100svh - 59px);
-    grid-template-columns: minmax(340px, 0.62fr) minmax(575px, 1fr);
-    column-gap: 1.75rem;
+    min-height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    align-content: start;
+    row-gap: 0.7rem;
     padding-top: 1.2rem;
   }
 
   .cover-copy h1 {
     font-size: clamp(3.55rem, 6.1vw, 4rem);
-  }
-
-  .cover-copy,
-  .pair-evidence {
-    transform: translateY(-1.25rem);
   }
 
   .message-box {

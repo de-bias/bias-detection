@@ -28,16 +28,16 @@
 
   const stateContent = [
     {
-      progress: '5 / 7 · Four sources',
+      progress: '5 / 8 · Sources',
       title: 'Watford and North East Derbyshire across four digital sources',
       description: 'Four horizontal source tracks show the two local authorities changing sides of separate source-specific fitted rates.',
-      summary: 'One times marks each source’s fitted proportional rate. The places stay fixed; their relative positions change with the source.'
+      summary: 'One times marks each source’s fitted population coverage rate. The same area can move above or below that fitted rate depending on the data source.'
     },
     {
-      progress: '6 / 7 · 331 areas',
+      progress: '5 / 8 · Sources',
       title: 'Three hundred of 331 local authorities change sides across sources',
       description: 'A unit chart of 331 local authorities. Three hundred sit above a fitted rate in at least one source and below it in another.',
-      summary: '300 of 331 authorities change sides across the four source-specific fitted rates. This is not a percentage of residents represented.'
+      summary: '300 of 331 authorities change sides across the four source-specific fitted rates.'
     }
   ];
 
@@ -225,9 +225,9 @@
     addText(svg, '31 remain on one side', 443, legendY, 'source-note');
   };
 
-  const updateRail = activeIndex => {
-    railLinks.forEach((link, index) => {
-      const active = index === activeIndex;
+  const updateRail = () => {
+    railLinks.forEach(link => {
+      const active = link.getAttribute('href') === '#source-intro';
       link.classList.toggle('is-current', active);
       if (active) link.setAttribute('aria-current', 'step');
       else link.removeAttribute('aria-current');

@@ -21,22 +21,22 @@
 
   const stateContent = [
     {
-      label: '2 / 4 · Counts',
+      label: '2 / 8 · Counts',
       title: 'Census population and Meta active-account estimates',
       description: 'Scatter plot of 331 local authorities. Larger populations generally have larger Meta estimates; Pearson r equals 0.91.',
       summary: 'Larger places generally produce larger counts. Pearson r = .91 across 331 local authorities.'
     },
     {
-      label: '3 / 4 · Rates',
-      title: 'Meta active-account estimates per 100 census residents',
+      label: '3 / 8 · Population coverage rates',
+      title: 'Meta active-account population estimates per 100 residents',
       description: 'Strip plot of all 331 local rates. The middle 90 percent spans 4.61 to 12.31 around a fitted rate of 8.09.',
       summary: 'The fitted rate is 8.09 per 100 residents; the middle 90% of local rates spans 4.61–12.31.'
     },
     {
-      label: '4 / 4 · Map',
-      title: 'Local departure from the fitted Meta rate',
+      label: '4 / 8 · Map',
+      title: 'Local population coverage rate minus fitted Meta rate',
       description: 'Map of 331 local authorities in England and Wales. Teal areas have fewer estimates per resident than fitted; coral areas have more.',
-      summary: 'Local departures are not a simple regional divide. More estimated accounts do not mean better representation.'
+      summary: ''
     }
   ];
 
@@ -163,7 +163,7 @@
 
   const addMarkEvents = (element, area) => {
     element.setAttribute('role', 'graphics-symbol');
-    element.setAttribute('aria-label', `${area.name}: ${formatRate.format(area.rate)} Meta active-account estimates per 100 census residents.`);
+    element.setAttribute('aria-label', `${area.name}: ${formatRate.format(area.rate)} Meta active-account population estimates per 100 residents.`);
     element.addEventListener('pointerenter', event => showTooltip(event, area));
     element.addEventListener('pointermove', positionTooltip);
     element.addEventListener('pointerleave', hideTooltip);
@@ -292,7 +292,7 @@
       xTicks: [0, 250000, 500000, 750000, 1000000, 1200000],
       yTicks: [0, 25000, 50000, 75000, 100000],
       xLabel: '2021 Census resident population',
-      yLabel: 'Meta active-account estimate',
+      yLabel: 'Meta active-account population estimate',
       xFormat: value => value === 0 ? '0' : compactNumber.format(value),
       yFormat: value => value === 0 ? '0' : compactNumber.format(value)
     });
@@ -316,7 +316,6 @@
     addText(annotationLayer, 'Pearson r', 665, 130, 'chart-note');
     addText(annotationLayer, '.91', 665, 190, 'stat-large');
     addText(annotationLayer, 'The relationship is strong.', 665, 219, 'chart-label');
-    addText(annotationLayer, 'The local rate is not constant.', 665, 244, 'chart-note');
 
     storyData.pair.forEach((area, index) => {
       const labelX = x(area.population) + (index === 0 ? 42 : 46);
@@ -351,7 +350,7 @@
       addLine(axisLayer, x(tick), baselineY - 8, x(tick), baselineY + 8, 'tick-line');
       addText(axisLayer, String(tick), x(tick), 555, 'tick-label', 'middle');
     });
-    addText(axisLayer, 'Meta active-account estimates per 100 census residents', (left + right) / 2, 605, 'axis-label', 'middle');
+    addText(axisLayer, 'Meta active-account population estimates per 100 residents', (left + right) / 2, 605, 'axis-label', 'middle');
 
     const fittedX = x(metadata.alpha_per_100);
     const fittedLine = addLine(annotationLayer, fittedX, 120, fittedX, 505, 'fitted-line');
