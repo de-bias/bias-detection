@@ -25,18 +25,18 @@
     {
       label: '1 / 8 · Pair',
       title: 'Paired local authorities with similar populations but different Meta coverage',
-      description: 'Two local authorities with similar resident populations but substantially different Meta active-account estimates per 100 residents.',
-      summary: 'Meta active-account population estimates · 2021 Census · England and Wales'
+      description: 'Two local authorities with similar resident populations but substantially different Meta active-user estimates per 100 residents.',
+      summary: 'Meta active-user population estimates · 2021 Census · England and Wales'
     },
     {
       label: '2 / 8 · Counts',
-      title: 'Census population and Meta active-account estimates',
+      title: 'Overall, the population counts still line up',
       description: 'Scatter plot of 331 local authorities. Larger populations generally have larger Meta estimates; Pearson r equals 0.91.',
-      summary: 'Larger places generally produce larger counts. Pearson r = .91 across 331 local authorities.'
+      summary: 'High geographic correspondence but large differences in coverage rates across local authorities.'
     },
     {
       label: '3 / 8 · Population coverage rates',
-      title: 'Meta active-account population estimates per 100 residents',
+      title: 'Meta active-user population estimates per 100 residents',
       description: 'Strip plot of all 331 local rates. The middle 90 percent spans 4.61 to 12.31 around a fitted rate of 8.09.',
       summary: 'The fitted rate is 8.09 per 100 residents; the middle 90% of local rates spans 4.61–12.31.'
     },
@@ -44,7 +44,7 @@
       label: '4 / 8 · Map',
       title: 'Local population coverage rate minus fitted Meta rate',
       description: 'Map of 331 local authorities in England and Wales. Teal areas have fewer estimates per resident than fitted; coral areas have more.',
-      summary: ''
+      summary: 'More records in digital-trace data sources do not mean better representation.'
     }
   ];
 
@@ -171,7 +171,7 @@
 
   const addMarkEvents = (element, area) => {
     element.setAttribute('role', 'graphics-symbol');
-    element.setAttribute('aria-label', `${area.name}: ${formatRate.format(area.rate)} Meta active-account population estimates per 100 residents.`);
+    element.setAttribute('aria-label', `${area.name}: ${formatRate.format(area.rate)} Meta active-user population estimates per 100 residents.`);
     element.addEventListener('pointerenter', event => showTooltip(event, area));
     element.addEventListener('pointermove', positionTooltip);
     element.addEventListener('pointerleave', hideTooltip);
@@ -300,7 +300,7 @@
       xTicks: [0, 250000, 500000, 750000, 1000000, 1200000],
       yTicks: [0, 25000, 50000, 75000, 100000],
       xLabel: '2021 Census resident population',
-      yLabel: 'Meta active-account population estimate',
+      yLabel: 'Meta active-user population estimate',
       xFormat: value => value === 0 ? '0' : compactNumber.format(value),
       yFormat: value => value === 0 ? '0' : compactNumber.format(value)
     });
@@ -324,6 +324,7 @@
     addText(annotationLayer, 'Pearson r', 665, 130, 'chart-note');
     addText(annotationLayer, '.91', 665, 190, 'stat-large');
     addText(annotationLayer, 'The relationship is strong.', 665, 219, 'chart-label');
+    addText(annotationLayer, 'The local rate is not constant.', 665, 245, 'chart-note');
 
     storyData.pair.forEach((area, index) => {
       const labelX = x(area.population) + (index === 0 ? 42 : 46);
@@ -358,7 +359,7 @@
       addLine(axisLayer, x(tick), baselineY - 8, x(tick), baselineY + 8, 'tick-line');
       addText(axisLayer, String(tick), x(tick), 555, 'tick-label', 'middle');
     });
-    addText(axisLayer, 'Meta active-account population estimates per 100 residents', (left + right) / 2, 605, 'axis-label', 'middle');
+    addText(axisLayer, 'Meta active-user population estimates per 100 residents', (left + right) / 2, 605, 'axis-label', 'middle');
 
     const fittedX = x(metadata.alpha_per_100);
     const fittedLine = addLine(annotationLayer, fittedX, 120, fittedX, 505, 'fitted-line');
@@ -415,16 +416,27 @@
 
   const renderState = state => {
     if (state < 0 || state > 3 || state === currentState) return;
+    const previousState = currentState;
     currentState = state;
     const content = stateContent[state];
     progress.textContent = content.label;
+    if ((previousState === 0 && state === 1) || (previousState === 1 && state === 0)) {
+      progress.animate?.(
+        [
+          { opacity: 0, transform: 'translateY(4px)' },
+          { opacity: 1, transform: 'translateY(0)' }
+        ],
+        { duration: 280, easing: 'ease-out' }
+      );
+    }
     summary.textContent = content.summary;
     summary.hidden = !content.summary;
     svg.querySelector('title').textContent = content.title;
     svg.querySelector('desc').textContent = content.description;
     steps.forEach((step, index) => step.classList.toggle('is-active', index === state));
+    const activeChapter = [0, 1, 2, 3][state];
     chapterButtons.forEach((button, index) => {
-      const active = index === state;
+      const active = index === activeChapter;
       button.classList.toggle('is-current', active);
       if (active) button.setAttribute('aria-current', 'step');
       else button.removeAttribute('aria-current');
@@ -457,8 +469,19 @@
     return state;
   };
 
+  const updatePairToCountsHandoff = () => {
+    if (!pairShell || !steps[1]) return;
+    const countsTop = steps[1].getBoundingClientRect().top;
+    const fadeEnd = window.innerHeight * 0.58;
+    const fadeStart = window.innerHeight * 0.88;
+    const handoff = Math.max(0, Math.min(1, (fadeStart - countsTop) / (fadeStart - fadeEnd)));
+    pairShell.style.opacity = String(1 - handoff);
+    pairShell.style.transform = `translateY(${-24 * handoff}px)`;
+  };
+
   const updateFromScroll = () => {
     scrollQueued = false;
+    updatePairToCountsHandoff();
     renderState(currentStepFromViewport());
   };
 
@@ -488,6 +511,7 @@
     setupControls();
     setupScrollState();
     document.documentElement.classList.add('story-ready');
+    updatePairToCountsHandoff();
     renderState(currentStepFromViewport());
   };
 

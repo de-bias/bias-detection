@@ -196,24 +196,41 @@ svg {
 }
 
 .cover {
-  width: min(calc(100% - 4rem), var(--max-width));
+  width: 100%;
   margin: 0 auto;
-  min-height: auto;
+  min-height: calc(72svh - 63px);
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--teal-light) 22%, transparent), transparent 15rem),
+    var(--paper);
 }
 
 .cover-grid {
   display: grid;
-  min-height: auto;
+  width: min(calc(100% - 4rem), var(--max-width));
+  min-height: calc(72svh - 63px);
+  margin: 0 auto;
   grid-template-columns: 1fr;
-  align-content: start;
+  align-content: center;
   row-gap: 0.5rem;
-  padding: clamp(1.6rem, 3vh, 2.4rem) 0 0.2rem;
+  padding: clamp(5.5rem, 10vw, 9rem) 0 clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.cover .cover-grid {
+  width: min(calc(100% - 4rem), var(--max-width));
+  max-width: none;
+}
+
+.cover .cover-copy {
+  width: 100%;
+  max-width: none;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .cover-copy {
   grid-column: 1 / -1;
   align-self: start;
-  max-width: 760px;
   padding-bottom: 0.2rem;
   transform: none;
 }
@@ -231,15 +248,22 @@ svg {
   text-transform: uppercase;
 }
 
+.cover-copy h1 {
+  max-width: 1020px;
+  margin-inline: auto;
+  font-size: clamp(3.35rem, 7.2vw, 7.1rem);
+  line-height: 0.94;
+}
+
 .message-box {
-  max-width: none;
-  margin-top: clamp(1.15rem, 2.4vh, 1.65rem);
-  padding: 0.85rem 1rem 0.9rem;
-  border: 1px solid color-mix(in srgb, var(--teal) 75%, white);
-  border-radius: 7px;
-  background: color-mix(in srgb, var(--teal-light) 18%, transparent);
-  font-size: 0.99rem;
-  line-height: 1.42;
+  max-width: 850px;
+  margin: 1.35rem auto 0;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--teal) 50%, var(--line));
+  border-radius: 0;
+  background: color-mix(in srgb, var(--white) 72%, transparent);
+  font-size: 0.84rem;
+  line-height: 1.5;
 }
 
 .message-box p {
@@ -251,21 +275,20 @@ svg {
 }
 
 .message-box strong {
-  color: var(--teal-text);
+  color: var(--navy);
 }
 
 .cover-caveat {
-  max-width: none;
-  margin: 1.25rem 0 0;
+  max-width: 780px;
+  margin: 1.65rem auto 0;
   color: var(--navy-soft);
+  font-size: clamp(1.05rem, 1.55vw, 1.25rem);
   line-height: 1.65;
 }
 
 .cover-caveat strong {
   color: var(--navy);
 }
-
-
 
 .pair-context {
   margin: 0 0 0.72rem;
@@ -565,7 +588,6 @@ svg {
   min-height: calc(100svh - 175px);
   padding: 0.6rem 0 0;
   overflow: hidden;
-  border-bottom: 1px solid var(--line);
 }
 
 .pair-shell[hidden] {
@@ -588,7 +610,6 @@ svg {
 .chart-shell {
   position: relative;
   min-width: 0;
-  border-bottom: 1px solid var(--line);
 }
 
 #story-svg {
@@ -717,17 +738,25 @@ svg {
 }
 
 .chart-summary {
-  min-height: 2.8em;
+  position: absolute;
+  right: 0;
+  bottom: 4.75rem;
+  left: 0;
+  min-height: 1.4em;
   margin: 0;
-  padding: 0.6rem 0.25rem 0;
+  padding: 0 0.25rem;
   color: var(--navy-soft);
   font-size: 0.78rem;
   line-height: 1.4;
 }
 
 .visual-rail {
+  position: absolute;
+  right: 0;
+  bottom: 0.35rem;
+  left: 0;
   width: 100%;
-  margin: 0.3rem auto 0;
+  margin: 0;
 }
 
 .steps-column {
@@ -756,11 +785,6 @@ svg {
 
 .story-ready .story-step.is-active {
   opacity: 1;
-}
-
-.story-ready .story-step:first-child {
-  justify-content: flex-start;
-  padding-top: 2rem;
 }
 
 .step-kicker {
@@ -2540,31 +2564,31 @@ svg {
   }
 
   .cover {
-    min-height: auto;
+    min-height: calc(72svh - 59px);
   }
 
   .cover-grid {
-    min-height: auto;
+    min-height: calc(72svh - 59px);
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-    align-content: start;
+    grid-template-rows: none;
+    align-content: center;
     row-gap: 0.7rem;
-    padding-top: 1.2rem;
+    padding: clamp(5.5rem, 10vw, 9rem) 0 clamp(3.5rem, 6vw, 5.5rem);
   }
 
   .cover-copy h1 {
-    font-size: clamp(3.55rem, 6.1vw, 4rem);
+    font-size: clamp(3.35rem, 7.2vw, 7.1rem);
   }
 
   .message-box {
-    margin-top: 1rem;
-    padding: 0.7rem 0.8rem;
-    font-size: 0.91rem;
+    margin-top: 1.35rem;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.84rem;
   }
 
   .cover-caveat {
-    margin-top: 0.65rem;
-    font-size: 0.75rem;
+    margin: 1.65rem auto 0;
+    font-size: clamp(1.05rem, 1.55vw, 1.25rem);
   }
 
   .pair-context {
@@ -2632,14 +2656,14 @@ svg {
 
   .cover,
   .cover-grid {
-    min-height: auto;
+    min-height: calc(72svh - 59px);
   }
 
   .cover-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto 46px 22px;
+    grid-template-rows: none;
     row-gap: 0;
-    padding-top: 2.4rem;
+    padding: clamp(4.5rem, 8vw, 7rem) 0 clamp(3.5rem, 6vw, 5rem);
   }
 
   .cover-copy,
@@ -2648,7 +2672,7 @@ svg {
   }
 
   .cover-copy {
-    width: min(100%, 650px);
+    width: 100%;
     margin-inline: auto;
   }
 
@@ -2846,15 +2870,20 @@ svg {
     display: none;
   }
 
-  .cover,
-  .cover-grid {
+  body .cover,
+  body .cover-grid {
     min-height: auto;
   }
 
   .cover-grid {
     display: flex;
-    padding: 0.45rem 0 0.65rem;
+    padding: 4.5rem 0 3rem;
     flex-direction: column;
+    justify-content: center;
+  }
+
+  body .cover .cover-copy {
+    width: 100%;
   }
 
   .cover-rail {
@@ -2890,20 +2919,20 @@ svg {
   }
 
   .cover-copy .eyebrow {
-    display: none;
+    display: block;
   }
 
   .cover-copy h1 {
-    font-size: clamp(2.65rem, 11.5vw, 3rem);
-    line-height: 0.9;
+    font-size: clamp(3rem, 14vw, 4.7rem);
+    line-height: 0.94;
   }
 
   .message-box {
-    max-width: none;
-    margin-top: 0.55rem;
-    padding: 0.55rem 0.7rem;
-    font-size: 0.86rem;
-    line-height: 1.38;
+    max-width: 850px;
+    margin-top: 1.35rem;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.84rem;
+    line-height: 1.5;
   }
 
   .message-box p:first-child {
@@ -2911,10 +2940,10 @@ svg {
   }
 
   .cover-caveat {
-    max-width: none;
-    margin-top: 0.45rem;
-    font-size: 0.76rem;
-    line-height: 1.4;
+    max-width: 780px;
+    margin-top: 1.65rem;
+    font-size: 1.05rem;
+    line-height: 1.65;
   }
 
   .pair-evidence {

@@ -27,10 +27,10 @@
   <meta name="twitter:description" content="Correlation is a first check—not proof. Different sources show different local bias patterns.">
   <meta name="twitter:image" content="https://de-bias.github.io/debias/stories/making-hidden-biases-visible/assets/social-card.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=editorial-intro-ab">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
-  <script src="app.js" defer></script>
-  <script src="source-story.js" defer></script>
+  <script src="app.js?v=map-copy-aa" defer></script>
+  <script src="source-story.js?v=source-copy-ae" defer></script>
   <script src="context-radials.js" defer></script>
   <script src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js" defer></script>
   <script type="application/ld+json">
@@ -78,10 +78,12 @@
           <p class="eyebrow">DEBIAS data story · Published in <em>Royal Society Open Science</em></p>
           <h1 id="hero-title" tabindex="-1">Who is missing<br>from the map?</h1>
           <div class="message-box">
-            <p>In many policy-relevant settings, it is important to understand how population numbers change over time. Proxy population estimates derived from digital-trace sources, such as mobile phone unique users, can therefore be highly valuable.</p>
-            <p><strong>But a question arises of how representative digital-trace data is of the underlying population.</strong></p>
-            <p>To help us better understand who is represented by the data, we investigate local levels of population coverage given by digital-trace data, i.e. how many unique accounts or devices we observe per resident.</p>
+            <p>Rapidly unfolding social challenges such as natural disasters, conflicts and epidemics require timely and granular data to understand population changes and appropriately inform planning and decision-making.</p>
+            <p>However, existing data platforms, including censuses and surveys, are often slow and expensive. Passively generated data via digital technology, including mobile phone apps, have demonstrated great utility in supporting responses to many urgent social challenges, such as the COVID-19 pandemic, the war in Ukraine and flood-induced disaster management in Pakistan. They can provide temporally and geographically granular population data in near-real time.</p>
+            <p>Yet, digital-trace data can be biased and provide a distorted representation of local populations. Generally, the correlation between the geographical distributions of resident and active-user populations is assessed, but this does not offer an assessment of bias or representativeness.</p>
+            <p><strong>High correlation may exist. But local coverage may still vary and local populations remain poorly represented.</strong></p>
           </div>
+          <p class="cover-caveat"><strong>Digital-trace counts provide a useful signal but they do not represent the local populations.</strong> Comparing active-user counts from Meta illustrates wide variation in coverage for places with similar population counts.</p>
         </div>
 
       </div>
@@ -99,7 +101,7 @@
               <article class="place-card place-card-low" data-lad-code="E07000103" data-population="102246" data-meta="2419" data-rate="2.3658627">
                 <h2>Watford</h2>
                 <p class="place-population"><strong>102,246</strong> residents</p>
-                <p class="place-estimate place-estimate-inline">Meta active-account estimate: <strong>2,419</strong></p>
+                <p class="place-estimate place-estimate-inline">Meta active-user estimate: <strong>2,419</strong></p>
                 <p class="place-rate"><strong>2.37</strong> accounts per 100</p>
                 <svg class="record-grid" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
                   <defs>
@@ -121,7 +123,7 @@
               <article class="place-card place-card-high" data-lad-code="E07000038" data-population="102001" data-meta="16204" data-rate="15.8861188">
                 <h2>North East<br>Derbyshire</h2>
                 <p class="place-population"><strong>102,001</strong> residents</p>
-                <p class="place-estimate place-estimate-inline">Meta active-account estimate: <strong>16,204</strong></p>
+                <p class="place-estimate place-estimate-inline">Meta active-user estimate: <strong>16,204</strong></p>
                 <p class="place-rate"><strong>15.89</strong> accounts per 100</p>
                 <svg class="record-grid" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
                   <defs>
@@ -137,7 +139,7 @@
           </div>
           <div class="chart-shell" hidden>
             <svg id="story-svg" viewBox="0 0 900 680" role="img" aria-labelledby="chart-title chart-description">
-              <title id="chart-title">Census population and Meta active-account estimates</title>
+              <title id="chart-title">Census population and Meta active-user estimates</title>
               <desc id="chart-description">A scatter plot of 331 local authorities. The relationship is strong, but local rates vary.</desc>
               <text class="loading-label" x="450" y="340" text-anchor="middle">Loading the evidence…</text>
             </svg>
@@ -158,30 +160,33 @@
       </div>
 
       <div class="steps-column">
-        <article id="pair" class="story-step is-active" data-state="0" tabindex="-1">
+        <article id="pair" class="story-step pair-figure-step is-active" data-state="0" tabindex="-1">
           <p class="step-kicker">1 / 8 · Pair</p>
-          <h2>Pair</h2>
-          <p><strong>Two places with similar underlying resident population can have very different levels of coverage in the digital data source.</strong> Then, the active-account population estimates will vary substantially. We observe this situation with the population coverage given by Meta data for some local authorities in the UK. For example, Watford and North East Derbyshire have around the same number of residents, but data coverage is 6.7 times larger for the latter.</p>
+          <h2>Comparing two places</h2>
+          <p>Places can have similar resident population counts but have widely different coverage levels in digital-trace data. Using data from Meta, we illustrate how population coverage varies across UK local authorities. Comparing Watford and North East Derbyshire illustrate how two places with similar resident population counts can have a <strong>6.7 time difference</strong> in population coverage.</p>
+          <figure class="step-static">
+            <img src="media/01-revealing-pair.svg" loading="lazy" decoding="async" alt="Watford and North East Derbyshire have similar resident populations but Meta coverage rates of 2.37 and 15.89 accounts per 100 residents.">
+          </figure>
         </article>
 
-        <article id="counts" class="story-step" data-state="1" tabindex="-1">
+        <article id="counts" class="story-step counts-intro-step" data-state="1" tabindex="-1">
           <p class="step-kicker">2 / 8 · Counts</p>
-          <h2>Overall, the population counts still line up</h2>
-          <p>Across all 331 Local Authorities, census populations and Meta’s active-account population estimates have a Pearson correlation of <strong>r = .91</strong>. More populated places generally have more accounts. Yet, this high correlation is not necessarily a sign that the digital trace data is representative of the underlying population.</p>
-          <p class="key-line"><strong>We find that local variation in population coverage rates can reveal information about what groups are under or overrepresented in the digital trace data source.</strong></p>
+          <h2>Population counts still line up.</h2>
+          <p>Across local authorities, census populations and Meta’s active-user population estimates have a Pearson correlation of <strong>r = .91</strong>. More populated places generally have more accounts. Yet, this high correlation does not quantify limited coverage or representation.</p>
+          <p class="key-line"><strong>Local variations in coverage rates reveal which populations are under- or over-represented in digital-trace data.</strong></p>
           <figure class="step-static">
             <picture>
               <source media="(max-width: 760px)" srcset="media/02-counts-line-up-mobile.svg">
-              <img src="media/02-counts-line-up.svg" loading="lazy" decoding="async" alt="Scatter plot showing a strong positive relationship between census population and Meta active-account estimates; Pearson r equals 0.91.">
+              <img src="media/02-counts-line-up.svg" loading="lazy" decoding="async" alt="Scatter plot showing a strong positive relationship between census population and Meta active-user estimates; Pearson r equals 0.91.">
             </picture>
           </figure>
         </article>
 
         <article id="rates" class="story-step" data-state="2" tabindex="-1">
           <p class="step-kicker">3 / 8 · Population coverage rates</p>
-          <h2>Putting everything on the same scale</h2>
-          <p>Once we express Meta coverage as accounts per 100 census residents, local variation becomes clearer. Local population coverage rates vary widely around Meta’s fitted rate of <strong>8.09</strong> per 100 residents across the 331 Local Authorities.</p>
-          <p class="key-line">The middle 90% of areas span <strong>4.61 to 12.31</strong> accounts per 100 residents, equivalent to a <strong>2.7x</strong> range. Such local variation is widespread.</p>
+          <h2>Putting places on the same scale</h2>
+          <p>Expressing Meta coverage as user accounts per 100 census residents, local variations become clearer. They vary widely around Meta’s fitted rate of <strong>8.09</strong> per 100 residents across local authorities.</p>
+          <p class="key-line">The middle 90% of areas spans <strong>4.61 to 12.31</strong> accounts per 100 residents, equivalent to a <strong>2.7x</strong> range. Such level of variation is typical in digital-trace data from various sources.</p>
           <figure class="step-static">
             <picture>
               <source media="(max-width: 760px)" srcset="media/03-local-rates-mobile.svg">
@@ -194,12 +199,12 @@
         <article id="map" class="story-step" data-state="3" tabindex="-1">
           <p class="step-kicker">4 / 8 · Map</p>
           <h2>Mapping population coverage rates</h2>
-          <p>The map shows each area’s local population coverage rate relative to the fitted Meta rate. Blue means fewer estimated accounts per resident than fitted; red means more.</p>
-          <p class="key-line">We find that local population coverage rates vary systematically with demographic, socioeconomic and other place-based characteristics. Analysing these relationships helps identify which groups may be under or overrepresented in the data.</p>
+          <p>Mapping coverage rates relative to the fitted Meta rate reveals under- (darker teal colours) and over-represented (darker coral colours) places.</p>
+          <p class="key-line">Coverage rates vary systematically but differently with demographic, socioeconomic, accessibility, mobility and geographical features of local areas. Analysing these relationships helps more precisely identify which population groups may be under- or overrepresented in digital-trace data.</p>
           <figure class="step-static">
             <picture>
               <source media="(max-width: 760px)" srcset="media/04-local-map-mobile.svg">
-              <img src="media/04-local-map.svg" loading="lazy" decoding="async" alt="Map showing local authorities with fewer or more Meta active-account estimates per resident than the fitted rate.">
+              <img src="media/04-local-map.svg" loading="lazy" decoding="async" alt="Map showing local authorities with fewer or more Meta active-user estimates per resident than the fitted rate.">
             </picture>
             <figcaption>Difference between local and fitted rate · estimates per 100</figcaption>
           </figure>
@@ -211,11 +216,11 @@
       <header class="source-intro wrap">
         <p class="eyebrow">Different data sources, different patterns</p>
         <h2 id="source-act-title">The same place is portrayed differently through different data.</h2>
-        <p>Getting population estimates from Meta data is one option, but other data sources can also be used. Before diving into which groups may be under or overrepresented in the data, we investigate four alternative data sources.</p>
-        <p class="source-boundary"><strong>Each data source has its own fitted population coverage rate.</strong> We find that the same area can land on opposite sides of its source’s fitted population coverage rate. This suggests that different data sources may under or overrepresent different population groups.</p>
+        <p>Meta is one data source and offers one representation of local populations. But there are more sources. Each may display a high correlation score but offers its own distorted representation of local populations. We investigate four sources.</p>
+        <p class="source-boundary"><strong>Each data source has its own fitted coverage rate.</strong> Still, the same area can land on opposite sides of a fitted coverage rate depending on the digital-trace data source used to represent their local populations.</p>
         <details class="source-method-note">
           <summary>What differs between the four sources?</summary>
-          <p>Twitter/X uses inferred monthly home locations of active accounts and Meta uses active-account population estimates for March 2021. Multi-app1 uses inferred home locations of qualifying devices from the first week of April; Multi-app2 uses inferred home locations from preprocessed multi-application GPS data for November. The fitted index normalises scale; it does not make the sources equivalent.</p>
+          <p>Twitter/X uses inferred monthly home locations of active accounts and Meta uses active-user population estimates for March 2021. Multi-app1 uses inferred home locations of qualifying devices from the first week of April; Multi-app2 uses inferred home locations from preprocessed multi-application GPS data for November. The fitted index normalises scale; it does not make the sources equivalent.</p>
         </details>
       </header>
 
@@ -233,7 +238,7 @@
                 <text class="loading-label" x="450" y="325" text-anchor="middle">Loading the four-source comparison…</text>
               </svg>
             </div>
-            <p id="source-summary" class="source-summary">The pair changes position when the source changes. One times marks each source’s own fitted proportional rate.</p>
+            <p id="source-summary" class="source-summary">Each source portrays the same place differently.</p>
             <nav class="chapter-rail source-rail" aria-label="Story outline">
               <a href="#pair"><span></span>Pair</a>
               <a href="#counts"><span></span>Counts</a>
@@ -251,7 +256,7 @@
           <article id="source-fingerprint" class="source-step is-active" data-source-step="0" tabindex="-1">
             <p class="step-kicker">5 / 8 · Sources</p>
             <h2>Population coverage for the same area can vary widely across data sources</h2>
-            <p>Focusing again on Watford and North East Derbyshire, we find that Watford is below Meta's fitted population coverage rate when using Meta as the data source, but above in the other three data sources. For North East Derbyshire, we find it is above for Meta and Multi-app2, but below for Twitter/X and Multi-app1.</p>
+            <p>Focusing on Watford and North East Derbyshire shows large differences in coverage by data source. For Watford, the fitted coverage rate is below for Meta, but above for Twitter/X, Multi-app1 and Multi-app2. For North East Derbyshire, it is above for Meta and Multi-app2, but below for Twitter/X and Multi-app1.</p>
             <p class="key-line">The places have not changed. The source has.</p>
             <figure class="source-static">
               <div class="source-table-wrap">
@@ -271,32 +276,32 @@
 
           <article id="source-switches" class="source-step" data-source-step="1" tabindex="-1">
             <h2>91% of local authorities change position</h2>
-            <p><strong>300 of 331 areas</strong> sit above their source-specific fitted population coverage rate in at least one data source and below in another. Watford and North East Derbyshire, highlighted in the visualisation, are not exception.</p>
+            <p><strong>300 of 331 local authority areas</strong> display higher or lower coverage rates than the fitted or expected rate in at least one data source. This indicates that patterns of under- or over-representation across areas are the norm, rather than an exception.</p>
             <figure class="source-static source-switch-static">
               <div class="source-switch-number" aria-hidden="true"><strong>300</strong><span>/ 331</span></div>
               <div class="source-unit-grid source-unit-grid-fallback" aria-hidden="true"><i class="is-pair"></i><i class="is-pair"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-              <figcaption>300 of 331 authorities change sides across the four source-specific fitted rates.</figcaption>
+              <figcaption>300 of 331 authorities change sides across the four source-specific fitted rates from being over- to under-represented or vice versa.</figcaption>
             </figure>
           </article>
         </div>
       </div>
       <section id="context-fingerprints" class="source-shapes context-fingerprints wrap" aria-labelledby="context-fingerprints-title" data-default-source="twitter">
         <header class="source-shapes-heading context-fingerprints-heading">
-          <p class="step-kicker">6 / 8 · Understand the influence of local characteristics</p>
-          <h2 id="context-fingerprints-title" class="context-section-title">Understanding what local characteristics give rise to different levels of coverage</h2>
-          <p>We find that population coverage rates vary systematically with local characteristics. By analysing this variation, we can identify which population groups may be under or overrepresented in the data. We do this analysis across all four data sources: Twitter/X, Meta, Multi-App1 and Multi-App2.</p>
-          <p class="context-render-label">We use a machine-learning based model (XGBoost) to analyse which place-based characteristics are the most important factors leading to low population coverage bias in a given data source. <strong>These characteristics define the population groups that are likely to be underrepresented in that data source.</strong></p>
+          <p class="step-kicker">6 / 8 · Understand the influence of local attributes</p>
+          <h2 id="context-fingerprints-title" class="context-section-title">Understanding which populations are under- or over-represented.</h2>
+          <p>Coverage rates vary systematically with local population attributes. By analysing this variation, we can identify which population groups are likely under- or over-represented in digital-trace data. We investigate differences across our four data sources: Twitter/X, Meta, Multi-App1 and Multi-App2.</p>
+          <p class="context-render-label">We use a machine-learning based model (XGBoost) to analyse which place-based attributes are the most important predictors of low or high population coverage bias. <strong>These attributes identify the population groups which are under- or over-represented in a particular digital-trace dataset.</strong></p>
         </header>
 
-        <div class="context-source-controls" role="group" aria-label="Choose a data source">
+        <div class="context-source-controls" role="group" aria-label="Choose a digital-trace data source">
           <button class="is-active" type="button" data-context-source="twitter" aria-pressed="true">Twitter/X</button>
           <button type="button" data-context-source="meta" aria-pressed="false">Meta</button>
           <button type="button" data-context-source="multiapp1" aria-pressed="false">Multi-app1</button>
           <button type="button" data-context-source="multiapp2" aria-pressed="false">Multi-app2</button>
         </div>
         <p class="context-current" aria-live="polite">Selected source: <strong id="context-source-name">Twitter/X</strong></p>
-        <p class="context-label-note">Choose a data source. In the radial plots below, we label the dominant place-based characteristics associated with low population coverage rates. For example, in Twitter/X data, the share of the population aged 20-29 and the share of households without a car are important predictors of low population coverage rates.</p>
-        <p class="context-boundary"><strong>We find that the associations between local characteristics and population coverage rates can flatten, reverse direction or change shape across the observed range.</strong> This is why we use a flexible machine-learning model to identify the place-based characteristics linked to low population coverage rates.</p>
+        <p class="context-label-note">Choose a digital-trace data source. The radial plots below identify the most important place-based attributes associated with variability in population coverage rates. For example, the share of the population aged 20–29 and share of households without a car are the most important predictors of low population coverage rates.</p>
+        <p class="context-boundary"><strong>We find that the associations between local attributes and population coverage rates can flatten, reverse direction or change shape across the range of observed records.</strong> Machine learning is employed to capture these non-linear relationships.</p>
 
         <div class="context-radial-grid">
           <figure class="context-radial-card" data-context-card="demographic">
@@ -385,10 +390,10 @@
         </noscript>
 
         <div class="context-hinge">
-          <h3>Local characteristics do not relate to coverage in a simple, linear way</h3>
-          <p>The selected visualisations below show the actual shape of the relationship between some place-based characteristics and population coverage rates, for different data sources. While the radial plots above indicate which place-based characteristics are important predictors of low coverage rates, they do not tell us how these characteristics actually influence coverage. For example, from the radial plots we learn that the percentage of people aged 20-29 is an important predictor of low coverage rates in Twitter/X data. The central visualisation below shows how this relationship unfolds: as the percentage of people aged 20-29 increases, population coverage in Twitter/X data also tends to increase. Here, the y-axis represents the inverse of population coverage rates.</p>
+          <h3>Local attributes do not relate to coverage in a simple, linear way</h3>
+          <p>The illustrative examples below show the shape of the relationship between key place-based attributes and population coverage rates for different data sources. Radial plots indicate which place-based attributes are important predictors of low coverage rates, but they do not tell us how these attributes influence coverage. For example, the radial plots show that the percentage of people aged 20–29 is an important predictor of low coverage rates in Twitter/X. The middle plot below shows how this relationship unfolds: as the percentage of people aged 20–29 increases, population coverage in Twitter/X data also tends to increase; that is, poor coverage becomes smaller. Here, the y-axis represents the inverse of population coverage rates.</p>
         </div>
-        <p class="source-shapes-note">We find that the associations between local characteristics and population coverage rates can flatten, reverse direction or change shape across the observed range. <strong>This is why we use a flexible machine-learning model to identify the place-based characteristics linked to low population coverage rates.</strong></p>
+        <p class="source-shapes-note">We find that the associations between local attributes and population coverage rates can flatten, reverse direction or change shape across the range of observed records. <strong>Machine learning is employed to capture these non-linear relationships.</strong></p>
 
         <div class="source-shape-grid">
           <figure class="source-shape-card">
@@ -448,8 +453,8 @@
       <div class="verdict-mark" aria-hidden="true">≠</div>
       <div class="verdict-copy">
         <p class="eyebrow">7 / 8 · Conclusions</p>
-        <h2 id="verdict-title">Digital-trace population estimates are valuable, but their representativeness needs to be checked</h2>
-        <p class="verdict-body">Across four digital-trace data sources, we find substantial local differences in population coverage. These differences vary across places and data sources, and they are associated with demographic, socioeconomic and other local characteristics. This suggests that digital-trace data may be under or overrepresenting certain population groups. Therefore, their representativeness needs to be assessed explicitly before using it for population inference.</p>
+        <h2 id="verdict-title">Digital-trace population estimates are valuable, but their representativeness must be assessed and adjusted.</h2>
+        <p class="verdict-body">Across four digital-trace data sources, we find substantial local differences in population coverage. These differences vary across places and data sources, and they are associated with demographic, socioeconomic, resource accessibility, mobility and geographical attributes of local populations. These variations reflect biases resulting from the under- and over-representation of certain population groups in the digital platforms used to collect the data. Assessing the representation of digital-trace data is therefore required to define appropriate ways of adjusting them and using them for reliable population inference.</p>
         <p class="verdict-line">Assess before you infer.</p>
         <a class="arrow-link" href="research.html">Read the methods, limitations and wider findings <span aria-hidden="true">→</span></a>
         <div class="section-rail-wrap">
@@ -486,7 +491,7 @@
       <div class="about-copy">
         <p class="eyebrow">About the research</p>
         <h2 id="about-title">A framework for assessing population coverage bias</h2>
-        <p>Carmen Cabrera and Francisco Rowe of the University of Liverpool’s Geographic Data Science Lab compared four digital-trace datasets with the 2021 Census across 331 local authority areas in England and Wales. Their article published in <em>Royal Society Open Science</em>, <a href="https://doi.org/10.1098/rsos.251703"><cite>Making hidden biases visible in population location data from mobile phones</cite></a>, examines how population coverage varies and which area-level characteristics are associated with that variation.</p>
+        <p><a href="https://c-cabrera.com">Carmen Cabrera</a> and <a href="https://www.franciscorowe.com">Francisco Rowe</a> of the University of Liverpool’s <a href="https://www.liverpool.ac.uk/geographic-data-science/">Geographic Data Science Lab</a> compared four digital-trace datasets with the 2021 Census across 331 local authority areas in England and Wales. Their article published in <em>Royal Society Open Science</em>, <a href="https://doi.org/10.1098/rsos.251703"><cite>Making hidden biases visible in population location data from mobile phones</cite></a>, examines how population coverage varies and which area-level characteristics are associated with that variation.</p>
         <p class="about-boundary">The analysis focuses on assessing area-level patterns while protecting the anonymity of individual users of digital technologies.</p>
         <a class="arrow-link" href="research.html">Read the methods, limitations and wider findings <span aria-hidden="true">→</span></a>
       </div>
@@ -497,7 +502,7 @@
           <div><dt>4</dt><dd>mobile-app datasets</dd></div>
           <div><dt>331</dt><dd>local authority areas</dd></div>
           <div><dt>2021</dt><dd>Census benchmark</dd></div>
-          <div><dt>r = .80–.95</dt><dd>raw-count Pearson correlations</dd></div>
+          <div><dt>91%</dt><dd>change position across data sources</dd></div>
         </dl>
       </div>
     </section>

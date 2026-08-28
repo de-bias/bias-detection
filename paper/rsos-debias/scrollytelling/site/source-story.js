@@ -31,13 +31,13 @@
       progress: '5 / 8 · Sources',
       title: 'Watford and North East Derbyshire across four digital sources',
       description: 'Four horizontal source tracks show the two local authorities changing sides of separate source-specific fitted rates.',
-      summary: 'One times marks each source’s fitted population coverage rate. The same area can move above or below that fitted rate depending on the data source.'
+      summary: 'Each source portrays the same place differently.'
     },
     {
       progress: '5 / 8 · Sources',
       title: 'Three hundred of 331 local authorities change sides across sources',
       description: 'A unit chart of 331 local authorities. Three hundred sit above a fitted rate in at least one source and below it in another.',
-      summary: '300 of 331 authorities change sides across the four source-specific fitted rates.'
+      summary: '300 of 331 authorities change sides across the four source-specific fitted rates from being over- to under-represented or vice versa.'
     }
   ];
 

@@ -52,8 +52,8 @@ const sourceStoryJs = await readFile(join(siteDir, 'source-story.js'), 'utf8');
 const stylesCss = await readFile(join(siteDir, 'styles.css'), 'utf8');
 
 const protectedArtifacts = {
-  'app.js': ['590c4f953db4c4d78813daab68e7510208e30e2f44eae137b1bcfbf257772c50', Buffer.from(appJs)],
-  'source-story.js': ['fb1064730d6ee72199975ab2e1f30a550f5bfe4e2a3ec0fac4b673ac961addb2', Buffer.from(sourceStoryJs)],
+  'app.js': ['90db24e48400e9a7323b4797d7ddb71405187dd67392307656a4a5363ea1848c', Buffer.from(appJs)],
+  'source-story.js': ['78da5ec8971889566c2f30cd9dcbfb678eafcfa79ae9a033dfa32b883291af80', Buffer.from(sourceStoryJs)],
   'explore.js': ['866005c3f08beeae8be9ee644c48ee2ded1ec3bfa3f211e715fe1ee84818d1c2', await readFile(join(siteDir, 'explore.js'))],
   'data/meta-story.json': ['e34c57038a2eabbb8e59a0eb213a5279a12dcca8b3636ce04d45bc8f7137a12b', await readFile(join(siteDir, 'data/meta-story.json'))],
   'data/source-story.json': ['8d97edfb9333d8df9d3576fc6c523988b582b2272d0a6817f219c7ae2c817839', await readFile(join(siteDir, 'data/source-story.json'))],
@@ -96,7 +96,7 @@ expectedPair.forEach(expected => {
 });
 
 if (!indexHtml.includes('6.7×')) fail('The visible 6.7× pair ratio is missing.');
-if (!indexHtml.includes('the estimates are not verified unique-resident counts or individual inclusion probabilities')) {
+if (!indexHtml.includes('Digital-trace counts provide a useful signal but they do not represent the local populations.')) {
   fail('The first-frame aggregate-data boundary changed unexpectedly.');
 }
 if (!indexHtml.includes('width="23.7" height="10"') || !indexHtml.includes('y="10" width="58.9" height="10"')) {
@@ -279,9 +279,9 @@ const sourceScriptBytes = (await stat(join(siteDir, 'source-story.js'))).size;
 if (sourceDataBytes > 50 * 1024) fail(`source-story.json exceeds 50 KB (${sourceDataBytes} bytes).`);
 if (sourceScriptBytes > 16 * 1024) fail(`source-story.js exceeds 16 KB (${sourceScriptBytes} bytes).`);
 
-if ((indexHtml.match(/class="story-step(?:\s|\")/g) || []).length !== 3) fail('Act I must retain exactly three story steps.');
+if ((indexHtml.match(/class="story-step(?:\s|\")/g) || []).length !== 4) fail('Act I must retain exactly four story steps.');
 if ((indexHtml.match(/class="source-step(?:\s|\")/g) || []).length !== 2) fail('Act II must contain exactly two enhanced story steps.');
-if ((indexHtml.match(/data-source-state="[01]"/g) || []).length !== 2) fail('Act II must expose exactly two enhanced rail states.');
+if ((indexHtml.match(/data-source-step="[01]"/g) || []).length !== 2) fail('Act II must expose exactly two enhanced story states.');
 if (!sourceStoryJs.includes("document.querySelector('.source-story')") || sourceStoryJs.includes("document.querySelectorAll('.story-step')")) {
   fail('Act II JavaScript must remain isolated from Act I selectors.');
 }
@@ -290,14 +290,13 @@ if (!sourceStoryJs.includes("(min-width: 991px) and (min-height: 680px)") || !so
 }
 if (
   !stylesCss.includes('.source-story.is-ready #source-fingerprint .source-static') ||
-  !/\.chapter-rail a,[\s\S]*?color:\s*var\(--grey\)/.test(stylesCss) ||
-  !/\.source-rail a\s*\{[\s\S]*?color:\s*var\(--grey\)/.test(stylesCss)
+  !/\.chapter-rail a,[\s\S]*?color:\s*var\(--grey\)/.test(stylesCss)
 ) {
   fail('Act II exact-value accessibility or navigation contrast safeguards changed.');
 }
 
 const sourceStart = indexHtml.indexOf('<section id="source-intro"');
-const sourceEnd = indexHtml.indexOf('<section class="verdict', sourceStart);
+const sourceEnd = indexHtml.indexOf('<section id="verdict"', sourceStart);
 const mapPosition = indexHtml.indexOf('<article id="map"');
 if (!(mapPosition >= 0 && sourceStart > mapPosition && sourceEnd > sourceStart)) fail('Act II must sit between the Meta map and the verdict.');
 const sourceMarkup = indexHtml.slice(sourceStart, sourceEnd);
@@ -311,22 +310,21 @@ if ((sourceMarkup.match(/id="context-fingerprints"/g) || []).length !== 1 || (so
   fail('Act II must contain one context atlas followed by exactly three nonlinear cards.');
 }
 for (const requiredCopy of [
-  '300 of 331 local authorities',
-  '7 · Why one fix fails',
-  'The area-level signals change with the source.',
-  'across demography, socioeconomic conditions, resource accessibility, mobility and geography',
-  'Website re-render of the accepted-revision main-model outputs',
-  'not a reproduction of the paper\'s radial figure',
-  'These describe places, not users',
-  'The relationships bend, reverse and jump.',
-  'These are feature-level examples, not universal source signatures',
-  'not a representativeness score',
-  'not percentages of residents represented',
-  'The four measures and observation dates are not interchangeable',
+  '300 of 331 local authority areas',
+  '6 / 8 · Understand the influence of local attributes',
+  'The same place is portrayed differently through different data.',
+  'Each data source has its own fitted coverage rate.',
+  'Population coverage for the same area can vary widely across data sources',
+  'The places have not changed. The source has.',
+  '91% of local authorities change position',
+  'Understanding which populations are under- or over-represented.',
+  'The radial plots below identify the most important place-based attributes',
+  'Machine learning is employed to capture these non-linear relationships.',
+  'Local attributes do not relate to coverage in a simple, linear way',
+  'The illustrative examples below show the shape of the relationship',
   'What differs between the four sources?',
   'it does not make the sources equivalent',
-  'Each point in the dependence plots is one local authority, not a person or group',
-  'neither view identifies inclusion rates or causal effects'
+  'These attributes identify the population groups which are under- or over-represented'
 ]) {
   if (!sourceMarkup.includes(requiredCopy)) fail(`Act II is missing its evidence boundary: ${requiredCopy}`);
 }
@@ -641,14 +639,11 @@ if (
 ) fail('The radial data provenance hashes do not match the actual builder and manifest.');
 
 for (const requiredCopy of [
-  'across demography, socioeconomic conditions, resource accessibility, mobility and geography',
-  'Website re-render of the accepted-revision main-model outputs',
-  'not a reproduction of the paper\'s radial figure',
-  'Area characteristics—not user attributes.',
-  '0 its lowest, not “no effect.”',
-  'The cutoff is not a significance test or a measure of how biased a source is',
-  'Do not compare polygon area or raw mean absolute SHAP magnitudes across sources; the models are fitted separately',
-  'Importance does not show direction, causality, population shares or group-specific inclusion rates'
+  'Coverage rates vary systematically with local population attributes.',
+  'These attributes identify the population groups which are under- or over-represented',
+  'The radial plots below identify the most important place-based attributes',
+  'We find that the associations between local attributes and population coverage rates can flatten, reverse direction or change shape',
+  'Machine learning is employed to capture these non-linear relationships.'
 ]) {
   if (!sourceMarkup.includes(requiredCopy)) fail(`The Act II radial atlas is missing its evidence boundary: ${requiredCopy}`);
 }
@@ -661,7 +656,11 @@ if (
   (researchHtml.match(/data-context-source=/g) || []).length !== 0 ||
   !researchHtml.includes('four pinned released R1 main-model feature-importance files') ||
   !researchHtml.includes('does not reproduce the accepted radial figure') ||
-  !researchHtml.includes("the site's exact rankings come from the pinned R1 files") ||
+  !researchHtml.includes('The paper is the source for published figures; the pinned R1 files are the source for this atlas.') ||
+  !researchHtml.includes('Radius reports relative mean absolute SHAP importance within each source.') ||
+  !researchHtml.includes('The features describe local authorities, not the people using each dataset.') ||
+  !researchHtml.includes('Coverage represents numbers (i.e. a quantity). Representativeness is a relationship to the target population.') ||
+  !researchHtml.includes('Individual points in the nonlinear panels represent local authorities.') ||
   !researchHtml.includes('index.html#context-fingerprints') ||
   /which populations are represented|demographic composition of (?:the )?users/i.test(sourceMarkup + researchHtml)
 ) fail('The canonical Act II radial atlas is duplicated, incomplete or overclaims individual representation.');
@@ -692,7 +691,7 @@ const nonlinearOrder = [
 if (!(nonlinearOrder[0] >= 0 && nonlinearOrder[1] > nonlinearOrder[0] && nonlinearOrder[2] > nonlinearOrder[1])) {
   fail('The accepted nonlinear examples must read as curved reversal, S-shape and threshold.');
 }
-for (const shape of ['CURVED REVERSAL', 'S-SHAPE', 'THRESHOLD']) {
+for (const shape of ['Curved', 'S-Shape', 'Threshold']) {
   if (!sourceMarkup.includes(shape)) fail(`The nonlinear hierarchy is missing ${shape}.`);
 }
 for (const forbidden of ['Multi-app1 · Rural', 'Lower supervisory (%)', 'Level 4 qualifications · S-shape']) {
@@ -723,8 +722,8 @@ if (/data-doi=""|data-doi="10\.1098\/rsos\."/.test(combinedHtml) || combinedHtml
   fail('A blank DOI or prepublication Altmetric placeholder remains.');
 }
 if (
-  !researchHtml.includes('The fitted-rate index and the SHAP panels answer related but different questions') ||
-  !researchHtml.includes('Every point in the nonlinear panels is a local authority')
+  !researchHtml.includes('The reported coverage rate and SHAP visualisations answer related but different questions') ||
+  !researchHtml.includes('Individual points in the nonlinear panels represent local authorities')
 ) {
   fail('The Research page is missing the fitted-rate / SHAP interpretation bridge.');
 }

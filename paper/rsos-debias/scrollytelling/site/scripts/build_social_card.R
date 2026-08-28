@@ -98,7 +98,7 @@ draw_card <- function(x, area, colour, title) {
   draw_grid(x + 53, 304, area$rate, colour)
 }
 
-label("META ACTIVE-ACCOUNT EXAMPLE · ≈102,000 RESIDENTS EACH", 842, 76, 12, family = display, face = "bold", just = c("centre", "top"))
+label("META ACTIVE-USER EXAMPLE · ≈102,000 RESIDENTS EACH", 842, 76, 12, family = display, face = "bold", just = c("centre", "top"))
 draw_card(626, pair[[1]], teal, "WATFORD")
 draw_card(942, pair[[2]], coral, "NORTH EAST\nDERBYSHIRE")
 
