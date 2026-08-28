@@ -33,8 +33,8 @@
     <section class="subpage-hero">
       <div class="wrap">
         <p class="eyebrow">About the research</p>
-        <h1>Beyond the<br>correlation.</h1>
-        <p>A systematic, privacy-preserving way to measure and explain uneven population coverage in aggregated mobile-phone application data.</p>
+        <h1>Beyond assessing correlation</h1>
+        <p>A systematic, privacy-preserving way to measure and explain uneven population coverage and representativeness in aggregated mobile-phone application data.</p>
       </div>
     </section>
 
@@ -52,16 +52,16 @@
       <div>
         <section id="about" class="prose-section">
           <p class="eyebrow">The study</p>
-          <h2>A framework for assessing bias when individual characteristics are unavailable.</h2>
+          <h2>A framework for assessing bias when individual characteristics are unavailable</h2>
           <p>Mobile-phone application data can provide frequent, geographically detailed signals of population activity. But access to digital technology and participation in particular platforms are unequal. These inequalities can make aggregate digital counts a selective view of the population.</p>
-          <p>Carmen Cabrera and Francisco Rowe compare four digital-trace datasets with the 2021 Census. Their framework first measures population coverage bias by local authority, then uses explainable machine learning to identify the demographic, socioeconomic and geographic contexts associated with that bias.</p>
+          <p>Carmen Cabrera and Francisco Rowe compare four digital-trace datasets with the 2021 Census. Their framework first measures population coverage bias by local authority, then uses explainable machine learning to identify the demographic, socioeconomic, resource accessibility, mobility and geographic contexts associated with that bias.</p>
           <div class="callout"><p>Strong geographic proportionality is useful evidence. It is not sufficient evidence of representativeness.</p></div>
-          <p>The approach works with aggregated area-level counts. It does not require—and cannot recover—individual identities or individual demographic profiles.</p>
+          <p>The proposed approach in the research works with aggregated area-level counts. It does not require—and cannot recover—individual identities or individual demographic profiles.</p>
         </section>
 
         <section id="metrics" class="prose-section">
           <p class="eyebrow">Research metrics</p>
-          <h2>The study at a glance.</h2>
+          <h2>The study at a glance</h2>
           <div class="metric-grid">
             <div><span>4</span><strong>Digital-trace datasets</strong><small>Two single-application and two multi-application sources</small></div>
             <div><span>331</span><strong>Local authorities</strong><small>The analytical sample across England and Wales</small></div>
@@ -73,12 +73,12 @@
           <h3>What was modelled</h3>
           <p>The analysis compares a conventional proportional baseline with a flexible explainable machine-learning framework. It assesses local departures from the baseline and tests how coverage bias relates to contextual features, including nonlinear relationships.</p>
           <h3>Meta baseline used in the main story</h3>
-          <p>Across 331 local authorities, the Pearson correlation between census population and Meta’s active-account estimate is <strong>0.913</strong>. The fitted through-origin proportional model corresponds to <strong>8.095 estimates per 100 residents</strong>. The middle 90% of observed local rates is <strong>4.609 to 12.308</strong>.</p>
+          <p>Across 331 local authorities, the Pearson correlation between census population and Meta’s active-user estimate is <strong>0.913</strong>. The fitted through-origin proportional model corresponds to <strong>8.095 estimates per 100 residents</strong>. The middle 90% of observed local rates is <strong>4.609 to 12.308</strong>.</p>
         </section>
 
         <section id="article-attention" class="prose-section">
           <p class="eyebrow">Article attention</p>
-          <h2>Follow the conversation around the published article.</h2>
+          <h2>Follow the conversation around the published article</h2>
           <div class="article-attention-badge">
             <div class="altmetric-embed" data-badge-type="donut" data-badge-popover="right" data-doi="10.1098/rsos.251703" aria-label="Altmetric attention for the published article"></div>
             <a class="arrow-link" href="https://doi.org/10.1098/rsos.251703">Read the published article <span aria-hidden="true">→</span></a>
@@ -88,42 +88,42 @@
 
         <section id="different-sources" class="prose-section">
           <p class="eyebrow">The wider conclusion</p>
-          <h2>Do not assume one correction will transfer.</h2>
-          <p>The opening scrollytelling act uses Meta to show that a strong count correlation can coexist with substantial variation in local coverage rates. Its second act compares the same places across all four sources and then shows the nonlinear area-level relationships identified by the accepted models.</p>
-          <p>The sources are not same-period, same-unit samples. Twitter/X uses inferred monthly home locations of active accounts and Meta uses average nighttime active-account estimates for March 2021; Multi-app1 uses inferred home locations of qualifying devices from the first week of April; Multi-app2 uses inferred home locations from preprocessed multi-application GPS data for November. The fitted index normalises each source’s scale but does not make the numerators or dates interchangeable.</p>
+          <h2>Do not assume one correction will transfer</h2>
+          <p>The opening scrollytelling uses Meta to show that a strong count correlation can coexist with substantial variation in local coverage rates. It also compares the same places across four digital-trace data sources and then shows the nonlinear area-level relationships identified by the accepted models.</p>
+          <p>The data used: Twitter/X uses inferred monthly home locations of active accounts and Meta uses active-user population estimates for March 2021; Multi-app1 uses inferred home locations of qualifying devices from the first week of April; Multi-app2 uses inferred home locations from preprocessed multi-application GPS data for November. The fitted index normalises each source’s scale.</p>
           <ol>
             <li><strong>The four datasets have different coverage profiles.</strong> The contextual features associated with coverage bias—and the shape of those relationships—vary by source.</li>
-            <li><strong>Their local observed rates differ.</strong> An area can sit above one source’s fitted proportional rate and below another’s; neither position is a representativeness score.</li>
-            <li><strong>The relationships are often nonlinear.</strong> Three illustrative crops from the accepted model figure show a curve with reversal for Meta and population density, an S-shape for Twitter/X and local share aged 20–29, and a threshold for Multi-app1 and local share with Level 4 qualifications. They are feature-level examples, not source-wide signatures.</li>
-            <li><strong>A universal adjustment should not be assumed to work.</strong> Any correction should be tailored to the data-generating process and observed bias structure, then independently validated for that source.</li>
+            <li><strong>Their local observed rates differ.</strong> An area can be under-represented in one dataset, but over-represented in another.</li>
+            <li><strong>The relationships are often nonlinear.</strong> Three illustrative examples show a curve with reversal for Meta and population density, an S-shape for Twitter/X and local share aged 20–29, and a threshold for Multi-app1 and local share with Level 4 qualifications.</li>
+            <li><strong>A universal adjustment should not be assumed to work similarly when used to adjust all digital-trace sources.</strong> Any correction should be tailored to the data-generating process and observed bias structure, then independently validated for that source.</li>
           </ol>
           <div class="context-fingerprints context-fingerprints-reference">
             <header>
               <p class="eyebrow">Area-level bias fingerprints</p>
-              <h3>Four display groups span five model domains.</h3>
-              <p>The accepted analysis covers demographic, socioeconomic, resource-accessibility, mobility and geographic features. The story combines mobility and geography in one display group, matching the organisation of the accepted model results.</p>
+              <h3>Four digital-trace sources are assessed across five key population attributes</h3>
+              <p>The accepted analysis covers demographic, socioeconomic, resource-accessibility, mobility and geographic features.</p>
             </header>
-            <p><a class="arrow-link" href="index.html#context-fingerprints">Explore the four-source radial atlas and nonlinear examples in Act II <span aria-hidden="true">→</span></a></p>
+            <p><a class="arrow-link" href="index.html#context-fingerprints">Explore the four-source radial atlas and nonlinear examples <span aria-hidden="true">→</span></a></p>
             <details class="context-provenance">
               <summary>How the website radial atlas relates to the accepted analysis</summary>
               <p>The atlas derives new website profiles from four pinned released R1 main-model feature-importance files (random holdout, no lagged covariates; <code>fb_tts</code> for Meta). It does not reproduce the accepted radial figure, whose archived build uses a different Twitter/Meta lineage. The paper is the source for published figures; the pinned R1 files are the source for this atlas.</p>
               <p>Radius reports relative mean absolute SHAP importance within each source. It does not show direction, causality, population shares or group-specific inclusion rates. The features describe local authorities, not the people using each dataset.</p>
             </details>
           </div>
-          <div class="callout"><p>Coverage is a quantity. Representativeness is a relationship to the target population. More of the first does not guarantee the second.</p></div>
-          <p>The fitted-rate index and the SHAP panels answer related but different questions. The first compares local identifiers per resident with each source’s fitted proportional rate; the second models how the paper’s coverage-bias outcome is associated with area context.</p>
-          <p>Every point in the nonlinear panels is a local authority, not a person or population group. The panels cannot identify which individuals are included or missing, do not establish causes, and should be compared by shape rather than magnitude.</p>
-          <p><a href="index.html#source-intro">See the cross-source comparison, radial atlas and SHAP examples in the main story</a>. Model diagnostics are available in the paper and reproducibility materials; the site's exact rankings come from the pinned R1 files.</p>
+          <div class="callout"><p>Coverage represents numbers (i.e. a quantity). Representativeness is a relationship to the target population. More of the first does not guarantee the second.</p></div>
+          <p>The reported coverage rate and SHAP visualisations answer related but different questions. The first compares local identifiers per resident with each digital-trace data source’s model coverage rate. The second models how that coverage bias rate is associated with area-level contextual attributes of the local populations.</p>
+          <p>Individual points in the nonlinear panels represent local authorities. They do not represent individual people or population groups. The panels cannot identify which individuals are included or missing, do not establish causes, and should be compared by shape rather than magnitude.</p>
+          <p><a href="index.html#source-intro">See the cross-source comparison, radial atlas and SHAP examples in the main story</a>. Model diagnostics are available in the paper and reproducibility materials.</p>
         </section>
 
         <section id="limits" class="prose-section">
           <p class="eyebrow">Interpretation</p>
-          <h2>What the analysis can—and cannot—say.</h2>
+          <h2>What the analysis can—and cannot—say</h2>
           <h3>It can show</h3>
           <ul>
             <li>how aggregate digital counts compare with census populations across areas;</li>
             <li>where local coverage differs from a fitted proportional rate;</li>
-            <li>whether coverage bias varies systematically with area-level context; and</li>
+            <li>whether coverage bias varies systematically with contextual attributes of local populations; and</li>
             <li>which features are most useful for explaining those differences.</li>
           </ul>
           <h3>It cannot show</h3>
@@ -131,14 +131,14 @@
             <li>which identifiable individuals are absent or duplicated;</li>
             <li>an individual person’s probability of appearing in the data;</li>
             <li>causal effects of contextual features on digital participation; or</li>
-            <li>that a place with more active-account estimates is inherently better represented.</li>
+            <li>that a place with more active-user estimates is inherently better represented.</li>
           </ul>
-          <p>The public-facing map reports the local rate minus the fitted rate, so positive values mean “more than fitted” and negative values mean “fewer than fitted.” This intuitive display has the opposite sign to the paper’s residual-bias convention; magnitudes and substantive conclusions are unchanged.</p>
+          <p>The public-facing map reports the local rate minus the fitted rate, so positive values mean “more than fitted or over-represented” and negative values mean “fewer than fitted or under-represented.”</p>
         </section>
 
         <section id="resources" class="prose-section">
           <p class="eyebrow">Paper and resources</p>
-          <h2>Open analysis materials.</h2>
+          <h2>Open analysis materials</h2>
           <p><strong>Article:</strong> Cabrera C, Rowe F. 2026. <a href="https://doi.org/10.1098/rsos.251703"><cite>Making hidden biases visible in population location data from mobile phones</cite></a>. <em>Royal Society Open Science</em> <strong>13</strong>: 251703. DOI: <a href="https://doi.org/10.1098/rsos.251703">10.1098/rsos.251703</a>.</p>
           <ul>
             <li><a href="https://royalsocietypublishing.org/rsos/article-pdf/doi/10.1098/rsos.251703/6159209/rsos.251703.pdf">Download the published article PDF</a></li>
