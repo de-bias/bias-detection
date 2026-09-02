@@ -2650,10 +2650,6 @@ svg {
     display: none;
   }
 
-  .site-header nav a:nth-child(3) {
-    display: none;
-  }
-
   .cover,
   .cover-grid {
     min-height: calc(72svh - 59px);
@@ -2864,10 +2860,6 @@ svg {
     display: grid;
     font-size: 0.68rem;
     white-space: nowrap;
-  }
-
-  .site-header nav a:nth-child(3) {
-    display: none;
   }
 
   body .cover,
